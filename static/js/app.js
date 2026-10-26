@@ -629,7 +629,7 @@ async function saveBrowserRecording(sura, aya, blob) {
     const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
     request.onsuccess = () => {
-      if (recordingStorageMode === 'folder' || recordingStorageMode === 'folder-needs-permission') {
+      if (recordingStorageMode !== 'browser' && recordingStorageMode !== 'needs-folder-choice') {
         browserFallbackRecordingKeys.add(record.key);
       }
       resolve(record);
