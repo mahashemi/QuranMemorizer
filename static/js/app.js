@@ -640,6 +640,12 @@ function loadSura(num, opts) {
   const s = SURA_BY_NUM[num];
   if (!s) return;
 
+  // If the user navigates away mid-recording, stop and save the current take.
+  if (activeRecorder && activeRecordingKey && activeRecordingKey.sura !== num) {
+    activeRecorder.stop();
+    toast('Recording stopped and will be saved before changing surah.');
+  }
+
   const aya = Math.max(1, Math.min(opts.aya || 1, s.ayas.length));
   const suraChanged = state.sura !== num;
 
@@ -828,6 +834,14 @@ audio.addEventListener('loadedmetadata', () => {
 audio.addEventListener('error', () => {
   if (state.playingAya === 0) {
     goToAya(1, { play: true, opening: false });
+    return;
+  }
+  if (activeRecordingObjectUrl && audio.src === activeRecordingObjectUrl) {
+    URL.revokeObjectURL(activeRecordingObjectUrl);
+    activeRecordingObjectUrl = null;
+    toast('Your recording could not be played. Trying Minshawi instead.');
+    audio.src = trackUrl(state.sura, state.playingAya);
+    audio.play().catch(() => stopAll());
     return;
   }
   const src = audio.src || '';
