@@ -340,10 +340,17 @@ function renderSura() {
         '<div class="english">' + esc(v.english_text || '') + '</div>' +
         '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
         '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+        '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
+          '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
+          '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
+          '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
+          '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
+        '</div>' +
       '</article>';
   }
   el.reader.innerHTML = html;
   el.reader.scrollTop = 0;
+  refreshRecordingControls(state.sura);
 }
 
 /* ==================================================================
@@ -450,8 +457,7 @@ function syncRangeInputs() {
   if (state.rangeTo < 1) state.rangeTo = 1;
   if (state.rangeFrom > total) state.rangeFrom = total;
   if (state.rangeFrom < 1) state.rangeFrom = 1;
-  if (state.rangeFrom > state.rangeTo) state.rangeFrom = state.rangeTo;
-
+  // Keep the endpoints independent while the user edits them.
   repeatEls.rangeFrom.value = state.rangeFrom;
   repeatEls.rangeTo.value = state.rangeTo;
 }
@@ -467,6 +473,159 @@ function resetCounters() {
    ================================================================== */
 function trackUrl(sura, aya) {
   return currentReciter().dir + '/' + pad3(sura) + pad3(aya) + '.mp3';
+}
+
+/* Per-ayah recordings are stored locally in IndexedDB; they never upload. */
+const RECORDINGS_DB = 'quranMemorizerRecordings';
+const RECORDINGS_STORE = 'ayah-recordings';
+let recordingsDbPromise;
+let activeRecorder = null;
+let activeRecordingKey = null;
+let activeRecordingChunks = [];
+let playbackRequestId = 0;
+let activeRecordingObjectUrl = null;
+
+function openRecordingsDb() {
+  if (!('indexedDB' in window)) return Promise.reject(new Error('Local recording storage is not supported here.'));
+  if (!recordingsDbPromise) {
+    recordingsDbPromise = new Promise((resolve, reject) => {
+      const request = indexedDB.open(RECORDINGS_DB, 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        if (!db.objectStoreNames.contains(RECORDINGS_STORE)) {
+          db.createObjectStore(RECORDINGS_STORE, { keyPath: 'key' });
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error || new Error('Could not open local recording storage.'));
+    });
+  }
+  return recordingsDbPromise;
+}
+
+async function getUserRecording(sura, aya) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECORDINGS_STORE, 'readonly')
+      .objectStore(RECORDINGS_STORE).get(sura + ':' + aya);
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error || new Error('Could not read recording.'));
+  });
+}
+
+async function saveUserRecording(sura, aya, blob) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now() };
+    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
+    request.onsuccess = () => resolve(record);
+    request.onerror = () => reject(request.error || new Error('Could not save recording.'));
+  });
+}
+
+async function deleteUserRecording(sura, aya) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECORDINGS_STORE, 'readwrite')
+      .objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error || new Error('Could not delete recording.'));
+  });
+}
+
+function refreshRecordingControls(sura) {
+  const cards = el.reader.querySelectorAll('.aya[data-aya]');
+  cards.forEach(card => {
+    const aya = Number(card.dataset.aya);
+    const playButton = card.querySelector('[data-play-recording]');
+    const deleteButton = card.querySelector('[data-delete-recording]');
+    const recordButton = card.querySelector('[data-record-aya]');
+    if (!playButton || !deleteButton || !recordButton) return;
+    getUserRecording(sura, aya).then(record => {
+      playButton.hidden = !record;
+      deleteButton.hidden = !record;
+      recordButton.textContent = record ? 'Re-record my voice' : 'Record my voice';
+    }).catch(() => {
+      const status = card.querySelector('[data-record-status]');
+      if (status) status.textContent = 'Local recording storage unavailable';
+    });
+  });
+}
+
+async function startUserRecording(sura, aya, button) {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+    toast('Voice recording is not supported by this browser or WebView.');
+    return;
+  }
+  if (activeRecorder) {
+    toast('Finish the current recording before starting another.');
+    return;
+  }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const options = {};
+    if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+      options.mimeType = 'audio/webm;codecs=opus';
+    }
+    const recorder = new MediaRecorder(stream, options);
+    activeRecorder = recorder;
+    activeRecordingKey = { sura, aya };
+    activeRecordingChunks = [];
+    recorder.ondataavailable = event => {
+      if (event.data && event.data.size) activeRecordingChunks.push(event.data);
+    };
+    recorder.onerror = () => {
+      stream.getTracks().forEach(track => track.stop());
+      activeRecorder = null;
+      activeRecordingKey = null;
+      button.textContent = 'Record my voice';
+      toast('Recording failed. Please try again.');
+    };
+    recorder.onstop = async () => {
+      stream.getTracks().forEach(track => track.stop());
+      const key = activeRecordingKey;
+      const blob = new Blob(activeRecordingChunks, { type: recorder.mimeType || 'audio/webm' });
+      activeRecorder = null;
+      activeRecordingKey = null;
+      activeRecordingChunks = [];
+      button.textContent = 'Record my voice';
+      if (!key || !blob.size) return;
+      try {
+        await saveUserRecording(key.sura, key.aya, blob);
+        refreshRecordingControls(key.sura);
+        toast('Your recording was saved on this device.');
+      } catch (error) {
+        toast('Could not save recording: ' + error.message);
+      }
+    };
+    recorder.start();
+    button.textContent = 'Stop recording';
+    const status = button.parentElement.querySelector('[data-record-status]');
+    if (status) status.textContent = 'Recording… tap Stop recording when finished.';
+  } catch (error) {
+    toast(error && error.name === 'NotAllowedError'
+      ? 'Microphone permission was denied.'
+      : 'Could not start recording: ' + (error.message || 'unknown error'));
+  }
+}
+
+async function playUserRecording(sura, aya) {
+  try {
+    const record = await getUserRecording(sura, aya);
+    if (!record || !record.blob) {
+      toast('No saved voice recording for this aya yet.');
+      return;
+    }
+    audio.pause();
+    if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
+    activeRecordingObjectUrl = URL.createObjectURL(record.blob);
+    state.playingAya = aya;
+    state.started = true;
+    audio.src = activeRecordingObjectUrl;
+    await audio.play();
+  } catch (error) {
+    toast('Could not play your recording: ' + (error.message || 'unknown error'));
+  }
 }
 
 function hasOpening(sura) { return sura !== 1 && sura !== 9; }
@@ -516,9 +675,26 @@ function goToAya(aya, opts) {
   }
 }
 
-function playTrack(sura, aya) {
+async function playTrack(sura, aya) {
+  const requestId = ++playbackRequestId;
   state.playingAya = aya;
   state.started = true;
+  if (aya > 0) {
+    try {
+      const custom = await getUserRecording(sura, aya);
+      if (requestId !== playbackRequestId) return;
+      if (custom && custom.blob) {
+        if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
+        activeRecordingObjectUrl = URL.createObjectURL(custom.blob);
+        audio.src = activeRecordingObjectUrl;
+        await audio.play();
+        return;
+      }
+    } catch (error) {
+      // Fall back to the selected reciter if local storage is unavailable.
+    }
+  }
+  if (requestId !== playbackRequestId) return;
   audio.src = trackUrl(sura, aya);
   audio.play().catch(err => {
     if (err && err.name === 'NotAllowedError') {
@@ -545,7 +721,12 @@ function startPlayback() {
     const s = SURA_BY_NUM[state.sura];
     const total = s ? s.ayas.length : 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
-    state.rangeTo   = clampInt(state.rangeTo, state.rangeFrom, total);
+    state.rangeTo   = clampInt(state.rangeTo, 1, total);
+    if (state.rangeFrom > state.rangeTo) {
+      toast('Range “From” must be less than or equal to “To”.');
+      return;
+    }
+    syncRangeInputs();
     state.aya = state.rangeFrom;
     updateAyaUI(true);
   }
@@ -738,14 +919,12 @@ function bindRepeatEvents() {
   wireNumberInput(r.rangeFrom, 'rangeFrom', 1, 9999, () => {
     const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
-    if (state.rangeFrom > state.rangeTo) state.rangeTo = state.rangeFrom;
     syncRangeInputs();
   });
 
   wireNumberInput(r.rangeTo, 'rangeTo', 1, 9999, () => {
     const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
     state.rangeTo = clampInt(state.rangeTo, 1, total);
-    if (state.rangeTo < state.rangeFrom) state.rangeFrom = state.rangeTo;
     syncRangeInputs();
   });
 
@@ -794,8 +973,35 @@ function bindEvents() {
 
   /* --- reader click --- */
   el.reader.addEventListener('click', e => {
+    const recordButton = e.target.closest('[data-record-aya]');
+    const playRecordingButton = e.target.closest('[data-play-recording]');
+    const deleteRecordingButton = e.target.closest('[data-delete-recording]');
+    if (recordButton || playRecordingButton || deleteRecordingButton) {
+      e.preventDefault();
+      e.stopPropagation();
+      const aya = Number((recordButton || playRecordingButton || deleteRecordingButton).dataset[
+        recordButton ? 'recordAya' : playRecordingButton ? 'playRecording' : 'deleteRecording'
+      ]);
+      if (recordButton) {
+        if (activeRecorder && activeRecordingKey && activeRecordingKey.sura === state.sura && activeRecordingKey.aya === aya) {
+          activeRecorder.stop();
+          recordButton.textContent = 'Saving…';
+        } else {
+          startUserRecording(state.sura, aya, recordButton);
+        }
+      } else if (playRecordingButton) {
+        playUserRecording(state.sura, aya);
+      } else {
+        deleteUserRecording(state.sura, aya).then(() => {
+          refreshRecordingControls(state.sura);
+          toast('Saved recording deleted.');
+        }).catch(error => toast('Could not delete recording: ' + error.message));
+      }
+      return;
+    }
     const card = e.target.closest('.aya');
     if (!card) return;
+    if (e.target.closest('.aya-recording')) return;
     const sel = window.getSelection && String(window.getSelection());
     if (sel && sel.length > 0) return;
     const n = +card.dataset.aya;
