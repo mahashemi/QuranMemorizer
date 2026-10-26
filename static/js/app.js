@@ -533,6 +533,7 @@ let recordingWaveFrame = null;
 let recordingStorageMode = 'needs-folder-choice'; // native | folder | folder-needs-permission | needs-folder-choice | browser
 let recordingsParentHandle = null;
 let folderRecordingIndex = new Map();
+let browserFallbackRecordingKeys = new Set();
 let recordingStorageReadyPromise = null;
 let nativeRecordingStoragePromise = null;
 let recordingArchiveModulePromise = null;
@@ -627,7 +628,12 @@ async function saveBrowserRecording(sura, aya, blob) {
   return new Promise((resolve, reject) => {
     const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
-    request.onsuccess = () => resolve(record);
+    request.onsuccess = () => {
+      if (recordingStorageMode === 'folder' || recordingStorageMode === 'folder-needs-permission') {
+        browserFallbackRecordingKeys.add(record.key);
+      }
+      resolve(record);
+    };
     request.onerror = () => reject(request.error || new Error('Could not save recording.'));
   });
 }
@@ -636,7 +642,10 @@ async function deleteBrowserRecording(sura, aya) {
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
-    request.onsuccess = () => resolve();
+    request.onsuccess = () => {
+      browserFallbackRecordingKeys.delete(sura + ':' + aya);
+      resolve();
+    };
     request.onerror = () => reject(request.error || new Error('Could not delete recording.'));
   });
 }
@@ -802,12 +811,21 @@ async function migrateBrowserRecordingsToFolder() {
   if (recordingStorageMode !== 'folder') return 0;
   const records = await getAllBrowserRecordings();
   let copied = 0;
+  browserFallbackRecordingKeys = new Set();
   for (const record of records) {
     if (!record || !record.blob || !record.sura || !record.aya) continue;
-    const existing = await getFolderRecording(record.sura, record.aya);
-    if (!existing) {
-      await writeFolderRecording(record.sura, record.aya, record.blob);
-      copied++;
+    const key = record.key || record.sura + ':' + record.aya;
+    try {
+      const existing = await getFolderRecording(record.sura, record.aya);
+      if (!existing) {
+        await writeFolderRecording(record.sura, record.aya, record.blob);
+        copied++;
+      }
+    } catch (migrationError) {
+      // Retain a sparse list of browser-backed recordings. The reader can use
+      // them as a fallback without querying IndexedDB for every unrecorded ayah.
+      browserFallbackRecordingKeys.add(key);
+      console.warn('Could not migrate browser recording ' + key + '.', migrationError);
     }
   }
   return copied;
@@ -988,14 +1006,19 @@ async function getUserRecording(sura, aya) {
     throw new Error('Reconnect your recordings folder in Settings to access saved files.');
   }
   if (recordingStorageMode === 'folder') {
+    const key = sura + ':' + aya;
     try {
       const record = await getFolderRecording(sura, aya);
       if (record) return record;
     } catch (folderError) {
-      const browserRecord = await getBrowserRecording(sura, aya);
-      if (browserRecord) return browserRecord;
+      if (browserFallbackRecordingKeys.has(key)) {
+        const browserRecord = await getBrowserRecording(sura, aya);
+        if (browserRecord) return browserRecord;
+      }
       throw folderError;
     }
+    if (!browserFallbackRecordingKeys.has(key)) return null;
+    return getBrowserRecording(sura, aya);
   }
   return getBrowserRecording(sura, aya);
 }
