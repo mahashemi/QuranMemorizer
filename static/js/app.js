@@ -1076,17 +1076,26 @@ async function startUserRecording(sura, aya, button) {
       const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
       if (status) status.textContent = '';
       if (!key || !blob.size) return;
+      let savedRecord;
       try {
-        await saveUserRecording(key.sura, key.aya, blob);
-        refreshRecordingControls(key.sura);
-        if (state.sura === key.sura && state.aya === key.aya) {
-          toast('Your recording was saved privately on this device. Playing it back now.');
-          await playUserRecording(key.sura, key.aya);
-        } else {
-          toast('Your recording was saved privately on this device.');
-        }
+        savedRecord = await saveUserRecording(key.sura, key.aya, blob);
       } catch (error) {
-        toast('Could not save recording: ' + error.message);
+        // Preserve the take in browser-local storage if a removable folder or native
+        // filesystem unexpectedly becomes unavailable at the moment recording stops.
+        try {
+          savedRecord = await saveBrowserRecording(key.sura, key.aya, blob);
+          toast('The selected storage was unavailable. Your take was kept in this browser instead.');
+        } catch (fallbackError) {
+          toast('Could not save recording: ' + (error.message || fallbackError.message));
+          return;
+        }
+      }
+      refreshRecordingControls(key.sura);
+      if (state.sura === key.sura && state.aya === key.aya) {
+        toast((savedRecord.storage === 'folder' ? 'Audio file saved. ' : savedRecord.storage === 'native' ? 'Saved in app-private storage. ' : 'Saved in this browser. ') + 'Playing it back now.');
+        await playUserRecording(key.sura, key.aya);
+      } else {
+        toast(savedRecord.storage === 'folder' ? 'Audio file saved.' : savedRecord.storage === 'native' ? 'Saved in app-private storage.' : 'Saved in this browser.');
       }
     };
     recorder.start();
