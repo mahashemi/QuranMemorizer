@@ -1,0 +1,52 @@
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Build output
+dist/
+build/
+out/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Private configuration
+config/production.json
+
+# Local database
+data/local.db
+data/audio/minshawi_murattal/
+
+# Generated files
+reports/generated/
+
+*.pdf
+*.zip
