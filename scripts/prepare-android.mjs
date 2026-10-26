@@ -33,12 +33,12 @@ if (!existingActivity) throw new Error('Could not find Capacitor MainActivity so
 const packageName = existingActivity.endsWith('.java')
   ? (readFileSync(existingActivity, 'utf8').match(/^package\\s+([\\w.]+);/m) || [])[1]
   : (readFileSync(existingActivity, 'utf8').match(/^package\\s+([\\w.]+)/m) || [])[1];
-if (!packageName) throw new Error('Could not determine MainActivity package name.');
+const resolvedPackageName = packageName || 'org.quranmemorizer.app';
 const activityDir = dirname(existingActivity);
 const javaPath = join(activityDir, 'MainActivity.java');
 const kotlinPath = join(activityDir, 'MainActivity.kt');
 
-const javaSource = `package ${packageName};
+const javaSource = `package ${resolvedPackageName};
 
 import android.Manifest;
 import android.content.pm.PackageManager;
