@@ -261,10 +261,47 @@ async function list() {
   await visit('recordings');
   return recordings;
 }
+const recitationPathFor = (sura, aya) =>
+  'recitations/minshawi_murattal/' + String(sura).padStart(3, '0') + String(aya).padStart(3, '0') + '.mp3';
+
+async function readRecitation(sura, aya) {
+  const path = recitationPathFor(sura, aya);
+  try {
+    const result = await Filesystem.readFile({ path, directory: Directory.Data });
+    if (typeof result.data !== 'string') return null;
+    const blob = base64ToBlob(result.data, 'audio/mpeg');
+    return {
+      key: 'minshawi_murattal:' + sura + ':' + aya,
+      sura, aya, reciter: 'minshawi_murattal', blob, size: blob.size,
+      savedAt: Date.now(), fileName: path.split('/').pop(), storage: 'native'
+    };
+  } catch (error) {
+    if (isMissingFile(error)) return null;
+    throw error;
+  }
+}
+
+async function writeRecitation(sura, aya, blob) {
+  const path = recitationPathFor(sura, aya);
+  await Filesystem.writeFile({
+    path,
+    directory: Directory.Data,
+    recursive: true,
+    data: await blobToBase64(blob)
+  });
+  return {
+    key: 'minshawi_murattal:' + sura + ':' + aya,
+    sura, aya, reciter: 'minshawi_murattal', blob, size: blob.size,
+    savedAt: Date.now(), fileName: path.split('/').pop(), storage: 'native'
+  };
+}
+
 window.QuranMemorizerNativeStorage = {
   available: Capacitor.isNativePlatform(),
   read,
   write,
   remove,
-  list
+  list,
+  readRecitation,
+  writeRecitation
 };
