@@ -54,7 +54,7 @@ The build script copies only `index.html`, `static/`, and the app data directori
 
 ## App icon
 
-`assets/icon.svg` is the editable source artwork: a deep emerald background, gold arch and crescent, and an open book. `npm run assets:android` generates Android launcher assets from it. If the asset generator requires raster input in your installed version, export the SVG to a square PNG at 1024×1024 and use that as the source.
+`assets/icon.svg` is the editable source artwork: a deep emerald background, gold arch and crescent, and an open book. The GitHub Actions Android build converts it to a 1024×1024 PNG and runs `npx capacitor-assets generate --android` before compiling, so the installed APK includes Android launcher icons. For a local build, run `npm run assets:android` after converting `assets/icon.svg` to `assets/icon.png` if your installed asset generator does not accept SVG directly.
 
 ## Validation
 
