@@ -1146,7 +1146,48 @@ body.reader-active .app { display: grid !important; }
   transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 .aya-recording button[hidden] { display: none !important; }
+.aya-recording button:disabled,
+.controls .icon-btn:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
 .aya-record-status { color: var(--muted); font-size: 11px; }
+.recording-waveform {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 116px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(239, 91, 82, .2);
+  border-radius: 7px;
+  background: rgba(239, 91, 82, .055);
+  overflow: hidden;
+}
+.recording-waveform[hidden] { display: none !important; }
+.recording-waveform span {
+  display: block;
+  flex: 1 1 2px;
+  min-width: 2px;
+  height: 72%;
+  border-radius: 2px;
+  background: #ef7770;
+  transform: scaleY(.12);
+  transition: transform 65ms linear;
+  transform-origin: center;
+}
+.recording-waveform:not(.is-live) span {
+  animation: recording-wave-fallback .8s ease-in-out infinite alternate;
+}
+.recording-waveform:not(.is-live) span:nth-child(3n) { animation-delay: -.3s; }
+.recording-waveform:not(.is-live) span:nth-child(4n) { animation-delay: -.55s; }
+@keyframes recording-wave-fallback {
+  from { transform: scaleY(.16); }
+  to { transform: scaleY(.62); }
+}
 .aya-recording.is-recording button[data-record-aya] {
   color: #ffb5ad;
   border-color: rgba(239, 91, 82, .65);
