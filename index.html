@@ -258,6 +258,17 @@
     </div>
   </div>
 
+  <!-- Recording storage -->
+  <div class="sheet-section recording-storage-section">
+    <div class="sheet-section-title">Voice recordings</div>
+    <p class="recording-storage-description">Recordings stay on your device. On supported browsers, connect a folder to keep portable audio files; Android saves them inside the app’s private files.</p>
+    <div class="recording-storage-status" id="recordingStorageStatus" role="status" aria-live="polite">Checking local storage…</div>
+    <div class="recording-storage-actions">
+      <button class="storage-action" id="btnConnectRecordingFolder" type="button" hidden>Choose recordings folder</button>
+      <button class="storage-action secondary" id="btnUseBrowserStorage" type="button" hidden>Use browser-local storage instead</button>
+    </div>
+  </div>
+
   <button class="sheet-done" id="sheetDone" type="button">Done</button>
 </div>
 
