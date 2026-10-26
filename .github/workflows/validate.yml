@@ -19,10 +19,16 @@ jobs:
         run: |
           node --check static/js/app.js
           node --check scripts/build-web.mjs
+          node --check static/js/native-storage-adapter.mjs
+          node --check static/js/recording-archive.mjs
+          node --check scripts/test-recording-archive.mjs
+      - name: Test recording ZIP round trip
+        run: node scripts/test-recording-archive.mjs
       - name: Build Capacitor web assets
         run: |
           node scripts/build-web.mjs
           test -f www/index.html
           test -f www/static/css/styles.css
           test -f www/static/js/app.js
+          test -f www/static/js/native-storage-adapter.js
           test -f www/data/quran/all_suras.json
