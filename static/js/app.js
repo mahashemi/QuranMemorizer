@@ -589,6 +589,8 @@ async function startUserRecording(sura, aya, button) {
       activeRecordingKey = null;
       activeRecordingChunks = [];
       button.textContent = 'Record my voice';
+      const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
+      if (status) status.textContent = '';
       if (!key || !blob.size) return;
       try {
         await saveUserRecording(key.sura, key.aya, blob);
@@ -616,11 +618,14 @@ async function playUserRecording(sura, aya) {
       toast('No saved voice recording for this aya yet.');
       return;
     }
+    ++playbackRequestId;
     audio.pause();
     if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = URL.createObjectURL(record.blob);
+    state.aya = aya;
     state.playingAya = aya;
     state.started = true;
+    updateAyaUI(false);
     audio.src = activeRecordingObjectUrl;
     await audio.play();
   } catch (error) {
@@ -687,8 +692,13 @@ async function playTrack(sura, aya) {
         if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
         activeRecordingObjectUrl = URL.createObjectURL(custom.blob);
         audio.src = activeRecordingObjectUrl;
-        await audio.play();
-        return;
+        try {
+          await audio.play();
+          return;
+        } catch (playError) {
+          if (requestId !== playbackRequestId) return;
+          // Unsupported recording codecs should not prevent default recitation playback.
+        }
       }
     } catch (error) {
       // Fall back to the selected reciter if local storage is unavailable.
