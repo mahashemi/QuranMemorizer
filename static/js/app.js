@@ -623,6 +623,10 @@ async function startUserRecording(sura, aya, button) {
       activeRecorder = null;
       activeRecordingKey = null;
       button.textContent = 'Record my voice';
+      const recordingCard = button.closest('.aya-recording');
+      if (recordingCard) recordingCard.classList.remove('is-recording');
+      const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
+      if (status) status.textContent = 'Recording failed. Please try again.';
       toast('Recording failed. Please try again.');
     };
     recorder.onstop = async () => {
@@ -633,6 +637,8 @@ async function startUserRecording(sura, aya, button) {
       activeRecordingKey = null;
       activeRecordingChunks = [];
       button.textContent = 'Record my voice';
+      const recordingCard = button.closest('.aya-recording');
+      if (recordingCard) recordingCard.classList.remove('is-recording');
       const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
       if (status) status.textContent = '';
       if (!key || !blob.size) return;
@@ -651,9 +657,13 @@ async function startUserRecording(sura, aya, button) {
     };
     recorder.start();
     button.textContent = 'Stop recording';
+    const recordingCard = button.closest('.aya-recording');
+    if (recordingCard) recordingCard.classList.add('is-recording');
     const status = button.parentElement.querySelector('[data-record-status]');
-    if (status) status.textContent = 'Recording… tap Stop recording when finished.';
+    if (status) status.textContent = 'Recording now — start reciting. Tap Stop recording when finished.';
   } catch (error) {
+    const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
+    if (status) status.textContent = error && error.name === 'NotAllowedError' ? 'Allow microphone access to begin.' : '';
     toast(error && error.name === 'NotAllowedError'
       ? 'Microphone permission was denied.'
       : 'Could not start recording: ' + (error.message || 'unknown error'));
