@@ -708,7 +708,13 @@ async function writeFolderRecording(sura, aya, blob) {
     try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
-  await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
+  try {
+    await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
+  } catch (manifestError) {
+    // The audio file is already safely written. A stale manifest must not cause
+    // the app to report that the recording itself failed.
+    console.warn('Could not update the recordings manifest.', manifestError);
+  }
   return {
     key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/' + ext,
     fileName, updatedAt: Date.now(), storage: 'folder'
@@ -854,6 +860,8 @@ async function connectRecordingFolder() {
     toast('Direct folder access is not supported by this browser.');
     return;
   }
+  const previousParent = recordingsParentHandle;
+  const previousMode = recordingStorageMode;
   try {
     const parent = await window.showDirectoryPicker({
       id: 'quranmemorizer-recordings',
@@ -863,16 +871,33 @@ async function connectRecordingFolder() {
     let permission = await parent.queryPermission({ mode: 'readwrite' });
     if (permission !== 'granted') permission = await parent.requestPermission({ mode: 'readwrite' });
     if (permission !== 'granted') throw new Error('Folder permission was not granted.');
-    recordingsParentHandle = parent;
+
+    // Validate/create the app directories before replacing the currently active folder.
+    const appDirectory = await parent.getDirectoryHandle('QuranMemorizer', { create: true });
+    await appDirectory.getDirectoryHandle('recordings', { create: true });
     await saveRecordingFolderSetting(parent);
+    recordingsParentHandle = parent;
     recordingStorageMode = 'folder';
-    await getConnectedRecordingDirectories(true);
-    const copied = await migrateBrowserRecordingsToFolder();
+
+    let copied = 0;
+    let migrationFailed = false;
+    try { copied = await migrateBrowserRecordingsToFolder(); }
+    catch (migrationError) {
+      migrationFailed = true;
+      console.warn('Some browser recordings could not be copied to the selected folder.', migrationError);
+    }
     updateRecordingStorageUI();
     refreshRecordingControls(state.sura);
-    toast(copied ? 'Folder connected. ' + copied + ' browser recording(s) copied to files.' : 'Recordings folder connected.');
+    if (migrationFailed) {
+      toast('Folder connected, but some older recordings could not be copied. They remain in browser storage.');
+    } else {
+      toast(copied ? 'Folder connected. ' + copied + ' browser recording(s) copied to files.' : 'Recordings folder connected.');
+    }
   } catch (error) {
     if (error && error.name === 'AbortError') return;
+    recordingsParentHandle = previousParent;
+    recordingStorageMode = previousMode;
+    updateRecordingStorageUI();
     toast('Could not connect recordings folder: ' + (error.message || 'permission unavailable'));
   }
 }
