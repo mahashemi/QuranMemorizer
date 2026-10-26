@@ -1197,7 +1197,9 @@ async function importRecordingsArchive(file) {
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const match = String(entry.name || '').replace(/\\/g, '/').match(audioPath);
+      const entryName = String(entry.name || '').replace(/\\/g, '/');
+      if (/(?:^|\\/)manifest\\.json$/i.test(entryName)) continue;
+      const match = entryName.match(audioPath);
       if (!match) { ignored++; continue; }
       const sura = Number(match[2]);
       const aya = Number(match[4]);
