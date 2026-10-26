@@ -815,6 +815,9 @@ async function migrateBrowserRecordingsToFolder() {
   for (const record of records) {
     if (!record || !record.blob || !record.sura || !record.aya) continue;
     const key = record.key || record.sura + ':' + record.aya;
+    // Keep track only of ayat that actually exist in IndexedDB, so the file
+    // path is checked first and IndexedDB is consulted only for those keys.
+    browserFallbackRecordingKeys.add(key);
     try {
       const existing = await getFolderRecording(record.sura, record.aya);
       if (!existing) {
