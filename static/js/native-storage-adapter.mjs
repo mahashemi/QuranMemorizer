@@ -118,6 +118,7 @@ const SURAH_NAMES = [
   'an-nas'
 ];
 const EXTENSIONS = ['webm', 'm4a', 'mp4', 'ogg', 'wav', 'aac'];
+const surahFileNames = new Map();
 const mimeForExtension = ext => ({ webm: 'audio/webm', m4a: 'audio/mp4', mp4: 'audio/mp4', ogg: 'audio/ogg', wav: 'audio/wav', aac: 'audio/aac' }[ext] || 'application/octet-stream');
 const extensionForMime = mime => {
   const type = String(mime || '').toLowerCase();
@@ -151,23 +152,47 @@ function isMissingFile(error) {
   const message = String(error && (error.message || error));
   return /does not exist|not found|no such file|ENOENT/i.test(message);
 }
-async function read(sura, aya) {
-  for (const ext of EXTENSIONS) {
-    const path = pathFor(sura, aya, ext);
+async function getSurahFileNames(sura) {
+  if (surahFileNames.has(sura)) return surahFileNames.get(sura);
+  const lookup = (async () => {
+    const directoryPath = pathFor(sura, 1, 'webm').replace(/\\/ayah-\\d{3}\\.webm$/, '');
     try {
-      const result = await Filesystem.readFile({ path, directory: Directory.Data });
-      if (typeof result.data !== 'string') continue;
-      const mimeType = mimeForExtension(ext);
-      return {
-        key: sura + ':' + aya, sura, aya,
-        blob: base64ToBlob(result.data, mimeType),
-        mimeType, fileName: path.split('/').pop(), updatedAt: Date.now(), storage: 'native'
-      };
+      const listing = await Filesystem.readdir({ path: directoryPath, directory: Directory.Data });
+      return new Set((listing.files || []).map(item => item.name));
     } catch (error) {
-      if (!isMissingFile(error)) throw error;
+      if (isMissingFile(error)) return new Set();
+      throw error;
     }
+  })();
+  surahFileNames.set(sura, lookup);
+  try {
+    return await lookup;
+  } catch (error) {
+    surahFileNames.delete(sura);
+    throw error;
   }
-  return null;
+}
+async function read(sura, aya) {
+  const names = await getSurahFileNames(sura);
+  const ext = EXTENSIONS.find(candidate => names.has('ayah-' + String(aya).padStart(3, '0') + '.' + candidate));
+  if (!ext) return null;
+  const path = pathFor(sura, aya, ext);
+  try {
+    const result = await Filesystem.readFile({ path, directory: Directory.Data });
+    if (typeof result.data !== 'string') return null;
+    const mimeType = mimeForExtension(ext);
+    return {
+      key: sura + ':' + aya, sura, aya,
+      blob: base64ToBlob(result.data, mimeType),
+      mimeType, fileName: path.split('/').pop(), updatedAt: Date.now(), storage: 'native'
+    };
+  } catch (error) {
+    if (isMissingFile(error)) {
+      surahFileNames.delete(sura);
+      return null;
+    }
+    throw error;
+  }
 }
 async function write(sura, aya, blob) {
   const ext = extensionForMime(blob.type);
@@ -181,6 +206,7 @@ async function write(sura, aya, blob) {
     try { await Filesystem.deleteFile({ path: pathFor(sura, aya, oldExt), directory: Directory.Data }); }
     catch (_) { /* An old extension is optional. */ }
   }
+  surahFileNames.delete(sura);
   return {
     key: sura + ':' + aya, sura, aya, blob,
     mimeType: blob.type || mimeForExtension(ext),
@@ -194,6 +220,7 @@ async function remove(sura, aya) {
       if (!isMissingFile(error)) throw error;
     }
   }
+  surahFileNames.delete(sura);
 }
 
 // List existing recordings for portable export without probing every possible ayah/extension.
