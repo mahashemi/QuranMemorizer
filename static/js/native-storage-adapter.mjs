@@ -195,9 +195,49 @@ async function remove(sura, aya) {
     }
   }
 }
+
+// List existing recordings for portable export without probing every possible ayah/extension.
+async function list() {
+  const recordings = [];
+  async function visit(directoryPath) {
+    let listing;
+    try {
+      listing = await Filesystem.readdir({ path: directoryPath, directory: Directory.Data });
+    } catch (error) {
+      if (isMissingFile(error)) return;
+      throw error;
+    }
+    for (const item of (listing.files || [])) {
+      const childPath = directoryPath + '/' + item.name;
+      if (item.type === 'directory') {
+        await visit(childPath);
+        continue;
+      }
+      const match = childPath.match(/^recordings\/(surah-\d{3}-[^/]+)\/(ayah-\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      if (!match) continue;
+      const result = await Filesystem.readFile({ path: childPath, directory: Directory.Data });
+      if (typeof result.data !== 'string') continue;
+      const sura = Number(match[1].match(/^surah-(\d{3})-/i)[1]);
+      const aya = Number(match[2].slice(5));
+      const extension = match[3].toLowerCase();
+      const mimeType = mimeForExtension(extension);
+      recordings.push({
+        name: match[1] + '/' + match[2] + '.' + extension,
+        sura,
+        aya,
+        blob: base64ToBlob(result.data, mimeType),
+        mimeType,
+        storage: 'native'
+      });
+    }
+  }
+  await visit('recordings');
+  return recordings;
+}
 window.QuranMemorizerNativeStorage = {
   available: Capacitor.isNativePlatform(),
   read,
   write,
-  remove
+  remove,
+  list
 };
