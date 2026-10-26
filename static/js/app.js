@@ -1077,15 +1077,28 @@ async function collectRecordingsForArchive() {
   }
   const records = [];
   const seen = new Set();
+  const native = await getNativeRecordingStorage();
+  if (native && typeof native.list === 'function') {
+    const nativeRecords = await native.list();
+    for (const record of nativeRecords) {
+      if (!record || !record.blob) continue;
+      const key = record.key || (record.sura + ':' + record.aya);
+      if (seen.has(key)) continue;
+      records.push(record);
+      seen.add(key);
+    }
+  }
   if (recordingStorageMode === 'folder') {
     const folderRecords = await collectFolderRecordingsForArchive();
     for (const record of folderRecords) {
+      const key = record.key || (record.sura + ':' + record.aya);
+      if (seen.has(key)) continue;
       records.push(record);
-      seen.add(record.key || (record.sura + ':' + record.aya));
+      seen.add(key);
     }
   }
-  // Include any legacy browser-local takes that have not yet been migrated.
-  if (recordingStorageMode !== 'native') {
+  // Include browser-local recordings that could not yet be migrated.
+  if (!native) {
     const localRecords = await getAllBrowserRecordings();
     for (const record of localRecords) {
       if (!record || !record.blob) continue;
