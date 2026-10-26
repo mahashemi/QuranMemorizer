@@ -693,7 +693,7 @@ async function getFolderRecordingDirectory(sura) {
     const files = new Map();
     for await (const [name, handle] of suraDirectory.entries()) {
       if (handle.kind !== 'file') continue;
-      const match = name.match(/^ayah-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      const match = name.match(/^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i);
       if (match) files.set(Number(match[1]), { name, ext: match[2].toLowerCase() });
     }
     return { directory: suraDirectory, files };
