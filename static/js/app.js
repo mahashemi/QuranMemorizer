@@ -1260,12 +1260,8 @@ function toast(msg) {
 /* ==================================================================
    HOME PAGE
    ================================================================== */
-const enterReaderButton = $('enterReader');
-if (enterReaderButton) {
-  enterReaderButton.addEventListener('click', () => {
-    document.body.classList.add('reader-active');
-  });
-}
+/* The inline homepage handler in index.html opens the Surah chooser.
+   Do not add reader-active here: that hides the homepage immediately. */
 
 /* ==================================================================
    21. GO
