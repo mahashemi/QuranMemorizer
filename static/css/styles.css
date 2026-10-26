@@ -1033,3 +1033,65 @@ body.reader-active .app { display: grid !important; }
 @media (prefers-reduced-motion: reduce) {
   .home-primary { transition: none; }
 }
+
+
+/* Keep both navigation lists in a single vertical column on every screen size. */
+.sura-list {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
+}
+.sura-list .sura-item { width: 100%; box-sizing: border-box; }
+.aya-list {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
+  gap: 6px;
+  padding: 8px 10px 20px;
+}
+.aya-list .aya-btn {
+  width: 100%;
+  min-height: 40px;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  text-align: left;
+}
+.aya-list .aya-btn .aya-btn-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  flex: 1;
+}
+
+/* Per-ayah personal voice recording controls. */
+.aya-recording {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.aya-recording button {
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.aya-recording button[data-record-aya] {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+.aya-recording button[hidden] { display: none !important; }
+.aya-record-status { color: var(--muted); font-size: 11px; }
