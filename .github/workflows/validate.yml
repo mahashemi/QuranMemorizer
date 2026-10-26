@@ -13,14 +13,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install build dependencies
+        run: npm install --no-audit --no-fund
       - name: Check JavaScript syntax
         run: |
           node --check static/js/app.js
+          node --check static/js/native-storage-adapter.mjs
+          node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
+      - name: Test portable recording archives
+        run: npm test
       - name: Build Capacitor web assets
         run: |
           node scripts/build-web.mjs
           test -f www/index.html
           test -f www/static/css/styles.css
           test -f www/static/js/app.js
+          test -f www/static/js/native-storage-adapter.js
           test -f www/data/quran/all_suras.json

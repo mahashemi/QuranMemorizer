@@ -1059,14 +1059,47 @@ body.reader-active .app { display: grid !important; }
 .hadith-placeholder { font-size: clamp(18px, 3.4vw, 24px); line-height: 1.7; margin: 20px 0 14px; }
 .hadith-source { color: var(--muted); font-size: 12px; line-height: 1.6; }
 .home-actions { display: flex; justify-content: center; margin-top: 26px; }
+.home-actions-between { position: relative; z-index: 1; margin: -2px auto 20px; }
 .home-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 48px; padding: 0 22px; border-radius: 12px;
-  background: linear-gradient(145deg,var(--accent),#1fa87d); color: #04211a;
-  font-weight: 750; cursor: pointer; transition: filter .15s, transform .15s;
+  min-height: 50px; padding: 0 25px; border: 1px solid rgba(4,33,26,.12); border-radius: 14px;
+  background: linear-gradient(135deg,#68edc4 0%,var(--accent) 55%,#1fa87d 100%); color: #04211a;
+  font-weight: 800; letter-spacing: .1px; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(46,207,161,.16), inset 0 1px 0 rgba(255,255,255,.28);
+  transition: filter .2s, transform .2s, box-shadow .2s;
 }
-.home-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.home-primary span { display: inline-block; transition: transform .2s; }
+.home-primary:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(46,207,161,.24), inset 0 1px 0 rgba(255,255,255,.28); }
+.home-primary:hover span { transform: translateX(3px); }
 .home-footnote { margin-top: 22px; text-align: center; color: var(--muted); font-size: 11px; }
+
+/* A gentle, staggered reveal gives the opening screen a welcoming sense of arrival. */
+@keyframes home-arrive {
+  from { opacity: 0; transform: translateY(14px) scale(.99); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+body:not(.reader-active) #homeWelcome .home-bismillah,
+body:not(.reader-active) #homeWelcome .home-brand,
+body:not(.reader-active) #homeWelcome > .home-eyebrow,
+body:not(.reader-active) #homeWelcome > .home-title,
+body:not(.reader-active) #homeWelcome > .home-intro,
+body:not(.reader-active) #homeWelcome .imam-awaiting-card,
+body:not(.reader-active) #homeWelcome .home-actions-between,
+body:not(.reader-active) #homeWelcome .hadith-card,
+body:not(.reader-active) #homeWelcome .home-footnote,
+body:not(.reader-active) #homeWelcome .home-footer {
+  animation: home-arrive .72s cubic-bezier(.2,.75,.25,1) both;
+}
+body:not(.reader-active) #homeWelcome .home-bismillah { animation-delay: .04s; }
+body:not(.reader-active) #homeWelcome .home-brand { animation-delay: .1s; }
+body:not(.reader-active) #homeWelcome > .home-eyebrow { animation-delay: .16s; }
+body:not(.reader-active) #homeWelcome > .home-title { animation-delay: .22s; }
+body:not(.reader-active) #homeWelcome > .home-intro { animation-delay: .28s; }
+body:not(.reader-active) #homeWelcome .imam-awaiting-card { animation-delay: .34s; }
+body:not(.reader-active) #homeWelcome .home-actions-between { animation-delay: .42s; }
+body:not(.reader-active) #homeWelcome .hadith-card { animation-delay: .5s; }
+body:not(.reader-active) #homeWelcome .home-footnote { animation-delay: .56s; }
+body:not(.reader-active) #homeWelcome .home-footer { animation-delay: .62s; }
 .home-footer {
   display: flex;
   flex-direction: column;
@@ -1083,6 +1116,21 @@ body.reader-active .app { display: grid !important; }
 .home-footer-sub { color: var(--muted); font-size: 11px; line-height: 1.6; }
 @media (prefers-reduced-motion: reduce) {
   .home-primary { transition: none; }
+  body:not(.reader-active) #homeWelcome .home-bismillah,
+  body:not(.reader-active) #homeWelcome .home-brand,
+  body:not(.reader-active) #homeWelcome > .home-eyebrow,
+  body:not(.reader-active) #homeWelcome > .home-title,
+  body:not(.reader-active) #homeWelcome > .home-intro,
+  body:not(.reader-active) #homeWelcome .imam-awaiting-card,
+  body:not(.reader-active) #homeWelcome .home-actions-between,
+  body:not(.reader-active) #homeWelcome .hadith-card,
+  body:not(.reader-active) #homeWelcome .home-footnote,
+  body:not(.reader-active) #homeWelcome .home-footer {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
 }
 
 
@@ -1143,9 +1191,88 @@ body.reader-active .app { display: grid !important; }
 .aya-recording button[data-record-aya] {
   border-color: var(--accent-border);
   color: var(--accent);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 .aya-recording button[hidden] { display: none !important; }
+.aya-recording button:disabled,
+.controls .icon-btn:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
 .aya-record-status { color: var(--muted); font-size: 11px; }
+.recording-waveform {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 116px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(239, 91, 82, .2);
+  border-radius: 7px;
+  background: rgba(239, 91, 82, .055);
+  overflow: hidden;
+}
+.recording-waveform[hidden] { display: none !important; }
+.recording-waveform span {
+  display: block;
+  flex: 1 1 2px;
+  min-width: 2px;
+  height: 72%;
+  border-radius: 2px;
+  background: #ef7770;
+  transform: scaleY(.12);
+  transition: transform 65ms linear;
+  transform-origin: center;
+}
+.recording-waveform:not(.is-live) span {
+  animation: recording-wave-fallback .8s ease-in-out infinite alternate;
+}
+.recording-waveform:not(.is-live) span:nth-child(3n) { animation-delay: -.3s; }
+.recording-waveform:not(.is-live) span:nth-child(4n) { animation-delay: -.55s; }
+@keyframes recording-wave-fallback {
+  from { transform: scaleY(.16); }
+  to { transform: scaleY(.62); }
+}
+.aya-recording.is-recording button[data-record-aya] {
+  color: #ffb5ad;
+  border-color: rgba(239, 91, 82, .65);
+  background: rgba(239, 91, 82, .09);
+  box-shadow: 0 0 0 3px rgba(239, 91, 82, .08);
+  animation: recording-button-breathe 2s ease-in-out infinite;
+}
+.aya-recording.is-recording .aya-record-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffb5ad;
+  font-weight: 600;
+}
+.aya-recording.is-recording .aya-record-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #ef5b52;
+  box-shadow: 0 0 0 0 rgba(239, 91, 82, .45);
+  animation: recording-dot-pulse 1.6s ease-out infinite;
+}
+@keyframes recording-button-breathe {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(239, 91, 82, .05); }
+  50% { box-shadow: 0 0 0 4px rgba(239, 91, 82, .12); }
+}
+@keyframes recording-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 91, 82, .4); }
+  70%, 100% { box-shadow: 0 0 0 6px rgba(239, 91, 82, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aya-recording.is-recording button[data-record-aya],
+  .aya-recording.is-recording .aya-record-status::before,
+  .recording-waveform:not(.is-live) span { animation: none; }
+}
 
 
 /* Home/reader switch: never leave the homepage covering the reader after entry. */
@@ -1274,3 +1401,51 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
   .home-sura-item { transition: none; }
   .home-sura-item:hover { transform: none; }
 }
+
+/* Local recording storage settings */
+.recording-storage-section { gap: 8px; }
+.recording-storage-description {
+  margin: 0;
+  color: var(--text-muted, #a9b8b2);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.recording-storage-status {
+  border: 1px solid var(--border, rgba(255,255,255,.1));
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text, #edf5f1);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  background: rgba(255,255,255,.025);
+}
+.recording-storage-actions { display: grid; gap: 8px; margin-top: 2px; }
+.recording-storage-actions [hidden] { display: none !important; }
+.storage-action {
+  appearance: none;
+  width: 100%;
+  border: 1px solid rgba(116, 190, 151, .5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(39, 112, 79, .24);
+  color: var(--text, #edf5f1);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+.storage-action.secondary {
+  border-color: var(--border, rgba(255,255,255,.14));
+  background: transparent;
+  color: var(--text-muted, #a9b8b2);
+}
+.storage-action:disabled { opacity: .55; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  .storage-action { transition: none !important; }
+}
+
+.recording-archive-actions { display: grid; gap: 8px; margin-top: 8px; }
+.recording-archive-actions [hidden] { display: none !important; }
+.recording-archive-actions .storage-action { overflow-wrap: anywhere; }

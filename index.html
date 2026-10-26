@@ -39,14 +39,14 @@
       <p class="imam-awaiting-reflection">What if we stopped asking only, “Where are the 313?” and began asking, “Am I preparing my heart to stand among them?”</p>
       <p class="imam-awaiting-prayer">May Allah make us sincere, steadfast, and worthy of serving him.</p>
     </section>
+    <div class="home-actions home-actions-between">
+      <button class="home-primary" id="enterReader" type="button">Open Qur’an reader <span aria-hidden="true">→</span></button>
+    </div>
     <section class="hadith-card" aria-labelledby="hadithHeading">
       <div class="hadith-label" id="hadithHeading">Hadith of the Day</div>
       <p class="hadith-placeholder" id="hadithText">Your daily hadith will appear here.</p>
       <p class="hadith-source" id="hadithSource">Placeholder for now — verified wording and source citation will be added before this feature goes live.</p>
     </section>
-    <div class="home-actions">
-      <button class="home-primary" id="enterReader" type="button">Open Qur’an reader <span aria-hidden="true">→</span></button>
-    </div>
     <p class="home-footnote">Qur’an recitation and memorization workspace</p>
     <footer class="home-footer">
       <span class="home-footer-ornament" aria-hidden="true">✦</span>
@@ -255,6 +255,22 @@
         <input type="checkbox" id="mobileToggleBismillah" checked />
         <span class="track"></span>
       </label>
+    </div>
+  </div>
+
+  <!-- Recording storage -->
+  <div class="sheet-section recording-storage-section">
+    <div class="sheet-section-title">Voice recordings</div>
+    <p class="recording-storage-description">Recordings stay on your device. To use portable audio files, choose the parent folder where QuranMemorizer should create its own folder. Android saves recordings inside the app’s private files.</p>
+    <div class="recording-storage-status" id="recordingStorageStatus" role="status" aria-live="polite">Checking local storage…</div>
+    <div class="recording-storage-actions">
+      <button class="storage-action" id="btnConnectRecordingFolder" type="button" hidden>Choose recordings folder</button>
+      <button class="storage-action secondary" id="btnUseBrowserStorage" type="button" hidden>Use browser-local storage instead</button>
+      <div class="recording-archive-actions" id="recordingArchiveActions">
+        <button class="storage-action secondary" id="btnExportRecordings" type="button">Export recordings as ZIP</button>
+        <button class="storage-action secondary" id="btnImportRecordings" type="button">Import recordings from ZIP</button>
+        <input id="recordingArchiveInput" type="file" accept=".zip,application/zip" hidden />
+      </div>
     </div>
   </div>
 
