@@ -1275,9 +1275,3 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
   .home-sura-item:hover { transform: none; }
 }
 
-
-/* Local voice recording folder control */
-.recording-folder-btn { white-space: nowrap; max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
-@media (max-width: 900px) {
-  .recording-folder-btn { max-width: 145px; font-size: 11px; padding: 7px 8px; }
-}
