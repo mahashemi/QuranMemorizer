@@ -834,12 +834,40 @@ async function migrateBrowserRecordingsToFolder() {
   return copied;
 }
 
+async function migrateBrowserRecordingsToNative(native) {
+  const records = await getAllBrowserRecordings();
+  browserFallbackRecordingKeys = new Set();
+  let copied = 0;
+  for (const record of records) {
+    if (!record || !record.blob || !record.sura || !record.aya) continue;
+    const key = record.key || record.sura + ':' + record.aya;
+    // Keep a sparse fallback index while native files become the primary copy.
+    browserFallbackRecordingKeys.add(key);
+    try {
+      const existing = await native.read(record.sura, record.aya);
+      if (!existing) {
+        await native.write(record.sura, record.aya, record.blob);
+        copied++;
+      }
+    } catch (migrationError) {
+      console.warn('Could not migrate Android browser recording ' + key + '.', migrationError);
+    }
+  }
+  return copied;
+}
+
 async function initializeRecordingStorage() {
   const capacitor = window.Capacitor;
   const nativeRuntime = !!(capacitor && typeof capacitor.isNativePlatform === 'function' && capacitor.isNativePlatform());
   const native = await getNativeRecordingStorage();
   if (native) {
     recordingStorageMode = 'native';
+    try {
+      await migrateBrowserRecordingsToNative(native);
+    } catch (migrationError) {
+      // Native files remain the primary storage; this scan only preserves legacy data.
+      console.warn('Could not scan legacy browser recordings for migration.', migrationError);
+    }
     updateRecordingStorageUI();
     return;
   }
@@ -1002,6 +1030,7 @@ async function getUserRecording(sura, aya) {
   if (native) {
     const record = await native.read(sura, aya);
     if (record) return record;
+    if (recordingStorageMode === 'native' && !browserFallbackRecordingKeys.has(sura + ':' + aya)) return null;
   }
   if (recordingStorageMode === 'folder-needs-permission') {
     const browserRecord = await getBrowserRecording(sura, aya);
