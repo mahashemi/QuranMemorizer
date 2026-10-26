@@ -652,6 +652,10 @@ function recordingExtensions() {
   return ['webm', 'm4a', 'mp4', 'ogg', 'wav', 'aac'];
 }
 
+function recordingMimeForExtension(ext) {
+  return ({ webm: 'audio/webm', m4a: 'audio/mp4', mp4: 'audio/mp4', ogg: 'audio/ogg', wav: 'audio/wav', aac: 'audio/aac' })[ext] || 'application/octet-stream';
+}
+
 function recordingSuraFolderName(sura) {
   const name = SURA_ENGLISH[sura - 1] || ('Surah ' + sura);
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -684,7 +688,7 @@ async function getFolderRecording(sura, aya) {
       const handle = await suraDirectory.getFileHandle(fileName, { create: false });
       const file = await handle.getFile();
       return {
-        key: sura + ':' + aya, sura, aya, blob: file, mimeType: file.type || 'audio/' + ext,
+        key: sura + ':' + aya, sura, aya, blob: file, mimeType: file.type || recordingMimeForExtension(ext),
         fileName, updatedAt: file.lastModified, storage: 'folder'
       };
     } catch (error) {
