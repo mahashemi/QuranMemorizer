@@ -1111,3 +1111,48 @@ body.reader-active .app { display: grid !important; }
 .hadith-urdu .daily-hadith-text { font-family: 'Noto Nastaliq Urdu', serif; font-size: 18px; line-height: 2.3; }
 .hadith-persian .daily-hadith-text { font-family: 'Vazirmatn', sans-serif; font-size: 16px; line-height: 2; text-align: right; }
 .hadith-source-link { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* Make the home screen independently scrollable, including on short mobile viewports. */
+html:has(body:not(.reader-active)), body:not(.reader-active) {
+  height: 100%;
+  overflow: hidden;
+}
+body:not(.reader-active) .home-page {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+body:not(.reader-active) .home-shell { flex: 0 0 auto; margin: auto; }
+@media (max-height: 760px) {
+  body:not(.reader-active) .home-page { justify-content: flex-start; }
+  body:not(.reader-active) .home-shell { margin-top: 0; margin-bottom: 0; }
+}
+@media (max-width: 600px) {
+  body:not(.reader-active) .home-page { padding-left: 16px; padding-right: 16px; }
+  body:not(.reader-active) .home-brand { margin-bottom: 20px; }
+  body:not(.reader-active) .home-intro { margin-bottom: 20px; }
+  body:not(.reader-active) .hadith-card { padding: 22px 18px; }
+}
+body:not(.reader-active) .hadith-card,
+body:not(.reader-active) .hadith-label,
+body:not(.reader-active) .hadith-source,
+body:not(.reader-active) .daily-hadith-line,
+body:not(.reader-active) .daily-hadith-language,
+body:not(.reader-active) .daily-hadith-text {
+  text-align: center;
+}
+body:not(.reader-active) .hadith-arabic .daily-hadith-text,
+body:not(.reader-active) .hadith-urdu .daily-hadith-text,
+body:not(.reader-active) .hadith-persian .daily-hadith-text {
+  text-align: center;
+}
+body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 4px; }
