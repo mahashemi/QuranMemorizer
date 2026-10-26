@@ -789,9 +789,16 @@ async function migrateBrowserRecordingsToFolder() {
 }
 
 async function initializeRecordingStorage() {
+  const capacitor = window.Capacitor;
+  const nativeRuntime = !!(capacitor && typeof capacitor.isNativePlatform === 'function' && capacitor.isNativePlatform());
   const native = await getNativeRecordingStorage();
   if (native) {
     recordingStorageMode = 'native';
+    updateRecordingStorageUI();
+    return;
+  }
+  if (nativeRuntime) {
+    recordingStorageMode = 'native-fallback';
     updateRecordingStorageUI();
     return;
   }
@@ -834,6 +841,12 @@ function updateRecordingStorageUI() {
   const folderSupported = supportsRecordingFolderAccess();
   if (recordingStorageMode === 'native') {
     status.textContent = 'Saved as audio files in this app’s private storage. No folder selection or cloud account is needed.';
+    if (connectButton) connectButton.hidden = true;
+    if (browserButton) browserButton.hidden = true;
+    return;
+  }
+  if (recordingStorageMode === 'native-fallback') {
+    status.textContent = 'Native file storage could not load in this build, so recordings will use this app’s local browser storage. Rebuild and sync the Android app to enable ordinary audio files.';
     if (connectButton) connectButton.hidden = true;
     if (browserButton) browserButton.hidden = true;
     return;
