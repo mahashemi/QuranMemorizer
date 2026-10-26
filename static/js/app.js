@@ -739,12 +739,12 @@ async function writeFolderRecording(sura, aya, blob) {
   const writable = await fileHandle.createWritable();
   await writable.write(blob);
   await writable.close();
+  folderRecordingIndex.delete(sura);
   for (const oldExt of recordingExtensions()) {
     if (oldExt === ext) continue;
     try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
-  folderRecordingIndex.delete(sura);
   try {
     await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
   } catch (manifestError) {
