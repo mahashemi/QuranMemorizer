@@ -182,6 +182,15 @@ async function init() {
         '<p>Then open <code>http://localhost:8000/</code></p>' +
       '</div>';
     el.nowPlaying.textContent = 'Data not loaded';
+    if (el.homeSuraList) {
+      el.homeSuraList.innerHTML =
+        '<div class="home-sura-load-error" role="alert">' +
+          '<strong>Surah list could not load.</strong>' +
+          '<span>Open this project through a local web server, not by opening index.html directly.</span>' +
+          '<code>python3 -m http.server 8000</code>' +
+          '<span>Then visit <code>http://localhost:8000/</code> from the repository root.</span>' +
+        '</div>';
+    }
     return;
   }
   buildSidebar();
