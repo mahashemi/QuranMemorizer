@@ -10,6 +10,7 @@ on:
       - "package.json"
       - "package-lock.json"
       - "capacitor.config.ts"
+      - "assets/**"
       - "index.html"
       - "static/**"
       - "data/quran/**"
@@ -54,6 +55,13 @@ jobs:
 
       - name: Configure microphone permission
         run: node scripts/prepare-android.mjs
+
+      - name: Generate Android launcher icons
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+          rsvg-convert -w 1024 -h 1024 assets/icon.svg -o assets/icon.png
+          npx capacitor-assets generate --android
 
       - name: Sync Capacitor plugins and web assets
         run: npx cap sync android
