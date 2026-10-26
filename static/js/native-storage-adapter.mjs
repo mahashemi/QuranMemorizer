@@ -155,7 +155,7 @@ function isMissingFile(error) {
 async function getSurahFileNames(sura) {
   if (surahFileNames.has(sura)) return surahFileNames.get(sura);
   const lookup = (async () => {
-    const directoryPath = pathFor(sura, 1, 'webm').replace(/\\/ayah-\\d{3}\\.webm$/, '');
+    const directoryPath = pathFor(sura, 1, 'webm').replace(/\/ayah-\d{3}\.webm$/, '');
     try {
       const listing = await Filesystem.readdir({ path: directoryPath, directory: Directory.Data });
       return new Set((listing.files || []).map(item => item.name));
