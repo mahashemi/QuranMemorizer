@@ -88,7 +88,10 @@ const el = {
   togglePersian: $('togglePersian'),
   mobileToggleBismillah: $('mobileToggleBismillah'),
 
-  toast: $('toast')
+  toast: $('toast'),
+  recordingStorageStatus: $('recordingStorageStatus'),
+  btnConnectRecordingFolder: $('btnConnectRecordingFolder'),
+  btnUseBrowserStorage: $('btnUseBrowserStorage')
 };
 
 /* Repeat block element refs — populated after injecting the template */
@@ -1006,6 +1009,17 @@ function startRecordingWaveform(stream, sura, aya) {
 }
 
 async function startUserRecording(sura, aya, button) {
+  try {
+    await ensureRecordingStorageInitialized();
+    if (recordingStorageMode === 'folder-needs-permission') {
+      openSettings();
+      toast('Reconnect the recordings folder in Settings before recording.');
+      return;
+    }
+  } catch (storageError) {
+    toast('Recording storage is unavailable: ' + (storageError.message || 'unknown error'));
+    return;
+  }
   // Recording is its own interaction: cancel pending reciter loads and stop audio first.
   ++playbackRequestId;
   playbackMode = 'idle';
@@ -1639,6 +1653,8 @@ function bindEvents() {
   el.btnOpenSettingsDesktop.addEventListener('click', openSettings);
   el.settingsBackdrop.addEventListener('click', closeSettings);
   el.sheetDone.addEventListener('click', closeSettings);
+  if (el.btnConnectRecordingFolder) el.btnConnectRecordingFolder.addEventListener('click', connectRecordingFolder);
+  if (el.btnUseBrowserStorage) el.btnUseBrowserStorage.addEventListener('click', useBrowserRecordingStorage);
 
   /* --- edge swipe to open drawer --- */
   let swipeTracking = false;
@@ -1733,5 +1749,9 @@ function toast(msg) {
    ================================================================== */
 updateOpts();
 init();
+ensureRecordingStorageInitialized().catch(error => {
+  console.warn('Could not initialize local recording storage.', error);
+  updateRecordingStorageUI();
+});
 
 })();
