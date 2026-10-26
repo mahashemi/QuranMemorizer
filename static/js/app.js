@@ -1401,13 +1401,23 @@ async function startUserRecording(sura, aya, button) {
     toast('Finish the current recording before starting another.');
     return;
   }
+  let stream = null;
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    // Keep the initial request deliberately simple for Android WebView compatibility.
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const options = {};
     if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
       options.mimeType = 'audio/webm;codecs=opus';
     }
-    const recorder = new MediaRecorder(stream, options);
+    let recorder;
+    try {
+      recorder = new MediaRecorder(stream, options);
+    } catch (preferredRecorderError) {
+      // Some WebViews advertise a MIME type but cannot instantiate it. Retry the
+      // platform default before treating recording as unavailable.
+      if (!options.mimeType) throw preferredRecorderError;
+      recorder = new MediaRecorder(stream);
+    }
     activeRecorder = recorder;
     activeRecordingKey = { sura, aya };
     activeRecordingChunks = [];
@@ -1473,13 +1483,23 @@ async function startUserRecording(sura, aya, button) {
     const status = button.parentElement.querySelector('[data-record-status]');
     if (status) status.textContent = ''; // The recording dot and live waveform provide the active-state cue.
   } catch (error) {
+    if (stream) stream.getTracks().forEach(track => track.stop());
     setRecordingPlaybackLock(false);
     stopRecordingWaveform();
     const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
-    if (status) status.textContent = error && error.name === 'NotAllowedError' ? 'Allow microphone access to begin.' : '';
-    toast(error && error.name === 'NotAllowedError'
-      ? 'Microphone permission was denied.'
-      : 'Could not start recording: ' + (error.message || 'unknown error'));
+    const errorName = error && error.name;
+    let message;
+    if (errorName === 'NotAllowedError' || errorName === 'SecurityError') {
+      message = 'Microphone access was denied. Allow microphone access for QuranMemorizer in Android Settings and try again.';
+    } else if (errorName === 'NotReadableError' || /could not start audio source/i.test(error && error.message || '')) {
+      message = 'Android could not open the microphone for QuranMemorizer. Close other apps using the microphone, check QuranMemorizer’s microphone permission in Android Settings, then try again.';
+    } else if (errorName === 'OverconstrainedError') {
+      message = 'The device could not satisfy the microphone settings. Please try again.';
+    } else {
+      message = 'Could not start recording' + (errorName ? ' (' + errorName + ')' : '') + ': ' + ((error && error.message) || 'unknown error');
+    }
+    if (status) status.textContent = message;
+    toast(message);
   }
 }
 
