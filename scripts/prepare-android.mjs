@@ -8,8 +8,8 @@ if (!existsSync(manifestPath)) throw new Error('Android manifest not found. Run 
 let manifest = readFileSync(manifestPath, 'utf8');
 if (!manifest.includes('android.permission.RECORD_AUDIO')) {
   manifest = manifest.replace(
-    /(<manifest\\b[^>]*>)/,
-    '$1\\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'
+    /(<manifest\b[^>]*>)/,
+    '$1\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'
   );
 }
 writeFileSync(manifestPath, manifest);
@@ -31,8 +31,8 @@ function findMainActivity(dir) {
 const existingActivity = findMainActivity(javaRoot);
 if (!existingActivity) throw new Error('Could not find Capacitor MainActivity source.');
 const packageName = existingActivity.endsWith('.java')
-  ? (readFileSync(existingActivity, 'utf8').match(/^package\\s+([\\w.]+);/m) || [])[1]
-  : (readFileSync(existingActivity, 'utf8').match(/^package\\s+([\\w.]+)/m) || [])[1];
+  ? (readFileSync(existingActivity, 'utf8').match(/^package\s+([\w.]+);/m) || [])[1]
+  : (readFileSync(existingActivity, 'utf8').match(/^package\s+([\w.]+)/m) || [])[1];
 const resolvedPackageName = packageName || 'org.quranmemorizer.app';
 const activityDir = dirname(existingActivity);
 const javaPath = join(activityDir, 'MainActivity.java');
