@@ -92,7 +92,10 @@ const el = {
   toast: $('toast'),
   recordingStorageStatus: $('recordingStorageStatus'),
   btnConnectRecordingFolder: $('btnConnectRecordingFolder'),
-  btnUseBrowserStorage: $('btnUseBrowserStorage')
+  btnUseBrowserStorage: $('btnUseBrowserStorage'),
+  btnExportRecordings: $('btnExportRecordings'),
+  btnImportRecordings: $('btnImportRecordings'),
+  inputImportRecordings: $('inputImportRecordings')
 };
 
 /* Repeat block element refs — populated after injecting the template */
@@ -530,6 +533,7 @@ let recordingStorageMode = 'needs-folder-choice'; // native | folder | folder-ne
 let recordingsParentHandle = null;
 let recordingStorageReadyPromise = null;
 let nativeRecordingStoragePromise = null;
+let recordingArchiveModulePromise = null;
 
 const supportsRecordingFolderAccess = () => window.isSecureContext === true
   && typeof window.showDirectoryPicker === 'function';
@@ -933,6 +937,194 @@ async function useBrowserRecordingStorage() {
     toast('Browser-local storage enabled. Files in the disconnected folder are left untouched.');
   } catch (error) {
     toast('Could not change recording storage: ' + (error.message || 'unknown error'));
+  }
+}
+
+
+async function getRecordingArchiveModule() {
+  if (!recordingArchiveModulePromise) {
+    const moduleUrl = APP_SCRIPT_URL
+      ? new URL('./recording-archive.mjs', APP_SCRIPT_URL).href
+      : 'static/js/recording-archive.mjs';
+    recordingArchiveModulePromise = import(moduleUrl);
+  }
+  return recordingArchiveModulePromise;
+}
+
+function normalizeRecordingArchivePath(name) {
+  return String(name || '').replace(/\\/g, '/').replace(/^QuranMemorizer\/recordings\//i, '').replace(/^recordings\//i, '');
+}
+
+async function getFolderRecordingArchiveEntries() {
+  const dirs = await getConnectedRecordingDirectories(false);
+  const entries = [];
+  async function walk(directory, prefix) {
+    for await (const pair of directory.entries()) {
+      const name = pair[0];
+      const handle = pair[1];
+      const relative = prefix ? prefix + '/' + name : name;
+      if (handle.kind === 'directory') {
+        await walk(handle, relative);
+      } else if (/\.(webm|m4a|mp4|ogg|wav|aac)$/i.test(name)) {
+        entries.push({ name: relative, blob: await handle.getFile() });
+      }
+    }
+  }
+  await walk(dirs.recordingsDirectory, '');
+  return entries;
+}
+
+async function getRecordingArchiveAudioEntries() {
+  await ensureRecordingStorageInitialized();
+  const native = await getNativeRecordingStorage();
+  if (native && typeof native.list === 'function') return native.list();
+  if (recordingStorageMode === 'folder-needs-permission') {
+    throw new Error('Reconnect the recordings folder in Settings before exporting your library.');
+  }
+  if (recordingStorageMode === 'needs-folder-choice') {
+    throw new Error('Choose a recordings folder or browser-local storage in Settings before exporting.');
+  }
+  if (recordingStorageMode === 'folder') return getFolderRecordingArchiveEntries();
+  return (await getAllBrowserRecordings())
+    .filter(record => record && record.blob && Number(record.sura) > 0 && Number(record.aya) > 0)
+    .map(record => ({
+      name: recordingSuraFolderName(record.sura) + '/ayah-' + pad3(record.aya) + '.' + recordingExtension(record.mimeType || record.blob.type),
+      blob: record.blob
+    }));
+}
+
+function makeRecordingManifest(audioEntries) {
+  const manifest = {
+    schemaVersion: 1,
+    app: 'QuranMemorizer',
+    exportedAt: new Date().toISOString(),
+    recordings: []
+  };
+  for (const entry of audioEntries) {
+    const relative = normalizeRecordingArchivePath(entry.name);
+    const match = relative.match(/^(surah-\d{3}-[^/]+)\/(ayah-(\d{3})\.([a-z0-9]+))$/i);
+    if (!match) continue;
+    const sura = Number(match[1].match(/^surah-(\d{3})-/i)[1]);
+    const aya = Number(match[3]);
+    manifest.recordings.push({
+      key: sura + ':' + aya,
+      sura,
+      aya,
+      folder: match[1],
+      fileName: match[2],
+      mimeType: entry.blob.type || recordingMimeForExtension(match[4]),
+      size: entry.blob.size,
+      updatedAt: Date.now()
+    });
+  }
+  return manifest;
+}
+
+async function exportUserRecordings() {
+  try {
+    const sourceEntries = await getRecordingArchiveAudioEntries();
+    const audioEntries = sourceEntries
+      .map(entry => ({
+        name: normalizeRecordingArchivePath(entry.name),
+        blob: entry.blob || entry.data
+      }))
+      .filter(entry => entry.blob && /^(surah-\d{3}-[^/]+)\/ayah-\d{3}\.(webm|m4a|mp4|ogg|wav|aac)$/i.test(entry.name));
+    if (!audioEntries.length) {
+      toast('There are no saved voice recordings to export yet.');
+      return;
+    }
+    const manifest = makeRecordingManifest(audioEntries);
+    const archiveEntries = audioEntries.map(entry => ({
+      name: 'QuranMemorizer/recordings/' + entry.name,
+      data: entry.blob
+    }));
+    archiveEntries.push({
+      name: 'QuranMemorizer/recordings/manifest.json',
+      data: new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' })
+    });
+    const archive = await getRecordingArchiveModule();
+    const zip = await archive.createZip(archiveEntries);
+    const url = URL.createObjectURL(zip);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'QuranMemorizer-recordings-' + new Date().toISOString().slice(0, 10) + '.zip';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    toast('Exported ' + audioEntries.length + ' ayah recording(s) to a ZIP file.');
+  } catch (error) {
+    toast('Could not export recordings: ' + (error.message || 'unknown error'));
+  }
+}
+
+async function importUserRecordings(file) {
+  if (!file) return;
+  try {
+    await ensureRecordingStorageInitialized();
+    if (recordingStorageMode === 'folder-needs-permission') {
+      throw new Error('Reconnect the recordings folder in Settings before importing your library.');
+    }
+    if (recordingStorageMode === 'needs-folder-choice') {
+      throw new Error('Choose a recordings folder or browser-local storage in Settings before importing.');
+    }
+    const archive = await getRecordingArchiveModule();
+    const files = await archive.readZip(file);
+    const byKey = new Map();
+    for (const entry of files) {
+      const zipPath = String(entry.name || '').replace(/\\/g, '/');
+      const match = zipPath.match(/(?:^|\/)(?:QuranMemorizer\/)?recordings\/(surah-\d{3}-[^/]+)\/ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      if (!match) continue;
+      const sura = Number(match[1].match(/^surah-(\d{3})-/i)[1]);
+      const aya = Number(match[2]);
+      const suraInfo = SURA_BY_NUM[sura];
+      if (!suraInfo || aya < 1 || aya > suraInfo.ayas.length) continue;
+      const extension = match[3].toLowerCase();
+      const blob = new Blob([entry.blob], { type: recordingMimeForExtension(extension) });
+      byKey.set(sura + ':' + aya, { sura, aya, blob });
+    }
+    const recordings = Array.from(byKey.values());
+    if (!recordings.length) {
+      toast('No QuranMemorizer ayah recordings were found in that ZIP file.');
+      return;
+    }
+
+    let duplicateCount = 0;
+    for (const recording of recordings) {
+      try {
+        if (await getUserRecording(recording.sura, recording.aya)) duplicateCount++;
+      } catch (_) { /* An unreadable existing record is not counted as a conflict. */ }
+    }
+    if (duplicateCount && !window.confirm('This archive contains ' + recordings.length +
+      ' recording(s), including ' + duplicateCount + ' ayah(s) that already have recordings. Replace matching recordings?')) return;
+
+    let imported = 0;
+    let browserFallback = 0;
+    let failed = 0;
+    for (const recording of recordings) {
+      try {
+        await saveUserRecording(recording.sura, recording.aya, recording.blob);
+        imported++;
+      } catch (storageError) {
+        try {
+          await saveBrowserRecording(recording.sura, recording.aya, recording.blob);
+          imported++;
+          browserFallback++;
+        } catch (_) {
+          failed++;
+        }
+      }
+    }
+    refreshRecordingControls(state.sura);
+    let message = 'Imported ' + imported + ' ayah recording(s).';
+    if (browserFallback) message += ' ' + browserFallback + ' were kept in this browser because the selected storage was unavailable.';
+    if (failed) message += ' ' + failed + ' could not be saved.';
+    toast(message);
+  } catch (error) {
+    toast('Could not import recordings: ' + (error.message || 'unknown error'));
+  } finally {
+    if (el.inputImportRecordings) el.inputImportRecordings.value = '';
   }
 }
 
@@ -1719,6 +1911,11 @@ function bindEvents() {
   el.sheetDone.addEventListener('click', closeSettings);
   if (el.btnConnectRecordingFolder) el.btnConnectRecordingFolder.addEventListener('click', connectRecordingFolder);
   if (el.btnUseBrowserStorage) el.btnUseBrowserStorage.addEventListener('click', useBrowserRecordingStorage);
+  if (el.btnExportRecordings) el.btnExportRecordings.addEventListener('click', exportUserRecordings);
+  if (el.btnImportRecordings && el.inputImportRecordings) {
+    el.btnImportRecordings.addEventListener('click', () => el.inputImportRecordings.click());
+    el.inputImportRecordings.addEventListener('change', () => importUserRecordings(el.inputImportRecordings.files && el.inputImportRecordings.files[0]));
+  }
 
   /* --- edge swipe to open drawer --- */
   let swipeTracking = false;
