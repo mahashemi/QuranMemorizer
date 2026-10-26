@@ -515,6 +515,7 @@ let activeRecorder = null;
 let activeRecordingKey = null;
 let activeRecordingChunks = [];
 let playbackRequestId = 0;
+let playbackMode = 'idle'; // idle | sequence | preview
 let activeRecordingObjectUrl = null;
 
 function openRecordingsDb() {
@@ -589,6 +590,11 @@ function refreshRecordingControls(sura) {
 }
 
 async function startUserRecording(sura, aya, button) {
+  // Recording is its own interaction: cancel pending reciter loads and stop audio first.
+  ++playbackRequestId;
+  playbackMode = 'idle';
+  state.started = false;
+  audio.pause();
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
     toast('Voice recording is not supported by this browser or WebView.');
     return;
@@ -631,7 +637,8 @@ async function startUserRecording(sura, aya, button) {
       try {
         await saveUserRecording(key.sura, key.aya, blob);
         refreshRecordingControls(key.sura);
-        toast('Your recording was saved privately on this device.');
+        toast('Your recording was saved privately on this device. Playing it back now.');
+        await playUserRecording(key.sura, key.aya);
       } catch (error) {
         toast('Could not save recording: ' + error.message);
       }
@@ -655,6 +662,7 @@ async function playUserRecording(sura, aya) {
       return;
     }
     ++playbackRequestId;
+    playbackMode = 'preview';
     audio.pause();
     if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = URL.createObjectURL(record.blob);
@@ -724,6 +732,7 @@ function goToAya(aya, opts) {
 
 async function playTrack(sura, aya) {
   const requestId = ++playbackRequestId;
+  playbackMode = 'sequence';
   state.playingAya = aya;
   state.started = true;
   if (aya > 0) {
@@ -761,6 +770,9 @@ function replayCurrent() {
 }
 
 function stopAll() {
+  ++playbackRequestId;
+  playbackMode = 'idle';
+  state.started = false;
   audio.pause();
   try { audio.currentTime = 0; } catch (e) {}
   resetCounters();
@@ -839,6 +851,14 @@ function handleEnded() {
    15. AUDIO EVENTS
    ================================================================== */
 audio.addEventListener('ended', () => {
+  // A personal recording is a one-shot preview, never part of continuous playback.
+  if (playbackMode === 'preview') {
+    playbackMode = 'idle';
+    state.started = false;
+    setPlayIcon(false);
+    return;
+  }
+  if (playbackMode !== 'sequence') return;
   if (state.playingAya === 0) {
     goToAya(1, { play: true, opening: false });
     return;
