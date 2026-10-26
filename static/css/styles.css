@@ -1354,3 +1354,46 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
   .home-sura-item:hover { transform: none; }
 }
 
+/* Local recording storage settings */
+.recording-storage-section { gap: 8px; }
+.recording-storage-description {
+  margin: 0;
+  color: var(--text-muted, #a9b8b2);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.recording-storage-status {
+  border: 1px solid var(--border, rgba(255,255,255,.1));
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text, #edf5f1);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  background: rgba(255,255,255,.025);
+}
+.recording-storage-actions { display: grid; gap: 8px; margin-top: 2px; }
+.recording-storage-actions [hidden] { display: none !important; }
+.storage-action {
+  appearance: none;
+  width: 100%;
+  border: 1px solid rgba(116, 190, 151, .5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(39, 112, 79, .24);
+  color: var(--text, #edf5f1);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+.storage-action.secondary {
+  border-color: var(--border, rgba(255,255,255,.14));
+  background: transparent;
+  color: var(--text-muted, #a9b8b2);
+}
+.storage-action:disabled { opacity: .55; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  .storage-action { transition: none !important; }
+}
