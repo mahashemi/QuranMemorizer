@@ -1256,6 +1256,14 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
 .home-sura-arabic { color: #c6d5df; font-size: 18px; line-height: 1.4; white-space: nowrap; }
 .home-sura-arrow { color: var(--muted); font-size: 20px; text-align: right; }
 .home-sura-empty { margin: 22px 0; text-align: center; color: var(--muted); font-size: 14px; }
+
+.home-sura-load-error {
+  grid-column: 1 / -1; display: flex; flex-direction: column; gap: 10px;
+  padding: 22px; border: 1px solid rgba(224, 168, 75, .4); border-radius: 14px;
+  background: rgba(224, 168, 75, .08); color: var(--text); line-height: 1.6;
+}
+.home-sura-load-error code { display: inline-block; width: fit-content; padding: 5px 8px; border-radius: 6px; background: var(--panel-2); }
+
 @media (max-width: 620px) {
   .home-sura-list { grid-template-columns: minmax(0,1fr); gap: 8px; }
   .home-sura-item { padding: 12px; }
