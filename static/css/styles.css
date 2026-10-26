@@ -1397,3 +1397,7 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
 @media (prefers-reduced-motion: reduce) {
   .storage-action { transition: none !important; }
 }
+
+.recording-archive-actions { display: grid; gap: 8px; margin-top: 8px; }
+.recording-archive-actions [hidden] { display: none !important; }
+.recording-archive-actions .storage-action { overflow-wrap: anywhere; }
