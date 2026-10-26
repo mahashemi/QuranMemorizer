@@ -1095,3 +1095,19 @@ body.reader-active .app { display: grid !important; }
 }
 .aya-recording button[hidden] { display: none !important; }
 .aya-record-status { color: var(--muted); font-size: 11px; }
+
+
+/* Home/reader switch: never leave the homepage covering the reader after entry. */
+body.reader-active .home-page { display: none !important; }
+body:not(.reader-active) .home-page { display: flex; }
+body.reader-active .app { display: grid !important; }
+
+.daily-hadith-content { display: grid; gap: 16px; margin-top: 20px; }
+.daily-hadith-line { padding-top: 12px; border-top: 1px solid var(--border); }
+.daily-hadith-line:first-child { border-top: 0; padding-top: 0; }
+.daily-hadith-language { color: var(--accent); font-size: 10px; font-weight: 750; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+.daily-hadith-text { margin: 0; font-size: 15px; line-height: 1.9; overflow-wrap: anywhere; }
+.hadith-arabic .daily-hadith-text { font-size: clamp(23px, 4vw, 31px); line-height: 2; text-align: right; }
+.hadith-urdu .daily-hadith-text { font-family: 'Noto Nastaliq Urdu', serif; font-size: 18px; line-height: 2.3; }
+.hadith-persian .daily-hadith-text { font-family: 'Vazirmatn', sans-serif; font-size: 16px; line-height: 2; text-align: right; }
+.hadith-source-link { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
