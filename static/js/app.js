@@ -1,5 +1,6 @@
 (function () {
 'use strict';
+const APP_SCRIPT_URL = document.currentScript && document.currentScript.src;
 
 /* ==================================================================
    1. RECITERS
@@ -560,7 +561,7 @@ async function getNativeRecordingStorage() {
       const capacitor = window.Capacitor;
       if (!capacitor || typeof capacitor.isNativePlatform !== 'function' || !capacitor.isNativePlatform()) return null;
       try {
-        await import('./native-storage-adapter.js');
+        await import(APP_SCRIPT_URL ? new URL('./native-storage-adapter.js', APP_SCRIPT_URL).href : './static/js/native-storage-adapter.js');
         const adapter = window.QuranMemorizerNativeStorage;
         return adapter && adapter.available ? adapter : null;
       } catch (error) {
