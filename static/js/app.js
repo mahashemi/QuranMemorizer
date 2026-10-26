@@ -526,7 +526,7 @@ let activeRecordingObjectUrl = null;
 let recordingAudioContext = null;
 let recordingAnalyser = null;
 let recordingWaveFrame = null;
-let recordingStorageMode = 'browser'; // native | folder | folder-needs-permission | browser
+let recordingStorageMode = 'needs-folder-choice'; // native | folder | folder-needs-permission | needs-folder-choice | browser
 let recordingsParentHandle = null;
 let recordingStorageReadyPromise = null;
 let nativeRecordingStoragePromise = null;
@@ -803,7 +803,7 @@ async function initializeRecordingStorage() {
   try {
     recordingsParentHandle = await getRecordingFolderSetting();
     if (!recordingsParentHandle) {
-      recordingStorageMode = 'browser';
+      recordingStorageMode = 'needs-folder-choice';
     } else {
       const permission = await recordingsParentHandle.queryPermission({ mode: 'readwrite' });
       if (permission === 'granted') {
@@ -852,9 +852,13 @@ function updateRecordingStorageUI() {
     status.textContent = 'The previously selected folder needs permission again. Reconnect it to access those recordings; they remain on disk.';
     if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Reconnect recordings folder'; }
     if (browserButton) { browserButton.hidden = false; browserButton.textContent = 'Use browser-local storage instead'; }
-  } else {
-    status.textContent = 'Saved locally in this browser by default. Connect a folder to keep ordinary audio files that you can reuse from another browser.';
+  } else if (recordingStorageMode === 'needs-folder-choice') {
+    status.textContent = 'Portable audio files are preferred here. Choose the parent folder where QuranMemorizer can create its own recordings folder, or explicitly use browser-local storage.';
     if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Choose recordings folder'; }
+    if (browserButton) { browserButton.hidden = false; browserButton.textContent = 'Use browser-local storage instead'; }
+  } else {
+    status.textContent = 'Saved locally in this browser. This browser does not offer direct folder access; recordings remain isolated to this browser.';
+    if (connectButton) connectButton.hidden = true;
     if (browserButton) browserButton.hidden = true;
   }
 }
@@ -942,6 +946,9 @@ async function saveUserRecording(sura, aya, blob) {
   if (native) return native.write(sura, aya, blob);
   if (recordingStorageMode === 'folder-needs-permission') {
     throw new Error('Reconnect your recordings folder in Settings before recording.');
+  }
+  if (recordingStorageMode === 'needs-folder-choice') {
+    throw new Error('Choose a recordings folder or browser-local storage in Settings before recording.');
   }
   if (recordingStorageMode === 'folder') return writeFolderRecording(sura, aya, blob);
   return saveBrowserRecording(sura, aya, blob);
@@ -1044,6 +1051,11 @@ async function startUserRecording(sura, aya, button) {
     if (recordingStorageMode === 'folder-needs-permission') {
       openSettings();
       toast('Reconnect the recordings folder in Settings before recording.');
+      return;
+    }
+    if (recordingStorageMode === 'needs-folder-choice') {
+      openSettings();
+      toast('Choose a recordings folder or explicitly select browser-local storage in Settings first.');
       return;
     }
   } catch (storageError) {
