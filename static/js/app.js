@@ -731,7 +731,7 @@ async function startUserRecording(sura, aya, button) {
     const recordingCard = button.closest('.aya-recording');
     if (recordingCard) recordingCard.classList.add('is-recording');
     const status = button.parentElement.querySelector('[data-record-status]');
-    if (status) status.textContent = 'Recording now — start reciting. Tap Stop recording when finished.';
+    if (status) status.textContent = ''; // The recording dot and live waveform provide the active-state cue.
   } catch (error) {
     setRecordingPlaybackLock(false);
     stopRecordingWaveform();
