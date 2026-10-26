@@ -35,4 +35,6 @@ writeFileSync(indexPath, indexHtml.replace(
   '<script src="capacitor.js"></script>\n' + appScript
 ));
 
+rmSync(resolve(output, 'static/js/native-storage-adapter.mjs'), { force: true });
+
 console.log('Built QuranMemorizer web assets into ./www with native app-private recording support.');
