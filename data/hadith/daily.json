@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "selectionPolicy": "Rotate deterministically by calendar date; all entries are attributed to Shia sources in the Imam Ali (a) sayings section of Nahj al-Balagha.",
+  "sourceCollection": {
+    "title": "Nahj al-Balagha — Sayings of Imam Ali (a)",
+    "url": "https://al-islam.org/nahjul-balagha-part-2-letters-and-sayings/selections-sayings-and-preaching-amir-al-muminin-ali",
+    "note": "English meanings are concise translations of the cited sayings; Urdu and Persian are translations of those meanings."
+  },
+  "hadiths": [
+    {
+      "id": "nahj-saying-38",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 38",
+      "arabic": "إِنَّ أَغْنَى الْغِنَى الْعَقْلُ، وَأَكْبَرَ الْفَقْرِ الْحُمْقُ، وَأَوْحَشَ الْوَحْشَةِ الْعُجْبُ، وَأَكْرَمَ الْحَسَبِ حُسْنُ الْخُلُقِ",
+      "translations": {
+        "en": "The greatest wealth is intellect; the greatest poverty is foolishness; the loneliest isolation is conceit; and the noblest distinction is good character.",
+        "ur": "سب سے بڑی دولت عقل ہے، سب سے بڑی محتاجی حماقت، سب سے زیادہ وحشت خود پسندی، اور سب سے بڑا شرف حسنِ اخلاق ہے۔",
+        "fa": "بزرگ‌ترین ثروت خرد است؛ بزرگ‌ترین فقر نادانی؛ تنهاترین وحشت خودپسندی؛ و گرامی‌ترین بزرگی خوش‌اخلاقی است۔"
+      }
+    },
+    {
+      "id": "nahj-saying-71",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 71",
+      "arabic": "إِذَا تَمَّ الْعَقْلُ نَقَصَ الْكَلَامُ",
+      "translations": {
+        "en": "When intellect reaches maturity, speech becomes less.",
+        "ur": "جب عقل کامل ہو جاتی ہے تو گفتگو کم ہو جاتی ہے۔",
+        "fa": "هرگاه خرد به کمال برسد، سخن گفتن کمتر می‌شود۔"
+      }
+    },
+    {
+      "id": "nahj-saying-73",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 73",
+      "arabic": "مَنْ نَصَبَ نَفْسَهُ لِلنَّاسِ إِمَامًا فَعَلَيْهِ أَنْ يَبْدَأَ بِتَعْلِيمِ نَفْسِهِ قَبْلَ تَعْلِيمِ غَيْرِهِ",
+      "translations": {
+        "en": "Whoever sets himself up as a guide for people must begin by teaching himself before teaching others.",
+        "ur": "جو شخص لوگوں کا رہنما بنے، اسے دوسروں کو سکھانے سے پہلے خود کو سکھانا چاہیے۔",
+        "fa": "هر کس خود را راهنمای مردم قرار می‌دهد، باید پیش از آموزش دیگران، از آموزش خویش آغاز کند۔"
+      }
+    },
+    {
+      "id": "nahj-saying-81",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 81",
+      "arabic": "قِيمَةُ كُلِّ امْرِئٍ مَا يُحْسِنُهُ",
+      "translations": {
+        "en": "A person’s worth is measured by what they do well.",
+        "ur": "ہر انسان کی قدر و قیمت اس کے اچھے علم اور عمل سے ہے۔",
+        "fa": "ارزش هر انسان به اندازهٔ دانایی و توانایی نیک اوست۔"
+      }
+    },
+    {
+      "id": "nahj-saying-208",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 208",
+      "arabic": "مَنْ حَاسَبَ نَفْسَهُ رَبِحَ، وَمَنْ غَفَلَ عَنْهَا خَسِرَ",
+      "translations": {
+        "en": "Whoever holds himself to account gains; whoever neglects himself loses.",
+        "ur": "جو اپنا محاسبہ کرتا ہے وہ فائدہ پاتا ہے، اور جو غفلت کرتا ہے وہ نقصان اٹھاتا ہے۔",
+        "fa": "هر کس از خود حساب‌کشی کند سود می‌برد، و هر کس از آن غافل شود زیان می‌کند۔"
+      }
+    },
+    {
+      "id": "nahj-saying-366",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 366",
+      "arabic": "الْعِلْمُ مَقْرُونٌ بِالْعَمَلِ، فَمَنْ عَلِمَ عَمِلَ",
+      "translations": {
+        "en": "Knowledge is joined to action: whoever truly knows, acts.",
+        "ur": "علم عمل کے ساتھ وابستہ ہے؛ جو جانتا ہے وہ عمل کرتا ہے۔",
+        "fa": "دانش با عمل همراه است؛ پس هر کس بداند، عمل می‌کند۔"
+      }
+    },
+    {
+      "id": "nahj-saying-438",
+      "imam": "Imam Ali ibn Abi Talib (a)",
+      "reference": "Nahj al-Balagha, Saying 438",
+      "arabic": "النَّاسُ أَعْدَاءُ مَا جَهِلُوا",
+      "translations": {
+        "en": "People are often hostile toward what they do not understand.",
+        "ur": "لوگ اکثر اس چیز کے دشمن ہوتے ہیں جسے وہ نہیں جانتے۔",
+        "fa": "مردم غالباً با آنچه نمی‌شناسند دشمنی می‌کنند۔"
+      }
+    }
+  ]
+}
