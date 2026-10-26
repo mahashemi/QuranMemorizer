@@ -335,7 +335,7 @@
     if (oldSource) {
       oldSource.textContent = hadith.imam + ' · ' + hadith.reference;
       const sourceLink = document.createElement('a');
-      sourceLink.href = data.sourceCollection.url;
+      sourceLink.href = hadith.sourceUrl || data.sourceCollection.url;
       sourceLink.target = '_blank';
       sourceLink.rel = 'noopener noreferrer';
       sourceLink.textContent = 'Read source';
