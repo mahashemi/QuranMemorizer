@@ -824,7 +824,13 @@ async function initializeRecordingStorage() {
       if (permission === 'granted') {
         recordingStorageMode = 'folder';
         await getConnectedRecordingDirectories(true);
-        await migrateBrowserRecordingsToFolder();
+        try {
+          await migrateBrowserRecordingsToFolder();
+        } catch (migrationError) {
+          // The connected folder remains usable even if old browser data could
+          // not be copied (for example, because IndexedDB is unavailable).
+          console.warn('Browser recording migration was skipped.', migrationError);
+        }
       } else {
         recordingStorageMode = 'folder-needs-permission';
       }
