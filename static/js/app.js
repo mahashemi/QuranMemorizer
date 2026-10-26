@@ -56,6 +56,7 @@ const el = {
   sidebar: $('sidebar'),
   sidebarBody: $('sidebarBody'),
   suraList: $('suraList'), suraSearch: $('suraSearch'),
+  homeSuraList: $('homeSuraList'), homeSuraSearch: $('homeSuraSearch'), homeSuraEmpty: $('homeSuraEmpty'),
   ayaList: $('ayaList'), ayaColHead: $('ayaColHead'),
 
   reader: $('reader'),
@@ -239,6 +240,28 @@ function buildSuras(raw) {
   }).filter(Boolean).sort((a, b) => a.number - b.number);
   SURA_BY_NUM = {};
   SURAS.forEach(s => { SURA_BY_NUM[s.number] = s; });
+  buildHomeSuraPicker();
+}
+
+function buildHomeSuraPicker() {
+  if (!el.homeSuraList) return;
+  const frag = document.createDocumentFragment();
+  SURAS.forEach(s => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'home-sura-item';
+    item.dataset.sura = s.number;
+    item.dataset.search = (s.number + ' ' + s.englishName + ' ' + s.arabicName).toLowerCase();
+    item.setAttribute('aria-label', 'Open Surah ' + s.number + ', ' + s.englishName);
+    item.innerHTML =
+      '<span class="home-sura-number">' + s.number + '</span>' +
+      '<span class="home-sura-names"><span class="home-sura-english">' + esc(s.englishName) + '</span>' +
+      '<span class="home-sura-meta">' + s.ayas.length + ' ayat</span></span>' +
+      '<span class="home-sura-arabic" dir="rtl" lang="ar">' + esc(s.arabicName) + '</span>' +
+      '<span class="home-sura-arrow" aria-hidden="true">›</span>';
+    frag.appendChild(item);
+  });
+  el.homeSuraList.replaceChildren(frag);
 }
 
 /* ==================================================================
@@ -968,6 +991,31 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 function bindEvents() {
+
+  /* --- homepage Surah picker --- */
+  if (el.homeSuraList) {
+    el.homeSuraList.addEventListener('click', e => {
+      const item = e.target.closest('.home-sura-item');
+      if (!item) return;
+      const num = Number(item.dataset.sura);
+      if (!SURA_BY_NUM[num]) return;
+      document.body.classList.add('reader-active');
+      document.getElementById('homePage').setAttribute('aria-hidden', 'true');
+      loadSura(num, { aya: 1, play: false });
+    });
+  }
+  if (el.homeSuraSearch) {
+    el.homeSuraSearch.addEventListener('input', () => {
+      const q = el.homeSuraSearch.value.trim().toLowerCase();
+      let visible = 0;
+      el.homeSuraList.querySelectorAll('.home-sura-item').forEach(item => {
+        const hit = !q || item.dataset.search.includes(q);
+        item.hidden = !hit;
+        if (hit) visible++;
+      });
+      if (el.homeSuraEmpty) el.homeSuraEmpty.hidden = visible !== 0;
+    });
+  }
 
   /* --- sura column --- */
   el.suraList.addEventListener('click', e => {
