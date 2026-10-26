@@ -508,9 +508,10 @@ function trackUrl(sura, aya) {
   return currentReciter().dir + '/' + pad3(sura) + pad3(aya) + '.mp3';
 }
 
-/* Per-ayah recordings are stored locally in IndexedDB; they never upload. */
+/* Recordings prefer app-private native files or user-authorized folders; IndexedDB remains the web fallback. */
 const RECORDINGS_DB = 'quranMemorizerRecordings';
 const RECORDINGS_STORE = 'ayah-recordings';
+const RECORDING_FOLDER_SETTING = 'recordingsParentFolder';
 let recordingsDbPromise;
 let activeRecorder = null;
 let activeRecordingKey = null;
@@ -521,9 +522,16 @@ let activeRecordingObjectUrl = null;
 let recordingAudioContext = null;
 let recordingAnalyser = null;
 let recordingWaveFrame = null;
+let recordingStorageMode = 'browser'; // native | folder | folder-needs-permission | browser
+let recordingsParentHandle = null;
+let recordingStorageReadyPromise = null;
+let nativeRecordingStoragePromise = null;
+
+const supportsRecordingFolderAccess = () => window.isSecureContext === true
+  && typeof window.showDirectoryPicker === 'function';
 
 function openRecordingsDb() {
-  if (!('indexedDB' in window)) return Promise.reject(new Error('Local recording storage is not supported here.'));
+  if (!('indexedDB' in window)) return Promise.reject(new Error('Browser-local recording storage is not supported here.'));
   if (!recordingsDbPromise) {
     recordingsDbPromise = new Promise((resolve, reject) => {
       const request = indexedDB.open(RECORDINGS_DB, 2);
@@ -532,7 +540,6 @@ function openRecordingsDb() {
         if (!db.objectStoreNames.contains(RECORDINGS_STORE)) {
           db.createObjectStore(RECORDINGS_STORE, { keyPath: 'key' });
         }
-        // Retain schema v2 compatibility with earlier test builds that created this store.
         if (!db.objectStoreNames.contains('settings')) {
           db.createObjectStore('settings', { keyPath: 'key' });
         }
@@ -544,34 +551,378 @@ function openRecordingsDb() {
   return recordingsDbPromise;
 }
 
-async function getUserRecording(sura, aya) {
+async function getNativeRecordingStorage() {
+  if (!nativeRecordingStoragePromise) {
+    nativeRecordingStoragePromise = (async () => {
+      const capacitor = window.Capacitor;
+      if (!capacitor || typeof capacitor.isNativePlatform !== 'function' || !capacitor.isNativePlatform()) return null;
+      try {
+        await import('./native-storage-adapter.js');
+        const adapter = window.QuranMemorizerNativeStorage;
+        return adapter && adapter.available ? adapter : null;
+      } catch (error) {
+        console.error('Native recording storage adapter could not be loaded.', error);
+        return null;
+      }
+    })();
+  }
+  return nativeRecordingStoragePromise;
+}
+
+async function getRecordingFolderSetting() {
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readonly')
-      .objectStore(RECORDINGS_STORE).get(sura + ':' + aya);
-    request.onsuccess = () => resolve(request.result || null);
+    const request = db.transaction('settings', 'readonly').objectStore('settings').get(RECORDING_FOLDER_SETTING);
+    request.onsuccess = () => resolve(request.result && request.result.handle ? request.result.handle : null);
+    request.onerror = () => reject(request.error || new Error('Could not read recordings-folder settings.'));
+  });
+}
+
+async function saveRecordingFolderSetting(handle) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const store = db.transaction('settings', 'readwrite').objectStore('settings');
+    const request = handle
+      ? store.put({ key: RECORDING_FOLDER_SETTING, handle: handle })
+      : store.delete(RECORDING_FOLDER_SETTING);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error || new Error('Could not save recordings-folder settings.'));
+  });
+}
+
+async function getBrowserRecording(sura, aya) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).get(sura + ':' + aya);
+    request.onsuccess = () => {
+      const record = request.result || null;
+      if (record) record.storage = 'browser';
+      resolve(record);
+    };
     request.onerror = () => reject(request.error || new Error('Could not read recording.'));
   });
 }
 
-async function saveUserRecording(sura, aya, blob) {
+async function getAllBrowserRecordings() {
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now() };
+    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).getAll();
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error || new Error('Could not list local recordings.'));
+  });
+}
+
+async function saveBrowserRecording(sura, aya, blob) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
     request.onsuccess = () => resolve(record);
     request.onerror = () => reject(request.error || new Error('Could not save recording.'));
   });
 }
 
-async function deleteUserRecording(sura, aya) {
+async function deleteBrowserRecording(sura, aya) {
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readwrite')
-      .objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
+    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
     request.onsuccess = () => resolve();
     request.onerror = () => reject(request.error || new Error('Could not delete recording.'));
   });
+}
+
+function isNotFoundError(error) {
+  return !!error && (error.name === 'NotFoundError' || /not found|does not exist/i.test(String(error.message || error)));
+}
+
+function recordingExtension(mimeType) {
+  const type = String(mimeType || '').toLowerCase();
+  if (type.includes('mp4') || type.includes('m4a')) return 'm4a';
+  if (type.includes('ogg')) return 'ogg';
+  if (type.includes('wav')) return 'wav';
+  if (type.includes('aac')) return 'aac';
+  return 'webm';
+}
+
+function recordingExtensions() {
+  return ['webm', 'm4a', 'mp4', 'ogg', 'wav', 'aac'];
+}
+
+function recordingSuraFolderName(sura) {
+  const name = SURA_ENGLISH[sura - 1] || ('Surah ' + sura);
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return 'surah-' + pad3(sura) + '-' + (slug || 'unknown');
+}
+
+async function getConnectedRecordingDirectories(create) {
+  if (!recordingsParentHandle) throw new Error('Reconnect your recordings folder in Settings before using your saved files.');
+  let permission = await recordingsParentHandle.queryPermission({ mode: 'readwrite' });
+  if (permission !== 'granted') {
+    throw new Error('Permission to your recordings folder has expired. Reconnect it in Settings.');
+  }
+  const appDirectory = await recordingsParentHandle.getDirectoryHandle('QuranMemorizer', { create: create !== false });
+  const recordingsDirectory = await appDirectory.getDirectoryHandle('recordings', { create: create !== false });
+  return { appDirectory, recordingsDirectory };
+}
+
+async function getFolderRecording(sura, aya) {
+  const dirs = await getConnectedRecordingDirectories(false);
+  let suraDirectory;
+  try {
+    suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+  } catch (error) {
+    if (isNotFoundError(error)) return null;
+    throw error;
+  }
+  for (const ext of recordingExtensions()) {
+    const fileName = 'ayah-' + pad3(aya) + '.' + ext;
+    try {
+      const handle = await suraDirectory.getFileHandle(fileName, { create: false });
+      const file = await handle.getFile();
+      return {
+        key: sura + ':' + aya, sura, aya, blob: file, mimeType: file.type || 'audio/' + ext,
+        fileName, updatedAt: file.lastModified, storage: 'folder'
+      };
+    } catch (error) {
+      if (!isNotFoundError(error)) throw error;
+    }
+  }
+  return null;
+}
+
+async function writeFolderRecording(sura, aya, blob) {
+  const dirs = await getConnectedRecordingDirectories(true);
+  const suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: true });
+  const ext = recordingExtension(blob.type);
+  const fileName = 'ayah-' + pad3(aya) + '.' + ext;
+  const fileHandle = await suraDirectory.getFileHandle(fileName, { create: true });
+  const writable = await fileHandle.createWritable();
+  await writable.write(blob);
+  await writable.close();
+  for (const oldExt of recordingExtensions()) {
+    if (oldExt === ext) continue;
+    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
+    catch (error) { if (!isNotFoundError(error)) throw error; }
+  }
+  await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
+  return {
+    key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/' + ext,
+    fileName, updatedAt: Date.now(), storage: 'folder'
+  };
+}
+
+async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mimeType, size) {
+  const manifestName = 'manifest.json';
+  let manifest = { schemaVersion: 1, app: 'QuranMemorizer', updatedAt: Date.now(), recordings: [] };
+  try {
+    const handle = await recordingsDirectory.getFileHandle(manifestName, { create: false });
+    manifest = JSON.parse(await (await handle.getFile()).text());
+    if (!Array.isArray(manifest.recordings)) manifest.recordings = [];
+  } catch (error) {
+    if (!isNotFoundError(error)) throw error;
+  }
+  const key = sura + ':' + aya;
+  manifest.recordings = manifest.recordings.filter(item => item.key !== key);
+  manifest.recordings.push({ key, sura, aya, fileName, folder: recordingSuraFolderName(sura), mimeType, size, updatedAt: Date.now() });
+  manifest.updatedAt = Date.now();
+  const manifestHandle = await recordingsDirectory.getFileHandle(manifestName, { create: true });
+  const writable = await manifestHandle.createWritable();
+  await writable.write(JSON.stringify(manifest, null, 2));
+  await writable.close();
+}
+
+async function removeFolderRecording(sura, aya) {
+  const dirs = await getConnectedRecordingDirectories(false);
+  let suraDirectory;
+  try {
+    suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+  } catch (error) {
+    if (isNotFoundError(error)) return;
+    throw error;
+  }
+  for (const ext of recordingExtensions()) {
+    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + ext); }
+    catch (error) { if (!isNotFoundError(error)) throw error; }
+  }
+  try {
+    const handle = await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: false });
+    const manifest = JSON.parse(await (await handle.getFile()).text());
+    if (Array.isArray(manifest.recordings)) {
+      manifest.recordings = manifest.recordings.filter(item => item.key !== sura + ':' + aya);
+      manifest.updatedAt = Date.now();
+      const writable = await (await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: true })).createWritable();
+      await writable.write(JSON.stringify(manifest, null, 2));
+      await writable.close();
+    }
+  } catch (error) {
+    if (!isNotFoundError(error)) throw error;
+  }
+}
+
+async function migrateBrowserRecordingsToFolder() {
+  if (recordingStorageMode !== 'folder') return 0;
+  const records = await getAllBrowserRecordings();
+  let copied = 0;
+  for (const record of records) {
+    if (!record || !record.blob || !record.sura || !record.aya) continue;
+    const existing = await getFolderRecording(record.sura, record.aya);
+    if (!existing) {
+      await writeFolderRecording(record.sura, record.aya, record.blob);
+      copied++;
+    }
+  }
+  return copied;
+}
+
+async function initializeRecordingStorage() {
+  const native = await getNativeRecordingStorage();
+  if (native) {
+    recordingStorageMode = 'native';
+    updateRecordingStorageUI();
+    return;
+  }
+  if (!supportsRecordingFolderAccess()) {
+    recordingStorageMode = 'browser';
+    updateRecordingStorageUI();
+    return;
+  }
+  try {
+    recordingsParentHandle = await getRecordingFolderSetting();
+    if (!recordingsParentHandle) {
+      recordingStorageMode = 'browser';
+    } else {
+      const permission = await recordingsParentHandle.queryPermission({ mode: 'readwrite' });
+      if (permission === 'granted') {
+        recordingStorageMode = 'folder';
+        await getConnectedRecordingDirectories(true);
+        await migrateBrowserRecordingsToFolder();
+      } else {
+        recordingStorageMode = 'folder-needs-permission';
+      }
+    }
+  } catch (error) {
+    console.warn('Could not restore recordings-folder access.', error);
+    recordingStorageMode = recordingsParentHandle ? 'folder-needs-permission' : 'browser';
+  }
+  updateRecordingStorageUI();
+}
+
+function ensureRecordingStorageInitialized() {
+  if (!recordingStorageReadyPromise) recordingStorageReadyPromise = initializeRecordingStorage();
+  return recordingStorageReadyPromise;
+}
+
+function updateRecordingStorageUI() {
+  const status = el.recordingStorageStatus;
+  const connectButton = el.btnConnectRecordingFolder;
+  const browserButton = el.btnUseBrowserStorage;
+  if (!status) return;
+  const folderSupported = supportsRecordingFolderAccess();
+  if (recordingStorageMode === 'native') {
+    status.textContent = 'Saved as audio files in this app’s private storage. No folder selection or cloud account is needed.';
+    if (connectButton) connectButton.hidden = true;
+    if (browserButton) browserButton.hidden = true;
+    return;
+  }
+  if (!folderSupported) {
+    status.textContent = 'Saved locally in this browser. This browser does not offer direct folder access here; recordings are not automatically shared with other browsers.';
+    if (connectButton) connectButton.hidden = true;
+    if (browserButton) browserButton.hidden = true;
+    return;
+  }
+  if (recordingStorageMode === 'folder') {
+    status.textContent = 'Portable files are saved in the selected folder under QuranMemorizer/recordings/. Other browsers can use them after you connect that same folder.';
+    if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Change recordings folder'; }
+    if (browserButton) { browserButton.hidden = false; browserButton.textContent = 'Use browser-local storage instead'; }
+  } else if (recordingStorageMode === 'folder-needs-permission') {
+    status.textContent = 'The previously selected folder needs permission again. Reconnect it to access those recordings; they remain on disk.';
+    if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Reconnect recordings folder'; }
+    if (browserButton) { browserButton.hidden = false; browserButton.textContent = 'Use browser-local storage instead'; }
+  } else {
+    status.textContent = 'Saved locally in this browser by default. Connect a folder to keep ordinary audio files that you can reuse from another browser.';
+    if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Choose recordings folder'; }
+    if (browserButton) browserButton.hidden = true;
+  }
+}
+
+async function connectRecordingFolder() {
+  if (!supportsRecordingFolderAccess()) {
+    toast('Direct folder access is not supported by this browser.');
+    return;
+  }
+  try {
+    const parent = await window.showDirectoryPicker({
+      id: 'quranmemorizer-recordings',
+      mode: 'readwrite',
+      startIn: 'documents'
+    });
+    let permission = await parent.queryPermission({ mode: 'readwrite' });
+    if (permission !== 'granted') permission = await parent.requestPermission({ mode: 'readwrite' });
+    if (permission !== 'granted') throw new Error('Folder permission was not granted.');
+    recordingsParentHandle = parent;
+    await saveRecordingFolderSetting(parent);
+    recordingStorageMode = 'folder';
+    await getConnectedRecordingDirectories(true);
+    const copied = await migrateBrowserRecordingsToFolder();
+    updateRecordingStorageUI();
+    refreshRecordingControls(state.sura);
+    toast(copied ? 'Folder connected. ' + copied + ' browser recording(s) copied to files.' : 'Recordings folder connected.');
+  } catch (error) {
+    if (error && error.name === 'AbortError') return;
+    toast('Could not connect recordings folder: ' + (error.message || 'permission unavailable'));
+  }
+}
+
+async function useBrowserRecordingStorage() {
+  try {
+    await saveRecordingFolderSetting(null);
+    recordingsParentHandle = null;
+    recordingStorageMode = 'browser';
+    updateRecordingStorageUI();
+    refreshRecordingControls(state.sura);
+    toast('Browser-local storage enabled. Files in the disconnected folder are left untouched.');
+  } catch (error) {
+    toast('Could not change recording storage: ' + (error.message || 'unknown error'));
+  }
+}
+
+async function getUserRecording(sura, aya) {
+  await ensureRecordingStorageInitialized();
+  const native = await getNativeRecordingStorage();
+  if (native) {
+    const record = await native.read(sura, aya);
+    if (record) return record;
+  }
+  if (recordingStorageMode === 'folder-needs-permission') {
+    throw new Error('Reconnect your recordings folder in Settings to access saved files.');
+  }
+  if (recordingStorageMode === 'folder') {
+    const record = await getFolderRecording(sura, aya);
+    if (record) return record;
+  }
+  return getBrowserRecording(sura, aya);
+}
+
+async function saveUserRecording(sura, aya, blob) {
+  await ensureRecordingStorageInitialized();
+  const native = await getNativeRecordingStorage();
+  if (native) return native.write(sura, aya, blob);
+  if (recordingStorageMode === 'folder-needs-permission') {
+    throw new Error('Reconnect your recordings folder in Settings before recording.');
+  }
+  if (recordingStorageMode === 'folder') return writeFolderRecording(sura, aya, blob);
+  return saveBrowserRecording(sura, aya, blob);
+}
+
+async function deleteUserRecording(sura, aya) {
+  await ensureRecordingStorageInitialized();
+  const native = await getNativeRecordingStorage();
+  if (native) await native.remove(sura, aya);
+  if (recordingStorageMode === 'folder-needs-permission') {
+    throw new Error('Reconnect your recordings folder in Settings before deleting a recording.');
+  }
+  if (recordingStorageMode === 'folder') await removeFolderRecording(sura, aya);
+  await deleteBrowserRecording(sura, aya);
 }
 
 function refreshRecordingControls(sura) {
