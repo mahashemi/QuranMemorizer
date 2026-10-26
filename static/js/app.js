@@ -870,8 +870,8 @@ function updateRecordingStorageUI() {
     if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Choose recordings folder'; }
     if (browserButton) { browserButton.hidden = false; browserButton.textContent = 'Use browser-local storage instead'; }
   } else {
-    status.textContent = 'Saved locally in this browser. This browser does not offer direct folder access; recordings remain isolated to this browser.';
-    if (connectButton) connectButton.hidden = true;
+    status.textContent = 'Saved locally in this browser because browser-local mode was selected. You can switch back to portable audio files at any time.';
+    if (connectButton) { connectButton.hidden = false; connectButton.textContent = 'Choose recordings folder'; }
     if (browserButton) browserButton.hidden = true;
   }
 }
