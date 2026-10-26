@@ -99,7 +99,7 @@ const el = {
   recordingArchiveInput: $('recordingArchiveInput'),
   btnExportRecordings: $('btnExportRecordings'),
   btnImportRecordings: $('btnImportRecordings'),
-  inputImportRecordings: $('inputImportRecordings')
+  inputImportRecordings: $('recordingArchiveInput')
 };
 
 /* Repeat block element refs — populated after injecting the template */
