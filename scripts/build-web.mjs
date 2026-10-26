@@ -6,6 +6,7 @@ const output = resolve(root, 'www');
 
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
+mkdirSync(resolve(output, 'data'), { recursive: true });
 
 for (const path of ['index.html', 'static', 'data/quran']) {
   cpSync(resolve(root, path), resolve(output, path), { recursive: true });
