@@ -93,6 +93,10 @@ const el = {
   recordingStorageStatus: $('recordingStorageStatus'),
   btnConnectRecordingFolder: $('btnConnectRecordingFolder'),
   btnUseBrowserStorage: $('btnUseBrowserStorage'),
+  recordingArchiveActions: $('recordingArchiveActions'),
+  btnExportRecordings: $('btnExportRecordings'),
+  btnImportRecordings: $('btnImportRecordings'),
+  recordingArchiveInput: $('recordingArchiveInput'),
   btnExportRecordings: $('btnExportRecordings'),
   btnImportRecordings: $('btnImportRecordings'),
   inputImportRecordings: $('inputImportRecordings')
@@ -841,6 +845,10 @@ function updateRecordingStorageUI() {
   const status = el.recordingStorageStatus;
   const connectButton = el.btnConnectRecordingFolder;
   const browserButton = el.btnUseBrowserStorage;
+  const archiveActions = el.recordingArchiveActions;
+  if (archiveActions) archiveActions.hidden = recordingStorageMode === 'native' || recordingStorageMode === 'native-fallback';
+  if (el.btnImportRecordings) el.btnImportRecordings.disabled = recordingStorageMode === 'folder-needs-permission' || recordingStorageMode === 'needs-folder-choice';
+  if (el.btnExportRecordings) el.btnExportRecordings.disabled = recordingStorageMode === 'folder-needs-permission';
   if (!status) return;
   const folderSupported = supportsRecordingFolderAccess();
   if (recordingStorageMode === 'native') {
@@ -1168,6 +1176,165 @@ async function deleteUserRecording(sura, aya) {
   }
   if (recordingStorageMode === 'folder') await removeFolderRecording(sura, aya);
   await deleteBrowserRecording(sura, aya);
+}
+
+async function getRecordingArchiveModule() {
+  return import(APP_SCRIPT_URL
+    ? new URL('./recording-archive.mjs', APP_SCRIPT_URL).href
+    : './static/js/recording-archive.mjs');
+}
+
+function recordingArchivePath(sura, aya, mimeType) {
+  const ext = recordingExtension(mimeType);
+  return 'recordings/' + recordingSuraFolderName(sura) + '/ayah-' + pad3(aya) + '.' + ext;
+}
+
+async function collectFolderRecordingsForArchive() {
+  if (recordingStorageMode !== 'folder') return [];
+  const dirs = await getConnectedRecordingDirectories(false);
+  let manifest;
+  try {
+    const handle = await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: false });
+    manifest = JSON.parse(await (await handle.getFile()).text());
+  } catch (error) {
+    if (isNotFoundError(error)) return [];
+    throw error;
+  }
+  const items = Array.isArray(manifest.recordings) ? manifest.recordings : [];
+  const records = [];
+  const seen = new Set();
+  for (const item of items) {
+    const sura = Number(item && item.sura);
+    const aya = Number(item && item.aya);
+    if (!Number.isInteger(sura) || !Number.isInteger(aya) || sura < 1 || sura > 114 || aya < 1) continue;
+    const key = sura + ':' + aya;
+    if (seen.has(key)) continue;
+    const record = await getFolderRecording(sura, aya);
+    if (record && record.blob) {
+      records.push(record);
+      seen.add(key);
+    }
+  }
+  return records;
+}
+
+async function collectRecordingsForArchive() {
+  await ensureRecordingStorageInitialized();
+  if (recordingStorageMode === 'folder-needs-permission') {
+    throw new Error('Reconnect the recordings folder in Settings before exporting.');
+  }
+  const records = [];
+  const seen = new Set();
+  if (recordingStorageMode === 'folder') {
+    const folderRecords = await collectFolderRecordingsForArchive();
+    for (const record of folderRecords) {
+      records.push(record);
+      seen.add(record.key || (record.sura + ':' + record.aya));
+    }
+  }
+  // Include any legacy browser-local takes that have not yet been migrated.
+  if (recordingStorageMode !== 'native') {
+    const localRecords = await getAllBrowserRecordings();
+    for (const record of localRecords) {
+      if (!record || !record.blob) continue;
+      const key = record.key || (record.sura + ':' + record.aya);
+      if (seen.has(key)) continue;
+      records.push(record);
+      seen.add(key);
+    }
+  }
+  return records.filter(record => record && record.blob && Number.isInteger(Number(record.sura)) && Number.isInteger(Number(record.aya)));
+}
+
+async function exportRecordingsArchive() {
+  try {
+    const records = await collectRecordingsForArchive();
+    if (!records.length) {
+      toast('There are no saved recordings to export yet.');
+      return;
+    }
+    const { createZip } = await getRecordingArchiveModule();
+    const manifest = {
+      schemaVersion: 1,
+      app: 'QuranMemorizer',
+      exportedAt: new Date().toISOString(),
+      recordings: []
+    };
+    const entries = [];
+    for (const record of records) {
+      const sura = Number(record.sura);
+      const aya = Number(record.aya);
+      const mimeType = record.mimeType || record.blob.type || 'audio/webm';
+      const name = recordingArchivePath(sura, aya, mimeType);
+      entries.push({ name, data: record.blob });
+      manifest.recordings.push({
+        key: sura + ':' + aya, sura, aya, fileName: name.split('/').pop(),
+        folder: recordingSuraFolderName(sura), mimeType, size: record.blob.size,
+        updatedAt: record.updatedAt || Date.now()
+      });
+    }
+    entries.push({ name: 'manifest.json', data: JSON.stringify(manifest, null, 2) });
+    const zip = await createZip(entries);
+    const url = URL.createObjectURL(zip);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'QuranMemorizer-recordings-' + new Date().toISOString().slice(0, 10) + '.zip';
+    link.hidden = true;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    toast('Exported ' + records.length + ' recording(s) as a ZIP archive.');
+  } catch (error) {
+    toast('Could not export recordings: ' + (error.message || 'unknown error'));
+  }
+}
+
+async function importRecordingsArchive(file) {
+  if (!file) return;
+  try {
+    await ensureRecordingStorageInitialized();
+    if (recordingStorageMode === 'folder-needs-permission') {
+      throw new Error('Reconnect the recordings folder in Settings before importing.');
+    }
+    if (recordingStorageMode === 'needs-folder-choice') {
+      throw new Error('Choose a recordings folder or explicitly select browser-local storage in Settings first.');
+    }
+    const { readZip } = await getRecordingArchiveModule();
+    const entries = await readZip(file);
+    const audioPath = /^recordings\/surah-(\d{3})-[^/]+\/ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const seen = new Set();
+    let imported = 0;
+    let ignored = 0;
+    for (const entry of entries) {
+      const match = entry.name.match(audioPath);
+      if (!match) { ignored++; continue; }
+      const sura = Number(match[1]);
+      const aya = Number(match[2]);
+      const ext = match[3].toLowerCase();
+      const suraData = SURA_BY_NUM[sura];
+      if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayas.length) {
+        ignored++;
+        continue;
+      }
+      const key = sura + ':' + aya;
+      if (seen.has(key)) { ignored++; continue; }
+      seen.add(key);
+      const blob = new Blob([entry.blob], { type: recordingMimeForExtension(ext) });
+      await saveUserRecording(sura, aya, blob);
+      imported++;
+    }
+    if (!imported) {
+      toast('No valid ayah audio files were found in this ZIP archive.');
+      return;
+    }
+    refreshRecordingControls(state.sura);
+    toast('Imported ' + imported + ' recording(s)' + (ignored ? '; skipped ' + ignored + ' unrelated or duplicate file(s).' : '.'));
+  } catch (error) {
+    toast('Could not import recordings: ' + (error.message || 'unknown error'));
+  } finally {
+    if (el.recordingArchiveInput) el.recordingArchiveInput.value = '';
+  }
 }
 
 function refreshRecordingControls(sura) {
@@ -1911,6 +2078,11 @@ function bindEvents() {
   el.sheetDone.addEventListener('click', closeSettings);
   if (el.btnConnectRecordingFolder) el.btnConnectRecordingFolder.addEventListener('click', connectRecordingFolder);
   if (el.btnUseBrowserStorage) el.btnUseBrowserStorage.addEventListener('click', useBrowserRecordingStorage);
+  if (el.btnExportRecordings) el.btnExportRecordings.addEventListener('click', exportRecordingsArchive);
+  if (el.btnImportRecordings && el.recordingArchiveInput) {
+    el.btnImportRecordings.addEventListener('click', () => el.recordingArchiveInput.click());
+    el.recordingArchiveInput.addEventListener('change', () => importRecordingsArchive(el.recordingArchiveInput.files && el.recordingArchiveInput.files[0]));
+  }
   if (el.btnExportRecordings) el.btnExportRecordings.addEventListener('click', exportUserRecordings);
   if (el.btnImportRecordings && el.inputImportRecordings) {
     el.btnImportRecordings.addEventListener('click', () => el.inputImportRecordings.click());
