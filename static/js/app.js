@@ -637,8 +637,12 @@ async function startUserRecording(sura, aya, button) {
       try {
         await saveUserRecording(key.sura, key.aya, blob);
         refreshRecordingControls(key.sura);
-        toast('Your recording was saved privately on this device. Playing it back now.');
-        await playUserRecording(key.sura, key.aya);
+        if (state.sura === key.sura && state.aya === key.aya) {
+          toast('Your recording was saved privately on this device. Playing it back now.');
+          await playUserRecording(key.sura, key.aya);
+        } else {
+          toast('Your recording was saved privately on this device.');
+        }
       } catch (error) {
         toast('Could not save recording: ' + error.message);
       }
