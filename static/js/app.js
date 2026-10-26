@@ -1,0 +1,989 @@
+(function () {
+'use strict';
+
+/* ==================================================================
+   1. RECITERS
+   ================================================================== */
+const RECITERS = [
+  { id: 'minshawi_murattal', name: 'Minshawi Murattal — Mohamed Siddiq El-Minshawi', dir: 'data/audio/minshawi_murattal' }
+];
+
+/* ==================================================================
+   2. SURA ENGLISH NAMES
+   ================================================================== */
+const SURA_ENGLISH = [
+  "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal",
+  "At-Tawbah","Yunus","Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl",
+  "Al-Isra","Al-Kahf","Maryam","Ta-Ha","Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur",
+  "Al-Furqan","Ash-Shu'ara","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum","Luqman","As-Sajdah",
+  "Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir",
+  "Fussilat","Ash-Shura","Az-Zukhruf","Ad-Dukhan","Al-Jathiyah","Al-Ahqaf","Muhammad","Al-Fath",
+  "Al-Hujurat","Qaf","Adh-Dhariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah",
+  "Al-Hadid","Al-Mujadilah","Al-Hashr","Al-Mumtahanah","As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun",
+  "At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij","Nuh","Al-Jinn",
+  "Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","Abasa",
+  "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Inshiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghashiyah",
+  "Al-Fajr","Al-Balad","Ash-Shams","Al-Layl","Ad-Duha","Ash-Sharh","At-Tin","Al-Alaq",
+  "Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-Adiyat","Al-Qari'ah","At-Takathur","Al-Asr","Al-Humazah",
+  "Al-Fil","Quraysh","Al-Ma'un","Al-Kawthar","Al-Kafirun","An-Nasr","Al-Masad","Al-Ikhlas",
+  "Al-Falaq","An-Nas"
+];
+
+/* ==================================================================
+   3. HELPERS
+   ================================================================== */
+const $ = id => document.getElementById(id);
+const pad3 = n => String(n).padStart(3, '0');
+const esc = s => String(s == null ? '' : s)
+  .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const fmtTime = t => {
+  if (!isFinite(t) || t < 0) t = 0;
+  const m = Math.floor(t / 60), s = Math.floor(t % 60);
+  return m + ':' + String(s).padStart(2, '0');
+};
+const clampInt = (v, lo, hi) => {
+  let n = parseInt(v, 10);
+  if (isNaN(n)) n = lo;
+  return Math.max(lo, Math.min(hi, n));
+};
+const isMobile = () => window.matchMedia('(max-width: 900px)').matches
+  && !window.matchMedia('(max-width: 900px) and (orientation: landscape) and (max-height: 520px)').matches;
+
+/* ==================================================================
+   4. DOM REFS (elements below are filled after we inject the repeat block)
+   ================================================================== */
+const el = {
+  sidebar: $('sidebar'),
+  sidebarBody: $('sidebarBody'),
+  suraList: $('suraList'), suraSearch: $('suraSearch'),
+  ayaList: $('ayaList'), ayaColHead: $('ayaColHead'),
+
+  reader: $('reader'),
+  reciterSelect: $('reciterSelect'), reciterSub: $('reciterSub'),
+  nowPlaying: $('nowPlaying'),
+
+  progress: $('progress'), progressFill: $('progressFill'),
+  curTime: $('curTime'), durTime: $('durTime'),
+  btnPlay: $('btnPlay'), btnPrev: $('btnPrev'), btnNext: $('btnNext'), btnStop: $('btnStop'),
+  iconPlay: $('iconPlay'),
+  btnRepeatSettings: $('btnRepeatSettings'),
+  mobileStatus: $('mobileStatus'),
+
+  mobHdrSura: $('mobHdrSura'), mobHdrSub: $('mobHdrSub'),
+
+  btnOpenDrawer: $('btnOpenDrawer'), btnCloseDrawer: $('btnCloseDrawer'),
+  drawerTabs: $('drawerTabs'), drawerBackdrop: $('drawerBackdrop'),
+
+  settingsSheet: $('settingsSheet'), settingsBackdrop: $('settingsBackdrop'),
+  btnOpenSettings: $('btnOpenSettings'),
+  btnOpenSettingsDesktop: $('btnOpenSettingsDesktop'),
+  sheetDone: $('sheetDone'),
+  repeatSlotDesktop: $('repeatSlotDesktop'),
+  repeatSlotMobile: $('repeatSlotMobile'),
+  mobileReciterSelect: $('mobileReciterSelect'),
+  toggleTranslit: $('toggleTranslit'),
+  toggleEnglish: $('toggleEnglish'),
+  toggleUrdu: $('toggleUrdu'),
+  togglePersian: $('togglePersian'),
+  mobileToggleBismillah: $('mobileToggleBismillah'),
+
+  toast: $('toast')
+};
+
+/* Repeat block element refs — populated after injecting the template */
+let repeatEls = {};
+
+/* ==================================================================
+   5. STATE
+   ================================================================== */
+let SURAS = [];
+let SURA_BY_NUM = {};
+
+const state = {
+  sura: 1, aya: 1,
+  playingAya: null,
+  started: false,
+  repeatMode: 'none',
+
+  singleCount: 3, singleCounter: 0,
+
+  rangeFrom: 1, rangeTo: 7, rangeCount: 3, rangeLoops: 0,
+  repeatEach: false,
+  repeatEachCount: 3,
+  ayaInner: 0,
+
+  reciter: RECITERS[0].id,
+  playBismillah: true,
+
+  showTranslit: true,
+  showEnglish: true,
+  showUrdu: true,
+  showPersian: true
+};
+
+let configDirty = true;
+
+const PREFS_KEY = 'quranPlayer.displayPrefs.v1';
+
+function loadDisplayPrefs() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}');
+    if (typeof saved.translit === 'boolean') state.showTranslit = saved.translit;
+    if (typeof saved.english === 'boolean') state.showEnglish = saved.english;
+    if (typeof saved.urdu === 'boolean')    state.showUrdu = saved.urdu;
+    if (typeof saved.persian === 'boolean') state.showPersian = saved.persian;
+    if (typeof saved.bismillah === 'boolean') state.playBismillah = saved.bismillah;
+  } catch (e) { /* ignore */ }
+}
+function saveDisplayPrefs() {
+  try {
+    localStorage.setItem(PREFS_KEY, JSON.stringify({
+      translit: state.showTranslit,
+      english: state.showEnglish,
+      urdu: state.showUrdu,
+      persian: state.showPersian,
+      bismillah: state.playBismillah
+    }));
+  } catch (e) { /* ignore */ }
+}
+
+/* ==================================================================
+   6. AUDIO
+   ================================================================== */
+const audio = new Audio();
+audio.preload = 'auto';
+
+/* ==================================================================
+   7. INIT
+   ================================================================== */
+async function init() {
+  injectRepeatBlock();
+  loadDisplayPrefs();
+  buildReciterSelects();
+  syncDisplayTogglesUI();
+  applyDisplayClasses();
+  showMobileHeader();
+  positionRepeatBlock();
+
+  try {
+    const res = await fetch('data/quran/all_suras.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
+    const raw = await res.json();
+    buildSuras(raw);
+  } catch (err) {
+    el.reader.innerHTML =
+      '<div class="error-box">' +
+        '<h2>Could not load the Qur’an data</h2>' +
+        '<p><b>' + esc(err.message) + '</b></p>' +
+        '<p>Make sure you start the server from the folder that contains ' +
+        '<code>index.html</code> and the <code>data/</code> directory:</p>' +
+        '<pre>cd /path/to/simple_quran\npython3 -m http.server 8000</pre>' +
+        '<p>Then open <code>http://localhost:8000/</code></p>' +
+      '</div>';
+    el.nowPlaying.textContent = 'Data not loaded';
+    return;
+  }
+  buildSidebar();
+  bindEvents();
+  bindRepeatEvents();
+  loadSura(1, { aya: 1, play: false });
+}
+
+/* Inject the repeat block from the template into the DOM (into the desktop slot by default) */
+function injectRepeatBlock() {
+  const tpl = document.getElementById('repeatBlockTemplate');
+  const fragment = tpl.content.cloneNode(true);
+  const block = fragment.querySelector('#repeatBlock');
+  el.repeatSlotDesktop.appendChild(fragment);
+
+  // Cache all its inner elements
+  repeatEls = {
+    block,
+    repeatMode: block.querySelector('#repeatMode'),
+    optSingle: block.querySelector('#optSingle'),
+    optRange: block.querySelector('#optRange'),
+    singleCount: block.querySelector('#singleCount'),
+    rangeFrom: block.querySelector('#rangeFrom'),
+    rangeTo: block.querySelector('#rangeTo'),
+    rangeCount: block.querySelector('#rangeCount'),
+    repeatEachAyah: block.querySelector('#repeatEachAyah'),
+    repeatEachCount: block.querySelector('#repeatEachCount'),
+    repeatEachWrap: block.querySelector('#repeatEachWrap'),
+    status: block.querySelector('#status')
+  };
+}
+
+/* Move the block between the desktop slot and the mobile slot based on viewport */
+function positionRepeatBlock() {
+  const block = repeatEls.block;
+  if (!block) return;
+  const target = isMobile() ? el.repeatSlotMobile : el.repeatSlotDesktop;
+  if (block.parentElement !== target) {
+    target.appendChild(block);
+  }
+}
+
+function buildSuras(raw) {
+  SURAS = Object.keys(raw).map(key => {
+    const m = key.match(/سورة\s+(\d+)/);
+    if (!m) return null;
+    const number = parseInt(m[1], 10);
+    if (!number) return null;
+    const arabicName = (key.split(/[-–—]/)[0] || '').replace(/سورة/g, '').trim();
+    const ayas = (raw[key] || []).map((v, i) => ({ ...v, ayaNum: i + 1 }));
+    return {
+      number, arabicName,
+      englishName: SURA_ENGLISH[number - 1] || ('Sura ' + number),
+      ayas
+    };
+  }).filter(Boolean).sort((a, b) => a.number - b.number);
+  SURA_BY_NUM = {};
+  SURAS.forEach(s => { SURA_BY_NUM[s.number] = s; });
+}
+
+/* ==================================================================
+   8. RECITER SELECTS
+   ================================================================== */
+function buildReciterSelects() {
+  const opts = RECITERS.map(r =>
+    '<option value="' + esc(r.id) + '">' + esc(r.name) + '</option>'
+  ).join('');
+  el.reciterSelect.innerHTML = opts;
+  el.mobileReciterSelect.innerHTML = opts;
+  syncReciterUI();
+}
+function syncReciterUI() {
+  el.reciterSelect.value = state.reciter;
+  el.mobileReciterSelect.value = state.reciter;
+  el.reciterSub.textContent = currentReciter().name;
+}
+function currentReciter() {
+  return RECITERS.find(r => r.id === state.reciter) || RECITERS[0];
+}
+
+/* ==================================================================
+   9. SIDEBAR
+   ================================================================== */
+function buildSidebar() {
+  const frag = document.createDocumentFragment();
+  SURAS.forEach(s => {
+    const item = document.createElement('div');
+    item.className = 'sura-item';
+    item.dataset.sura = s.number;
+    item.dataset.search = (s.number + ' ' + s.englishName + ' ' + s.arabicName).toLowerCase();
+    item.innerHTML =
+      '<span class="sura-num">' + s.number + '</span>' +
+      '<span class="sura-names">' +
+        '<span class="en">' + esc(s.englishName) + '</span>' +
+        '<span class="ar" dir="rtl">' + esc(s.arabicName) + '</span>' +
+      '</span>';
+    frag.appendChild(item);
+  });
+  el.suraList.appendChild(frag);
+}
+
+function markCurrentSura() {
+  el.suraList.querySelectorAll('.sura-item.current').forEach(i => i.classList.remove('current'));
+  const item = el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
+  if (item) {
+    item.classList.add('current');
+    item.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+/* ==================================================================
+   10. AYA LIST
+   ================================================================== */
+function renderAyaList(num) {
+  const s = SURA_BY_NUM[num];
+  if (!s) { el.ayaList.innerHTML = ''; return; }
+
+  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayas.length;
+
+  let html = '';
+  for (const v of s.ayas) {
+    const raw = (v.arabic_text || '').trim();
+    const preview = raw.length > 100 ? raw.slice(0, 100) : raw;
+    html +=
+      '<button class="aya-btn" data-aya="' + v.ayaNum + '" title="Aya ' + v.ayaNum + '">' +
+        '<span class="aya-btn-num">' + v.ayaNum + '</span>' +
+        '<span class="aya-btn-text" dir="rtl" lang="ar">' + esc(preview) + '</span>' +
+      '</button>';
+  }
+  el.ayaList.innerHTML = html;
+  el.ayaList.scrollTop = 0;
+}
+
+/* ==================================================================
+   11. READER
+   ================================================================== */
+function renderSura() {
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+
+  let html =
+    '<div class="sura-heading">' +
+      '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
+      '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
+      '<div class="meta">' + s.ayas.length + ' ayat</div>' +
+    '</div>';
+
+  for (const v of s.ayas) {
+    html +=
+      '<article class="aya" id="aya-' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
+        '<div class="aya-top">' +
+          '<span class="aya-num">' + v.ayaNum + '</span>' +
+          '<span class="aya-hint">click to play</span>' +
+        '</div>' +
+        '<div class="arabic" dir="rtl" lang="ar">' + esc(v.arabic_text || '') + '</div>' +
+        '<div class="translit">' + esc(v.transliteration || '') + '</div>' +
+        '<div class="english">' + esc(v.english_text || '') + '</div>' +
+        '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
+        '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+      '</article>';
+  }
+  el.reader.innerHTML = html;
+  el.reader.scrollTop = 0;
+}
+
+/* ==================================================================
+   12. DISPLAY TOGGLES
+   ================================================================== */
+function applyDisplayClasses() {
+  el.reader.classList.toggle('hide-translit', !state.showTranslit);
+  el.reader.classList.toggle('hide-english', !state.showEnglish);
+  el.reader.classList.toggle('hide-urdu', !state.showUrdu);
+  el.reader.classList.toggle('hide-persian', !state.showPersian);
+}
+
+function syncDisplayTogglesUI() {
+  el.toggleTranslit.checked = state.showTranslit;
+  el.toggleEnglish.checked = state.showEnglish;
+  el.toggleUrdu.checked = state.showUrdu;
+  el.togglePersian.checked = state.showPersian;
+  el.mobileToggleBismillah.checked = state.playBismillah;
+}
+
+/* ==================================================================
+   13. UI SYNC
+   ================================================================== */
+function updateAyaUI(scrollReader) {
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+
+  el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
+  const card = document.getElementById('aya-' + state.aya);
+  if (card) {
+    card.classList.add('active');
+    if (scrollReader !== false) {
+      card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  }
+
+  el.ayaList.querySelectorAll('.aya-btn.active').forEach(b => b.classList.remove('active'));
+  const btn = el.ayaList.querySelector('.aya-btn[data-aya="' + state.aya + '"]');
+  if (btn) {
+    btn.classList.add('active');
+    btn.scrollIntoView({ block: 'nearest' });
+  }
+
+  markCurrentSura();
+
+  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayas.length;
+  el.nowPlaying.textContent = line;
+  showMobileHeader();
+
+  updateStatus();
+}
+
+function showMobileHeader() {
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+  el.mobHdrSura.textContent = s.englishName;
+  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayas.length;
+}
+
+function updateStatus() {
+  let txt = '';
+  if (state.repeatMode === 'single') {
+    const total = state.singleCount === 0 ? '∞' : state.singleCount;
+    txt = 'Aya repeat ' + state.singleCounter + ' / ' + total;
+
+  } else if (state.repeatMode === 'range') {
+    const total = state.rangeCount === 0 ? '∞' : state.rangeCount;
+    const shownLoop = state.rangeCount === 0
+      ? (state.rangeLoops + 1)
+      : Math.min(state.rangeLoops + 1, state.rangeCount);
+
+    txt = 'Range ' + state.rangeFrom + '–' + state.rangeTo;
+    if (state.repeatEach) {
+      const eachDone = Math.min(state.ayaInner + 1, state.repeatEachCount);
+      txt += '  ·  aya ' + eachDone + '/' + state.repeatEachCount;
+    }
+    txt += '  ·  loop ' + shownLoop + '/' + total;
+  }
+
+  if (repeatEls.status) repeatEls.status.textContent = txt;
+  if (el.mobileStatus) el.mobileStatus.textContent = txt;
+
+  // the repeat icon button in the mobile player becomes highlighted when a repeat mode is active
+  if (el.btnRepeatSettings) {
+    el.btnRepeatSettings.classList.toggle('active', state.repeatMode !== 'none');
+  }
+}
+
+function updateOpts() {
+  if (!repeatEls.optSingle) return;
+  repeatEls.optSingle.classList.toggle('show', state.repeatMode === 'single');
+  repeatEls.optRange.classList.toggle('show', state.repeatMode === 'range');
+  repeatEls.repeatEachWrap.classList.toggle('show', state.repeatEach);
+}
+
+function syncRangeInputs() {
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+  const total = s.ayas.length;
+  repeatEls.rangeFrom.max = total;
+  repeatEls.rangeTo.max = total;
+
+  if (state.rangeTo > total) state.rangeTo = total;
+  if (state.rangeTo < 1) state.rangeTo = 1;
+  if (state.rangeFrom > total) state.rangeFrom = total;
+  if (state.rangeFrom < 1) state.rangeFrom = 1;
+  if (state.rangeFrom > state.rangeTo) state.rangeFrom = state.rangeTo;
+
+  repeatEls.rangeFrom.value = state.rangeFrom;
+  repeatEls.rangeTo.value = state.rangeTo;
+}
+
+function resetCounters() {
+  state.singleCounter = 0;
+  state.rangeLoops = 0;
+  state.ayaInner = 0;
+}
+
+/* ==================================================================
+   14. PLAYBACK ENGINE
+   ================================================================== */
+function trackUrl(sura, aya) {
+  return currentReciter().dir + '/' + pad3(sura) + pad3(aya) + '.mp3';
+}
+
+function hasOpening(sura) { return sura !== 1 && sura !== 9; }
+
+function loadSura(num, opts) {
+  opts = opts || {};
+  const s = SURA_BY_NUM[num];
+  if (!s) return;
+
+  const aya = Math.max(1, Math.min(opts.aya || 1, s.ayas.length));
+  const suraChanged = state.sura !== num;
+
+  state.sura = num;
+  state.aya = aya;
+
+  if (suraChanged) {
+    renderSura();
+    syncRangeInputs();
+    resetCounters();
+  }
+  renderAyaList(num);
+  updateAyaUI(true);
+
+  if (isMobile()) setDrawerTab('aya');
+
+  if (opts.play) {
+    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+  }
+}
+
+function goToAya(aya, opts) {
+  opts = opts || {};
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+
+  const n = Math.max(1, Math.min(aya, s.ayas.length));
+  state.aya = n;
+  state.ayaInner = 0;
+  updateAyaUI(true);
+
+  if (opts.play) {
+    if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) {
+      playTrack(state.sura, 0);
+    } else {
+      playTrack(state.sura, n);
+    }
+  }
+}
+
+function playTrack(sura, aya) {
+  state.playingAya = aya;
+  state.started = true;
+  audio.src = trackUrl(sura, aya);
+  audio.play().catch(err => {
+    if (err && err.name === 'NotAllowedError') {
+      toast('Browser blocked autoplay — press ▶ to start.');
+    }
+  });
+}
+
+function replayCurrent() {
+  try { audio.currentTime = 0; } catch (e) {}
+  audio.play().catch(() => {});
+}
+
+function stopAll() {
+  audio.pause();
+  try { audio.currentTime = 0; } catch (e) {}
+  resetCounters();
+  updateStatus();
+}
+
+function startPlayback() {
+  configDirty = false;
+  if (state.repeatMode === 'range') {
+    const s = SURA_BY_NUM[state.sura];
+    const total = s ? s.ayas.length : 1;
+    state.rangeFrom = clampInt(state.rangeFrom, 1, total);
+    state.rangeTo   = clampInt(state.rangeTo, state.rangeFrom, total);
+    state.aya = state.rangeFrom;
+    updateAyaUI(true);
+  }
+  resetCounters();
+  goToAya(state.aya, { play: true, opening: state.aya === 1 });
+}
+
+function handleEnded() {
+  const s = SURA_BY_NUM[state.sura];
+  if (!s) return;
+  const total = s.ayas.length;
+
+  if (state.repeatMode === 'single') {
+    state.singleCounter++;
+    if (state.singleCount === 0 || state.singleCounter < state.singleCount) {
+      updateStatus();
+      replayCurrent();
+      return;
+    }
+    state.singleCounter = 0;
+    updateStatus();
+    if (state.aya < total) goToAya(state.aya + 1, { play: true });
+    else stopAll();
+    return;
+  }
+
+  if (state.repeatMode === 'range') {
+    if (state.repeatEach) {
+      state.ayaInner++;
+      if (state.ayaInner < state.repeatEachCount) {
+        updateStatus();
+        replayCurrent();
+        return;
+      }
+    }
+    if (state.aya < state.rangeTo) {
+      goToAya(state.aya + 1, { play: true });
+      return;
+    }
+    state.rangeLoops++;
+    if (state.rangeCount === 0 || state.rangeLoops < state.rangeCount) {
+      updateStatus();
+      goToAya(state.rangeFrom, { play: true });
+      return;
+    }
+    state.rangeLoops = 0;
+    updateStatus();
+    stopAll();
+    toast('Range finished — ' + state.rangeCount + ' loop(s) done.');
+    return;
+  }
+
+  if (state.aya < total) goToAya(state.aya + 1, { play: true });
+  else stopAll();
+}
+
+/* ==================================================================
+   15. AUDIO EVENTS
+   ================================================================== */
+audio.addEventListener('ended', () => {
+  if (state.playingAya === 0) {
+    goToAya(1, { play: true, opening: false });
+    return;
+  }
+  handleEnded();
+});
+
+audio.addEventListener('play',  () => { setPlayIcon(true); });
+audio.addEventListener('pause', () => { setPlayIcon(false); });
+
+function setPlayIcon(playing) {
+  el.iconPlay.innerHTML = playing
+    ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>'
+    : '<path d="M8 5v14l11-7z"/>';
+}
+
+audio.addEventListener('timeupdate', () => {
+  const d = audio.duration || 0;
+  const c = audio.currentTime || 0;
+  el.progressFill.style.width = d ? (c / d * 100) + '%' : '0%';
+  el.curTime.textContent = fmtTime(c);
+  el.durTime.textContent = fmtTime(d);
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  el.durTime.textContent = fmtTime(audio.duration);
+});
+
+audio.addEventListener('error', () => {
+  if (state.playingAya === 0) {
+    goToAya(1, { play: true, opening: false });
+    return;
+  }
+  const src = audio.src || '';
+  toast('Audio file not found: ' + src.split('/').pop());
+  stopAll();
+});
+
+/* ==================================================================
+   16. INPUT HELPERS
+   ================================================================== */
+function wireNumberInput(inputEl, key, min, max, onUpdate) {
+  const commit = () => {
+    const prev = state[key];
+    const n = parseInt(inputEl.value, 10);
+    state[key] = isNaN(n) ? prev : clampInt(n, min, max);
+    inputEl.value = state[key];
+    configDirty = true;
+    resetCounters();
+    if (onUpdate) onUpdate();
+    updateStatus();
+  };
+  inputEl.addEventListener('change', commit);
+  inputEl.addEventListener('blur',   commit);
+  inputEl.addEventListener('input', () => {
+    const n = parseInt(inputEl.value, 10);
+    if (!isNaN(n)) {
+      state[key] = Math.max(min, Math.min(max, n));
+      configDirty = true;
+      resetCounters();
+      if (onUpdate) onUpdate();
+      updateStatus();
+    }
+  });
+}
+
+/* ==================================================================
+   17. DRAWER / SETTINGS
+   ================================================================== */
+function openDrawer() {
+  el.sidebar.classList.add('open');
+  el.drawerBackdrop.classList.add('show');
+  document.body.style.overflow = 'hidden';
+
+  if (el.sidebarBody.dataset.tab === 'aya') {
+    setTimeout(() => {
+      const active = el.ayaList.querySelector('.aya-btn.active');
+      if (active) active.scrollIntoView({ block: 'center', behavior: 'auto' });
+    }, 320);
+  }
+}
+function closeDrawer() {
+  el.sidebar.classList.remove('open');
+  el.drawerBackdrop.classList.remove('show');
+  document.body.style.overflow = '';
+}
+function setDrawerTab(name) {
+  el.sidebarBody.dataset.tab = name;
+  el.drawerTabs.querySelectorAll('.drawer-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === name);
+  });
+}
+function openSettings() {
+  el.settingsSheet.classList.add('open');
+  el.settingsBackdrop.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeSettings() {
+  el.settingsSheet.classList.remove('open');
+  el.settingsBackdrop.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+/* ==================================================================
+   18. REPEAT BLOCK EVENTS (wired once, elements never replaced)
+   ================================================================== */
+function bindRepeatEvents() {
+  const r = repeatEls;
+
+  r.repeatMode.addEventListener('change', () => {
+    state.repeatMode = r.repeatMode.value;
+    configDirty = true;
+    resetCounters();
+
+    if (state.repeatMode === 'range') {
+      const s = SURA_BY_NUM[state.sura];
+      const total = s ? s.ayas.length : 1;
+      if (state.aya < state.rangeFrom || state.aya > state.rangeTo) {
+        state.rangeFrom = state.aya;
+        state.rangeTo = Math.min(state.aya, total);
+      }
+      syncRangeInputs();
+    }
+    updateOpts();
+    updateStatus();
+  });
+
+  wireNumberInput(r.singleCount, 'singleCount', 0, 9999);
+
+  wireNumberInput(r.rangeFrom, 'rangeFrom', 1, 9999, () => {
+    const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
+    state.rangeFrom = clampInt(state.rangeFrom, 1, total);
+    if (state.rangeFrom > state.rangeTo) state.rangeTo = state.rangeFrom;
+    syncRangeInputs();
+  });
+
+  wireNumberInput(r.rangeTo, 'rangeTo', 1, 9999, () => {
+    const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
+    state.rangeTo = clampInt(state.rangeTo, 1, total);
+    if (state.rangeTo < state.rangeFrom) state.rangeFrom = state.rangeTo;
+    syncRangeInputs();
+  });
+
+  wireNumberInput(r.rangeCount, 'rangeCount', 0, 9999);
+  wireNumberInput(r.repeatEachCount, 'repeatEachCount', 1, 9999);
+
+  r.repeatEachAyah.addEventListener('change', () => {
+    state.repeatEach = r.repeatEachAyah.checked;
+    configDirty = true;
+    resetCounters();
+    updateOpts();
+    updateStatus();
+  });
+}
+
+/* ==================================================================
+   19. EVENTS
+   ================================================================== */
+function bindEvents() {
+
+  /* --- sura column --- */
+  el.suraList.addEventListener('click', e => {
+    const item = e.target.closest('.sura-item');
+    if (!item) return;
+    loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
+    if (isMobile()) setTimeout(closeDrawer, 140);
+  });
+
+  /* --- aya column --- */
+  el.ayaList.addEventListener('click', e => {
+    const btn = e.target.closest('.aya-btn');
+    if (!btn) return;
+    const n = +btn.dataset.aya;
+    goToAya(n, { play: true, opening: n === 1 });
+    if (isMobile()) setTimeout(closeDrawer, 140);
+  });
+
+  /* --- sura search --- */
+  el.suraSearch.addEventListener('input', () => {
+    const q = el.suraSearch.value.trim().toLowerCase();
+    el.suraList.querySelectorAll('.sura-item').forEach(item => {
+      const hit = !q || item.dataset.search.indexOf(q) !== -1;
+      item.style.display = hit ? '' : 'none';
+    });
+  });
+
+  /* --- reader click --- */
+  el.reader.addEventListener('click', e => {
+    const card = e.target.closest('.aya');
+    if (!card) return;
+    const sel = window.getSelection && String(window.getSelection());
+    if (sel && sel.length > 0) return;
+    const n = +card.dataset.aya;
+    goToAya(n, { play: true, opening: n === 1 });
+  });
+
+  /* --- transport --- */
+  el.btnPlay.addEventListener('click', () => {
+    if (!audio.paused) { audio.pause(); return; }
+    if (configDirty || !state.started || !audio.src) startPlayback();
+    else audio.play().catch(() => {});
+  });
+
+  el.btnNext.addEventListener('click', () => {
+    const s = SURA_BY_NUM[state.sura];
+    if (!s) return;
+    if (state.aya < s.ayas.length) goToAya(state.aya + 1, { play: true });
+    else stopAll();
+  });
+
+  el.btnPrev.addEventListener('click', () => {
+    if (audio.currentTime > 3 && state.playingAya !== null) { replayCurrent(); return; }
+    if (state.aya > 1) goToAya(state.aya - 1, { play: true });
+    else replayCurrent();
+  });
+
+  el.btnStop.addEventListener('click', stopAll);
+
+  /* --- mobile repeat icon button : opens settings sheet --- */
+  el.btnRepeatSettings.addEventListener('click', () => {
+    openSettings();
+    // give the sheet a moment to open, then scroll the repeat section into view
+    setTimeout(() => {
+      const section = el.settingsSheet.querySelector('.repeat-section');
+      if (section) section.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }, 320);
+  });
+
+  /* --- progress seek --- */
+  el.progress.addEventListener('click', e => {
+    if (!audio.duration) return;
+    const rect = el.progress.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    audio.currentTime = pct * audio.duration;
+  });
+
+  /* --- display toggles --- */
+  el.toggleTranslit.addEventListener('change', () => {
+    state.showTranslit = el.toggleTranslit.checked;
+    applyDisplayClasses();
+    saveDisplayPrefs();
+  });
+  el.toggleEnglish.addEventListener('change', () => {
+    state.showEnglish = el.toggleEnglish.checked;
+    applyDisplayClasses();
+    saveDisplayPrefs();
+  });
+  el.toggleUrdu.addEventListener('change', () => {
+    state.showUrdu = el.toggleUrdu.checked;
+    applyDisplayClasses();
+    saveDisplayPrefs();
+  });
+  el.togglePersian.addEventListener('change', () => {
+    state.showPersian = el.togglePersian.checked;
+    applyDisplayClasses();
+    saveDisplayPrefs();
+  });
+  el.mobileToggleBismillah.addEventListener('change', () => {
+    state.playBismillah = el.mobileToggleBismillah.checked;
+    saveDisplayPrefs();
+  });
+
+  /* --- reciter selects --- */
+  el.reciterSelect.addEventListener('change', () => setReciter(el.reciterSelect.value));
+  el.mobileReciterSelect.addEventListener('change', () => setReciter(el.mobileReciterSelect.value));
+
+  /* --- drawer --- */
+  el.btnOpenDrawer.addEventListener('click', openDrawer);
+  el.btnCloseDrawer.addEventListener('click', closeDrawer);
+  el.drawerBackdrop.addEventListener('click', closeDrawer);
+  el.drawerTabs.addEventListener('click', e => {
+    const t = e.target.closest('.drawer-tab');
+    if (!t) return;
+    setDrawerTab(t.dataset.tab);
+  });
+
+  /* --- settings sheet --- */
+  el.btnOpenSettings.addEventListener('click', openSettings);
+  el.btnOpenSettingsDesktop.addEventListener('click', openSettings);
+  el.settingsBackdrop.addEventListener('click', closeSettings);
+  el.sheetDone.addEventListener('click', closeSettings);
+
+  /* --- edge swipe to open drawer --- */
+  let swipeTracking = false;
+  let sx = 0, sy = 0, st = 0;
+
+  document.addEventListener('touchstart', e => {
+    if (!isMobile()) { swipeTracking = false; return; }
+    if (e.touches.length !== 1) { swipeTracking = false; return; }
+    const t = e.touches[0];
+    if (t.clientX <= 16 &&
+        !el.sidebar.classList.contains('open') &&
+        !el.settingsSheet.classList.contains('open')) {
+      swipeTracking = true;
+      sx = t.clientX; sy = t.clientY; st = Date.now();
+    } else {
+      swipeTracking = false;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (!swipeTracking) return;
+    swipeTracking = false;
+    if (!isMobile()) return;
+
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
+    const dt = Date.now() - st;
+
+    if (dx >= 80 && dt <= 350 && Math.abs(dy) <= 25 && dx > 0) {
+      openDrawer();
+    }
+  }, { passive: true });
+
+  /* --- keyboard --- */
+  document.addEventListener('keydown', e => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+
+    if (e.code === 'Escape') {
+      if (el.sidebar.classList.contains('open')) { closeDrawer(); return; }
+      if (el.settingsSheet.classList.contains('open')) { closeSettings(); return; }
+    }
+    if (e.code === 'Space')           { e.preventDefault(); el.btnPlay.click(); }
+    else if (e.code === 'ArrowRight')  { e.preventDefault(); el.btnNext.click(); }
+    else if (e.code === 'ArrowLeft')   { e.preventDefault(); el.btnPrev.click(); }
+  });
+
+  /* --- viewport sync --- */
+  const syncViewport = () => {
+    el.btnCloseDrawer.style.display = isMobile() ? 'flex' : 'none';
+    positionRepeatBlock();
+    if (!isMobile()) closeDrawer();
+  };
+  syncViewport();
+  window.addEventListener('resize', syncViewport);
+  window.addEventListener('orientationchange', () => setTimeout(syncViewport, 120));
+}
+
+function setReciter(id) {
+  state.reciter = id;
+  configDirty = true;
+  syncReciterUI();
+  if (state.playingAya !== null && state.started) {
+    const wasPlaying = !audio.paused;
+    const aya = state.playingAya;
+    playTrack(state.sura, aya);
+    if (!wasPlaying) audio.pause();
+  }
+  toast('Reciter: ' + currentReciter().name);
+}
+
+/* ==================================================================
+   20. TOAST
+   ================================================================== */
+let toastTimer = null;
+function toast(msg) {
+  el.toast.textContent = msg;
+  el.toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.toast.classList.remove('show'), 3500);
+}
+
+/* ==================================================================
+   HOME PAGE
+   ================================================================== */
+const enterReaderButton = $('enterReader');
+if (enterReaderButton) {
+  enterReaderButton.addEventListener('click', () => {
+    document.body.classList.add('reader-active');
+  });
+}
+
+/* ==================================================================
+   21. GO
+   ================================================================== */
+updateOpts();
+init();
+
+})();
