@@ -366,6 +366,10 @@ function renderSura() {
       '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
       '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
       '<div class="meta">' + s.ayas.length + ' ayat</div>' +
+      '<div class="sura-download">' +
+        '<button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button>' +
+        '<span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span>' +
+      '</div>' +
     '</div>';
 
   for (const v of s.ayas) {
@@ -513,12 +517,15 @@ function resetCounters() {
    14. PLAYBACK ENGINE
    ================================================================== */
 function trackUrl(sura, aya) {
-  return currentReciter().dir + '/' + pad3(sura) + pad3(aya) + '.mp3';
+  // Git LFS media endpoint serves the actual public MP3 rather than the small LFS pointer file.
+  return 'https://media.githubusercontent.com/media/mahashemi/QuranMemorizer/main/' +
+    currentReciter().dir + '/' + pad3(sura) + pad3(aya) + '.mp3';
 }
 
 /* Recordings prefer app-private native files or user-authorized folders; IndexedDB remains the web fallback. */
 const RECORDINGS_DB = 'quranMemorizerRecordings';
 const RECORDINGS_STORE = 'ayah-recordings';
+const RECITATION_STORE = 'recitation-audio';
 const RECORDING_FOLDER_SETTING = 'recordingsParentFolder';
 let recordingsDbPromise;
 let activeRecorder = null;
@@ -527,6 +534,8 @@ let activeRecordingChunks = [];
 let playbackRequestId = 0;
 let playbackMode = 'idle'; // idle | sequence | preview
 let activeRecordingObjectUrl = null;
+let activeRecitationObjectUrl = null;
+let activeSurahDownload = null;
 let recordingAudioContext = null;
 let recordingAnalyser = null;
 let recordingWaveFrame = null;
@@ -545,7 +554,7 @@ function openRecordingsDb() {
   if (!('indexedDB' in window)) return Promise.reject(new Error('Browser-local recording storage is not supported here.'));
   if (!recordingsDbPromise) {
     recordingsDbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(RECORDINGS_DB, 2);
+      const request = indexedDB.open(RECORDINGS_DB, 3);
       request.onupgradeneeded = () => {
         const db = request.result;
         if (!db.objectStoreNames.contains(RECORDINGS_STORE)) {
@@ -553,6 +562,9 @@ function openRecordingsDb() {
         }
         if (!db.objectStoreNames.contains('settings')) {
           db.createObjectStore('settings', { keyPath: 'key' });
+        }
+        if (!db.objectStoreNames.contains(RECITATION_STORE)) {
+          db.createObjectStore(RECITATION_STORE, { keyPath: 'key' });
         }
       };
       request.onsuccess = () => resolve(request.result);
@@ -599,6 +611,88 @@ async function saveRecordingFolderSetting(handle) {
     request.onsuccess = () => resolve();
     request.onerror = () => reject(request.error || new Error('Could not save recordings-folder settings.'));
   });
+}
+
+function recitationKey(sura, aya) { return 'minshawi_murattal:' + sura + ':' + aya; }
+
+async function getCachedRecitation(sura, aya) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECITATION_STORE, 'readonly').objectStore(RECITATION_STORE).get(recitationKey(sura, aya));
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error || new Error('Could not read downloaded recitation.'));
+  });
+}
+
+async function saveCachedRecitation(sura, aya, blob) {
+  const db = await openRecordingsDb();
+  const record = { key: recitationKey(sura, aya), sura, aya, reciter: 'minshawi_murattal', blob, size: blob.size, savedAt: Date.now() };
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECITATION_STORE, 'readwrite').objectStore(RECITATION_STORE).put(record);
+    request.onsuccess = () => resolve(record);
+    request.onerror = () => reject(request.error || new Error('Could not save downloaded recitation. Device storage may be full.'));
+  });
+}
+
+async function downloadSurahAudio(sura, button) {
+  const surah = SURA_BY_NUM[sura];
+  if (!surah) return;
+  if (activeSurahDownload) {
+    if (activeSurahDownload.sura === sura) {
+      activeSurahDownload.cancelled = true;
+      button.textContent = 'Cancelling…';
+      return;
+    }
+    toast('Please wait for the current Surah download to finish or cancel it first.');
+    return;
+  }
+  const status = el.reader.querySelector('[data-download-status="' + sura + '"]');
+  const job = { sura, cancelled: false };
+  activeSurahDownload = job;
+  button.disabled = false;
+  button.textContent = 'Cancel download';
+  let completed = 0;
+  let bytes = 0;
+  try {
+    for (const ayah of surah.ayas) {
+      if (job.cancelled) break;
+      const existing = await getCachedRecitation(sura, ayah.ayaNum);
+      if (existing && existing.blob instanceof Blob && existing.blob.size > 0) {
+        completed++;
+        bytes += existing.blob.size;
+      } else {
+        const response = await fetch(trackUrl(sura, ayah.ayaNum), { cache: 'no-store' });
+        if (!response.ok) throw new Error('Ayah ' + ayah.ayaNum + ' download failed (HTTP ' + response.status + ').');
+        const blob = await response.blob();
+        if (blob.size < 100 || (blob.type && !blob.type.startsWith('audio/') && blob.type !== 'application/octet-stream')) {
+          throw new Error('Ayah ' + ayah.ayaNum + ' did not return a valid audio file.');
+        }
+        const header = new Uint8Array(await blob.slice(0, 4).arrayBuffer());
+        const isMp3 = (header[0] === 0x49 && header[1] === 0x44 && header[2] === 0x33) ||
+          (header[0] === 0xff && (header[1] & 0xe0) === 0xe0);
+        if (!isMp3) throw new Error('Ayah ' + ayah.ayaNum + ' response was not an MP3. Check the public audio source.');
+        await saveCachedRecitation(sura, ayah.ayaNum, blob);
+        completed++;
+        bytes += blob.size;
+      }
+      if (status) status.textContent = 'Downloaded ' + completed + ' / ' + surah.ayas.length + ' ayat';
+    }
+    if (job.cancelled) {
+      if (status) status.textContent = 'Paused after ' + completed + ' / ' + surah.ayas.length + ' ayat. Download again to resume.';
+    } else {
+      if (status) status.textContent = 'Ready offline · ' + completed + ' ayat · ' + (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      toast(surah.englishName + ' is ready for offline playback.');
+    }
+  } catch (error) {
+    if (status) status.textContent = 'Download stopped: ' + (error.message || 'unknown error');
+    toast('Surah download stopped: ' + (error.message || 'unknown error'));
+  } finally {
+    if (activeSurahDownload === job) activeSurahDownload = null;
+    if (button.isConnected) {
+      button.disabled = false;
+      button.textContent = 'Download for offline';
+    }
+  }
 }
 
 async function getBrowserRecording(sura, aya) {
@@ -1605,6 +1699,24 @@ async function playTrack(sura, aya) {
     }
   }
   if (requestId !== playbackRequestId) return;
+  if (aya > 0) {
+    try {
+      const cached = await getCachedRecitation(sura, aya);
+      if (requestId !== playbackRequestId) return;
+      if (cached && cached.blob instanceof Blob && cached.blob.size > 0) {
+        if (activeRecitationObjectUrl) URL.revokeObjectURL(activeRecitationObjectUrl);
+        activeRecitationObjectUrl = URL.createObjectURL(cached.blob);
+        audio.src = activeRecitationObjectUrl;
+        try { await audio.play(); return; }
+        catch (cachedPlayError) {
+          if (requestId !== playbackRequestId) return;
+          URL.revokeObjectURL(activeRecitationObjectUrl);
+          activeRecitationObjectUrl = null;
+        }
+      }
+    } catch (cacheError) { console.warn('Could not read offline recitation; streaming instead.', cacheError); }
+  }
+  if (requestId !== playbackRequestId) return;
   audio.src = trackUrl(sura, aya);
   audio.play().catch(err => {
     if (err && err.name === 'NotAllowedError') {
@@ -1624,6 +1736,7 @@ function stopAll() {
   state.started = false;
   audio.pause();
   try { audio.currentTime = 0; } catch (e) {}
+  if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
   resetCounters();
   updateStatus();
 }
@@ -1927,6 +2040,13 @@ function bindEvents() {
 
   /* --- reader click --- */
   el.reader.addEventListener('click', e => {
+    const downloadButton = e.target.closest('[data-download-sura]');
+    if (downloadButton) {
+      e.preventDefault();
+      e.stopPropagation();
+      downloadSurahAudio(Number(downloadButton.dataset.downloadSura), downloadButton);
+      return;
+    }
     const recordButton = e.target.closest('[data-record-aya]');
     const playRecordingButton = e.target.closest('[data-play-recording]');
     const deleteRecordingButton = e.target.closest('[data-delete-recording]');
