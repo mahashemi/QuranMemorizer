@@ -1307,7 +1307,7 @@ async function importRecordingsArchive(file) {
     }
     const { readZip } = await getRecordingArchiveModule();
     const entries = await readZip(file);
-    const audioPath = /^recordings\/surah-(\d{3})-[^/]+\/ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const audioPath = /^(?:QuranMemorizer\/)?recordings\/surah-(\d{3})-[^/]+\/ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
     const seen = new Set();
     let imported = 0;
     let ignored = 0;
