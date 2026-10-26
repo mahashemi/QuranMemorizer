@@ -266,6 +266,11 @@
     <div class="recording-storage-actions">
       <button class="storage-action" id="btnConnectRecordingFolder" type="button" hidden>Choose recordings folder</button>
       <button class="storage-action secondary" id="btnUseBrowserStorage" type="button" hidden>Use browser-local storage instead</button>
+      <div class="recording-archive-actions" id="recordingArchiveActions">
+        <button class="storage-action secondary" id="btnExportRecordings" type="button">Export recordings as ZIP</button>
+        <button class="storage-action secondary" id="btnImportRecordings" type="button">Import recordings from ZIP</button>
+        <input id="recordingArchiveInput" type="file" accept=".zip,application/zip" hidden />
+      </div>
     </div>
   </div>
 
