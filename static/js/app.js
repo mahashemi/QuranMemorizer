@@ -594,6 +594,8 @@ async function startUserRecording(sura, aya, button) {
   ++playbackRequestId;
   playbackMode = 'idle';
   state.started = false;
+  state.aya = aya;
+  updateAyaUI(false);
   audio.pause();
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
     toast('Voice recording is not supported by this browser or WebView.');
