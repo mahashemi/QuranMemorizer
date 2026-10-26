@@ -1192,26 +1192,31 @@ function recordingArchivePath(sura, aya, mimeType) {
 async function collectFolderRecordingsForArchive() {
   if (recordingStorageMode !== 'folder') return [];
   const dirs = await getConnectedRecordingDirectories(false);
-  let manifest;
-  try {
-    const handle = await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: false });
-    manifest = JSON.parse(await (await handle.getFile()).text());
-  } catch (error) {
-    if (isNotFoundError(error)) return [];
-    throw error;
-  }
-  const items = Array.isArray(manifest.recordings) ? manifest.recordings : [];
   const records = [];
   const seen = new Set();
-  for (const item of items) {
-    const sura = Number(item && item.sura);
-    const aya = Number(item && item.aya);
-    if (!Number.isInteger(sura) || !Number.isInteger(aya) || sura < 1 || sura > 114 || aya < 1) continue;
-    const key = sura + ':' + aya;
-    if (seen.has(key)) continue;
-    const record = await getFolderRecording(sura, aya);
-    if (record && record.blob) {
-      records.push(record);
+  const folderPattern = /^surah-(\d{3})-/i;
+  const filePattern = /^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+
+  // Discover files directly so an interrupted manifest update cannot hide audio.
+  for await (const [folderName, folderHandle] of dirs.recordingsDirectory.entries()) {
+    if (folderHandle.kind !== 'directory') continue;
+    const folderMatch = folderName.match(folderPattern);
+    if (!folderMatch) continue;
+    const sura = Number(folderMatch[1]);
+    if (!Number.isInteger(sura) || sura < 1 || sura > 114) continue;
+    for await (const [fileName, fileHandle] of folderHandle.entries()) {
+      if (fileHandle.kind !== 'file') continue;
+      const fileMatch = fileName.match(filePattern);
+      if (!fileMatch) continue;
+      const aya = Number(fileMatch[1]);
+      const key = sura + ':' + aya;
+      if (seen.has(key)) continue;
+      const file = await fileHandle.getFile();
+      records.push({
+        key, sura, aya, blob: file,
+        mimeType: file.type || recordingMimeForExtension(fileMatch[2].toLowerCase()),
+        fileName, updatedAt: file.lastModified, storage: 'folder'
+      });
       seen.add(key);
     }
   }
