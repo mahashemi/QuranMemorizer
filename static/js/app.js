@@ -376,6 +376,7 @@ function renderSura() {
           '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
           '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
           '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
+          '<div class="recording-waveform" data-record-waveform="' + v.ayaNum + '" role="img" aria-label="Live microphone audio level" hidden>' + Array.from({ length: 28 }, () => '<span></span>').join('') + '</div>' +
           '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
         '</div>' +
       '</article>';
@@ -517,6 +518,9 @@ let activeRecordingChunks = [];
 let playbackRequestId = 0;
 let playbackMode = 'idle'; // idle | sequence | preview
 let activeRecordingObjectUrl = null;
+let recordingAudioContext = null;
+let recordingAnalyser = null;
+let recordingWaveFrame = null;
 
 function openRecordingsDb() {
   if (!('indexedDB' in window)) return Promise.reject(new Error('Local recording storage is not supported here.'));
@@ -589,6 +593,67 @@ function refreshRecordingControls(sura) {
   });
 }
 
+
+function setRecordingPlaybackLock(locked) {
+  [el.btnPlay, el.btnPrev, el.btnNext].forEach(button => {
+    if (!button) return;
+    button.disabled = locked;
+    button.setAttribute('aria-disabled', String(locked));
+  });
+  el.reader.querySelectorAll('[data-play-recording]').forEach(button => {
+    button.disabled = locked;
+    button.setAttribute('aria-disabled', String(locked));
+  });
+}
+
+function stopRecordingWaveform() {
+  if (recordingWaveFrame !== null) cancelAnimationFrame(recordingWaveFrame);
+  recordingWaveFrame = null;
+  recordingAnalyser = null;
+  const context = recordingAudioContext;
+  recordingAudioContext = null;
+  if (context && context.state !== 'closed') context.close().catch(() => {});
+  document.querySelectorAll('.recording-waveform').forEach(wave => {
+    wave.hidden = true;
+    wave.classList.remove('is-live');
+  });
+}
+
+function startRecordingWaveform(stream, sura, aya) {
+  const wave = document.querySelector('[data-record-waveform="' + aya + '"]');
+  if (!wave || state.sura !== sura) return;
+  wave.hidden = false;
+  wave.classList.add('is-live');
+  const bars = Array.from(wave.children);
+  let analyser = null;
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    recordingAudioContext = new AudioContextClass();
+    analyser = recordingAudioContext.createAnalyser();
+    analyser.fftSize = 64;
+    recordingAudioContext.createMediaStreamSource(stream).connect(analyser);
+    recordingAnalyser = analyser;
+  } catch (error) {
+    // The CSS fallback still provides a gentle recording cue if analysis is unavailable.
+    return;
+  }
+  const samples = new Uint8Array(analyser.frequencyBinCount);
+  const draw = () => {
+    if (!activeRecorder || !recordingAnalyser || state.sura !== sura) return;
+    recordingAnalyser.getByteTimeDomainData(samples);
+    const middle = samples.length / 2;
+    bars.forEach((bar, index) => {
+      const sample = samples[Math.min(samples.length - 1, Math.floor(index / bars.length * samples.length))];
+      const level = Math.abs(sample - 128) / 128;
+      const envelope = 0.18 + Math.min(1, level * 2.8) * (0.25 + 0.75 * Math.sin((index / bars.length) * Math.PI));
+      bar.style.transform = 'scaleY(' + Math.max(0.12, envelope) + ')';
+    });
+    recordingWaveFrame = requestAnimationFrame(draw);
+  };
+  recordingWaveFrame = requestAnimationFrame(draw);
+}
+
 async function startUserRecording(sura, aya, button) {
   // Recording is its own interaction: cancel pending reciter loads and stop audio first.
   ++playbackRequestId;
@@ -625,6 +690,8 @@ async function startUserRecording(sura, aya, button) {
       button.textContent = 'Record my voice';
       const recordingCard = button.closest('.aya-recording');
       if (recordingCard) recordingCard.classList.remove('is-recording');
+      setRecordingPlaybackLock(false);
+      stopRecordingWaveform();
       const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
       if (status) status.textContent = 'Recording failed. Please try again.';
       toast('Recording failed. Please try again.');
@@ -639,6 +706,8 @@ async function startUserRecording(sura, aya, button) {
       button.textContent = 'Record my voice';
       const recordingCard = button.closest('.aya-recording');
       if (recordingCard) recordingCard.classList.remove('is-recording');
+      setRecordingPlaybackLock(false);
+      stopRecordingWaveform();
       const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
       if (status) status.textContent = '';
       if (!key || !blob.size) return;
@@ -657,11 +726,15 @@ async function startUserRecording(sura, aya, button) {
     };
     recorder.start();
     button.textContent = 'Stop recording';
+    setRecordingPlaybackLock(true);
+    startRecordingWaveform(stream, sura, aya);
     const recordingCard = button.closest('.aya-recording');
     if (recordingCard) recordingCard.classList.add('is-recording');
     const status = button.parentElement.querySelector('[data-record-status]');
     if (status) status.textContent = 'Recording now — start reciting. Tap Stop recording when finished.';
   } catch (error) {
+    setRecordingPlaybackLock(false);
+    stopRecordingWaveform();
     const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
     if (status) status.textContent = error && error.name === 'NotAllowedError' ? 'Allow microphone access to begin.' : '';
     toast(error && error.name === 'NotAllowedError'
@@ -1131,6 +1204,7 @@ function bindEvents() {
 
   /* --- transport --- */
   el.btnPlay.addEventListener('click', () => {
+    if (activeRecorder) return;
     if (!audio.paused) { audio.pause(); return; }
     if (configDirty || !state.started || !audio.src) startPlayback();
     else audio.play().catch(() => {});
