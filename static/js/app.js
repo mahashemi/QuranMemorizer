@@ -616,6 +616,11 @@ async function saveRecordingFolderSetting(handle) {
 function recitationKey(sura, aya) { return 'minshawi_murattal:' + sura + ':' + aya; }
 
 async function getCachedRecitation(sura, aya) {
+  const nativeStorage = await getNativeRecordingStorage();
+  if (nativeStorage && typeof nativeStorage.readRecitation === 'function') {
+    const nativeRecord = await nativeStorage.readRecitation(sura, aya);
+    if (nativeRecord && nativeRecord.blob instanceof Blob && nativeRecord.blob.size > 0) return nativeRecord;
+  }
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
     const request = db.transaction(RECITATION_STORE, 'readonly').objectStore(RECITATION_STORE).get(recitationKey(sura, aya));
@@ -625,8 +630,12 @@ async function getCachedRecitation(sura, aya) {
 }
 
 async function saveCachedRecitation(sura, aya, blob) {
+  const nativeStorage = await getNativeRecordingStorage();
+  if (nativeStorage && typeof nativeStorage.writeRecitation === 'function') {
+    return nativeStorage.writeRecitation(sura, aya, blob);
+  }
   const db = await openRecordingsDb();
-  const record = { key: recitationKey(sura, aya), sura, aya, reciter: 'minshawi_murattal', blob, size: blob.size, savedAt: Date.now() };
+  const record = { key: recitationKey(sura, aya), sura, aya, reciter: 'minshawi_murattal', blob, size: blob.size, savedAt: Date.now(), storage: 'browser' };
   return new Promise((resolve, reject) => {
     const request = db.transaction(RECITATION_STORE, 'readwrite').objectStore(RECITATION_STORE).put(record);
     request.onsuccess = () => resolve(record);
