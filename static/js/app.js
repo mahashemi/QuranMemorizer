@@ -532,6 +532,7 @@ let recordingAnalyser = null;
 let recordingWaveFrame = null;
 let recordingStorageMode = 'needs-folder-choice'; // native | folder | folder-needs-permission | needs-folder-choice | browser
 let recordingsParentHandle = null;
+let folderRecordingIndex = new Map();
 let recordingStorageReadyPromise = null;
 let nativeRecordingStoragePromise = null;
 let recordingArchiveModulePromise = null;
@@ -678,29 +679,46 @@ async function getConnectedRecordingDirectories(create) {
   return { appDirectory, recordingsDirectory };
 }
 
-async function getFolderRecording(sura, aya) {
-  const dirs = await getConnectedRecordingDirectories(false);
-  let suraDirectory;
+async function getFolderRecordingDirectory(sura) {
+  if (folderRecordingIndex.has(sura)) return folderRecordingIndex.get(sura);
+  const lookup = (async () => {
+    const dirs = await getConnectedRecordingDirectories(false);
+    let suraDirectory;
+    try {
+      suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+    } catch (error) {
+      if (isNotFoundError(error)) return { directory: null, files: new Map() };
+      throw error;
+    }
+    const files = new Map();
+    for await (const [name, handle] of suraDirectory.entries()) {
+      if (handle.kind !== 'file') continue;
+      const match = name.match(/^ayah-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      if (match) files.set(Number(match[1]), { name, ext: match[2].toLowerCase() });
+    }
+    return { directory: suraDirectory, files };
+  })();
+  folderRecordingIndex.set(sura, lookup);
   try {
-    suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+    return await lookup;
   } catch (error) {
-    if (isNotFoundError(error)) return null;
+    folderRecordingIndex.delete(sura);
     throw error;
   }
-  for (const ext of recordingExtensions()) {
-    const fileName = 'ayah-' + pad3(aya) + '.' + ext;
-    try {
-      const handle = await suraDirectory.getFileHandle(fileName, { create: false });
-      const file = await handle.getFile();
-      return {
-        key: sura + ':' + aya, sura, aya, blob: file, mimeType: file.type || recordingMimeForExtension(ext),
-        fileName, updatedAt: file.lastModified, storage: 'folder'
-      };
-    } catch (error) {
-      if (!isNotFoundError(error)) throw error;
-    }
-  }
-  return null;
+}
+
+async function getFolderRecording(sura, aya) {
+  const indexed = await getFolderRecordingDirectory(sura);
+  if (!indexed.directory) return null;
+  const fileInfo = indexed.files.get(aya);
+  if (!fileInfo) return null;
+  const handle = await indexed.directory.getFileHandle(fileInfo.name, { create: false });
+  const file = await handle.getFile();
+  return {
+    key: sura + ':' + aya, sura, aya, blob: file,
+    mimeType: file.type || recordingMimeForExtension(fileInfo.ext),
+    fileName: fileInfo.name, updatedAt: file.lastModified, storage: 'folder'
+  };
 }
 
 async function writeFolderRecording(sura, aya, blob) {
@@ -717,6 +735,7 @@ async function writeFolderRecording(sura, aya, blob) {
     try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
+  folderRecordingIndex.delete(sura);
   try {
     await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
   } catch (manifestError) {
@@ -752,6 +771,7 @@ async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mi
 
 async function removeFolderRecording(sura, aya) {
   const dirs = await getConnectedRecordingDirectories(false);
+  folderRecordingIndex.delete(sura);
   let suraDirectory;
   try {
     suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
@@ -913,6 +933,7 @@ async function connectRecordingFolder() {
     await appDirectory.getDirectoryHandle('recordings', { create: true });
     await saveRecordingFolderSetting(parent);
     recordingsParentHandle = parent;
+    folderRecordingIndex.clear();
     recordingStorageMode = 'folder';
 
     let copied = 0;
@@ -932,6 +953,7 @@ async function connectRecordingFolder() {
   } catch (error) {
     if (error && error.name === 'AbortError') return;
     recordingsParentHandle = previousParent;
+    folderRecordingIndex.clear();
     recordingStorageMode = previousMode;
     updateRecordingStorageUI();
     toast('Could not connect recordings folder: ' + (error.message || 'permission unavailable'));
@@ -942,6 +964,7 @@ async function useBrowserRecordingStorage() {
   try {
     await saveRecordingFolderSetting(null);
     recordingsParentHandle = null;
+    folderRecordingIndex.clear();
     recordingStorageMode = 'browser';
     updateRecordingStorageUI();
     refreshRecordingControls(state.sura);
