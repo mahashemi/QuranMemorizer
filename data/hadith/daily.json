@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "selectionPolicy": "Rotate deterministically by calendar date; all entries are attributed to Shia sources in the Imam Ali (a) sayings section of Nahj al-Balagha.",
+  "selectionPolicy": "Rotate deterministically by local calendar date. The collection includes Shia narrations from Nahj al-Balagha and al-Kafi; wording in English, Urdu and Persian is presented as meaning-translations, not as independent critical editions.",
   "sourceCollection": {
-    "title": "Nahj al-Balagha — Sayings of Imam Ali (a)",
-    "url": "https://al-islam.org/nahjul-balagha-part-2-letters-and-sayings/selections-sayings-and-preaching-amir-al-muminin-ali",
-    "note": "English meanings are concise translations of the cited sayings; Urdu and Persian are translations of those meanings."
+    "title": "Shia hadith sources: Nahj al-Balagha and al-Kafi",
+    "url": "https://al-islam.org/book/export/html/26141",
+    "note": "Each entry includes a source-specific reference URL. English wording is a concise meaning-translation; Urdu and Persian are translations of that meaning. Hadith numbering can vary by edition and website."
   },
   "hadiths": [
     {
@@ -82,6 +82,42 @@
         "en": "People are often hostile toward what they do not understand.",
         "ur": "لوگ اکثر اس چیز کے دشمن ہوتے ہیں جسے وہ نہیں جانتے۔",
         "fa": "مردم غالباً با آنچه نمی‌شناسند دشمنی می‌کنند۔"
+      }
+    },
+    {
+      "id": "alkafi-aql-what-is-intellect",
+      "imam": "Imam Ja'far al-Sadiq (a)",
+      "reference": "Al-Kafi, Volume 1, Kitab al-ʿAql wa al-Jahl (Book of Intellect and Ignorance), narration on the meaning of intellect",
+      "sourceUrl": "https://hadith.academyofislam.com/hadith/Al-Kafi-Volume-1-Kulayni%3A4",
+      "arabic": "مَا عُبِدَ بِهِ الرَّحْمَنُ وَاكْتُسِبَ بِهِ الْجِنَانُ",
+      "translations": {
+        "en": "Intellect is that by which the All-Merciful is worshipped and Paradise is attained.",
+        "ur": "عقل وہ ہے جس کے ذریعے خدائے رحمان کی عبادت کی جائے اور جنت حاصل ہو۔",
+        "fa": "عقل آن چیزی است که به‌وسیلهٔ آن خدای رحمان پرستش می‌شود و بهشت به دست می‌آید۔"
+      }
+    },
+    {
+      "id": "alkafi-aql-character",
+      "imam": "Imam Ja'far al-Sadiq (a)",
+      "reference": "Al-Kafi, Volume 1, Kitab al-ʿAql wa al-Jahl, narration on intellect and character",
+      "sourceUrl": "https://hadith.academyofislam.com/hadith/Al-Kafi-Volume-1-Kulayni%3A18",
+      "arabic": "أَكْمَلُ النَّاسِ عَقْلًا أَحْسَنُهُمْ خُلُقًا",
+      "translations": {
+        "en": "The most complete in intellect are those best in character.",
+        "ur": "لوگوں میں کامل ترین عقل والا وہ ہے جس کے اخلاق سب سے اچھے ہوں۔",
+        "fa": "کامل‌ترین مردم از نظر خرد، خوش‌اخلاق‌ترین آنان‌اند۔"
+      }
+    },
+    {
+      "id": "alkafi-aql-guide",
+      "imam": "Imam Ja'far al-Sadiq (a)",
+      "reference": "Al-Kafi, Volume 1, Kitab al-ʿAql wa al-Jahl, narration on intellect as a guide",
+      "sourceUrl": "https://hadith.academyofislam.com/hadith/Al-Kafi-Volume-1-Kulayni%3A25",
+      "arabic": "الْعَقْلُ دَلِيلُ الْمُؤْمِنِ",
+      "translations": {
+        "en": "Intellect is the guide of the believer.",
+        "ur": "عقل مومن کی رہنما ہے۔",
+        "fa": "خرد، راهنمای مؤمن است۔"
       }
     }
   ]
