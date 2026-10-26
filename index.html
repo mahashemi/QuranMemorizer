@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<!-- Home is shown first; the daily hadith card is intentionally a placeholder for now. -->
+<!-- Home page with date-rotated Shia hadiths. -->
 <main class="home-page" id="homePage">
   <div class="home-shell">
     <div class="home-brand">
@@ -288,5 +288,69 @@
 <div class="toast" id="toast"></div>
 
 <script src="static/js/app.js" defer></script>
+<script>
+(function () {
+  const enterReader = document.getElementById('enterReader');
+  if (enterReader) {
+    enterReader.addEventListener('click', function () {
+      document.body.classList.add('reader-active');
+      document.getElementById('homePage').setAttribute('aria-hidden', 'true');
+    });
+  }
+  function dayIndex(count) {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const dayOfYear = Math.floor((now - start) / 86400000);
+    return (dayOfYear - 1) % count;
+  }
+  function renderDailyHadith(data) {
+    if (!data || !Array.isArray(data.hadiths) || data.hadiths.length === 0) return;
+    const hadith = data.hadiths[dayIndex(data.hadiths.length)];
+    const card = document.querySelector('.hadith-card');
+    if (!hadith || !card) return;
+    const labels = [
+      ['Arabic', hadith.arabic, 'hadith-arabic', 'rtl'],
+      ['English', hadith.translations.en, 'hadith-english', 'ltr'],
+      ['اردو', hadith.translations.ur, 'hadith-urdu', 'rtl'],
+      ['فارسی', hadith.translations.fa, 'hadith-persian', 'rtl']
+    ];
+    const textContainer = document.createElement('div');
+    textContainer.className = 'daily-hadith-content';
+    labels.forEach(function (item) {
+      const section = document.createElement('div');
+      section.className = 'daily-hadith-line ' + item[2];
+      section.dir = item[3];
+      const label = document.createElement('div');
+      label.className = 'daily-hadith-language';
+      label.textContent = item[0];
+      const text = document.createElement('p');
+      text.className = 'daily-hadith-text';
+      text.textContent = item[1];
+      section.append(label, text);
+      textContainer.appendChild(section);
+    });
+    const oldText = document.getElementById('hadithText');
+    const oldSource = document.getElementById('hadithSource');
+    if (oldText) oldText.replaceWith(textContainer);
+    if (oldSource) {
+      oldSource.textContent = hadith.imam + ' · ' + hadith.reference;
+      const sourceLink = document.createElement('a');
+      sourceLink.href = data.sourceCollection.url;
+      sourceLink.target = '_blank';
+      sourceLink.rel = 'noopener noreferrer';
+      sourceLink.textContent = 'Read source';
+      sourceLink.className = 'hadith-source-link';
+      oldSource.append(' · ', sourceLink);
+    }
+  }
+  fetch('data/hadith/daily.json', { cache: 'no-cache' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('Hadith data unavailable: ' + response.status);
+      return response.json();
+    })
+    .then(renderDailyHadith)
+    .catch(function (error) { console.warn('Daily hadith could not be loaded:', error); });
+})();
+</script>
 </body>
 </html>
