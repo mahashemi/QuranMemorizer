@@ -78,6 +78,7 @@ const el = {
   settingsSheet: $('settingsSheet'), settingsBackdrop: $('settingsBackdrop'),
   btnOpenSettings: $('btnOpenSettings'),
   btnOpenSettingsDesktop: $('btnOpenSettingsDesktop'),
+  btnRecordingFolder: $('btnRecordingFolder'),
   sheetDone: $('sheetDone'),
   repeatSlotDesktop: $('repeatSlotDesktop'),
   repeatSlotMobile: $('repeatSlotMobile'),
@@ -510,6 +511,8 @@ function trackUrl(sura, aya) {
 /* Per-ayah recordings are stored locally in IndexedDB; they never upload. */
 const RECORDINGS_DB = 'quranMemorizerRecordings';
 const RECORDINGS_STORE = 'ayah-recordings';
+const RECORDINGS_SETTINGS_STORE = 'settings';
+const RECORDING_FOLDER_KEY = 'recording-folder-handle';
 let recordingsDbPromise;
 let activeRecorder = null;
 let activeRecordingKey = null;
@@ -521,11 +524,14 @@ function openRecordingsDb() {
   if (!('indexedDB' in window)) return Promise.reject(new Error('Local recording storage is not supported here.'));
   if (!recordingsDbPromise) {
     recordingsDbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(RECORDINGS_DB, 1);
+      const request = indexedDB.open(RECORDINGS_DB, 2);
       request.onupgradeneeded = () => {
         const db = request.result;
         if (!db.objectStoreNames.contains(RECORDINGS_STORE)) {
           db.createObjectStore(RECORDINGS_STORE, { keyPath: 'key' });
+        }
+        if (!db.objectStoreNames.contains(RECORDINGS_SETTINGS_STORE)) {
+          db.createObjectStore(RECORDINGS_SETTINGS_STORE, { keyPath: 'key' });
         }
       };
       request.onsuccess = () => resolve(request.result);
@@ -533,6 +539,64 @@ function openRecordingsDb() {
     });
   }
   return recordingsDbPromise;
+}
+
+async function getRecordingFolderHandle() {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECORDINGS_SETTINGS_STORE, 'readonly')
+      .objectStore(RECORDINGS_SETTINGS_STORE).get(RECORDING_FOLDER_KEY);
+    request.onsuccess = () => resolve(request.result ? request.result.handle : null);
+    request.onerror = () => reject(request.error || new Error('Could not read recordings folder setting.'));
+  });
+}
+
+async function setRecordingFolderHandle(handle) {
+  const db = await openRecordingsDb();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(RECORDINGS_SETTINGS_STORE, 'readwrite')
+      .objectStore(RECORDINGS_SETTINGS_STORE)
+      .put({ key: RECORDING_FOLDER_KEY, handle });
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error || new Error('Could not save recordings folder setting.'));
+  });
+}
+
+async function configureRecordingFolder() {
+  if (!window.showDirectoryPicker) {
+    toast('Folder saving requires a supported browser such as Chrome or Edge. Recordings will still be saved in this browser.');
+    return;
+  }
+  try {
+    const handle = await window.showDirectoryPicker({ id: 'quran-memorizer-recordings', mode: 'readwrite' });
+    const permission = await handle.requestPermission({ mode: 'readwrite' });
+    if (permission !== 'granted') {
+      toast('Folder access was not granted. Recordings remain in browser storage.');
+      return;
+    }
+    await setRecordingFolderHandle(handle);
+    if (el.btnRecordingFolder) el.btnRecordingFolder.textContent = 'Folder: ' + handle.name;
+    toast('Recordings folder set to "' + handle.name + '".');
+  } catch (error) {
+    if (error && error.name === 'AbortError') return;
+    toast('Could not set recordings folder: ' + (error.message || 'unknown error'));
+  }
+}
+
+async function writeRecordingFile(sura, aya, blob) {
+  const handle = await getRecordingFolderHandle();
+  if (!handle) return false;
+  let permission = await handle.queryPermission({ mode: 'readwrite' });
+  if (permission !== 'granted') permission = await handle.requestPermission({ mode: 'readwrite' });
+  if (permission !== 'granted') return false;
+  const suraInfo = SURA_BY_NUM[sura];
+  const suraName = (suraInfo ? suraInfo.englishName : 'Surah').replace(/[^a-z0-9-]+/gi, '-');
+  const filename = 'surah-' + pad3(sura) + '-' + suraName + '-ayah-' + pad3(aya) + '.webm';
+  const fileHandle = await handle.getFileHandle(filename, { create: true });
+  const writable = await fileHandle.createWritable();
+  await writable.write(blob);
+  await writable.close();
+  return true;
 }
 
 async function getUserRecording(sura, aya) {
@@ -626,8 +690,13 @@ async function startUserRecording(sura, aya, button) {
       if (!key || !blob.size) return;
       try {
         await saveUserRecording(key.sura, key.aya, blob);
+        let folderSaved = false;
+        try { folderSaved = await writeRecordingFile(key.sura, key.aya, blob); }
+        catch (folderError) { console.warn('Folder copy failed; browser copy is safe:', folderError); }
         refreshRecordingControls(key.sura);
-        toast('Your recording was saved on this device.');
+        toast(folderSaved
+          ? 'Recording saved in browser storage and your recordings folder.'
+          : 'Recording saved in this browser. Folder copy was unavailable; choose/re-authorize the folder to export files.');
       } catch (error) {
         toast('Could not save recording: ' + error.message);
       }
@@ -1000,6 +1069,13 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 function bindEvents() {
+
+  if (el.btnRecordingFolder) {
+    el.btnRecordingFolder.addEventListener('click', configureRecordingFolder);
+    getRecordingFolderHandle().then(handle => {
+      if (handle && el.btnRecordingFolder) el.btnRecordingFolder.textContent = 'Folder: ' + handle.name;
+    }).catch(() => {});
+  }
 
   /* --- homepage Surah picker --- */
   if (el.homeSuraList) {
