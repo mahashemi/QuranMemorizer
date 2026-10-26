@@ -18,12 +18,16 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check static/js/app.js
+          node --check static/js/native-storage-adapter.mjs
+          node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
           node --check static/js/native-storage-adapter.mjs
           node --check static/js/recording-archive.mjs
           node --check scripts/test-recording-archive.mjs
       - name: Test recording ZIP round trip
         run: node scripts/test-recording-archive.mjs
+      - name: Test portable recording archives
+        run: npm test
       - name: Build Capacitor web assets
         run: |
           node scripts/build-web.mjs
