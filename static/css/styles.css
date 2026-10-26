@@ -1143,9 +1143,46 @@ body.reader-active .app { display: grid !important; }
 .aya-recording button[data-record-aya] {
   border-color: var(--accent-border);
   color: var(--accent);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 .aya-recording button[hidden] { display: none !important; }
 .aya-record-status { color: var(--muted); font-size: 11px; }
+.aya-recording.is-recording button[data-record-aya] {
+  color: #ffb5ad;
+  border-color: rgba(239, 91, 82, .65);
+  background: rgba(239, 91, 82, .09);
+  box-shadow: 0 0 0 3px rgba(239, 91, 82, .08);
+  animation: recording-button-breathe 2s ease-in-out infinite;
+}
+.aya-recording.is-recording .aya-record-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffb5ad;
+  font-weight: 600;
+}
+.aya-recording.is-recording .aya-record-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #ef5b52;
+  box-shadow: 0 0 0 0 rgba(239, 91, 82, .45);
+  animation: recording-dot-pulse 1.6s ease-out infinite;
+}
+@keyframes recording-button-breathe {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(239, 91, 82, .05); }
+  50% { box-shadow: 0 0 0 4px rgba(239, 91, 82, .12); }
+}
+@keyframes recording-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 91, 82, .4); }
+  70%, 100% { box-shadow: 0 0 0 6px rgba(239, 91, 82, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aya-recording.is-recording button[data-record-aya],
+  .aya-recording.is-recording .aya-record-status::before { animation: none; }
+}
 
 
 /* Home/reader switch: never leave the homepage covering the reader after entry. */
