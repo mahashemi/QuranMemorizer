@@ -521,11 +521,15 @@ function openRecordingsDb() {
   if (!('indexedDB' in window)) return Promise.reject(new Error('Local recording storage is not supported here.'));
   if (!recordingsDbPromise) {
     recordingsDbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(RECORDINGS_DB, 1);
+      const request = indexedDB.open(RECORDINGS_DB, 2);
       request.onupgradeneeded = () => {
         const db = request.result;
         if (!db.objectStoreNames.contains(RECORDINGS_STORE)) {
           db.createObjectStore(RECORDINGS_STORE, { keyPath: 'key' });
+        }
+        // Retain schema v2 compatibility with earlier test builds that created this store.
+        if (!db.objectStoreNames.contains('settings')) {
+          db.createObjectStore('settings', { keyPath: 'key' });
         }
       };
       request.onsuccess = () => resolve(request.result);
