@@ -1674,6 +1674,7 @@ function goToAya(aya, opts) {
 }
 
 async function playTrack(sura, aya) {
+  if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
   const requestId = ++playbackRequestId;
   playbackMode = 'sequence';
   state.playingAya = aya;
@@ -1850,6 +1851,14 @@ audio.addEventListener('loadedmetadata', () => {
 });
 
 audio.addEventListener('error', () => {
+  if (activeRecitationObjectUrl && audio.src === activeRecitationObjectUrl) {
+    URL.revokeObjectURL(activeRecitationObjectUrl);
+    activeRecitationObjectUrl = null;
+    toast('Downloaded audio could not be played. Trying the online copy.');
+    audio.src = trackUrl(state.sura, state.playingAya);
+    audio.play().catch(() => stopAll());
+    return;
+  }
   if (state.playingAya === 0) {
     goToAya(1, { play: true, opening: false });
     return;
