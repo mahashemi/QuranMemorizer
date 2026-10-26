@@ -1222,7 +1222,8 @@ body.reader-active .app { display: grid !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .aya-recording.is-recording button[data-record-aya],
-  .aya-recording.is-recording .aya-record-status::before { animation: none; }
+  .aya-recording.is-recording .aya-record-status::before,
+  .recording-waveform:not(.is-live) span { animation: none; }
 }
 
 
