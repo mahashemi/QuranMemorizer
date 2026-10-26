@@ -20,6 +20,7 @@
 <!-- Home page with date-rotated Shia hadiths. -->
 <main class="home-page" id="homePage">
   <div class="home-shell">
+    <div id="homeWelcome">
     <div class="home-bismillah" aria-label="In the name of Allah, the Most Compassionate, the Most Merciful">
       <img class="home-bismillah-text" src="assets/bismillah_text_green.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" />
     </div>
@@ -30,6 +31,14 @@
     <p class="home-eyebrow">Pause · Reflect · Recite</p>
     <h1 class="home-title">A moment with the Qur’an</h1>
     <p class="home-intro">Begin with reflection, then continue your recitation at your own pace.</p>
+    <section class="imam-awaiting-card" aria-labelledby="imamAwaitingTitle">
+      <span class="imam-awaiting-ornament" aria-hidden="true">✦</span>
+      <p class="imam-awaiting-kicker">A promise we must not forget</p>
+      <h2 id="imamAwaitingTitle">Our Imam is still waiting.</h2>
+      <p class="imam-awaiting-message">The Imam of our time, al-Mahdi <span lang="ar" dir="rtl">عجّل الله تعالى فرجه الشريف</span>, is still awaiting 313 devoted companions.</p>
+      <p class="imam-awaiting-reflection">What if we stopped asking only, “Where are the 313?” and began asking, “Am I preparing my heart to stand among them?”</p>
+      <p class="imam-awaiting-prayer">May Allah make us sincere, steadfast, and worthy of serving him.</p>
+    </section>
     <section class="hadith-card" aria-labelledby="hadithHeading">
       <div class="hadith-label" id="hadithHeading">Hadith of the Day</div>
       <p class="hadith-placeholder" id="hadithText">Your daily hadith will appear here.</p>
@@ -44,6 +53,17 @@
       <p>A little each day. A lifetime with the Qur’an.</p>
       <span class="home-footer-sub">May every ayah find a home in your heart.</span>
     </footer>
+    </div>
+    <section class="home-sura-picker" id="homeSuraPicker" aria-labelledby="homeSuraPickerTitle" hidden>
+      <div class="home-picker-heading">
+        <p class="home-eyebrow">Your journey begins here</p>
+        <h1 class="home-title" id="homeSuraPickerTitle">Choose a Surah</h1>
+      </div>
+      <label class="home-sura-search-label" for="homeSuraSearch">Search by name or number</label>
+      <input class="home-sura-search" id="homeSuraSearch" type="search" placeholder="Search Surah…" autocomplete="off" aria-label="Search surahs by name or number" />
+      <div class="home-sura-list" id="homeSuraList" aria-label="All 114 surahs"></div>
+      <p class="home-sura-empty" id="homeSuraEmpty" hidden>No Surah found. Try another name or number.</p>
+    </section>
   </div>
 </main>
 
@@ -301,8 +321,13 @@
   const enterReader = document.getElementById('enterReader');
   if (enterReader) {
     enterReader.addEventListener('click', function () {
-      document.body.classList.add('reader-active');
-      document.getElementById('homePage').setAttribute('aria-hidden', 'true');
+      const welcome = document.getElementById('homeWelcome');
+      const picker = document.getElementById('homeSuraPicker');
+      if (welcome) welcome.hidden = true;
+      if (picker) picker.hidden = false;
+      const search = document.getElementById('homeSuraSearch');
+      if (search) search.focus({ preventScroll: true });
+      document.getElementById('homePage').scrollTop = 0;
     });
   }
   function dayIndex(count) {
