@@ -173,6 +173,45 @@ function setNativePlaybackActive(active) {
   }
 }
 
+function updateNativeMediaMetadata(playing) {
+  try {
+    const nativePlayback = window.QuranMemorizerNative;
+    const sura = SURA_BY_NUM[state.sura];
+    if (!nativePlayback || typeof nativePlayback.updateMediaMetadata !== 'function' || !sura) return;
+    const aya = state.playingAya === 0 ? 1 : (state.playingAya || state.aya);
+    nativePlayback.updateMediaMetadata(
+      sura.englishName + ' — Ayah ' + aya,
+      currentReciter().name,
+      Boolean(playing)
+    );
+  } catch (error) {
+    console.warn('Could not update Android media-session metadata.', error);
+  }
+}
+
+function stopNativeMediaSession() {
+  try {
+    const nativePlayback = window.QuranMemorizerNative;
+    if (nativePlayback && typeof nativePlayback.stopMediaSession === 'function') {
+      nativePlayback.stopMediaSession();
+    }
+  } catch (error) {
+    console.warn('Could not stop Android media session.', error);
+  }
+}
+
+window.onQuranMediaAction = function (action) {
+  if (action === 'play') {
+    if (audio.paused) el.btnPlay.click();
+  } else if (action === 'pause') {
+    if (!audio.paused) el.btnPlay.click();
+  } else if (action === 'next') {
+    el.btnNext.click();
+  } else if (action === 'previous') {
+    el.btnPrev.click();
+  }
+};
+
 /* ==================================================================
    7. INIT
    ================================================================== */
@@ -1717,6 +1756,7 @@ async function playTrack(sura, aya) {
   setNativePlaybackActive(true);
   state.playingAya = aya;
   state.started = true;
+  updateNativeMediaMetadata(true);
   if (aya > 0) {
     try {
       const custom = await getUserRecording(sura, aya);
@@ -1774,6 +1814,7 @@ function stopAll() {
   playbackMode = 'idle';
   state.started = false;
   setNativePlaybackActive(false);
+  stopNativeMediaSession();
   audio.pause();
   try { audio.currentTime = 0; } catch (e) {}
   if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
@@ -1869,8 +1910,14 @@ audio.addEventListener('ended', () => {
   handleEnded();
 });
 
-audio.addEventListener('play',  () => { setPlayIcon(true); });
-audio.addEventListener('pause', () => { setPlayIcon(false); });
+audio.addEventListener('play', () => {
+  setPlayIcon(true);
+  if (playbackMode === 'sequence') updateNativeMediaMetadata(true);
+});
+audio.addEventListener('pause', () => {
+  setPlayIcon(false);
+  if (playbackMode === 'sequence') updateNativeMediaMetadata(false);
+});
 
 function setPlayIcon(playing) {
   el.iconPlay.innerHTML = playing
