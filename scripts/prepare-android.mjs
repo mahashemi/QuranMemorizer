@@ -6,7 +6,7 @@ const manifestPath = resolve(root, 'android/app/src/main/AndroidManifest.xml');
 if (!existsSync(manifestPath)) throw new Error('Android manifest not found. Run npx cap add android first.');
 
 let manifest = readFileSync(manifestPath, 'utf8');
-for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission.WAKE_LOCK']) {
+for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission.MODIFY_AUDIO_SETTINGS', 'android.permission.WAKE_LOCK']) {
   if (!manifest.includes(permission)) {
     manifest = manifest.replace(
       /(<manifest\b[^>]*>)/,
@@ -155,4 +155,4 @@ public class MainActivity extends BridgeActivity {
 `;
 if (existsSync(kotlinPath)) unlinkSync(kotlinPath);
 writeFileSync(javaPath, javaSource);
-console.log('Prepared Android RECORD_AUDIO manifest and runtime WebView microphone permission handling.');
+console.log('Prepared Android microphone/audio-settings permissions, runtime WebView capture grants, and playback wake lock.');
