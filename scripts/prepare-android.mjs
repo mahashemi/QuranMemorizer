@@ -360,4 +360,4 @@ writeFileSync(join(activityDir, 'QuranPlaybackService.java'), serviceSource);
 
 if (existsSync(kotlinPath)) unlinkSync(kotlinPath);
 writeFileSync(javaPath, javaSource);
-console.log('Prepared Android microphone/audio-settings permissions, runtime WebView capture grants, and playback wake lock.');
+console.log('Prepared microphone permissions, WebView capture grants, wake locks, and Android lock-screen media playback controls.');
