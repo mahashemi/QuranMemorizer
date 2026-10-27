@@ -16,8 +16,8 @@ for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission
 }
 if (!manifest.includes('QuranPlaybackService')) {
   manifest = manifest.replace(
-    /<application\\b([^>]*)>/,
-    '<application$1>\\n        <service android:name=".QuranPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback" />'
+    /<application\b([^>]*)>/,
+    '<application$1>\n        <service android:name=".QuranPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback" />'
   );
 }
 writeFileSync(manifestPath, manifest);
@@ -199,7 +199,7 @@ public class MainActivity extends BridgeActivity {
     }
 }
 `;
-const serviceSource = \`package \${resolvedPackageName};
+const serviceSource = `package ${resolvedPackageName};
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -254,6 +254,11 @@ public class QuranPlaybackService extends Service {
             return START_NOT_STICKY;
         }
         if (intent != null) {
+            String action = intent.getAction();
+            if (ACTION_PLAY.equals(action)) { MainActivity.dispatchMediaAction("play"); playing = true; }
+            else if (ACTION_PAUSE.equals(action)) { MainActivity.dispatchMediaAction("pause"); playing = false; }
+            else if (ACTION_NEXT.equals(action)) MainActivity.dispatchMediaAction("next");
+            else if (ACTION_PREVIOUS.equals(action)) MainActivity.dispatchMediaAction("previous");
             if (intent.hasExtra(EXTRA_TITLE)) title = intent.getStringExtra(EXTRA_TITLE);
             if (intent.hasExtra(EXTRA_ARTIST)) artist = intent.getStringExtra(EXTRA_ARTIST);
             if (intent.hasExtra(EXTRA_PLAYING)) playing = intent.getBooleanExtra(EXTRA_PLAYING, false);
@@ -330,7 +335,7 @@ public class QuranPlaybackService extends Service {
         super.onDestroy();
     }
 }
-\`;
+`;
 writeFileSync(join(activityDir, 'QuranPlaybackService.java'), serviceSource);
 
 if (existsSync(kotlinPath)) unlinkSync(kotlinPath);
