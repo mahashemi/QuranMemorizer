@@ -6,13 +6,19 @@ const manifestPath = resolve(root, 'android/app/src/main/AndroidManifest.xml');
 if (!existsSync(manifestPath)) throw new Error('Android manifest not found. Run npx cap add android first.');
 
 let manifest = readFileSync(manifestPath, 'utf8');
-for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission.MODIFY_AUDIO_SETTINGS', 'android.permission.WAKE_LOCK']) {
+for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission.MODIFY_AUDIO_SETTINGS', 'android.permission.WAKE_LOCK', 'android.permission.FOREGROUND_SERVICE', 'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK']) {
   if (!manifest.includes(permission)) {
     manifest = manifest.replace(
       /(<manifest\b[^>]*>)/,
       '$1\n    <uses-permission android:name="' + permission + '" />'
     );
   }
+}
+if (!manifest.includes('QuranPlaybackService')) {
+  manifest = manifest.replace(
+    /<application\\b([^>]*)>/,
+    '<application$1>\\n        <service android:name=".QuranPlaybackService" android:exported="false" android:foregroundServiceType="mediaPlayback" />'
+  );
 }
 writeFileSync(manifestPath, manifest);
 
@@ -44,6 +50,8 @@ const javaSource = `package ${resolvedPackageName};
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -64,10 +72,13 @@ public class MainActivity extends BridgeActivity {
     private static final String MIC_TAG = "QuranMemorizerMic";
     private PermissionRequest pendingAudioRequest;
     private PowerManager.WakeLock playbackWakeLock;
+    private static volatile MainActivity currentActivity;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentActivity = this;
         if (bridge != null && bridge.getWebView() != null) {
             bridge.getWebView().setWebChromeClient(new RecordingWebChromeClient(bridge));
             bridge.getWebView().addJavascriptInterface(new PlaybackControl(), "QuranMemorizerNative");
@@ -93,6 +104,40 @@ public class MainActivity extends BridgeActivity {
                 }
             });
         }
+
+        @JavascriptInterface
+        public void updateMediaMetadata(String title, String artist, boolean playing) {
+            Intent intent = new Intent(MainActivity.this, QuranPlaybackService.class)
+                .setAction(QuranPlaybackService.ACTION_UPDATE)
+                .putExtra(QuranPlaybackService.EXTRA_TITLE, title)
+                .putExtra(QuranPlaybackService.EXTRA_ARTIST, artist)
+                .putExtra(QuranPlaybackService.EXTRA_PLAYING, playing);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent);
+            } else {
+                startService(intent);
+            }
+        }
+
+        @JavascriptInterface
+        public void stopMediaSession() {
+            startService(new Intent(MainActivity.this, QuranPlaybackService.class)
+                .setAction(QuranPlaybackService.ACTION_STOP));
+        }
+    }
+
+    static void dispatchMediaAction(String action) {
+        MainActivity activity = currentActivity;
+        if (activity == null) return;
+        activity.runOnUiThread(() -> {
+            if (activity.bridge != null && activity.bridge.getWebView() != null) {
+                String safeAction = action.replace("'", "");
+                activity.bridge.getWebView().evaluateJavascript(
+                    "if (typeof window.onQuranMediaAction === 'function') window.onQuranMediaAction('" + safeAction + "')",
+                    null
+                );
+            }
+        });
     }
 
     @Override
@@ -100,6 +145,7 @@ public class MainActivity extends BridgeActivity {
         if (playbackWakeLock != null && playbackWakeLock.isHeld()) {
             playbackWakeLock.release();
         }
+        if (currentActivity == this) currentActivity = null;
         super.onDestroy();
     }
 
@@ -153,6 +199,140 @@ public class MainActivity extends BridgeActivity {
     }
 }
 `;
+const serviceSource = \`package \${resolvedPackageName};
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.os.Build;
+import android.os.IBinder;
+import android.media.MediaMetadata;
+import android.media.session.MediaSession;
+import android.media.session.PlaybackState;
+import android.util.Log;
+
+public class QuranPlaybackService extends Service {
+    static final String ACTION_UPDATE = "org.quranmemorizer.UPDATE_MEDIA";
+    static final String ACTION_STOP = "org.quranmemorizer.STOP_MEDIA";
+    static final String ACTION_PLAY = "org.quranmemorizer.MEDIA_PLAY";
+    static final String ACTION_PAUSE = "org.quranmemorizer.MEDIA_PAUSE";
+    static final String ACTION_NEXT = "org.quranmemorizer.MEDIA_NEXT";
+    static final String ACTION_PREVIOUS = "org.quranmemorizer.MEDIA_PREVIOUS";
+    static final String EXTRA_TITLE = "title";
+    static final String EXTRA_ARTIST = "artist";
+    static final String EXTRA_PLAYING = "playing";
+    private static final String CHANNEL_ID = "quran_playback";
+    private static final int NOTIFICATION_ID = 7413;
+    private MediaSession mediaSession;
+    private String title = "Qur’an recitation";
+    private String artist = "QuranMemorizer";
+    private boolean playing;
+
+    @Override public void onCreate() {
+        super.onCreate();
+        createNotificationChannel();
+        mediaSession = new MediaSession(this, "QuranMemorizer");
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mediaSession.setCallback(new MediaSession.Callback() {
+            @Override public void onPlay() { MainActivity.dispatchMediaAction("play"); setPlaying(true); }
+            @Override public void onPause() { MainActivity.dispatchMediaAction("pause"); setPlaying(false); }
+            @Override public void onSkipToNext() { MainActivity.dispatchMediaAction("next"); }
+            @Override public void onSkipToPrevious() { MainActivity.dispatchMediaAction("previous"); }
+        });
+        mediaSession.setActive(true);
+    }
+
+    @Override public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && ACTION_STOP.equals(intent.getAction())) {
+            playing = false;
+            if (mediaSession != null) mediaSession.setActive(false);
+            stopForeground(true);
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+        if (intent != null) {
+            if (intent.hasExtra(EXTRA_TITLE)) title = intent.getStringExtra(EXTRA_TITLE);
+            if (intent.hasExtra(EXTRA_ARTIST)) artist = intent.getStringExtra(EXTRA_ARTIST);
+            if (intent.hasExtra(EXTRA_PLAYING)) playing = intent.getBooleanExtra(EXTRA_PLAYING, false);
+        }
+        updateSession();
+        startForeground(NOTIFICATION_ID, buildNotification());
+        return START_NOT_STICKY;
+    }
+
+    private void setPlaying(boolean value) {
+        playing = value;
+        updateSession();
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (manager != null) manager.notify(NOTIFICATION_ID, buildNotification());
+    }
+
+    private void updateSession() {
+        if (mediaSession == null) return;
+        mediaSession.setMetadata(new MediaMetadata.Builder()
+            .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+            .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
+            .putString(MediaMetadata.METADATA_KEY_ALBUM, "Qur’an Memorizer")
+            .build());
+        long actions = PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE
+            | PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_SKIP_TO_NEXT
+            | PlaybackState.ACTION_SKIP_TO_PREVIOUS;
+        mediaSession.setPlaybackState(new PlaybackState.Builder()
+            .setActions(actions)
+            .setState(playing ? PlaybackState.STATE_PLAYING : PlaybackState.STATE_PAUSED, 0, 1.0f)
+            .build());
+        mediaSession.setActive(true);
+    }
+
+    private Notification buildNotification() {
+        Intent launch = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        PendingIntent content = launch == null ? null : PendingIntent.getActivity(this, 1, launch,
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        Notification.Builder builder = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            ? new Notification.Builder(this, CHANNEL_ID) : new Notification.Builder(this);
+        builder.setSmallIcon(android.R.drawable.ic_media_play)
+            .setContentTitle(title).setContentText(artist)
+            .setVisibility(Notification.VISIBILITY_PUBLIC)
+            .setOngoing(playing).setContentIntent(content)
+            .addAction(android.R.drawable.ic_media_previous, "Previous", actionIntent(ACTION_PREVIOUS, 2))
+            .addAction(playing ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play,
+                playing ? "Pause" : "Play", actionIntent(playing ? ACTION_PAUSE : ACTION_PLAY, 3))
+            .addAction(android.R.drawable.ic_media_next, "Next", actionIntent(ACTION_NEXT, 4));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setStyle(new Notification.MediaStyle().setMediaSession(mediaSession.getSessionToken())
+                .setShowActionsInCompactView(0, 1, 2));
+        }
+        return builder.build();
+    }
+
+    private PendingIntent actionIntent(String action, int requestCode) {
+        return PendingIntent.getService(this, requestCode,
+            new Intent(this, QuranPlaybackService.class).setAction(action),
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Qur’an playback",
+                NotificationManager.IMPORTANCE_LOW);
+            channel.setDescription("Playback controls for Qur’an recitation");
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            if (manager != null) manager.createNotificationChannel(channel);
+        }
+    }
+
+    @Override public IBinder onBind(Intent intent) { return null; }
+    @Override public void onDestroy() {
+        if (mediaSession != null) { mediaSession.setActive(false); mediaSession.release(); mediaSession = null; }
+        super.onDestroy();
+    }
+}
+\`;
+writeFileSync(join(activityDir, 'QuranPlaybackService.java'), serviceSource);
+
 if (existsSync(kotlinPath)) unlinkSync(kotlinPath);
 writeFileSync(javaPath, javaSource);
 console.log('Prepared Android microphone/audio-settings permissions, runtime WebView capture grants, and playback wake lock.');
