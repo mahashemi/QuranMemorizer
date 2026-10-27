@@ -209,6 +209,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.media.MediaMetadata;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
@@ -230,10 +231,18 @@ public class QuranPlaybackService extends Service {
     private String title = "Qur’an recitation";
     private String artist = "QuranMemorizer";
     private boolean playing;
+    private PowerManager.WakeLock serviceWakeLock;
 
     @Override public void onCreate() {
         super.onCreate();
         createNotificationChannel();
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (powerManager != null) {
+            serviceWakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + ":QuranMediaService"
+            );
+            serviceWakeLock.setReferenceCounted(false);
+        }
         mediaSession = new MediaSession(this, "QuranMemorizer");
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaSession.setCallback(new MediaSession.Callback() {
@@ -248,6 +257,7 @@ public class QuranPlaybackService extends Service {
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && ACTION_STOP.equals(intent.getAction())) {
             playing = false;
+            updateWakeLock();
             if (mediaSession != null) mediaSession.setActive(false);
             stopForeground(true);
             stopSelf();
@@ -263,6 +273,7 @@ public class QuranPlaybackService extends Service {
             if (intent.hasExtra(EXTRA_ARTIST)) artist = intent.getStringExtra(EXTRA_ARTIST);
             if (intent.hasExtra(EXTRA_PLAYING)) playing = intent.getBooleanExtra(EXTRA_PLAYING, false);
         }
+        updateWakeLock();
         updateSession();
         startForeground(NOTIFICATION_ID, buildNotification());
         return START_NOT_STICKY;
@@ -270,9 +281,16 @@ public class QuranPlaybackService extends Service {
 
     private void setPlaying(boolean value) {
         playing = value;
+        updateWakeLock();
         updateSession();
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (manager != null) manager.notify(NOTIFICATION_ID, buildNotification());
+    }
+
+    private void updateWakeLock() {
+        if (serviceWakeLock == null) return;
+        if (playing && !serviceWakeLock.isHeld()) serviceWakeLock.acquire();
+        else if (!playing && serviceWakeLock.isHeld()) serviceWakeLock.release();
     }
 
     private void updateSession() {
@@ -331,6 +349,8 @@ public class QuranPlaybackService extends Service {
 
     @Override public IBinder onBind(Intent intent) { return null; }
     @Override public void onDestroy() {
+        playing = false;
+        updateWakeLock();
         if (mediaSession != null) { mediaSession.setActive(false); mediaSession.release(); mediaSession = null; }
         super.onDestroy();
     }
