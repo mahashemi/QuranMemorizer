@@ -15,6 +15,18 @@ on:
       - "static/**"
       - "data/quran/**"
       - "data/hadith/**"
+  pull_request:
+    paths:
+      - ".github/workflows/android-apk.yml"
+      - "scripts/prepare-android.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - "capacitor.config.ts"
+      - "assets/**"
+      - "index.html"
+      - "static/**"
+      - "data/quran/**"
+      - "data/hadith/**"
 
 permissions:
   contents: read
