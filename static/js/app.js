@@ -1590,17 +1590,34 @@ async function startUserRecording(sura, aya, button) {
     setRecordingPlaybackLock(false);
     stopRecordingWaveform();
     const status = button.parentElement && button.parentElement.querySelector('[data-record-status]');
-    const errorName = error && error.name;
-    let message;
+    const errorName = error && error.name ? error.name : 'UnknownError';
+    const errorMessage = error && error.message ? error.message : 'No error message supplied';
+    const constraint = error && error.constraint ? error.constraint : '';
+    // Keep the browser's original exception visible. The previous friendly message
+    // hid the distinction between a WebView permission failure and an OS audio-input failure.
+    console.error('[QuranMemorizer] Microphone initialization failed', {
+      name: errorName,
+      message: errorMessage,
+      constraint,
+      secureContext: window.isSecureContext,
+      mediaDevicesAvailable: !!navigator.mediaDevices,
+      getUserMediaAvailable: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+      mediaRecorderAvailable: typeof window.MediaRecorder !== 'undefined',
+      nativePlatform: !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()),
+      userAgent: navigator.userAgent
+    });
+    let guidance;
     if (errorName === 'NotAllowedError' || errorName === 'SecurityError') {
-      message = 'Microphone access was denied. Allow microphone access for QuranMemorizer in Android Settings and try again.';
-    } else if (errorName === 'NotReadableError' || /could not start audio source/i.test(error && error.message || '')) {
-      message = 'Android could not open the microphone for QuranMemorizer. Close other apps using the microphone, check QuranMemorizer’s microphone permission in Android Settings, then try again.';
+      guidance = 'Microphone access was denied. Check Android microphone permission and the app’s microphone privacy toggle.';
+    } else if (errorName === 'NotReadableError' || /could not start audio source/i.test(errorMessage)) {
+      guidance = 'Android could not initialize microphone input. Check whether another app is using the microphone, then retry.';
     } else if (errorName === 'OverconstrainedError') {
-      message = 'The device could not satisfy the microphone settings. Please try again.';
+      guidance = 'The device rejected the requested microphone constraints.';
     } else {
-      message = 'Could not start recording' + (errorName ? ' (' + errorName + ')' : '') + ': ' + ((error && error.message) || 'unknown error');
+      guidance = 'Could not start recording.';
     }
+    const details = errorName + ': ' + errorMessage + (constraint ? ' (constraint: ' + constraint + ')' : '');
+    const message = guidance + ' Details: ' + details;
     if (status) status.textContent = message;
     toast(message);
   }
