@@ -6,11 +6,13 @@ const manifestPath = resolve(root, 'android/app/src/main/AndroidManifest.xml');
 if (!existsSync(manifestPath)) throw new Error('Android manifest not found. Run npx cap add android first.');
 
 let manifest = readFileSync(manifestPath, 'utf8');
-if (!manifest.includes('android.permission.RECORD_AUDIO')) {
-  manifest = manifest.replace(
-    /(<manifest\b[^>]*>)/,
-    '$1\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />'
-  );
+for (const permission of ['android.permission.RECORD_AUDIO', 'android.permission.WAKE_LOCK']) {
+  if (!manifest.includes(permission)) {
+    manifest = manifest.replace(
+      /(<manifest\b[^>]*>)/,
+      '$1\n    <uses-permission android:name="' + permission + '" />'
+    );
+  }
 }
 writeFileSync(manifestPath, manifest);
 
@@ -59,13 +61,44 @@ public class MainActivity extends BridgeActivity {
     private static final int REQUEST_MICROPHONE = 7412;
     private static final String MIC_TAG = "QuranMemorizerMic";
     private PermissionRequest pendingAudioRequest;
+    private PowerManager.WakeLock playbackWakeLock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (bridge != null && bridge.getWebView() != null) {
             bridge.getWebView().setWebChromeClient(new RecordingWebChromeClient(bridge));
+            bridge.getWebView().addJavascriptInterface(new PlaybackControl(), "QuranMemorizerNative");
         }
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (powerManager != null) {
+            playbackWakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + ":QuranPlayback"
+            );
+            playbackWakeLock.setReferenceCounted(false);
+        }
+    }
+
+    private final class PlaybackControl {
+        @JavascriptInterface
+        public void setPlaybackActive(boolean active) {
+            runOnUiThread(() -> {
+                if (playbackWakeLock == null) return;
+                if (active) {
+                    if (!playbackWakeLock.isHeld()) playbackWakeLock.acquire();
+                } else if (playbackWakeLock.isHeld()) {
+                    playbackWakeLock.release();
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (playbackWakeLock != null && playbackWakeLock.isHeld()) {
+            playbackWakeLock.release();
+        }
+        super.onDestroy();
     }
 
     private final class RecordingWebChromeClient extends BridgeWebChromeClient {
