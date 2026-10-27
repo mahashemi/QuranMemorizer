@@ -162,6 +162,17 @@ function saveDisplayPrefs() {
 const audio = new Audio();
 audio.preload = 'auto';
 
+function setNativePlaybackActive(active) {
+  try {
+    const nativePlayback = window.QuranMemorizerNative;
+    if (nativePlayback && typeof nativePlayback.setPlaybackActive === 'function') {
+      nativePlayback.setPlaybackActive(Boolean(active));
+    }
+  } catch (error) {
+    console.warn('Could not update native playback state.', error);
+  }
+}
+
 /* ==================================================================
    7. INIT
    ================================================================== */
@@ -1703,6 +1714,7 @@ async function playTrack(sura, aya) {
   if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
   const requestId = ++playbackRequestId;
   playbackMode = 'sequence';
+  setNativePlaybackActive(true);
   state.playingAya = aya;
   state.started = true;
   if (aya > 0) {
@@ -1761,6 +1773,7 @@ function stopAll() {
   ++playbackRequestId;
   playbackMode = 'idle';
   state.started = false;
+  setNativePlaybackActive(false);
   audio.pause();
   try { audio.currentTime = 0; } catch (e) {}
   if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
@@ -1844,6 +1857,7 @@ audio.addEventListener('ended', () => {
   if (playbackMode === 'preview') {
     playbackMode = 'idle';
     state.started = false;
+    setNativePlaybackActive(false);
     setPlayIcon(false);
     return;
   }
@@ -2120,9 +2134,16 @@ function bindEvents() {
   /* --- transport --- */
   el.btnPlay.addEventListener('click', () => {
     if (activeRecorder) return;
-    if (!audio.paused) { audio.pause(); return; }
+    if (!audio.paused) {
+      audio.pause();
+      setNativePlaybackActive(false);
+      return;
+    }
     if (configDirty || !state.started || !audio.src) startPlayback();
-    else audio.play().catch(() => {});
+    else {
+      setNativePlaybackActive(playbackMode === 'sequence');
+      audio.play().catch(() => setNativePlaybackActive(false));
+    }
   });
 
   el.btnNext.addEventListener('click', () => {
