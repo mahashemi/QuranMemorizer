@@ -31,7 +31,10 @@
     <p class="home-eyebrow" data-reveal="up">Pause · Reflect · Recite</p>
     <h1 class="home-title" data-reveal="up">A moment with the Qur’an</h1>
     <p class="home-intro" data-reveal="up">Begin with reflection, then continue your recitation at your own pace.</p>
-    <div class="home-actions home-actions-between" data-reveal="up">\n      <button class="home-primary" id="enterReader" type="button"><span>Begin reading</span><span class="home-primary-arrow" aria-hidden="true">→</span></button>\n    </div>\n    <section class="imam-awaiting-card" data-reveal="up" aria-labelledby="imamAwaitingTitle">
+    <div class="home-actions home-actions-between" data-reveal="up">
+      <button class="home-primary" id="enterReader" type="button" aria-label="Begin reading and choose a Surah"><span>Begin reading</span><span class="home-primary-arrow" aria-hidden="true">→</span></button>
+    </div>
+    <section class="imam-awaiting-card" data-reveal="up" aria-labelledby="imamAwaitingTitle">
       <span class="imam-awaiting-ornament" aria-hidden="true">✦</span>
       <p class="imam-awaiting-kicker">A promise we must not forget</p>
       <h2 id="imamAwaitingTitle">Our Imam is still waiting.</h2>
@@ -39,9 +42,6 @@
       <p class="imam-awaiting-reflection">What if we stopped asking only, “Where are the 313?” and began asking, “Am I preparing my heart to stand among them?”</p>
       <p class="imam-awaiting-prayer">May Allah make us sincere, steadfast, and worthy of serving him.</p>
     </section>
-    <div class="home-actions home-actions-between">
-      <button class="home-primary" id="enterReader" type="button">Open Qur’an reader <span aria-hidden="true">→</span></button>
-    </div>
     <section class="hadith-card" data-reveal="up" aria-labelledby="hadithHeading">
       <div class="hadith-label" id="hadithHeading">Hadith of the Day</div>
       <p class="hadith-placeholder" id="hadithText">Your daily hadith will appear here.</p>
@@ -346,7 +346,24 @@
       document.getElementById('homePage').scrollTop = 0;
     });
   }
-\n  // Reveal home sections as the user scrolls; keep all content visible without JS.\n  (function () {\n    const home = document.getElementById('homePage');\n    const revealItems = document.querySelectorAll('#homeWelcome [data-reveal]');\n    if (!home || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;\n    revealItems.forEach(function (item) { item.classList.add('reveal-pending'); });\n    const observer = new IntersectionObserver(function (entries) {\n      entries.forEach(function (entry) {\n        if (!entry.isIntersecting) return;\n        entry.target.classList.add('reveal-visible');\n        entry.target.classList.remove('reveal-pending');\n        observer.unobserve(entry.target);\n      });\n    }, { root: home, threshold: 0.12, rootMargin: '0px 0px -36px 0px' });\n    revealItems.forEach(function (item) { observer.observe(item); });\n  })();\n  function dayIndex(count) {
+
+  // Reveal home sections as the user scrolls; keep all content visible without JS.
+  (function () {
+    const home = document.getElementById('homePage');
+    const revealItems = document.querySelectorAll('#homeWelcome [data-reveal]');
+    if (!home || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    revealItems.forEach(function (item) { item.classList.add('reveal-pending'); });
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('reveal-visible');
+        entry.target.classList.remove('reveal-pending');
+        observer.unobserve(entry.target);
+      });
+    }, { root: home, threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+    revealItems.forEach(function (item) { observer.observe(item); });
+  })();
+  function dayIndex(count) {
     const now = new Date();
     const start = new Date(now.getFullYear(), 0, 0);
     const dayOfYear = Math.floor((now - start) / 86400000);
