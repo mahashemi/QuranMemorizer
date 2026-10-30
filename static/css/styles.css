@@ -1485,3 +1485,101 @@ body:not(.reader-active) .daily-hadith-line { padding-left: 4px; padding-right: 
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
+
+/* ------------------------------------------------------------------
+   Home refresh: calm editorial layout, strong reading action, motion.
+   ------------------------------------------------------------------ */
+body:not(.reader-active) .home-page {
+  --home-ink: #f3f0e6;
+  --home-muted: #b9c4bb;
+  position: relative;
+  align-items: flex-start;
+  padding: clamp(34px, 6vh, 76px) 22px max(44px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(ellipse at 50% 4%, rgba(191, 160, 91, .13), transparent 34rem),
+    radial-gradient(ellipse at 8% 52%, rgba(37, 126, 95, .13), transparent 30rem),
+    linear-gradient(160deg, #091b18 0%, #101e1b 48%, #111b1c 100%);
+}
+body:not(.reader-active) .home-page::before {
+  content: ""; position: fixed; inset: 12px; pointer-events: none; z-index: 0;
+  border: 1px solid rgba(198,165,92,.12); border-radius: 22px;
+}
+body:not(.reader-active) .home-shell { position: relative; z-index: 1; width: min(100%, 760px); }
+body:not(.reader-active) #homeWelcome { padding: 10px 0 4px; }
+body:not(.reader-active) .home-bismillah { width: min(100%, 500px); margin: 0 auto 28px; min-height: 76px; justify-content: center; }
+body:not(.reader-active) .home-bismillah-text {
+  width: min(76%, 330px); max-height: 100px; height: auto; object-fit: contain;
+  filter: drop-shadow(0 8px 22px rgba(198,165,92,.15));
+}
+body:not(.reader-active) .home-brand { margin: 0 auto 24px; gap: 12px; }
+body:not(.reader-active) .home-brand-mark {
+  width: 38px; height: 38px; border-radius: 50%; color: #10231d;
+  background: linear-gradient(145deg,#e0c47f,#a98948); box-shadow: 0 5px 20px rgba(198,165,92,.18);
+}
+body:not(.reader-active) .home-brand-name { color: #eee9d9; font-size: 15px; letter-spacing: .7px; }
+body:not(.reader-active) .home-eyebrow { color: #d3b875; font-size: 10px; letter-spacing: 2.6px; margin: 0 0 10px; }
+body:not(.reader-active) .home-title {
+  color: #f4f0e4; max-width: 650px; margin: 0 auto 15px;
+  font-family: Georgia, "Times New Roman", serif; font-weight: 500;
+  font-size: clamp(38px, 7.6vw, 62px); letter-spacing: -1.5px; line-height: 1.06;
+}
+body:not(.reader-active) .home-intro {
+  color: #c0cbc2; max-width: 470px; margin: 0 auto 28px;
+  font-size: clamp(14px, 2vw, 16px); line-height: 1.8;
+}
+body:not(.reader-active) .home-actions { margin: 0 auto 34px; }
+body:not(.reader-active) .home-primary {
+  min-width: min(100%, 270px); min-height: 58px; padding: 0 28px;
+  border: 1px solid rgba(255,255,255,.18); border-radius: 999px;
+  color: #14251d; background: linear-gradient(135deg,#f0d99c,#c7a65f 58%,#b28c49);
+  box-shadow: 0 12px 32px rgba(0,0,0,.28), 0 0 0 5px rgba(198,165,92,.09);
+  font-size: 15px; font-weight: 800; letter-spacing: .2px;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+body:not(.reader-active) .home-primary-arrow { font-size: 20px; transition: transform .2s ease; }
+body:not(.reader-active) .home-primary:focus-visible {
+  outline: 3px solid #fff; outline-offset: 5px; box-shadow: 0 0 0 9px rgba(198,165,92,.3);
+}
+@media (hover:hover) {
+  body:not(.reader-active) .home-primary:hover { transform: translateY(-3px); filter: brightness(1.06); box-shadow: 0 16px 36px rgba(0,0,0,.34),0 0 0 6px rgba(198,165,92,.13); }
+  body:not(.reader-active) .home-primary:hover .home-primary-arrow { transform: translateX(4px); }
+}
+body:not(.reader-active) .imam-awaiting-card {
+  margin: 0 auto 22px; padding: clamp(26px,5vw,42px) clamp(22px,5vw,42px);
+  border: 1px solid rgba(198,165,92,.30); border-radius: 24px;
+  background: linear-gradient(145deg,rgba(30,39,32,.94),rgba(18,29,26,.97));
+  box-shadow: 0 22px 60px rgba(0,0,0,.24); text-align: center;
+}
+body:not(.reader-active) .imam-awaiting-card h2 { font-family: Georgia,"Times New Roman",serif; font-weight: 500; }
+body:not(.reader-active) .hadith-card {
+  padding: clamp(26px,5vw,42px); border: 1px solid rgba(198,165,92,.2); border-radius: 24px;
+  background: linear-gradient(145deg,rgba(26,39,34,.96),rgba(16,29,27,.98));
+  box-shadow: 0 20px 56px rgba(0,0,0,.2);
+}
+body:not(.reader-active) .hadith-label { color: #d6b976; letter-spacing: 2px; }
+body:not(.reader-active) .home-footnote { color: #8e9c92; margin-top: 24px; }
+body:not(.reader-active) .home-footer { margin-top: 34px; padding: 24px 12px 0; border-top: 1px solid rgba(198,165,92,.16); }
+body:not(.reader-active) .home-footer p { color: #d8d1bc; font-family: Georgia,"Times New Roman",serif; font-size: 17px; }
+body:not(.reader-active) .home-footer-sub { color: #9da99e; }
+body:not(.reader-active) [data-reveal] { opacity: 1; transform: none; }
+body:not(.reader-active) [data-reveal].reveal-pending { opacity: 0; transform: translateY(24px); }
+body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: translateY(0); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+@media (max-width: 600px) {
+  body:not(.reader-active) .home-page { padding: max(30px,env(safe-area-inset-top)) 18px max(38px,env(safe-area-inset-bottom)); }
+  body:not(.reader-active) .home-page::before { inset: 8px; border-radius: 16px; }
+  body:not(.reader-active) .home-bismillah { margin-bottom: 22px; min-height: 60px; }
+  body:not(.reader-active) .home-bismillah-text { width: min(82%,300px); max-height: 84px; }
+  body:not(.reader-active) .home-brand { margin-bottom: 22px; }
+  body:not(.reader-active) .home-title { font-size: clamp(37px,10vw,48px); }
+  body:not(.reader-active) .home-intro { margin-bottom: 24px; }
+  body:not(.reader-active) .home-actions { margin-bottom: 28px; }
+  body:not(.reader-active) .home-primary { width: min(100%,330px); min-height: 60px; }
+  body:not(.reader-active) .imam-awaiting-card { padding: 25px 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(.reader-active) [data-reveal],
+  body:not(.reader-active) [data-reveal].reveal-pending,
+  body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1 !important; transform: none !important; transition: none !important; }
+  body:not(.reader-active) .home-primary,
+  body:not(.reader-active) .home-primary-arrow { transition: none !important; }
+}
