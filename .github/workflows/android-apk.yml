@@ -68,6 +68,9 @@ jobs:
       - name: Configure microphone permission
         run: node scripts/prepare-android.mjs
 
+      - name: Set Android app version
+        run: node scripts/configure-android-version.mjs
+
       - name: Generate Android launcher icons
         run: |
           sudo apt-get update
