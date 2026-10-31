@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const root = process.cwd();
 const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
-const match = String(packageJson.version || '').match(/^(\\d+)\\.(\\d+)\\.(\\d+)$/);
+const match = String(packageJson.version || '').match(/^(\d+)\.(\d+)\.(\d+)$/);
 if (!match) throw new Error('package.json version must use MAJOR.MINOR.PATCH (for example 1.0.1).');
 
 const [, majorText, minorText, patchText] = match;
@@ -20,11 +20,11 @@ if (!Number.isSafeInteger(versionCode) || versionCode < 1) {
 
 const gradlePath = resolve(root, 'android/app/build.gradle');
 let gradle = readFileSync(gradlePath, 'utf8');
-if (!/versionCode\\s+\\d+/.test(gradle) || !/versionName\\s+['"][^'"]+['"]/.test(gradle)) {
+if (!/versionCode\s+\d+/.test(gradle) || !/versionName\s+['"][^'"]+['"]/.test(gradle)) {
   throw new Error('Could not locate versionCode and versionName in generated android/app/build.gradle.');
 }
-gradle = gradle.replace(/versionCode\\s+\\d+/, 'versionCode ' + versionCode);
-gradle = gradle.replace(/versionName\\s+['"][^'"]+['"]/, 'versionName "' + packageJson.version + '"');
+gradle = gradle.replace(/versionCode\s+\d+/, 'versionCode ' + versionCode);
+gradle = gradle.replace(/versionName\s+['"][^'"]+['"]/, 'versionName "' + packageJson.version + '"');
 
 if (process.env.QURAN_CONFIGURE_RELEASE_SIGNING === 'true') {
   if (!gradle.includes('signingConfigs {')) {
@@ -42,10 +42,10 @@ if (process.env.QURAN_CONFIGURE_RELEASE_SIGNING === 'true') {
 `;
     gradle = gradle.slice(0, buildTypesIndex) + signingBlock + gradle.slice(buildTypesIndex);
   }
-  const releaseBlock = gradle.match(/release\\s*\\{[\\s\\S]*?\\n\\s*\\}/);
+  const releaseBlock = gradle.match(/release\s*\{[\s\S]*?\n\s*\}/);
   if (!releaseBlock) throw new Error('Could not locate release build type for signing configuration.');
   if (!releaseBlock[0].includes('signingConfig')) {
-    gradle = gradle.replace(releaseBlock[0], releaseBlock[0].replace('{', '{\\n            signingConfig signingConfigs.release'));
+    gradle = gradle.replace(releaseBlock[0], releaseBlock[0].replace('{', '{\n            signingConfig signingConfigs.release'));
   }
 }
 writeFileSync(gradlePath, gradle);
