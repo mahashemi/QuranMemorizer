@@ -532,7 +532,6 @@ function updateAyaUI(scrollReader) {
   showMobileHeader();
 
   updateStatus();
-  if (scrollReader !== false) syncCurrentAyahUrl();
 }
 
 function showMobileHeader() {
