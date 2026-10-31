@@ -1,6 +1,7 @@
 (function () {
 'use strict';
 const APP_SCRIPT_URL = document.currentScript && document.currentScript.src;
+let ayahLinks = null;
 
 /* ==================================================================
    1. RECITERS
@@ -216,6 +217,12 @@ window.onQuranMediaAction = function (action) {
    7. INIT
    ================================================================== */
 async function init() {
+  ayahLinks = await import('./deep-links.mjs');
+  window.QuranMemorizerLinks = Object.freeze({
+    urlForAyah: (sura, ayah) => ayahLinks.buildAyahUrl(sura, ayah, window.location.href),
+    elementIdForAyah: (sura, ayah) => ayahLinks.ayahElementId(sura, ayah),
+    parseUrl: value => ayahLinks.parseAyahUrl(value)
+  });
   injectRepeatBlock();
   loadDisplayPrefs();
   buildReciterSelects();
@@ -254,7 +261,13 @@ async function init() {
   buildSidebar();
   bindEvents();
   bindRepeatEvents();
-  loadSura(1, { aya: 1, play: false });
+  window.addEventListener('hashchange', handleAyahHashChange);
+  const initialTarget = ayahLinks.parseAyahHash(window.location.hash);
+  if (initialTarget && SURA_BY_NUM[initialTarget.sura] && initialTarget.ayah <= SURA_BY_NUM[initialTarget.sura].ayas.length) {
+    openAyahTarget(initialTarget, false);
+  } else {
+    loadSura(1, { aya: 1, play: false, syncUrl: false });
+  }
 }
 
 /* Inject the repeat block from the template into the DOM (into the desktop slot by default) */
@@ -424,7 +437,7 @@ function renderSura() {
 
   for (const v of s.ayas) {
     html +=
-      '<article class="aya" id="aya-' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
+      '<article class="aya" id="ayah-' + s.number + '-' + v.ayaNum + '" data-aya="' + v.ayaNum + '" data-surah="' + s.number + '" data-ayah="' + v.ayaNum + '">' +
         '<div class="aya-top">' +
           '<span class="aya-num">' + v.ayaNum + '</span>' +
           '<span class="aya-hint">click to play</span>' +
@@ -469,12 +482,35 @@ function syncDisplayTogglesUI() {
 /* ==================================================================
    13. UI SYNC
    ================================================================== */
+function syncCurrentAyahUrl() {
+  if (!ayahLinks) return;
+  const next = ayahLinks.buildAyahHash(state.sura, state.aya);
+  if (window.location.hash !== next) window.history.replaceState(null, '', window.location.pathname + window.location.search + next);
+}
+
+function openAyahTarget(target, syncUrl) {
+  if (!target || !SURA_BY_NUM[target.sura]) return false;
+  const sura = SURA_BY_NUM[target.sura];
+  if (!Number.isInteger(target.ayah) || target.ayah < 1 || target.ayah > sura.ayas.length) return false;
+  document.body.classList.add('reader-active');
+  const home = document.getElementById('homePage');
+  if (home) home.setAttribute('aria-hidden', 'true');
+  loadSura(target.sura, { aya: target.ayah, play: false, syncUrl: syncUrl !== false });
+  return true;
+}
+
+function handleAyahHashChange() {
+  const target = ayahLinks && ayahLinks.parseAyahHash(window.location.hash);
+  if (!target) return;
+  if (!openAyahTarget(target, false)) toast('That Surah or Ayah number is not valid.');
+}
+
 function updateAyaUI(scrollReader) {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
 
   el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
-  const card = document.getElementById('aya-' + state.aya);
+  const card = document.getElementById(ayahLinks ? ayahLinks.ayahElementId(state.sura, state.aya) : ('ayah-' + state.sura + '-' + state.aya));
   if (card) {
     card.classList.add('active');
     if (scrollReader !== false) {
@@ -496,6 +532,7 @@ function updateAyaUI(scrollReader) {
   showMobileHeader();
 
   updateStatus();
+  if (scrollReader !== false) syncCurrentAyahUrl();
 }
 
 function showMobileHeader() {
@@ -1725,8 +1762,9 @@ function loadSura(num, opts) {
 
   if (isMobile()) setDrawerTab('aya');
 
+  if (opts.syncUrl !== false) syncCurrentAyahUrl();
   if (opts.play) {
-    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1, syncUrl: opts.syncUrl });
   }
 }
 
@@ -1739,6 +1777,7 @@ function goToAya(aya, opts) {
   state.aya = n;
   state.ayaInner = 0;
   updateAyaUI(true);
+  if (opts.syncUrl !== false) syncCurrentAyahUrl();
 
   if (opts.play) {
     if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) {
