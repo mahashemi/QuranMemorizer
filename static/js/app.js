@@ -319,6 +319,16 @@ function buildSuras(manifest) {
   buildHomeSuraPicker();
 }
 
+// Android ships every Quran chunk inside the APK, so IndexedDB adds no value there.
+// Keep the persistent chunk cache for the website, where it avoids repeat network requests.
+function isNativeAndroidApp() {
+  const capacitor = window.Capacitor;
+  return Boolean(capacitor &&
+    typeof capacitor.getPlatform === 'function' && capacitor.getPlatform() === 'android' &&
+    typeof capacitor.isNativePlatform === 'function' && capacitor.isNativePlatform());
+}
+const USE_QURAN_CHUNK_CACHE = !isNativeAndroidApp();
+
 const QURAN_CACHE_DB = 'quran-chunk-cache-v2';
 
 function openQuranCache() {
@@ -402,7 +412,7 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
     if (!pending) {
       pending = (async () => {
         let records = null;
-        const cached = await readCachedChunk(key);
+        const cached = USE_QURAN_CHUNK_CACHE ? await readCachedChunk(key) : null;
         if (cached && Array.isArray(cached.records) && cached.records.length === chunk.end - chunk.start + 1) {
           records = cached.records;
         } else {
@@ -415,7 +425,7 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
           if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) {
             throw new Error('Surah ' + sura.number + ' chunk ' + chunk.start + '–' + chunk.end + ' does not match its manifest.');
           }
-          await writeCachedChunk(key, records);
+          if (USE_QURAN_CHUNK_CACHE) await writeCachedChunk(key, records);
         }
         records.forEach((record, index) => {
           sura.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
