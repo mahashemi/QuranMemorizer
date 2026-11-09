@@ -42,4 +42,4 @@ writeFileSync(indexPath, indexHtml.replace(
 
 rmSync(resolve(output, 'static/js/native-storage-adapter.mjs'), { force: true });
 
-console.log('Built QuranMemorizer web assets into ./www with 114 lazy-loaded Quran chapters and native app-private recording support.');
+console.log('Built QuranMemorizer web assets into ./www with per-Surah manifests, ten-Ayah Quran chunks, and native app-private recording support.');
