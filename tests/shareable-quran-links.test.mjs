@@ -50,3 +50,11 @@ test('reader renders only loaded Ayahs while retaining full Surah navigation cou
   assert.match(app, /for \(let number = 1; number <= s\.ayaCount; number\+\+\)/);
   assert.match(app, /await ensureSuraLoaded\(surah, 1, true\)/);
 });
+
+
+test('reader lazily fetches adjacent chunks while scrolling and prefetches near boundaries', () => {
+  assert.ok(app.includes('async function loadAdjacentReaderChunk()'));
+  assert.ok(app.includes("el.reader.addEventListener('scroll', loadAdjacentReaderChunk, { passive: true })"));
+  assert.ok(app.includes('ensureSuraLoaded(s, chunk.end + 1, false)'));
+  assert.ok(app.includes('readerChunkLoadPending'));
+});
