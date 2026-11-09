@@ -13,7 +13,8 @@ test('shared Quran links accept canonical Surah/Ayah routes', () => {
 
 test('initial deep link activates the reader and loads the requested ayah', () => {
   assert.match(app, /const initialRoute = parseQuranHash\(window\.location\.hash\)/);
-  assert.match(app, /activateReaderView\(\);\s*loadSura\(initialRoute\.sura, \{ aya: initialRoute\.aya, play: false \}\);\s*scheduleSharedAyaFocus\(initialRoute\.aya\)/);
+  assert.match(app, /if \(initialRoute\) activateReaderView\(\)/);
+  assert.match(app, /loadSura\(initialRoute\.sura, \{ aya: initialRoute\.aya, play: false \}\);\s*scheduleSharedAyaFocus\(initialRoute\.aya\)/);
 });
 
 test('shared ayah is focused after the reader has rendered', () => {
@@ -28,4 +29,9 @@ test('GitHub Pages workflow publishes the app and its Quran data from main', () 
   assert.match(workflow, /cp -R data\/quran data\/hadith dist\/data\//);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
+});
+
+test('Quran data URL is resolved relative to the deployed app script', () => {
+  assert.ok(app.includes("new URL('../../data/quran/all_suras.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('data/quran/all_suras.json', document.baseURI)"));
 });
