@@ -1906,6 +1906,7 @@ async function loadSura(num, opts) {
   }
   renderAyaList(num);
   updateAyaUI(true);
+  requestAnimationFrame(loadAdjacentReaderChunk);
   if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
 
   if (isMobile()) setDrawerTab('aya');
