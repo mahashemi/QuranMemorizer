@@ -244,10 +244,9 @@ async function init() {
       '<div class="error-box">' +
         '<h2>Could not load the Qur’an data</h2>' +
         '<p><b>' + esc(err.message) + '</b></p>' +
-        '<p>Make sure you start the server from the folder that contains ' +
-        '<code>index.html</code> and the <code>data/</code> directory:</p>' +
-        '<pre>cd /path/to/simple_quran\npython3 -m http.server 8000</pre>' +
-        '<p>Then open <code>http://localhost:8000/</code></p>' +
+        '<p>The Qur’an data request failed. Check that the deployed site includes ' +
+        '<code>data/quran/all_suras.json</code> and that the request is not blocked.</p>' +
+        '<p class="error-detail">Requested: <code>' + esc(dataUrl) + '</code></p>' +
       '</div>';
     el.nowPlaying.textContent = 'Data not loaded';
     if (el.homeSuraList) {
