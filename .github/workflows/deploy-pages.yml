@@ -8,7 +8,7 @@ on:
       - "index.html"
       - "static/**"
       - "assets/**"
-      - "data/quran/**"
+      - "data/quran/**"\n      - "scripts/**"\n      - "package.json"\n      - "package-lock.json"
       - "data/hadith/**"
   workflow_dispatch:
 
