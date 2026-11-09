@@ -1899,7 +1899,7 @@ async function loadSura(num, opts) {
   state.sura = num;
   state.aya = aya;
 
-  if (suraChanged || !el.reader.querySelector('.aya[data-aya]')) {
+  if (suraChanged || !el.reader.querySelector('.aya[data-aya="' + aya + '"]')) {
     renderSura();
     syncRangeInputs();
     resetCounters();
