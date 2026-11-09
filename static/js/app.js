@@ -131,6 +131,7 @@ const state = {
 };
 
 let configDirty = true;
+let ayaNavigationRequestId = 0;
 
 const PREFS_KEY = 'quranPlayer.displayPrefs.v1';
 
@@ -1859,6 +1860,7 @@ async function handleQuranHashChange() {
 
 async function loadSura(num, opts) {
   opts = opts || {};
+  ayaNavigationRequestId++;
   const s = SURA_BY_NUM[num];
   if (!s) return;
 
@@ -1903,7 +1905,11 @@ function goToAya(aya, opts) {
   if (!s) return;
 
   const n = Math.max(1, Math.min(aya, s.ayaCount));
+  const requestId = ++ayaNavigationRequestId;
+  state.aya = n;
+  state.ayaInner = 0;
   ensureSuraLoaded(s, n, false).then(() => {
+    if (requestId !== ayaNavigationRequestId || state.sura !== s.number) return;
     if (!document.getElementById('aya-' + n)) renderSura();
     renderAyaList(state.sura);
     updateAyaUI(true);
@@ -1917,9 +1923,9 @@ function goToAya(aya, opts) {
       if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) playTrack(state.sura, 0);
       else playTrack(state.sura, n);
     }
-  }).catch(error => toast(error.message || 'Could not load this Ayah.'));
-  state.aya = n;
-  state.ayaInner = 0;
+  }).catch(error => {
+    if (requestId === ayaNavigationRequestId && state.sura === s.number) toast(error.message || 'Could not load this Ayah.');
+  });
 }
 
 async function playTrack(sura, aya) {
