@@ -6,7 +6,7 @@ const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf
 const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
 
 test('shared Quran links accept canonical Surah/Ayah routes', () => {
-  assert.ok(app.includes("match(/^#\\\\/(?:surah|sura)\\\\/(\\\\d+)(?:\\\\/(?:ayah|aya)\\\\/(\\\\d+))?\\\\/?$/i)"));
+  assert.ok(app.includes(String.raw`match(/^#\\/(?:surah|sura)\\/(\\d+)(?:\\/(?:ayah|aya)\\/(\\d+))?\\/?$/i)`));
 });
 
 test('initial deep link activates the reader and loads the requested ayah', () => {
