@@ -1999,7 +1999,7 @@ function startPlayback() {
   configDirty = false;
   if (state.repeatMode === 'range') {
     const s = SURA_BY_NUM[state.sura];
-    const total = s ? s.ayas.length : 1;
+    const total = s ? s.ayaCount : 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
     state.rangeTo   = clampInt(state.rangeTo, 1, total);
     if (state.rangeFrom > state.rangeTo) {
@@ -2017,7 +2017,7 @@ function startPlayback() {
 function handleEnded() {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
-  const total = s.ayas.length;
+  const total = s.ayaCount;
 
   if (state.repeatMode === 'single') {
     state.singleCounter++;
@@ -2214,7 +2214,7 @@ function bindRepeatEvents() {
 
     if (state.repeatMode === 'range') {
       const s = SURA_BY_NUM[state.sura];
-      const total = s ? s.ayas.length : 1;
+      const total = s ? s.ayaCount : 1;
       if (state.aya < state.rangeFrom || state.aya > state.rangeTo) {
         state.rangeFrom = state.aya;
         state.rangeTo = Math.min(state.aya, total);
@@ -2368,7 +2368,7 @@ function bindEvents() {
   el.btnNext.addEventListener('click', () => {
     const s = SURA_BY_NUM[state.sura];
     if (!s) return;
-    if (state.aya < s.ayas.length) goToAya(state.aya + 1, { play: true });
+    if (state.aya < s.ayaCount) goToAya(state.aya + 1, { play: true });
     else stopAll();
   });
 
