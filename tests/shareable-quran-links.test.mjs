@@ -58,3 +58,8 @@ test('reader lazily fetches adjacent chunks while scrolling and prefetches near 
   assert.ok(app.includes('ensureSuraLoaded(s, chunk.end + 1, false)'));
   assert.ok(app.includes('readerChunkLoadPending'));
 });
+
+
+test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () => {
+  assert.ok(app.includes("if (suraChanged || !el.reader.querySelector('.aya[data-aya=\\\"' + aya + '\\\"]'))"));
+});
