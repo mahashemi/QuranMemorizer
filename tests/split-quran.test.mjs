@@ -22,8 +22,8 @@ test('splitter writes 114 chapter folders and preserves every source Ayah record
     const manifest = splitQuranData(sourcePath, output);
 
     assert.equal(manifest.length, 114);
-    assert.deepEqual(JSON.parse(readFileSync(join(output, 'chapter_2', 'chapter.json'), 'utf8')), source['سورة 2 - اسم 2']);
-    assert.deepEqual(JSON.parse(readFileSync(join(output, 'chapter_114', 'chapter.json'), 'utf8')), source['سورة 114 - اسم 114']);
+    assert.deepEqual(JSON.parse(readFileSync(join(output, 'chapter_2', 'ayat_001_002.json'), 'utf8')), source['سورة 2 - اسم 2']);
+    assert.deepEqual(JSON.parse(readFileSync(join(output, 'chapter_114', 'ayat_001_002.json'), 'utf8')), source['سورة 114 - اسم 114']);
     const savedManifest = JSON.parse(readFileSync(join(output, 'manifest.json'), 'utf8'));
     assert.equal(savedManifest.chapters[1].ayaCount, 2);
     assert.equal(savedManifest.chapters[113].number, 114);
