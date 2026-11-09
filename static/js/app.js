@@ -309,6 +309,7 @@ function buildSuras(manifest) {
     ayaCount: Number(item.ayaCount),
     ayas: new Array(Number(item.ayaCount)),
     loadedChunks: new Set(),
+    loadingChunks: new Map(),
     chunkManifest: null,
     chunkManifestPromise: null
   })).sort((a, b) => a.number - b.number);
@@ -382,6 +383,9 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
         }
         sura.chunkManifest = manifest;
         return manifest;
+      }).catch(error => {
+        sura.chunkManifestPromise = null;
+        throw error;
       });
     }
     await sura.chunkManifestPromise;
@@ -393,26 +397,37 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
   for (const chunk of chunks) {
     const key = sura.number + ':' + chunk.start;
     if (sura.loadedChunks.has(key)) continue;
-    let records = null;
-    const cached = await readCachedChunk(key);
-    if (cached && Array.isArray(cached.records) && cached.records.length === chunk.end - chunk.start + 1) {
-      records = cached.records;
-    } else {
-      const chunkUrl = APP_SCRIPT_URL
-        ? new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL).href
-        : new URL('data/quran/chapter_' + sura.number + '/' + chunk.file, document.baseURI).href;
-      const response = await fetch(chunkUrl);
-      if (!response.ok) throw new Error('Surah ' + sura.number + ', Ayahs ' + chunk.start + '–' + chunk.end + ' could not be loaded (HTTP ' + response.status + ').');
-      records = await response.json();
-      if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) {
-        throw new Error('Surah ' + sura.number + ' chunk ' + chunk.start + '–' + chunk.end + ' does not match its manifest.');
-      }
-      await writeCachedChunk(key, records);
+    let pending = sura.loadingChunks.get(key);
+    if (!pending) {
+      pending = (async () => {
+        let records = null;
+        const cached = await readCachedChunk(key);
+        if (cached && Array.isArray(cached.records) && cached.records.length === chunk.end - chunk.start + 1) {
+          records = cached.records;
+        } else {
+          const chunkUrl = APP_SCRIPT_URL
+            ? new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL).href
+            : new URL('data/quran/chapter_' + sura.number + '/' + chunk.file, document.baseURI).href;
+          const response = await fetch(chunkUrl);
+          if (!response.ok) throw new Error('Surah ' + sura.number + ', Ayahs ' + chunk.start + '–' + chunk.end + ' could not be loaded (HTTP ' + response.status + ').');
+          records = await response.json();
+          if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) {
+            throw new Error('Surah ' + sura.number + ' chunk ' + chunk.start + '–' + chunk.end + ' does not match its manifest.');
+          }
+          await writeCachedChunk(key, records);
+        }
+        records.forEach((record, index) => {
+          sura.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
+        });
+        sura.loadedChunks.add(key);
+      })();
+      sura.loadingChunks.set(key, pending);
     }
-    records.forEach((record, index) => {
-      sura.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
-    });
-    sura.loadedChunks.add(key);
+    try {
+      await pending;
+    } finally {
+      if (sura.loadingChunks.get(key) === pending) sura.loadingChunks.delete(key);
+    }
   }
   return sura;
 }
