@@ -35,6 +35,7 @@ jobs:
           test -f www/data/quran/manifest.json
           test -f www/data/quran/chapter_1/manifest.json
           test -f www/data/quran/chapter_1/ayat_001_010.json
-          test -f www/data/quran/chapter_2/ayat_251_260.json
+          test -f www/data/quran/chapter_2/manifest.json
+          find www/data/quran -maxdepth 2 -type f | sort | head -30
           test -f www/data/quran/chapter_114/manifest.json
           test ! -f www/data/quran/all_suras.json
