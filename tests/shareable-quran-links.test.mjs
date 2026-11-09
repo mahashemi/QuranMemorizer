@@ -29,3 +29,8 @@ test('GitHub Pages workflow publishes the app and its Quran data from main', () 
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
+
+test('Quran data URL is resolved relative to the deployed app script', () => {
+  assert.match(app, /new URL\\('\\.\\.\\/\\.\\.\\/data\\/quran\\/all_suras\\.json', APP_SCRIPT_URL\\)/);
+  assert.match(app, /new URL\\('data\\/quran\\/all_suras\\.json', document\\.baseURI\\)/);
+});
