@@ -25,13 +25,15 @@ test('shared ayah is focused after the reader has rendered', () => {
 
 test('GitHub Pages workflow publishes the app and its Quran data from main', () => {
   assert.match(workflow, /branches: \["main"\]/);
-  assert.match(workflow, /cp -R static assets dist\//);
-  assert.match(workflow, /cp -R data\/quran data\/hadith dist\/data\//);
+  assert.match(workflow, /npm run build/);\n  assert.match(workflow, /path: www/);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
 
 test('Quran data URL is resolved relative to the deployed app script', () => {
-  assert.ok(app.includes("new URL('../../data/quran/all_suras.json', APP_SCRIPT_URL)"));
-  assert.ok(app.includes("new URL('data/quran/all_suras.json', document.baseURI)"));
+  assert.ok(app.includes("new URL('../../data/quran/manifest.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chapter_' + sura.number + '/chapter.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes('async function ensureSuraLoaded(sura)'));
+  assert.ok(app.includes('indexedDB.open(QURAN_CACHE_DB, 1)'));
+  assert.ok(app.includes('await writeCachedChapter(sura.number, sura.ayas)'));
 });
