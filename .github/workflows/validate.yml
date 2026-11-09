@@ -21,6 +21,8 @@ jobs:
           node --check static/js/native-storage-adapter.mjs
           node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
+          node --check scripts/split-quran.mjs
+          node --check scripts/content-chunks.mjs
       - name: Test portable recording archives
         run: npm test
       - name: Build Capacitor web assets
@@ -30,4 +32,9 @@ jobs:
           test -f www/static/css/styles.css
           test -f www/static/js/app.js
           test -f www/static/js/native-storage-adapter.js
-          test -f www/data/quran/all_suras.json
+          test -f www/data/quran/manifest.json
+          test -f www/data/quran/chapter_1/manifest.json
+          test -f www/data/quran/chapter_1/ayat_001_007.json
+          test -f www/data/quran/chapter_2/manifest.json
+          test -f www/data/quran/chapter_114/manifest.json
+          test ! -f www/data/quran/all_suras.json

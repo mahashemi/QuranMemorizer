@@ -14,7 +14,8 @@ test('shared Quran links accept canonical Surah/Ayah routes', () => {
 test('initial deep link activates the reader and loads the requested ayah', () => {
   assert.match(app, /const initialRoute = parseQuranHash\(window\.location\.hash\)/);
   assert.match(app, /if \(initialRoute\) activateReaderView\(\)/);
-  assert.match(app, /loadSura\(initialRoute\.sura, \{ aya: initialRoute\.aya, play: false \}\);\s*scheduleSharedAyaFocus\(initialRoute\.aya\)/);
+  assert.ok(app.includes('await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false })'));
+  assert.ok(app.includes('scheduleSharedAyaFocus(initialRoute.aya)'));
 });
 
 test('shared ayah is focused after the reader has rendered', () => {
@@ -25,13 +26,41 @@ test('shared ayah is focused after the reader has rendered', () => {
 
 test('GitHub Pages workflow publishes the app and its Quran data from main', () => {
   assert.match(workflow, /branches: \["main"\]/);
-  assert.match(workflow, /cp -R static assets dist\//);
-  assert.match(workflow, /cp -R data\/quran data\/hadith dist\/data\//);
+  assert.match(workflow, /npm run build/);
+  assert.match(workflow, /path: www/);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
 
 test('Quran data URL is resolved relative to the deployed app script', () => {
-  assert.ok(app.includes("new URL('../../data/quran/all_suras.json', APP_SCRIPT_URL)"));
-  assert.ok(app.includes("new URL('data/quran/all_suras.json', document.baseURI)"));
+  assert.ok(app.includes("new URL('../../data/quran/manifest.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL)"));
+  assert.ok(app.includes('async function ensureSuraLoaded(sura, aya, loadAll)'));
+  assert.ok(app.includes('indexedDB.open(QURAN_CACHE_DB, 1)'));
+  assert.ok(app.includes('await writeCachedChunk(key, records)'));
+  assert.ok(app.includes('const chunks = loadAll'));
+  assert.ok(app.includes('ensureSuraLoaded(s, chunk.end + 1, false)'));
+  assert.ok(app.includes('ayas: new Array(Number(item.ayaCount))'));
+});
+
+
+test('reader renders only loaded Ayahs while retaining full Surah navigation counts', () => {
+  assert.match(app, /for \(const v of s\.ayas\) \{\s*if \(!v\) continue;/);
+  assert.match(app, /for \(let number = 1; number <= s\.ayaCount; number\+\+\)/);
+  assert.match(app, /await ensureSuraLoaded\(surah, 1, true\)/);
+});
+
+
+test('reader lazily fetches adjacent chunks while scrolling and prefetches near boundaries', () => {
+  assert.ok(app.includes('async function loadAdjacentReaderChunk()'));
+  assert.ok(app.includes("el.reader.addEventListener('scroll', loadAdjacentReaderChunk, { passive: true })"));
+  assert.ok(app.includes('ensureSuraLoaded(s, chunk.end + 1, false)'));
+  assert.ok(app.includes('readerChunkLoadPending'));
+});
+
+
+test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () => {
+  assert.ok(app.includes('if (suraChanged || !el.reader.querySelector('));
+  assert.ok(app.includes("'.aya[data-aya=\"' + aya + '\"]'"));
 });

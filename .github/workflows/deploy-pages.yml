@@ -9,6 +9,9 @@ on:
       - "static/**"
       - "assets/**"
       - "data/quran/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
       - "data/hadith/**"
   workflow_dispatch:
 
@@ -28,14 +31,22 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Prepare static site
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install build dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build static site with chapter-sized Quran data
+        run: npm run build
+
+      - name: Prepare Pages artifact
         run: |
-          mkdir -p dist
-          cp index.html dist/
-          cp -R static assets dist/
-          mkdir -p dist/data
-          cp -R data/quran data/hadith dist/data/
-          touch dist/.nojekyll
+          mkdir -p www/data
+          cp -R data/hadith www/data/
+          touch www/.nojekyll
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -43,7 +54,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: www
 
   deploy:
     environment:
