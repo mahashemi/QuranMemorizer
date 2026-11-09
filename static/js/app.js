@@ -254,7 +254,16 @@ async function init() {
   buildSidebar();
   bindEvents();
   bindRepeatEvents();
-  loadSura(1, { aya: 1, play: false });
+
+  // A shared Surah/Ayah URL should open the reader directly, bypassing the homepage.
+  const initialRoute = parseQuranHash(window.location.hash);
+  if (initialRoute && SURA_BY_NUM[initialRoute.sura] &&
+      initialRoute.aya <= SURA_BY_NUM[initialRoute.sura].ayas.length) {
+    activateReaderView();
+    loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
+  } else {
+    loadSura(1, { aya: 1, play: false });
+  }
 }
 
 /* Inject the repeat block from the template into the DOM (into the desktop slot by default) */
@@ -1698,6 +1707,39 @@ async function playUserRecording(sura, aya) {
 
 function hasOpening(sura) { return sura !== 1 && sura !== 9; }
 
+// Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
+// Accept the shorter legacy-style aliases too, but always write the canonical form.
+function parseQuranHash(hash) {
+  const match = String(hash || '').match(/^#\\/(?:surah|sura)\\/(\\d+)(?:\\/(?:ayah|aya)\\/(\\d+))?\\/?$/i);
+  if (!match) return null;
+  const sura = Number(match[1]);
+  const aya = Number(match[2] || 1);
+  if (!Number.isSafeInteger(sura) || !Number.isSafeInteger(aya) || sura < 1 || sura > 114 || aya < 1) return null;
+  return { sura, aya };
+}
+
+function writeQuranHash(sura, aya) {
+  const nextHash = '#/surah/' + sura + '/ayah/' + aya;
+  if (window.location.hash === nextHash) return;
+  const nextUrl = window.location.pathname + window.location.search + nextHash;
+  window.history.replaceState(null, '', nextUrl);
+}
+
+function activateReaderView() {
+  document.body.classList.add('reader-active');
+  const home = document.getElementById('homePage');
+  if (home) home.setAttribute('aria-hidden', 'true');
+}
+
+function handleQuranHashChange() {
+  const route = parseQuranHash(window.location.hash);
+  if (!route) return;
+  const sura = SURA_BY_NUM[route.sura];
+  if (!sura || route.aya > sura.ayas.length) return;
+  activateReaderView();
+  loadSura(route.sura, { aya: route.aya, play: false });
+}
+
 function loadSura(num, opts) {
   opts = opts || {};
   const s = SURA_BY_NUM[num];
@@ -1722,6 +1764,7 @@ function loadSura(num, opts) {
   }
   renderAyaList(num);
   updateAyaUI(true);
+  if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
 
   if (isMobile()) setDrawerTab('aya');
 
@@ -1739,6 +1782,7 @@ function goToAya(aya, opts) {
   state.aya = n;
   state.ayaInner = 0;
   updateAyaUI(true);
+  if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
 
   if (opts.play) {
     if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) {
@@ -2090,8 +2134,7 @@ function bindEvents() {
       if (!item) return;
       const num = Number(item.dataset.sura);
       if (!SURA_BY_NUM[num]) return;
-      document.body.classList.add('reader-active');
-      document.getElementById('homePage').setAttribute('aria-hidden', 'true');
+      activateReaderView();
       loadSura(num, { aya: 1, play: false });
     });
   }
@@ -2335,6 +2378,7 @@ function bindEvents() {
   syncViewport();
   window.addEventListener('resize', syncViewport);
   window.addEventListener('orientationchange', () => setTimeout(syncViewport, 120));
+  window.addEventListener('hashchange', handleQuranHashChange);
 }
 
 function setReciter(id) {
