@@ -229,49 +229,36 @@ async function init() {
   const initialRoute = parseQuranHash(window.location.hash);
   if (initialRoute) activateReaderView();
 
+  let manifestUrl;
   try {
-    // Resolve the data file relative to this script, not the current document URL.
-    // This remains correct on GitHub Pages project sites and nested deployments.
-    const dataUrl = APP_SCRIPT_URL
-      ? new URL('../../data/quran/all_suras.json', APP_SCRIPT_URL).href
-      : new URL('data/quran/all_suras.json', document.baseURI).href;
-    const res = await fetch(dataUrl, { cache: 'no-store' });
+    // The manifest is small; full Ayah payloads are fetched one Surah at a time.
+    manifestUrl = APP_SCRIPT_URL
+      ? new URL('../../data/quran/manifest.json', APP_SCRIPT_URL).href
+      : new URL('data/quran/manifest.json', document.baseURI).href;
+    const res = await fetch(manifestUrl);
     if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
-    const raw = await res.json();
-    buildSuras(raw);
+    buildSuras(await res.json());
   } catch (err) {
     el.reader.innerHTML =
-      '<div class="error-box">' +
-        '<h2>Could not load the Qur’an data</h2>' +
-        '<p><b>' + esc(err.message) + '</b></p>' +
-        '<p>The Qur’an data request failed. Check that the deployed site includes ' +
-        '<code>data/quran/all_suras.json</code> and that the request is not blocked.</p>' +
-        '<p class="error-detail">Requested: <code>' + esc(dataUrl) + '</code></p>' +
-      '</div>';
-    el.nowPlaying.textContent = 'Data not loaded';
-    if (el.homeSuraList) {
-      el.homeSuraList.innerHTML =
-        '<div class="home-sura-load-error" role="alert">' +
-          '<strong>Surah list could not load.</strong>' +
-          '<span>Open this project through a local web server, not by opening index.html directly.</span>' +
-          '<code>python3 -m http.server 8000</code>' +
-          '<span>Then visit <code>http://localhost:8000/</code> from the repository root.</span>' +
-        '</div>';
-    }
+      '<div class="error-box"><h2>Could not load the Qur’an index</h2>' +
+      '<p><b>' + esc(err.message) + '</b></p>' +
+      '<p>Check that the deployed site includes <code>data/quran/manifest.json</code>.</p>' +
+      '<p class="error-detail">Requested: <code>' + esc(manifestUrl || '') + '</code></p></div>';
+    el.nowPlaying.textContent = 'Quran index not loaded';
     return;
   }
   buildSidebar();
   bindEvents();
   bindRepeatEvents();
 
-  // A shared Surah/Ayah URL should open the reader directly, bypassing the homepage.
+  // Fetch only the requested Surah; focus its Ayah after its payload is ready.
   if (initialRoute && SURA_BY_NUM[initialRoute.sura] &&
-      initialRoute.aya <= SURA_BY_NUM[initialRoute.sura].ayas.length) {
+      initialRoute.aya <= SURA_BY_NUM[initialRoute.sura].ayaCount) {
     activateReaderView();
-    loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
+    await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
     scheduleSharedAyaFocus(initialRoute.aya);
   } else {
-    loadSura(1, { aya: 1, play: false });
+    await loadSura(1, { aya: 1, play: false });
   }
 }
 
@@ -309,23 +296,91 @@ function positionRepeatBlock() {
   }
 }
 
-function buildSuras(raw) {
-  SURAS = Object.keys(raw).map(key => {
-    const m = key.match(/سورة\s+(\d+)/);
-    if (!m) return null;
-    const number = parseInt(m[1], 10);
-    if (!number) return null;
-    const arabicName = (key.split(/[-–—]/)[0] || '').replace(/سورة/g, '').trim();
-    const ayas = (raw[key] || []).map((v, i) => ({ ...v, ayaNum: i + 1 }));
-    return {
-      number, arabicName,
-      englishName: SURA_ENGLISH[number - 1] || ('Sura ' + number),
-      ayas
-    };
-  }).filter(Boolean).sort((a, b) => a.number - b.number);
+function buildSuras(manifest) {
+  const chapters = Array.isArray(manifest) ? manifest : manifest.chapters;
+  if (!Array.isArray(chapters) || chapters.length !== 114) {
+    throw new Error('The Quran manifest must contain exactly 114 Surahs.');
+  }
+  SURAS = chapters.map(item => ({
+    number: Number(item.number),
+    arabicName: item.arabicName || '',
+    englishName: item.englishName || SURA_ENGLISH[Number(item.number) - 1] || ('Sura ' + item.number),
+    ayaCount: Number(item.ayaCount),
+    ayas: null
+  })).sort((a, b) => a.number - b.number);
   SURA_BY_NUM = {};
   SURAS.forEach(s => { SURA_BY_NUM[s.number] = s; });
   buildHomeSuraPicker();
+}
+
+const QURAN_CACHE_DB = 'quran-chapter-cache-v1';
+function openQuranCache() {
+  return new Promise((resolve, reject) => {
+    if (!('indexedDB' in window)) return reject(new Error('IndexedDB is unavailable'));
+    const request = indexedDB.open(QURAN_CACHE_DB, 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains('chapters')) db.createObjectStore('chapters', { keyPath: 'number' });
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error || new Error('Could not open local Quran cache'));
+  });
+}
+
+async function readCachedChapter(number) {
+  let db;
+  try {
+    db = await openQuranCache();
+    return await new Promise((resolve, reject) => {
+      const request = db.transaction('chapters', 'readonly').objectStore('chapters').get(number);
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => reject(request.error);
+    });
+  } catch (error) {
+    console.info('Local Quran cache unavailable; using network.', error);
+    return null;
+  } finally {
+    if (db) db.close();
+  }
+}
+
+async function writeCachedChapter(number, ayas) {
+  let db;
+  try {
+    db = await openQuranCache();
+    await new Promise((resolve, reject) => {
+      const request = db.transaction('chapters', 'readwrite').objectStore('chapters')
+        .put({ number, ayas, cachedAt: Date.now() });
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  } catch (error) {
+    console.info('Could not persist Quran chapter locally.', error);
+  } finally {
+    if (db) db.close();
+  }
+}
+
+async function ensureSuraLoaded(sura) {
+  if (Array.isArray(sura.ayas) && sura.ayas.length) return sura;
+  const cached = await readCachedChapter(sura.number);
+  if (cached && Array.isArray(cached.ayas) && cached.ayas.length === sura.ayaCount) {
+    sura.ayas = cached.ayas;
+    return sura;
+  }
+
+  const chapterUrl = APP_SCRIPT_URL
+    ? new URL('../../data/quran/chapter_' + sura.number + '/chapter.json', APP_SCRIPT_URL).href
+    : new URL('data/quran/chapter_' + sura.number + '/chapter.json', document.baseURI).href;
+  const response = await fetch(chapterUrl);
+  if (!response.ok) throw new Error('Surah ' + sura.number + ' could not be loaded (HTTP ' + response.status + ').');
+  const rawAyas = await response.json();
+  if (!Array.isArray(rawAyas) || rawAyas.length !== sura.ayaCount) {
+    throw new Error('Surah ' + sura.number + ' data does not match the manifest.');
+  }
+  sura.ayas = rawAyas.map((aya, index) => ({ ...aya, ayaNum: index + 1 }));
+  await writeCachedChapter(sura.number, sura.ayas);
+  return sura;
 }
 
 function buildHomeSuraPicker() {
@@ -341,7 +396,7 @@ function buildHomeSuraPicker() {
     item.innerHTML =
       '<span class="home-sura-number">' + s.number + '</span>' +
       '<span class="home-sura-names"><span class="home-sura-english">' + esc(s.englishName) + '</span>' +
-      '<span class="home-sura-meta">' + s.ayas.length + ' ayat</span></span>' +
+      '<span class="home-sura-meta">' + s.ayaCount + ' ayat</span></span>' +
       '<span class="home-sura-arabic" dir="rtl" lang="ar">' + esc(s.arabicName) + '</span>' +
       '<span class="home-sura-arrow" aria-hidden="true">›</span>';
     frag.appendChild(item);
@@ -1405,7 +1460,7 @@ async function importRecordingsArchive(file) {
       const aya = Number(match[4]);
       const extension = match[5].toLowerCase();
       const suraData = SURA_BY_NUM[sura];
-      if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayas.length) {
+      if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayaCount) {
         ignored++;
         continue;
       }
@@ -1755,20 +1810,27 @@ function scheduleSharedAyaFocus(aya) {
   });
 }
 
-function handleQuranHashChange() {
+async function handleQuranHashChange() {
   const route = parseQuranHash(window.location.hash);
   if (!route) return;
   const sura = SURA_BY_NUM[route.sura];
-  if (!sura || route.aya > sura.ayas.length) return;
+  if (!sura || route.aya > sura.ayaCount) return;
   activateReaderView();
-  loadSura(route.sura, { aya: route.aya, play: false });
+  await loadSura(route.sura, { aya: route.aya, play: false });
   scheduleSharedAyaFocus(route.aya);
 }
 
-function loadSura(num, opts) {
+async function loadSura(num, opts) {
   opts = opts || {};
   const s = SURA_BY_NUM[num];
   if (!s) return;
+
+  try {
+    await ensureSuraLoaded(s);
+  } catch (error) {
+    toast(error.message || 'Could not load this Surah.');
+    return;
+  }
 
   // If the user navigates away mid-recording, stop and save the current take.
   if (activeRecorder && activeRecordingKey && activeRecordingKey.sura !== num) {
