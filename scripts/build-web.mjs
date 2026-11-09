@@ -17,6 +17,8 @@ for (const path of ['index.html', 'static', 'assets', 'data/hadith']) {
 // Keep the canonical all_suras.json in the repository untouched, but ship
 // only chapter-sized Quran payloads to web and Android app builds.
 splitQuranData(resolve(root, 'data/quran/all_suras.json'), resolve(output, 'data/quran'));
+// Explicitly guard against ever shipping the canonical source file in built assets.
+rmSync(resolve(output, 'data/quran/all_suras.json'), { force: true });
 
 // Bundle the Capacitor plugin adapter only into native web assets. The ordinary
 // GitHub Pages build remains dependency-free and uses the browser storage path.
