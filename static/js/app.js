@@ -1710,7 +1710,7 @@ function hasOpening(sura) { return sura !== 1 && sura !== 9; }
 // Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
 // Accept the shorter legacy-style aliases too, but always write the canonical form.
 function parseQuranHash(hash) {
-  const match = String(hash || '').match(/^#\\/(?:surah|sura)\\/(\\d+)(?:\\/(?:ayah|aya)\\/(\\d+))?\\/?$/i);
+  const match = String(hash || '').match(/^#\/(?:surah|sura)\/(\d+)(?:\/(?:ayah|aya)\/(\d+))?\/?$/i);
   if (!match) return null;
   const sura = Number(match[1]);
   const aya = Number(match[2] || 1);
