@@ -25,7 +25,8 @@ test('shared ayah is focused after the reader has rendered', () => {
 
 test('GitHub Pages workflow publishes the app and its Quran data from main', () => {
   assert.match(workflow, /branches: \["main"\]/);
-  assert.match(workflow, /npm run build/);\n  assert.match(workflow, /path: www/);
+  assert.match(workflow, /npm run build/);
+  assert.match(workflow, /path: www/);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
