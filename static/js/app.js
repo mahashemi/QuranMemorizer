@@ -306,80 +306,113 @@ function buildSuras(manifest) {
     arabicName: item.arabicName || '',
     englishName: item.englishName || SURA_ENGLISH[Number(item.number) - 1] || ('Sura ' + item.number),
     ayaCount: Number(item.ayaCount),
-    ayas: null
+    ayas: new Array(Number(item.ayaCount)),
+    loadedChunks: new Set(),
+    chunkManifest: null,
+    chunkManifestPromise: null
   })).sort((a, b) => a.number - b.number);
   SURA_BY_NUM = {};
   SURAS.forEach(s => { SURA_BY_NUM[s.number] = s; });
   buildHomeSuraPicker();
 }
 
-const QURAN_CACHE_DB = 'quran-chapter-cache-v1';
+const QURAN_CACHE_DB = 'quran-chunk-cache-v2';
+
 function openQuranCache() {
   return new Promise((resolve, reject) => {
     if (!('indexedDB' in window)) return reject(new Error('IndexedDB is unavailable'));
     const request = indexedDB.open(QURAN_CACHE_DB, 1);
     request.onupgradeneeded = () => {
       const db = request.result;
-      if (!db.objectStoreNames.contains('chapters')) db.createObjectStore('chapters', { keyPath: 'number' });
+      if (!db.objectStoreNames.contains('chunks')) db.createObjectStore('chunks', { keyPath: 'key' });
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error || new Error('Could not open local Quran cache'));
   });
 }
 
-async function readCachedChapter(number) {
+async function readCachedChunk(key) {
   let db;
   try {
     db = await openQuranCache();
     return await new Promise((resolve, reject) => {
-      const request = db.transaction('chapters', 'readonly').objectStore('chapters').get(number);
+      const request = db.transaction('chunks', 'readonly').objectStore('chunks').get(key);
       request.onsuccess = () => resolve(request.result || null);
       request.onerror = () => reject(request.error);
     });
   } catch (error) {
-    console.info('Local Quran cache unavailable; using network.', error);
+    console.info('Local Quran chunk cache unavailable; using network.', error);
     return null;
   } finally {
     if (db) db.close();
   }
 }
 
-async function writeCachedChapter(number, ayas) {
+async function writeCachedChunk(key, records) {
   let db;
   try {
     db = await openQuranCache();
     await new Promise((resolve, reject) => {
-      const request = db.transaction('chapters', 'readwrite').objectStore('chapters')
-        .put({ number, ayas, cachedAt: Date.now() });
+      const request = db.transaction('chunks', 'readwrite').objectStore('chunks')
+        .put({ key, records, cachedAt: Date.now() });
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
     });
   } catch (error) {
-    console.info('Could not persist Quran chapter locally.', error);
+    console.info('Could not persist Quran chunk locally.', error);
   } finally {
     if (db) db.close();
   }
 }
 
-async function ensureSuraLoaded(sura) {
-  if (Array.isArray(sura.ayas) && sura.ayas.length) return sura;
-  const cached = await readCachedChapter(sura.number);
-  if (cached && Array.isArray(cached.ayas) && cached.ayas.length === sura.ayaCount) {
-    sura.ayas = cached.ayas;
-    return sura;
+async function ensureSuraLoaded(sura, aya, loadAll) {
+  const targetAya = Math.max(1, Math.min(Number(aya) || 1, sura.ayaCount));
+  if (!sura.chunkManifest) {
+    if (!sura.chunkManifestPromise) {
+      const manifestUrl = APP_SCRIPT_URL
+        ? new URL('../../data/quran/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL).href
+        : new URL('data/quran/chapter_' + sura.number + '/manifest.json', document.baseURI).href;
+      sura.chunkManifestPromise = fetch(manifestUrl).then(response => {
+        if (!response.ok) throw new Error('Surah ' + sura.number + ' index could not be loaded (HTTP ' + response.status + ').');
+        return response.json();
+      }).then(manifest => {
+        if (!manifest || !Array.isArray(manifest.chunks) || manifest.recordCount !== sura.ayaCount) {
+          throw new Error('Surah ' + sura.number + ' chunk manifest does not match the Quran index.');
+        }
+        sura.chunkManifest = manifest;
+        return manifest;
+      });
+    }
+    await sura.chunkManifestPromise;
   }
 
-  const chapterUrl = APP_SCRIPT_URL
-    ? new URL('../../data/quran/chapter_' + sura.number + '/chapter.json', APP_SCRIPT_URL).href
-    : new URL('data/quran/chapter_' + sura.number + '/chapter.json', document.baseURI).href;
-  const response = await fetch(chapterUrl);
-  if (!response.ok) throw new Error('Surah ' + sura.number + ' could not be loaded (HTTP ' + response.status + ').');
-  const rawAyas = await response.json();
-  if (!Array.isArray(rawAyas) || rawAyas.length !== sura.ayaCount) {
-    throw new Error('Surah ' + sura.number + ' data does not match the manifest.');
+  const chunks = loadAll
+    ? sura.chunkManifest.chunks
+    : sura.chunkManifest.chunks.filter(chunk => targetAya >= chunk.start && targetAya <= chunk.end);
+  for (const chunk of chunks) {
+    const key = sura.number + ':' + chunk.start;
+    if (sura.loadedChunks.has(key)) continue;
+    let records = null;
+    const cached = await readCachedChunk(key);
+    if (cached && Array.isArray(cached.records) && cached.records.length === chunk.end - chunk.start + 1) {
+      records = cached.records;
+    } else {
+      const chunkUrl = APP_SCRIPT_URL
+        ? new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL).href
+        : new URL('data/quran/chapter_' + sura.number + '/' + chunk.file, document.baseURI).href;
+      const response = await fetch(chunkUrl);
+      if (!response.ok) throw new Error('Surah ' + sura.number + ', Ayahs ' + chunk.start + '–' + chunk.end + ' could not be loaded (HTTP ' + response.status + ').');
+      records = await response.json();
+      if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) {
+        throw new Error('Surah ' + sura.number + ' chunk ' + chunk.start + '–' + chunk.end + ' does not match its manifest.');
+      }
+      await writeCachedChunk(key, records);
+    }
+    records.forEach((record, index) => {
+      sura.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
+    });
+    sura.loadedChunks.add(key);
   }
-  sura.ayas = rawAyas.map((aya, index) => ({ ...aya, ayaNum: index + 1 }));
-  await writeCachedChapter(sura.number, sura.ayas);
   return sura;
 }
 
@@ -461,15 +494,16 @@ function renderAyaList(num) {
   const s = SURA_BY_NUM[num];
   if (!s) { el.ayaList.innerHTML = ''; return; }
 
-  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayas.length;
+  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayaCount;
 
   let html = '';
-  for (const v of s.ayas) {
-    const raw = (v.arabic_text || '').trim();
+  for (let number = 1; number <= s.ayaCount; number++) {
+    const v = s.ayas[number - 1];
+    const raw = v ? (v.arabic_text || '').trim() : '';
     const preview = raw.length > 100 ? raw.slice(0, 100) : raw;
     html +=
-      '<button class="aya-btn" data-aya="' + v.ayaNum + '" title="Aya ' + v.ayaNum + '">' +
-        '<span class="aya-btn-num">' + v.ayaNum + '</span>' +
+      '<button class="aya-btn' + (v ? '' : ' aya-btn-unloaded') + '" data-aya="' + number + '" title="Aya ' + number + '">' +
+        '<span class="aya-btn-num">' + number + '</span>' +
         '<span class="aya-btn-text" dir="rtl" lang="ar">' + esc(preview) + '</span>' +
       '</button>';
   }
@@ -488,7 +522,7 @@ function renderSura() {
     '<div class="sura-heading">' +
       '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
       '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
-      '<div class="meta">' + s.ayas.length + ' ayat</div>' +
+      '<div class="meta">' + s.ayaCount + ' ayat</div>' +
       '<div class="sura-download">' +
         '<button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button>' +
         '<span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span>' +
@@ -496,6 +530,7 @@ function renderSura() {
     '</div>';
 
   for (const v of s.ayas) {
+    if (!v) continue;
     html +=
       '<article class="aya" id="aya-' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
         '<div class="aya-top">' +
@@ -564,7 +599,7 @@ function updateAyaUI(scrollReader) {
 
   markCurrentSura();
 
-  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayas.length;
+  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
   showMobileHeader();
 
@@ -575,7 +610,7 @@ function showMobileHeader() {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
   el.mobHdrSura.textContent = s.englishName;
-  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayas.length;
+  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayaCount;
 }
 
 function updateStatus() {
@@ -617,7 +652,7 @@ function updateOpts() {
 function syncRangeInputs() {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
-  const total = s.ayas.length;
+  const total = s.ayaCount;
   repeatEls.rangeFrom.max = total;
   repeatEls.rangeTo.max = total;
 
@@ -786,7 +821,9 @@ async function downloadSurahAudio(sura, button) {
   let completed = 0;
   let bytes = 0;
   try {
+    await ensureSuraLoaded(surah, 1, true);
     for (const ayah of surah.ayas) {
+      if (!ayah) continue;
       if (job.cancelled) break;
       const existing = await getCachedRecitation(sura, ayah.ayaNum);
       if (existing && existing.blob instanceof Blob && existing.blob.size > 0) {
@@ -807,10 +844,10 @@ async function downloadSurahAudio(sura, button) {
         completed++;
         bytes += blob.size;
       }
-      if (status) status.textContent = 'Downloaded ' + completed + ' / ' + surah.ayas.length + ' ayat';
+      if (status) status.textContent = 'Downloaded ' + completed + ' / ' + surah.ayaCount + ' ayat';
     }
     if (job.cancelled) {
-      if (status) status.textContent = 'Paused after ' + completed + ' / ' + surah.ayas.length + ' ayat. Download again to resume.';
+      if (status) status.textContent = 'Paused after ' + completed + ' / ' + surah.ayaCount + ' ayat. Download again to resume.';
     } else {
       if (status) status.textContent = 'Ready offline · ' + completed + ' ayat · ' + (bytes / (1024 * 1024)).toFixed(1) + ' MB';
       toast(surah.englishName + ' is ready for offline playback.');
@@ -1826,7 +1863,7 @@ async function loadSura(num, opts) {
   if (!s) return;
 
   try {
-    await ensureSuraLoaded(s);
+    await ensureSuraLoaded(s, opts.aya || 1, false);
   } catch (error) {
     toast(error.message || 'Could not load this Surah.');
     return;
@@ -1838,7 +1875,7 @@ async function loadSura(num, opts) {
     toast('Recording stopped and will be saved before changing surah.');
   }
 
-  const aya = Math.max(1, Math.min(opts.aya || 1, s.ayas.length));
+  const aya = Math.max(1, Math.min(opts.aya || 1, s.ayaCount));
   const suraChanged = state.sura !== num;
 
   state.sura = num;
@@ -1865,19 +1902,24 @@ function goToAya(aya, opts) {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
 
-  const n = Math.max(1, Math.min(aya, s.ayas.length));
+  const n = Math.max(1, Math.min(aya, s.ayaCount));
+  ensureSuraLoaded(s, n, false).then(() => {
+    if (!document.getElementById('aya-' + n)) renderSura();
+    updateAyaUI(true);
+    if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
+    const chunk = s.chunkManifest && s.chunkManifest.chunks.find(item => n >= item.start && n <= item.end);
+    if (chunk && n >= chunk.end - 2 && chunk.end < s.ayaCount) {
+      ensureSuraLoaded(s, chunk.end + 1, false).then(() => {
+        if (state.sura === s.number) renderSura();
+      }).catch(error => console.warn('Next Quran chunk prefetch failed.', error));
+    }
+    if (opts.play) {
+      if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) playTrack(state.sura, 0);
+      else playTrack(state.sura, n);
+    }
+  }).catch(error => toast(error.message || 'Could not load this Ayah.'));
   state.aya = n;
   state.ayaInner = 0;
-  updateAyaUI(true);
-  if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
-
-  if (opts.play) {
-    if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) {
-      playTrack(state.sura, 0);
-    } else {
-      playTrack(state.sura, n);
-    }
-  }
 }
 
 async function playTrack(sura, aya) {
@@ -2186,13 +2228,13 @@ function bindRepeatEvents() {
   wireNumberInput(r.singleCount, 'singleCount', 0, 9999);
 
   wireNumberInput(r.rangeFrom, 'rangeFrom', 1, 9999, () => {
-    const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
+    const total = (SURA_BY_NUM[state.sura] || { ayaCount: 0 }).ayaCount || 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
     syncRangeInputs();
   });
 
   wireNumberInput(r.rangeTo, 'rangeTo', 1, 9999, () => {
-    const total = (SURA_BY_NUM[state.sura] || { ayas: [] }).ayas.length || 1;
+    const total = (SURA_BY_NUM[state.sura] || { ayaCount: 0 }).ayaCount || 1;
     state.rangeTo = clampInt(state.rangeTo, 1, total);
     syncRangeInputs();
   });
