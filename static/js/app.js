@@ -261,6 +261,7 @@ async function init() {
       initialRoute.aya <= SURA_BY_NUM[initialRoute.sura].ayas.length) {
     activateReaderView();
     loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
+    scheduleSharedAyaFocus(initialRoute.aya);
   } else {
     loadSura(1, { aya: 1, play: false });
   }
@@ -1731,6 +1732,21 @@ function activateReaderView() {
   if (home) home.setAttribute('aria-hidden', 'true');
 }
 
+function focusSharedAya(aya) {
+  const card = el.reader.querySelector('.aya[data-aya="' + aya + '"]');
+  if (!card) return;
+  card.setAttribute('aria-current', 'location');
+  card.classList.add('active');
+  card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
+function scheduleSharedAyaFocus(aya) {
+  // Wait for the reader to become visible and for the Surah DOM to finish layout.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => focusSharedAya(aya));
+  });
+}
+
 function handleQuranHashChange() {
   const route = parseQuranHash(window.location.hash);
   if (!route) return;
@@ -1738,6 +1754,7 @@ function handleQuranHashChange() {
   if (!sura || route.aya > sura.ayas.length) return;
   activateReaderView();
   loadSura(route.sura, { aya: route.aya, play: false });
+  scheduleSharedAyaFocus(route.aya);
 }
 
 function loadSura(num, opts) {
