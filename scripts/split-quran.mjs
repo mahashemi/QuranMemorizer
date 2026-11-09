@@ -64,7 +64,7 @@ export function splitQuranData(sourceFile, outputDir) {
       ...item,
       file: 'ayat_' + String(item.start).padStart(3, '0') + '_' + String(item.end).padStart(3, '0') + '.json'
     }));
-    writeFileSync(join(chapterDir, 'manifest.json'), JSON.stringify(chapterManifest, null, 2) + '\\n');
+    writeFileSync(join(chapterDir, 'manifest.json'), JSON.stringify(chapterManifest, null, 2) + '\n');
     // Keep the legacy whole-chapter file during the reader migration. The next
     // app integration step switches the UI to the chunk manifest and removes it.
     writeFileSync(join(chapterDir, 'chapter.json'), JSON.stringify(chapter.ayas));
@@ -72,7 +72,8 @@ export function splitQuranData(sourceFile, outputDir) {
       number,
       arabicName: chapter.arabicName,
       englishName: ENGLISH_NAMES[number - 1] || ('Sura ' + number),
-      ayaCount: chapter.ayas.length
+      ayaCount: chapter.ayas.length,
+      manifest: 'chapter_' + number + '/manifest.json'
     });
   }
   writeFileSync(join(outputDir, 'manifest.json'), JSON.stringify({
