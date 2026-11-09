@@ -1905,13 +1905,13 @@ function goToAya(aya, opts) {
   const n = Math.max(1, Math.min(aya, s.ayaCount));
   ensureSuraLoaded(s, n, false).then(() => {
     if (!document.getElementById('aya-' + n)) renderSura();
+    renderAyaList(state.sura);
     updateAyaUI(true);
     if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
     const chunk = s.chunkManifest && s.chunkManifest.chunks.find(item => n >= item.start && n <= item.end);
     if (chunk && n >= chunk.end - 2 && chunk.end < s.ayaCount) {
-      ensureSuraLoaded(s, chunk.end + 1, false).then(() => {
-        if (state.sura === s.number) renderSura();
-      }).catch(error => console.warn('Next Quran chunk prefetch failed.', error));
+      ensureSuraLoaded(s, chunk.end + 1, false)
+        .catch(error => console.warn('Next Quran chunk prefetch failed.', error));
     }
     if (opts.play) {
       if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) playTrack(state.sura, 0);
