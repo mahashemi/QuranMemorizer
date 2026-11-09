@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
+import { chunkRecords, createContentManifest } from './content-chunks.mjs';
 
 const ENGLISH_NAMES = [
   "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal",
@@ -47,6 +48,25 @@ export function splitQuranData(sourceFile, outputDir) {
     if (!chapter) throw new Error('Missing Surah ' + number + ' in source Quran JSON.');
     const chapterDir = join(outputDir, 'chapter_' + number);
     mkdirSync(chapterDir, { recursive: true });
+    const chunks = chunkRecords(chapter.ayas, 10);
+    for (const chunk of chunks) {
+      const filename = 'ayat_' + String(chunk.start).padStart(3, '0') + '_' + String(chunk.end).padStart(3, '0') + '.json';
+      writeFileSync(join(chapterDir, filename), JSON.stringify(chunk.records));
+    }
+    const chapterManifest = createContentManifest({
+      id: 'quran-surah-' + number,
+      title: chapter.arabicName || ENGLISH_NAMES[number - 1],
+      kind: 'quran-surah',
+      records: chapter.ayas,
+      chunkSize: 10
+    });
+    chapterManifest.chunks = chapterManifest.chunks.map(item => ({
+      ...item,
+      file: 'ayat_' + String(item.start).padStart(3, '0') + '_' + String(item.end).padStart(3, '0') + '.json'
+    }));
+    writeFileSync(join(chapterDir, 'manifest.json'), JSON.stringify(chapterManifest, null, 2) + '\\n');
+    // Keep the legacy whole-chapter file during the reader migration. The next
+    // app integration step switches the UI to the chunk manifest and removes it.
     writeFileSync(join(chapterDir, 'chapter.json'), JSON.stringify(chapter.ayas));
     manifest.push({
       number,
