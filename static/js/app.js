@@ -224,8 +224,18 @@ async function init() {
   showMobileHeader();
   positionRepeatBlock();
 
+  // Switch to the reader immediately for a syntactically valid shared link.
+  // Do not leave the homepage covering the reader while the Quran data downloads.
+  const initialRoute = parseQuranHash(window.location.hash);
+  if (initialRoute) activateReaderView();
+
   try {
-    const res = await fetch('data/quran/all_suras.json', { cache: 'no-store' });
+    // Resolve the data file relative to this script, not the current document URL.
+    // This remains correct on GitHub Pages project sites and nested deployments.
+    const dataUrl = APP_SCRIPT_URL
+      ? new URL('../../data/quran/all_suras.json', APP_SCRIPT_URL).href
+      : new URL('data/quran/all_suras.json', document.baseURI).href;
+    const res = await fetch(dataUrl, { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
     const raw = await res.json();
     buildSuras(raw);
@@ -256,7 +266,6 @@ async function init() {
   bindRepeatEvents();
 
   // A shared Surah/Ayah URL should open the reader directly, bypassing the homepage.
-  const initialRoute = parseQuranHash(window.location.hash);
   if (initialRoute && SURA_BY_NUM[initialRoute.sura] &&
       initialRoute.aya <= SURA_BY_NUM[initialRoute.sura].ayas.length) {
     activateReaderView();
