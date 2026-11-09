@@ -132,6 +132,7 @@ const state = {
 
 let configDirty = true;
 let ayaNavigationRequestId = 0;
+let readerChunkLoadPending = false;
 
 const PREFS_KEY = 'quranPlayer.displayPrefs.v1';
 
@@ -530,7 +531,7 @@ function renderAyaList(num) {
 /* ==================================================================
    11. READER
    ================================================================== */
-function renderSura() {
+function renderSura(restoreScrollTop) {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
 
@@ -568,7 +569,7 @@ function renderSura() {
       '</article>';
   }
   el.reader.innerHTML = html;
-  el.reader.scrollTop = 0;
+  el.reader.scrollTop = Number.isFinite(restoreScrollTop) ? restoreScrollTop : 0;
   refreshRecordingControls(state.sura);
 }
 
@@ -2275,7 +2276,51 @@ function bindRepeatEvents() {
 /* ==================================================================
    19. EVENTS
    ================================================================== */
+async function loadAdjacentReaderChunk() {
+  if (readerChunkLoadPending) return;
+  const sura = SURA_BY_NUM[state.sura];
+  if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
+
+  const loadedStarts = Array.from(sura.loadedChunks).map(key => Number(key.split(':')[1]));
+  const minStart = Math.min(...loadedStarts);
+  const maxStart = Math.max(...loadedStarts);
+  const minChunk = sura.chunkManifest.chunks.find(chunk => chunk.start === minStart);
+  const maxChunk = sura.chunkManifest.chunks.find(chunk => chunk.start === maxStart);
+  if (!minChunk || !maxChunk) return;
+
+  let adjacent = null;
+  let direction = null;
+  if (el.reader.scrollTop < 220 && minChunk.start > 1) {
+    adjacent = sura.chunkManifest.chunks.filter(chunk => chunk.end < minChunk.start).slice(-1)[0] || null;
+    direction = 'previous';
+  } else if (el.reader.scrollTop + el.reader.clientHeight >= el.reader.scrollHeight - 480 && maxChunk.end < sura.ayaCount) {
+    adjacent = sura.chunkManifest.chunks.find(chunk => chunk.start > maxChunk.start) || null;
+    direction = 'next';
+  }
+  if (!adjacent || !direction) return;
+
+  readerChunkLoadPending = true;
+  const oldTop = el.reader.scrollTop;
+  const oldHeight = el.reader.scrollHeight;
+  try {
+    await ensureSuraLoaded(sura, adjacent.start, false);
+    if (state.sura !== sura.number) return;
+    if (direction === 'previous') {
+      renderSura(0);
+      el.reader.scrollTop = oldTop + Math.max(0, el.reader.scrollHeight - oldHeight);
+    } else {
+      renderSura(oldTop);
+    }
+    renderAyaList(sura.number);
+  } catch (error) {
+    console.warn('Adjacent Quran chunk could not be loaded.', error);
+  } finally {
+    readerChunkLoadPending = false;
+  }
+}
+
 function bindEvents() {
+  el.reader.addEventListener('scroll', loadAdjacentReaderChunk, { passive: true });
 
   /* --- homepage Surah picker --- */
   if (el.homeSuraList) {
