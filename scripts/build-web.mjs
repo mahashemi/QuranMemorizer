@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { build } from 'esbuild';
 import { splitQuranData } from './split-quran.mjs';
@@ -14,11 +14,15 @@ for (const path of ['index.html', 'static', 'assets', 'data/hadith']) {
   cpSync(resolve(root, path), resolve(output, path), { recursive: true });
 }
 
-// Keep the canonical all_suras.json in the repository untouched, but ship
-// only chapter-sized Quran payloads to web and Android app builds.
-splitQuranData(resolve(root, 'data/quran/all_suras.json'), resolve(output, 'data/quran'));
-// Explicitly guard against ever shipping the canonical source file in built assets.
-rmSync(resolve(output, 'data/quran/all_suras.json'), { force: true });
+// Ship the pre-generated, version-controlled Quran chunks. Generation is an
+// explicit maintenance task; ordinary web/Android builds must not regenerate them.
+const quranChunks = resolve(root, 'data/quran/chunked');
+if (!existsSync(resolve(quranChunks, 'manifest.json'))) {
+  // Bootstrap a fresh checkout once; after generation the committed directory
+  // is copied verbatim and is not regenerated during normal builds.
+  splitQuranData(resolve(root, 'data/quran/all_suras.json'), quranChunks);
+}
+cpSync(quranChunks, resolve(output, 'data/quran/chunked'), { recursive: true });
 
 // Bundle the Capacitor plugin adapter only into native web assets. The ordinary
 // GitHub Pages build remains dependency-free and uses the browser storage path.
@@ -44,4 +48,4 @@ writeFileSync(indexPath, indexHtml.replace(
 
 rmSync(resolve(output, 'static/js/native-storage-adapter.mjs'), { force: true });
 
-console.log('Built QuranMemorizer web assets into ./www with per-Surah manifests, ten-Ayah Quran chunks, and native app-private recording support.');
+console.log('Built QuranMemorizer web assets into ./www with committed ten-Ayah Quran chunks and native app-private recording support.');

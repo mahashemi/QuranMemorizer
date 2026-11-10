@@ -235,8 +235,8 @@ async function init() {
   try {
     // The manifest is small; full Ayah payloads are fetched one Surah at a time.
     manifestUrl = APP_SCRIPT_URL
-      ? new URL('../../data/quran/manifest.json', APP_SCRIPT_URL).href
-      : new URL('data/quran/manifest.json', document.baseURI).href;
+      ? new URL('../../data/quran/chunked/manifest.json', APP_SCRIPT_URL).href
+      : new URL('data/quran/chunked/manifest.json', document.baseURI).href;
     const res = await fetch(manifestUrl);
     if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
     buildSuras(await res.json());
@@ -244,7 +244,7 @@ async function init() {
     el.reader.innerHTML =
       '<div class="error-box"><h2>Could not load the Qur’an index</h2>' +
       '<p><b>' + esc(err.message) + '</b></p>' +
-      '<p>Check that the deployed site includes <code>data/quran/manifest.json</code>.</p>' +
+      '<p>Check that the deployed site includes <code>data/quran/chunked/manifest.json</code>.</p>' +
       '<p class="error-detail">Requested: <code>' + esc(manifestUrl || '') + '</code></p></div>';
     el.nowPlaying.textContent = 'Quran index not loaded';
     return;
@@ -373,8 +373,8 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
   if (!sura.chunkManifest) {
     if (!sura.chunkManifestPromise) {
       const manifestUrl = APP_SCRIPT_URL
-        ? new URL('../../data/quran/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL).href
-        : new URL('data/quran/chapter_' + sura.number + '/manifest.json', document.baseURI).href;
+        ? new URL('../../data/quran/chunked/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL).href
+        : new URL('data/quran/chunked/chapter_' + sura.number + '/manifest.json', document.baseURI).href;
       sura.chunkManifestPromise = fetch(manifestUrl).then(response => {
         if (!response.ok) throw new Error('Surah ' + sura.number + ' index could not be loaded (HTTP ' + response.status + ').');
         return response.json();
@@ -407,8 +407,8 @@ async function ensureSuraLoaded(sura, aya, loadAll) {
           records = cached.records;
         } else {
           const chunkUrl = APP_SCRIPT_URL
-            ? new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL).href
-            : new URL('data/quran/chapter_' + sura.number + '/' + chunk.file, document.baseURI).href;
+            ? new URL('../../data/quran/chunked/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL).href
+            : new URL('data/quran/chunked/chapter_' + sura.number + '/' + chunk.file, document.baseURI).href;
           const response = await fetch(chunkUrl);
           if (!response.ok) throw new Error('Surah ' + sura.number + ', Ayahs ' + chunk.start + '–' + chunk.end + ' could not be loaded (HTTP ' + response.status + ').');
           records = await response.json();

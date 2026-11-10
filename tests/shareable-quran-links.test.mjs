@@ -33,9 +33,9 @@ test('GitHub Pages workflow publishes the app and its Quran data from main', () 
 });
 
 test('Quran data URL is resolved relative to the deployed app script', () => {
-  assert.ok(app.includes("new URL('../../data/quran/manifest.json', APP_SCRIPT_URL)"));
-  assert.ok(app.includes("new URL('../../data/quran/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL)"));
-  assert.ok(app.includes("new URL('../../data/quran/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chunked/manifest.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chunked/chapter_' + sura.number + '/manifest.json', APP_SCRIPT_URL)"));
+  assert.ok(app.includes("new URL('../../data/quran/chunked/chapter_' + sura.number + '/' + chunk.file, APP_SCRIPT_URL)"));
   assert.ok(app.includes('async function ensureSuraLoaded(sura, aya, loadAll)'));
   assert.ok(app.includes('indexedDB.open(QURAN_CACHE_DB, 1)'));
   assert.ok(app.includes('await writeCachedChunk(key, records)'));

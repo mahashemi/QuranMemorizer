@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { chunkRecords, createContentManifest } from './content-chunks.mjs';
 
@@ -42,6 +42,10 @@ export function splitQuranData(sourceFile, outputDir) {
     throw new Error('Expected exactly 114 Surahs in source Quran JSON; found ' + chapters.size + '.');
   }
 
+  // Only replace generated output after the canonical source has passed validation.
+  rmSync(outputDir, { recursive: true, force: true });
+  mkdirSync(outputDir, { recursive: true });
+
   const manifest = [];
   for (let number = 1; number <= 114; number++) {
     const chapter = chapters.get(number);
@@ -82,7 +86,7 @@ export function splitQuranData(sourceFile, outputDir) {
 
 if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).href) {
   const source = process.argv[2] || 'data/quran/all_suras.json';
-  const output = process.argv[3] || 'www/data/quran';
+  const output = process.argv[3] || 'data/quran/chunked';
   const manifest = splitQuranData(source, output);
-  console.log('Generated ' + manifest.length + ' chapter files and manifest from the unchanged source Quran JSON.');
+  console.log('Generated ' + manifest.length + ' Surah manifests and Ayah chunks from the unchanged source Quran JSON.');
 }

@@ -10,7 +10,8 @@
     "cap:open": "cap open android",
     "cap:run": "npm run build && cap sync android && cap run android",
     "assets:android": "capacitor-assets generate --android",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "generate:quran-chunks": "node scripts/split-quran.mjs data/quran/all_suras.json data/quran/chunked"
   },
   "dependencies": {
     "@capacitor/core": "^8.0.0",
