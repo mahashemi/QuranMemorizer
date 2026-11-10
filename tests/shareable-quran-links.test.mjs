@@ -64,3 +64,14 @@ test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () =>
   assert.ok(app.includes('if (suraChanged || !el.reader.querySelector('));
   assert.ok(app.includes("'.aya[data-aya=\"' + aya + '\"]'"));
 });
+
+
+test('Ayah picker is a number-only navigation index on desktop and mobile', () => {
+  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to Ayah '[\s\S]*?aya-btn-num/);
+  assert.doesNotMatch(app, /aya-btn-text|aya-btn-unloaded/);
+  assert.match(app, /const btn = el\.ayaList\.querySelector\('\.aya-btn\[data-aya=/);
+  assert.match(app, /btn\.classList\.add\('active'\)/);
+  assert.match(styles, /Compact Ayah-number index: no text previews/);
+  assert.match(styles, /grid-template-columns:repeat\(auto-fill,minmax\(42px,1fr\)\)/);
+  assert.doesNotMatch(styles, /aya-btn \.aya-btn-text/);
+});

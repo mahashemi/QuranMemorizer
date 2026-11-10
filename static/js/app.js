@@ -515,13 +515,9 @@ function renderAyaList(num) {
 
   let html = '';
   for (let number = 1; number <= s.ayaCount; number++) {
-    const v = s.ayas[number - 1];
-    const raw = v ? (v.arabic_text || '').trim() : '';
-    const preview = raw.length > 100 ? raw.slice(0, 100) : raw;
     html +=
-      '<button class="aya-btn' + (v ? '' : ' aya-btn-unloaded') + '" data-aya="' + number + '" title="Aya ' + number + '">' +
+      '<button class="aya-btn" data-aya="' + number + '" title="Go to Ayah ' + number + '" aria-label="Go to Ayah ' + number + '">' +
         '<span class="aya-btn-num">' + number + '</span>' +
-        '<span class="aya-btn-text" dir="rtl" lang="ar">' + esc(preview) + '</span>' +
       '</button>';
   }
   el.ayaList.innerHTML = html;
