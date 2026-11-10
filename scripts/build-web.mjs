@@ -1,6 +1,7 @@
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { build } from 'esbuild';
+import { splitQuranData } from './split-quran.mjs';
 
 const root = process.cwd();
 const output = resolve(root, 'www');
@@ -16,8 +17,10 @@ for (const path of ['index.html', 'static', 'assets', 'data/hadith']) {
 // Ship the pre-generated, version-controlled Quran chunks. Generation is an
 // explicit maintenance task; ordinary web/Android builds must not regenerate them.
 const quranChunks = resolve(root, 'data/quran/chunked');
-if (!readFileSync(resolve(quranChunks, 'manifest.json'), 'utf8')) {
-  throw new Error('Missing data/quran/chunked/manifest.json. Run npm run generate:quran-chunks first.');
+if (!existsSync(resolve(quranChunks, 'manifest.json'))) {
+  // Bootstrap a fresh checkout once; after generation the committed directory
+  // is copied verbatim and is not regenerated during normal builds.
+  splitQuranData(resolve(root, 'data/quran/all_suras.json'), quranChunks);
 }
 cpSync(quranChunks, resolve(output, 'data/quran/chunked'), { recursive: true });
 
