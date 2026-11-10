@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { chunkRecords, createContentManifest } from './content-chunks.mjs';
 
@@ -22,6 +22,8 @@ const ENGLISH_NAMES = [
 
 export function splitQuranData(sourceFile, outputDir) {
   const raw = JSON.parse(readFileSync(sourceFile, 'utf8'));
+  rmSync(outputDir, { recursive: true, force: true });
+  mkdirSync(outputDir, { recursive: true });
   const chapters = new Map();
 
   for (const [key, ayas] of Object.entries(raw)) {
@@ -82,7 +84,7 @@ export function splitQuranData(sourceFile, outputDir) {
 
 if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).href) {
   const source = process.argv[2] || 'data/quran/all_suras.json';
-  const output = process.argv[3] || 'www/data/quran';
+  const output = process.argv[3] || 'data/quran/chunked';
   const manifest = splitQuranData(source, output);
-  console.log('Generated ' + manifest.length + ' chapter files and manifest from the unchanged source Quran JSON.');
+  console.log('Generated ' + manifest.length + ' Surah manifests and Ayah chunks from the unchanged source Quran JSON.');
 }

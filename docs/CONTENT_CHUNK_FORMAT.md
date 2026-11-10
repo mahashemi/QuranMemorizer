@@ -11,11 +11,13 @@ Quran, Duas, and Ziyarats use the same generated-content pattern:
 ```text
 data/
   quran/
-    manifest.json
-    chapter_2/
+    all_suras.json  # canonical source; never modified by chunk generation
+    chunked/
       manifest.json
-      ayat_001_010.json
-      ayat_011_020.json
+      chapter_2/
+        manifest.json
+        ayat_001_010.json
+        ayat_011_020.json
   duas/
     manifest.json
     dua_kumayl/
@@ -71,4 +73,4 @@ Example:
 
 When verified source text is added, represent it as an ordered array of complete reading-unit objects and pass that array to the shared `chunkRecords` / `createContentManifest` helpers in `scripts/content-chunks.mjs`. Keep source metadata and translations on each record; the manifest describes chunk boundaries only.
 
-The Qur'an reader currently consumes the per-Surah manifests and chunk payloads. The same manifest and record format is ready for the Dua and Ziyarat readers when their canonical source data is added.
+The Qur'an reader consumes `data/quran/chunked/manifest.json`, per-Surah manifests, and chunk payloads. The generated directory is committed to version control. Run `npm run generate:quran-chunks` only when the canonical Quran source intentionally changes; ordinary builds copy the committed files without regenerating them. The same manifest and record format is ready for the Dua and Ziyarat readers when their canonical source data is added.

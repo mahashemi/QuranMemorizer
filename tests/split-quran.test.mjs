@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { mkdirSync } from 'node:fs';
 import test from 'node:test';
 import { splitQuranData } from '../scripts/split-quran.mjs';
 import { chunkRecords, createContentManifest } from '../scripts/content-chunks.mjs';
@@ -19,7 +20,10 @@ test('splitter writes 114 chapter folders and preserves every source Ayah record
     const sourcePath = join(root, 'all_suras.json');
     const output = join(root, 'generated');
     writeFileSync(sourcePath, JSON.stringify(source));
+    mkdirSync(output, { recursive: true });
+    writeFileSync(join(output, 'stale.json'), '{}');
     const manifest = splitQuranData(sourcePath, output);
+    assert.equal(existsSync(join(output, 'stale.json')), false);
 
     assert.equal(manifest.length, 114);
     assert.deepEqual(JSON.parse(readFileSync(join(output, 'chapter_2', 'ayat_001_002.json'), 'utf8')), source['سورة 2 - اسم 2']);
