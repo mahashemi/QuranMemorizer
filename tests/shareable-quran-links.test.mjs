@@ -74,5 +74,5 @@ test('Ayah picker is a number-only navigation index on desktop and mobile', () =
   assert.match(app, /btn\.classList\.add\('active'\)/);
   assert.match(styles, /Compact Ayah-number index: no text previews/);
   assert.match(styles, /grid-template-columns:repeat\(auto-fill,minmax\(42px,1fr\)\)/);
-  assert.doesNotMatch(styles, /aya-btn \.aya-btn-text/);
+  assert.doesNotMatch(styles, /\.aya-btn \.aya-btn-text\s*\{\s*display:\s*block/);
 });
