@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf8');
+const styles = await readFile(new URL('../static/css/styles.css', import.meta.url), 'utf8');
 const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
 
 test('shared Quran links accept canonical Surah/Ayah routes', () => {
