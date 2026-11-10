@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "id": "quran-surah-69",
+  "title": "الحاقة",
+  "kind": "quran-surah",
+  "recordCount": 52,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "file": "ayat_011_020.json"
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "file": "ayat_021_030.json"
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "file": "ayat_031_040.json"
+    },
+    {
+      "start": 41,
+      "end": 50,
+      "file": "ayat_041_050.json"
+    },
+    {
+      "start": 51,
+      "end": 52,
+      "file": "ayat_051_052.json"
+    }
+  ]
+}

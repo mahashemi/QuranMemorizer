@@ -1,0 +1,803 @@
+{
+  "version": 1,
+  "chapters": [
+    {
+      "number": 1,
+      "arabicName": "الفاتحة",
+      "englishName": "Al-Fatihah",
+      "ayaCount": 7,
+      "manifest": "chapter_1/manifest.json"
+    },
+    {
+      "number": 2,
+      "arabicName": "البقرة",
+      "englishName": "Al-Baqarah",
+      "ayaCount": 286,
+      "manifest": "chapter_2/manifest.json"
+    },
+    {
+      "number": 3,
+      "arabicName": "آل عمران",
+      "englishName": "Ali 'Imran",
+      "ayaCount": 200,
+      "manifest": "chapter_3/manifest.json"
+    },
+    {
+      "number": 4,
+      "arabicName": "النساء",
+      "englishName": "An-Nisa",
+      "ayaCount": 176,
+      "manifest": "chapter_4/manifest.json"
+    },
+    {
+      "number": 5,
+      "arabicName": "المائدة",
+      "englishName": "Al-Ma'idah",
+      "ayaCount": 120,
+      "manifest": "chapter_5/manifest.json"
+    },
+    {
+      "number": 6,
+      "arabicName": "الأنعام",
+      "englishName": "Al-An'am",
+      "ayaCount": 165,
+      "manifest": "chapter_6/manifest.json"
+    },
+    {
+      "number": 7,
+      "arabicName": "الأعراف",
+      "englishName": "Al-A'raf",
+      "ayaCount": 206,
+      "manifest": "chapter_7/manifest.json"
+    },
+    {
+      "number": 8,
+      "arabicName": "الأنفال",
+      "englishName": "Al-Anfal",
+      "ayaCount": 75,
+      "manifest": "chapter_8/manifest.json"
+    },
+    {
+      "number": 9,
+      "arabicName": "التوبة",
+      "englishName": "At-Tawbah",
+      "ayaCount": 129,
+      "manifest": "chapter_9/manifest.json"
+    },
+    {
+      "number": 10,
+      "arabicName": "يونس",
+      "englishName": "Yunus",
+      "ayaCount": 109,
+      "manifest": "chapter_10/manifest.json"
+    },
+    {
+      "number": 11,
+      "arabicName": "هود",
+      "englishName": "Hud",
+      "ayaCount": 123,
+      "manifest": "chapter_11/manifest.json"
+    },
+    {
+      "number": 12,
+      "arabicName": "يوسف",
+      "englishName": "Yusuf",
+      "ayaCount": 111,
+      "manifest": "chapter_12/manifest.json"
+    },
+    {
+      "number": 13,
+      "arabicName": "الرعد",
+      "englishName": "Ar-Ra'd",
+      "ayaCount": 43,
+      "manifest": "chapter_13/manifest.json"
+    },
+    {
+      "number": 14,
+      "arabicName": "ابراهيم",
+      "englishName": "Ibrahim",
+      "ayaCount": 52,
+      "manifest": "chapter_14/manifest.json"
+    },
+    {
+      "number": 15,
+      "arabicName": "الحجر",
+      "englishName": "Al-Hijr",
+      "ayaCount": 99,
+      "manifest": "chapter_15/manifest.json"
+    },
+    {
+      "number": 16,
+      "arabicName": "النحل",
+      "englishName": "An-Nahl",
+      "ayaCount": 128,
+      "manifest": "chapter_16/manifest.json"
+    },
+    {
+      "number": 17,
+      "arabicName": "الإسراء",
+      "englishName": "Al-Isra",
+      "ayaCount": 111,
+      "manifest": "chapter_17/manifest.json"
+    },
+    {
+      "number": 18,
+      "arabicName": "الكهف",
+      "englishName": "Al-Kahf",
+      "ayaCount": 110,
+      "manifest": "chapter_18/manifest.json"
+    },
+    {
+      "number": 19,
+      "arabicName": "مريم",
+      "englishName": "Maryam",
+      "ayaCount": 98,
+      "manifest": "chapter_19/manifest.json"
+    },
+    {
+      "number": 20,
+      "arabicName": "طٰهٰ",
+      "englishName": "Ta-Ha",
+      "ayaCount": 135,
+      "manifest": "chapter_20/manifest.json"
+    },
+    {
+      "number": 21,
+      "arabicName": "الأنبياء",
+      "englishName": "Al-Anbiya",
+      "ayaCount": 112,
+      "manifest": "chapter_21/manifest.json"
+    },
+    {
+      "number": 22,
+      "arabicName": "الحج",
+      "englishName": "Al-Hajj",
+      "ayaCount": 78,
+      "manifest": "chapter_22/manifest.json"
+    },
+    {
+      "number": 23,
+      "arabicName": "المؤمنون",
+      "englishName": "Al-Mu'minun",
+      "ayaCount": 118,
+      "manifest": "chapter_23/manifest.json"
+    },
+    {
+      "number": 24,
+      "arabicName": "النور",
+      "englishName": "An-Nur",
+      "ayaCount": 64,
+      "manifest": "chapter_24/manifest.json"
+    },
+    {
+      "number": 25,
+      "arabicName": "الفرقان",
+      "englishName": "Al-Furqan",
+      "ayaCount": 77,
+      "manifest": "chapter_25/manifest.json"
+    },
+    {
+      "number": 26,
+      "arabicName": "الشعراء",
+      "englishName": "Ash-Shu'ara",
+      "ayaCount": 227,
+      "manifest": "chapter_26/manifest.json"
+    },
+    {
+      "number": 27,
+      "arabicName": "النمل",
+      "englishName": "An-Naml",
+      "ayaCount": 93,
+      "manifest": "chapter_27/manifest.json"
+    },
+    {
+      "number": 28,
+      "arabicName": "القصص",
+      "englishName": "Al-Qasas",
+      "ayaCount": 88,
+      "manifest": "chapter_28/manifest.json"
+    },
+    {
+      "number": 29,
+      "arabicName": "العنكبوت",
+      "englishName": "Al-Ankabut",
+      "ayaCount": 69,
+      "manifest": "chapter_29/manifest.json"
+    },
+    {
+      "number": 30,
+      "arabicName": "الروم",
+      "englishName": "Ar-Rum",
+      "ayaCount": 60,
+      "manifest": "chapter_30/manifest.json"
+    },
+    {
+      "number": 31,
+      "arabicName": "لقمان",
+      "englishName": "Luqman",
+      "ayaCount": 34,
+      "manifest": "chapter_31/manifest.json"
+    },
+    {
+      "number": 32,
+      "arabicName": "السجدة",
+      "englishName": "As-Sajdah",
+      "ayaCount": 30,
+      "manifest": "chapter_32/manifest.json"
+    },
+    {
+      "number": 33,
+      "arabicName": "الأحزاب",
+      "englishName": "Al-Ahzab",
+      "ayaCount": 73,
+      "manifest": "chapter_33/manifest.json"
+    },
+    {
+      "number": 34,
+      "arabicName": "سبإ",
+      "englishName": "Saba",
+      "ayaCount": 54,
+      "manifest": "chapter_34/manifest.json"
+    },
+    {
+      "number": 35,
+      "arabicName": "فاطر",
+      "englishName": "Fatir",
+      "ayaCount": 45,
+      "manifest": "chapter_35/manifest.json"
+    },
+    {
+      "number": 36,
+      "arabicName": "يس",
+      "englishName": "Ya-Sin",
+      "ayaCount": 83,
+      "manifest": "chapter_36/manifest.json"
+    },
+    {
+      "number": 37,
+      "arabicName": "الصافات",
+      "englishName": "As-Saffat",
+      "ayaCount": 182,
+      "manifest": "chapter_37/manifest.json"
+    },
+    {
+      "number": 38,
+      "arabicName": "ص",
+      "englishName": "Sad",
+      "ayaCount": 88,
+      "manifest": "chapter_38/manifest.json"
+    },
+    {
+      "number": 39,
+      "arabicName": "الزمر",
+      "englishName": "Az-Zumar",
+      "ayaCount": 75,
+      "manifest": "chapter_39/manifest.json"
+    },
+    {
+      "number": 40,
+      "arabicName": "غافر",
+      "englishName": "Ghafir",
+      "ayaCount": 85,
+      "manifest": "chapter_40/manifest.json"
+    },
+    {
+      "number": 41,
+      "arabicName": "فصلت",
+      "englishName": "Fussilat",
+      "ayaCount": 54,
+      "manifest": "chapter_41/manifest.json"
+    },
+    {
+      "number": 42,
+      "arabicName": "الشورى",
+      "englishName": "Ash-Shura",
+      "ayaCount": 53,
+      "manifest": "chapter_42/manifest.json"
+    },
+    {
+      "number": 43,
+      "arabicName": "الزخرف",
+      "englishName": "Az-Zukhruf",
+      "ayaCount": 89,
+      "manifest": "chapter_43/manifest.json"
+    },
+    {
+      "number": 44,
+      "arabicName": "الدخان",
+      "englishName": "Ad-Dukhan",
+      "ayaCount": 59,
+      "manifest": "chapter_44/manifest.json"
+    },
+    {
+      "number": 45,
+      "arabicName": "الجاثية",
+      "englishName": "Al-Jathiyah",
+      "ayaCount": 37,
+      "manifest": "chapter_45/manifest.json"
+    },
+    {
+      "number": 46,
+      "arabicName": "الأحقاف",
+      "englishName": "Al-Ahqaf",
+      "ayaCount": 35,
+      "manifest": "chapter_46/manifest.json"
+    },
+    {
+      "number": 47,
+      "arabicName": "محمد",
+      "englishName": "Muhammad",
+      "ayaCount": 38,
+      "manifest": "chapter_47/manifest.json"
+    },
+    {
+      "number": 48,
+      "arabicName": "الفتح",
+      "englishName": "Al-Fath",
+      "ayaCount": 29,
+      "manifest": "chapter_48/manifest.json"
+    },
+    {
+      "number": 49,
+      "arabicName": "الحجرات",
+      "englishName": "Al-Hujurat",
+      "ayaCount": 18,
+      "manifest": "chapter_49/manifest.json"
+    },
+    {
+      "number": 50,
+      "arabicName": "ق",
+      "englishName": "Qaf",
+      "ayaCount": 45,
+      "manifest": "chapter_50/manifest.json"
+    },
+    {
+      "number": 51,
+      "arabicName": "الذاريات",
+      "englishName": "Adh-Dhariyat",
+      "ayaCount": 60,
+      "manifest": "chapter_51/manifest.json"
+    },
+    {
+      "number": 52,
+      "arabicName": "الطور",
+      "englishName": "At-Tur",
+      "ayaCount": 49,
+      "manifest": "chapter_52/manifest.json"
+    },
+    {
+      "number": 53,
+      "arabicName": "النجم",
+      "englishName": "An-Najm",
+      "ayaCount": 62,
+      "manifest": "chapter_53/manifest.json"
+    },
+    {
+      "number": 54,
+      "arabicName": "القمر",
+      "englishName": "Al-Qamar",
+      "ayaCount": 55,
+      "manifest": "chapter_54/manifest.json"
+    },
+    {
+      "number": 55,
+      "arabicName": "الرحمن",
+      "englishName": "Ar-Rahman",
+      "ayaCount": 78,
+      "manifest": "chapter_55/manifest.json"
+    },
+    {
+      "number": 56,
+      "arabicName": "الواقعة",
+      "englishName": "Al-Waqi'ah",
+      "ayaCount": 96,
+      "manifest": "chapter_56/manifest.json"
+    },
+    {
+      "number": 57,
+      "arabicName": "الحديد",
+      "englishName": "Al-Hadid",
+      "ayaCount": 29,
+      "manifest": "chapter_57/manifest.json"
+    },
+    {
+      "number": 58,
+      "arabicName": "المجادلة",
+      "englishName": "Al-Mujadilah",
+      "ayaCount": 22,
+      "manifest": "chapter_58/manifest.json"
+    },
+    {
+      "number": 59,
+      "arabicName": "الحشر",
+      "englishName": "Al-Hashr",
+      "ayaCount": 24,
+      "manifest": "chapter_59/manifest.json"
+    },
+    {
+      "number": 60,
+      "arabicName": "الممتحنة",
+      "englishName": "Al-Mumtahanah",
+      "ayaCount": 13,
+      "manifest": "chapter_60/manifest.json"
+    },
+    {
+      "number": 61,
+      "arabicName": "الصف",
+      "englishName": "As-Saff",
+      "ayaCount": 14,
+      "manifest": "chapter_61/manifest.json"
+    },
+    {
+      "number": 62,
+      "arabicName": "الجمعة",
+      "englishName": "Al-Jumu'ah",
+      "ayaCount": 11,
+      "manifest": "chapter_62/manifest.json"
+    },
+    {
+      "number": 63,
+      "arabicName": "المنافقون",
+      "englishName": "Al-Munafiqun",
+      "ayaCount": 11,
+      "manifest": "chapter_63/manifest.json"
+    },
+    {
+      "number": 64,
+      "arabicName": "التغابن",
+      "englishName": "At-Taghabun",
+      "ayaCount": 18,
+      "manifest": "chapter_64/manifest.json"
+    },
+    {
+      "number": 65,
+      "arabicName": "الطلاق",
+      "englishName": "At-Talaq",
+      "ayaCount": 12,
+      "manifest": "chapter_65/manifest.json"
+    },
+    {
+      "number": 66,
+      "arabicName": "التحريم",
+      "englishName": "At-Tahrim",
+      "ayaCount": 12,
+      "manifest": "chapter_66/manifest.json"
+    },
+    {
+      "number": 67,
+      "arabicName": "الملك",
+      "englishName": "Al-Mulk",
+      "ayaCount": 30,
+      "manifest": "chapter_67/manifest.json"
+    },
+    {
+      "number": 68,
+      "arabicName": "القلم",
+      "englishName": "Al-Qalam",
+      "ayaCount": 52,
+      "manifest": "chapter_68/manifest.json"
+    },
+    {
+      "number": 69,
+      "arabicName": "الحاقة",
+      "englishName": "Al-Haqqah",
+      "ayaCount": 52,
+      "manifest": "chapter_69/manifest.json"
+    },
+    {
+      "number": 70,
+      "arabicName": "المعارج",
+      "englishName": "Al-Ma'arij",
+      "ayaCount": 44,
+      "manifest": "chapter_70/manifest.json"
+    },
+    {
+      "number": 71,
+      "arabicName": "نوح",
+      "englishName": "Nuh",
+      "ayaCount": 28,
+      "manifest": "chapter_71/manifest.json"
+    },
+    {
+      "number": 72,
+      "arabicName": "الجن",
+      "englishName": "Al-Jinn",
+      "ayaCount": 28,
+      "manifest": "chapter_72/manifest.json"
+    },
+    {
+      "number": 73,
+      "arabicName": "المزمل",
+      "englishName": "Al-Muzzammil",
+      "ayaCount": 20,
+      "manifest": "chapter_73/manifest.json"
+    },
+    {
+      "number": 74,
+      "arabicName": "المدثر",
+      "englishName": "Al-Muddaththir",
+      "ayaCount": 56,
+      "manifest": "chapter_74/manifest.json"
+    },
+    {
+      "number": 75,
+      "arabicName": "القيامة",
+      "englishName": "Al-Qiyamah",
+      "ayaCount": 40,
+      "manifest": "chapter_75/manifest.json"
+    },
+    {
+      "number": 76,
+      "arabicName": "الانسان",
+      "englishName": "Al-Insan",
+      "ayaCount": 31,
+      "manifest": "chapter_76/manifest.json"
+    },
+    {
+      "number": 77,
+      "arabicName": "المرسلات",
+      "englishName": "Al-Mursalat",
+      "ayaCount": 50,
+      "manifest": "chapter_77/manifest.json"
+    },
+    {
+      "number": 78,
+      "arabicName": "النبإ",
+      "englishName": "An-Naba",
+      "ayaCount": 40,
+      "manifest": "chapter_78/manifest.json"
+    },
+    {
+      "number": 79,
+      "arabicName": "النازعات",
+      "englishName": "An-Nazi'at",
+      "ayaCount": 46,
+      "manifest": "chapter_79/manifest.json"
+    },
+    {
+      "number": 80,
+      "arabicName": "عبس",
+      "englishName": "Abasa",
+      "ayaCount": 42,
+      "manifest": "chapter_80/manifest.json"
+    },
+    {
+      "number": 81,
+      "arabicName": "التكوير",
+      "englishName": "At-Takwir",
+      "ayaCount": 29,
+      "manifest": "chapter_81/manifest.json"
+    },
+    {
+      "number": 82,
+      "arabicName": "الإنفطار",
+      "englishName": "Al-Infitar",
+      "ayaCount": 19,
+      "manifest": "chapter_82/manifest.json"
+    },
+    {
+      "number": 83,
+      "arabicName": "المطففين",
+      "englishName": "Al-Mutaffifin",
+      "ayaCount": 36,
+      "manifest": "chapter_83/manifest.json"
+    },
+    {
+      "number": 84,
+      "arabicName": "الإنشقاق",
+      "englishName": "Al-Inshiqaq",
+      "ayaCount": 25,
+      "manifest": "chapter_84/manifest.json"
+    },
+    {
+      "number": 85,
+      "arabicName": "البروج",
+      "englishName": "Al-Buruj",
+      "ayaCount": 22,
+      "manifest": "chapter_85/manifest.json"
+    },
+    {
+      "number": 86,
+      "arabicName": "الطارق",
+      "englishName": "At-Tariq",
+      "ayaCount": 17,
+      "manifest": "chapter_86/manifest.json"
+    },
+    {
+      "number": 87,
+      "arabicName": "الأعلى",
+      "englishName": "Al-A'la",
+      "ayaCount": 19,
+      "manifest": "chapter_87/manifest.json"
+    },
+    {
+      "number": 88,
+      "arabicName": "الغاشية",
+      "englishName": "Al-Ghashiyah",
+      "ayaCount": 26,
+      "manifest": "chapter_88/manifest.json"
+    },
+    {
+      "number": 89,
+      "arabicName": "الفجر",
+      "englishName": "Al-Fajr",
+      "ayaCount": 30,
+      "manifest": "chapter_89/manifest.json"
+    },
+    {
+      "number": 90,
+      "arabicName": "البلد",
+      "englishName": "Al-Balad",
+      "ayaCount": 20,
+      "manifest": "chapter_90/manifest.json"
+    },
+    {
+      "number": 91,
+      "arabicName": "الشمس",
+      "englishName": "Ash-Shams",
+      "ayaCount": 15,
+      "manifest": "chapter_91/manifest.json"
+    },
+    {
+      "number": 92,
+      "arabicName": "الليل",
+      "englishName": "Al-Layl",
+      "ayaCount": 21,
+      "manifest": "chapter_92/manifest.json"
+    },
+    {
+      "number": 93,
+      "arabicName": "الضحى",
+      "englishName": "Ad-Duha",
+      "ayaCount": 11,
+      "manifest": "chapter_93/manifest.json"
+    },
+    {
+      "number": 94,
+      "arabicName": "الشرح",
+      "englishName": "Ash-Sharh",
+      "ayaCount": 8,
+      "manifest": "chapter_94/manifest.json"
+    },
+    {
+      "number": 95,
+      "arabicName": "التين",
+      "englishName": "At-Tin",
+      "ayaCount": 8,
+      "manifest": "chapter_95/manifest.json"
+    },
+    {
+      "number": 96,
+      "arabicName": "العلق",
+      "englishName": "Al-Alaq",
+      "ayaCount": 19,
+      "manifest": "chapter_96/manifest.json"
+    },
+    {
+      "number": 97,
+      "arabicName": "القدر",
+      "englishName": "Al-Qadr",
+      "ayaCount": 5,
+      "manifest": "chapter_97/manifest.json"
+    },
+    {
+      "number": 98,
+      "arabicName": "البينة",
+      "englishName": "Al-Bayyinah",
+      "ayaCount": 8,
+      "manifest": "chapter_98/manifest.json"
+    },
+    {
+      "number": 99,
+      "arabicName": "الزلزلة",
+      "englishName": "Az-Zalzalah",
+      "ayaCount": 8,
+      "manifest": "chapter_99/manifest.json"
+    },
+    {
+      "number": 100,
+      "arabicName": "العاديات",
+      "englishName": "Al-Adiyat",
+      "ayaCount": 11,
+      "manifest": "chapter_100/manifest.json"
+    },
+    {
+      "number": 101,
+      "arabicName": "القارعة",
+      "englishName": "Al-Qari'ah",
+      "ayaCount": 11,
+      "manifest": "chapter_101/manifest.json"
+    },
+    {
+      "number": 102,
+      "arabicName": "التكاثر",
+      "englishName": "At-Takathur",
+      "ayaCount": 8,
+      "manifest": "chapter_102/manifest.json"
+    },
+    {
+      "number": 103,
+      "arabicName": "العصر",
+      "englishName": "Al-Asr",
+      "ayaCount": 3,
+      "manifest": "chapter_103/manifest.json"
+    },
+    {
+      "number": 104,
+      "arabicName": "الهمزة",
+      "englishName": "Al-Humazah",
+      "ayaCount": 9,
+      "manifest": "chapter_104/manifest.json"
+    },
+    {
+      "number": 105,
+      "arabicName": "الفيل",
+      "englishName": "Al-Fil",
+      "ayaCount": 5,
+      "manifest": "chapter_105/manifest.json"
+    },
+    {
+      "number": 106,
+      "arabicName": "قريش",
+      "englishName": "Quraysh",
+      "ayaCount": 4,
+      "manifest": "chapter_106/manifest.json"
+    },
+    {
+      "number": 107,
+      "arabicName": "الماعون",
+      "englishName": "Al-Ma'un",
+      "ayaCount": 7,
+      "manifest": "chapter_107/manifest.json"
+    },
+    {
+      "number": 108,
+      "arabicName": "الكوثر",
+      "englishName": "Al-Kawthar",
+      "ayaCount": 3,
+      "manifest": "chapter_108/manifest.json"
+    },
+    {
+      "number": 109,
+      "arabicName": "الكافرون",
+      "englishName": "Al-Kafirun",
+      "ayaCount": 6,
+      "manifest": "chapter_109/manifest.json"
+    },
+    {
+      "number": 110,
+      "arabicName": "النصر",
+      "englishName": "An-Nasr",
+      "ayaCount": 3,
+      "manifest": "chapter_110/manifest.json"
+    },
+    {
+      "number": 111,
+      "arabicName": "المسد",
+      "englishName": "Al-Masad",
+      "ayaCount": 5,
+      "manifest": "chapter_111/manifest.json"
+    },
+    {
+      "number": 112,
+      "arabicName": "الإخلاص",
+      "englishName": "Al-Ikhlas",
+      "ayaCount": 4,
+      "manifest": "chapter_112/manifest.json"
+    },
+    {
+      "number": 113,
+      "arabicName": "الفلق",
+      "englishName": "Al-Falaq",
+      "ayaCount": 5,
+      "manifest": "chapter_113/manifest.json"
+    },
+    {
+      "number": 114,
+      "arabicName": "الناس",
+      "englishName": "An-Nas",
+      "ayaCount": 6,
+      "manifest": "chapter_114/manifest.json"
+    }
+  ]
+}

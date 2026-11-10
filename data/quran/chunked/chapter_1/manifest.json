@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "quran-surah-1",
+  "title": "الفاتحة",
+  "kind": "quran-surah",
+  "recordCount": 7,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 7,
+      "file": "ayat_001_007.json"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "id": "quran-surah-50",
+  "title": "ق",
+  "kind": "quran-surah",
+  "recordCount": 45,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "file": "ayat_011_020.json"
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "file": "ayat_021_030.json"
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "file": "ayat_031_040.json"
+    },
+    {
+      "start": 41,
+      "end": 45,
+      "file": "ayat_041_045.json"
+    }
+  ]
+}

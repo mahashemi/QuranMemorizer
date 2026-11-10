@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "quran-surah-104",
+  "title": "الهمزة",
+  "kind": "quran-surah",
+  "recordCount": 9,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 9,
+      "file": "ayat_001_009.json"
+    }
+  ]
+}

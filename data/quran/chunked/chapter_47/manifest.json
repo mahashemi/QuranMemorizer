@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "quran-surah-47",
+  "title": "محمد",
+  "kind": "quran-surah",
+  "recordCount": 38,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "file": "ayat_011_020.json"
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "file": "ayat_021_030.json"
+    },
+    {
+      "start": 31,
+      "end": 38,
+      "file": "ayat_031_038.json"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "id": "quran-surah-2",
+  "title": "البقرة",
+  "kind": "quran-surah",
+  "recordCount": 286,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "file": "ayat_011_020.json"
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "file": "ayat_021_030.json"
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "file": "ayat_031_040.json"
+    },
+    {
+      "start": 41,
+      "end": 50,
+      "file": "ayat_041_050.json"
+    },
+    {
+      "start": 51,
+      "end": 60,
+      "file": "ayat_051_060.json"
+    },
+    {
+      "start": 61,
+      "end": 70,
+      "file": "ayat_061_070.json"
+    },
+    {
+      "start": 71,
+      "end": 80,
+      "file": "ayat_071_080.json"
+    },
+    {
+      "start": 81,
+      "end": 90,
+      "file": "ayat_081_090.json"
+    },
+    {
+      "start": 91,
+      "end": 100,
+      "file": "ayat_091_100.json"
+    },
+    {
+      "start": 101,
+      "end": 110,
+      "file": "ayat_101_110.json"
+    },
+    {
+      "start": 111,
+      "end": 120,
+      "file": "ayat_111_120.json"
+    },
+    {
+      "start": 121,
+      "end": 130,
+      "file": "ayat_121_130.json"
+    },
+    {
+      "start": 131,
+      "end": 140,
+      "file": "ayat_131_140.json"
+    },
+    {
+      "start": 141,
+      "end": 150,
+      "file": "ayat_141_150.json"
+    },
+    {
+      "start": 151,
+      "end": 160,
+      "file": "ayat_151_160.json"
+    },
+    {
+      "start": 161,
+      "end": 170,
+      "file": "ayat_161_170.json"
+    },
+    {
+      "start": 171,
+      "end": 180,
+      "file": "ayat_171_180.json"
+    },
+    {
+      "start": 181,
+      "end": 190,
+      "file": "ayat_181_190.json"
+    },
+    {
+      "start": 191,
+      "end": 200,
+      "file": "ayat_191_200.json"
+    },
+    {
+      "start": 201,
+      "end": 210,
+      "file": "ayat_201_210.json"
+    },
+    {
+      "start": 211,
+      "end": 220,
+      "file": "ayat_211_220.json"
+    },
+    {
+      "start": 221,
+      "end": 230,
+      "file": "ayat_221_230.json"
+    },
+    {
+      "start": 231,
+      "end": 240,
+      "file": "ayat_231_240.json"
+    },
+    {
+      "start": 241,
+      "end": 250,
+      "file": "ayat_241_250.json"
+    },
+    {
+      "start": 251,
+      "end": 260,
+      "file": "ayat_251_260.json"
+    },
+    {
+      "start": 261,
+      "end": 270,
+      "file": "ayat_261_270.json"
+    },
+    {
+      "start": 271,
+      "end": 280,
+      "file": "ayat_271_280.json"
+    },
+    {
+      "start": 281,
+      "end": 286,
+      "file": "ayat_281_286.json"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "quran-surah-96",
+  "title": "العلق",
+  "kind": "quran-surah",
+  "recordCount": 19,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 19,
+      "file": "ayat_011_019.json"
+    }
+  ]
+}

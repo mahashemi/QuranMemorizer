@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "id": "quran-surah-27",
+  "title": "النمل",
+  "kind": "quran-surah",
+  "recordCount": 93,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "file": "ayat_011_020.json"
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "file": "ayat_021_030.json"
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "file": "ayat_031_040.json"
+    },
+    {
+      "start": 41,
+      "end": 50,
+      "file": "ayat_041_050.json"
+    },
+    {
+      "start": 51,
+      "end": 60,
+      "file": "ayat_051_060.json"
+    },
+    {
+      "start": 61,
+      "end": 70,
+      "file": "ayat_061_070.json"
+    },
+    {
+      "start": 71,
+      "end": 80,
+      "file": "ayat_071_080.json"
+    },
+    {
+      "start": 81,
+      "end": 90,
+      "file": "ayat_081_090.json"
+    },
+    {
+      "start": 91,
+      "end": 93,
+      "file": "ayat_091_093.json"
+    }
+  ]
+}

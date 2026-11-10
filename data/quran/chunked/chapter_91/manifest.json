@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "quran-surah-91",
+  "title": "الشمس",
+  "kind": "quran-surah",
+  "recordCount": 15,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "ayat_001_010.json"
+    },
+    {
+      "start": 11,
+      "end": 15,
+      "file": "ayat_011_015.json"
+    }
+  ]
+}

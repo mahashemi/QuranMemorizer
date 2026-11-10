@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "quran-surah-97",
+  "title": "القدر",
+  "kind": "quran-surah",
+  "recordCount": 5,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 5,
+      "file": "ayat_001_005.json"
+    }
+  ]
+}

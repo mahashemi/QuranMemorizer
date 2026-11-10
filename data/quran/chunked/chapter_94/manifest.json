@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "quran-surah-94",
+  "title": "الشرح",
+  "kind": "quran-surah",
+  "recordCount": 8,
+  "chunkSize": 10,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 8,
+      "file": "ayat_001_008.json"
+    }
+  ]
+}
