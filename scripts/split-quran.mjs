@@ -22,8 +22,6 @@ const ENGLISH_NAMES = [
 
 export function splitQuranData(sourceFile, outputDir) {
   const raw = JSON.parse(readFileSync(sourceFile, 'utf8'));
-  rmSync(outputDir, { recursive: true, force: true });
-  mkdirSync(outputDir, { recursive: true });
   const chapters = new Map();
 
   for (const [key, ayas] of Object.entries(raw)) {
@@ -43,6 +41,10 @@ export function splitQuranData(sourceFile, outputDir) {
   if (chapters.size !== 114) {
     throw new Error('Expected exactly 114 Surahs in source Quran JSON; found ' + chapters.size + '.');
   }
+
+  // Only replace generated output after the canonical source has passed validation.
+  rmSync(outputDir, { recursive: true, force: true });
+  mkdirSync(outputDir, { recursive: true });
 
   const manifest = [];
   for (let number = 1; number <= 114; number++) {
