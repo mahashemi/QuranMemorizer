@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf8');
+const styles = await readFile(new URL('../static/css/styles.css', import.meta.url), 'utf8');
 const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
 
 test('shared Quran links accept canonical Surah/Ayah routes', () => {
@@ -63,4 +64,15 @@ test('reader lazily fetches adjacent chunks while scrolling and prefetches near 
 test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () => {
   assert.ok(app.includes('if (suraChanged || !el.reader.querySelector('));
   assert.ok(app.includes("'.aya[data-aya=\"' + aya + '\"]'"));
+});
+
+
+test('Ayah picker is a number-only navigation index on desktop and mobile', () => {
+  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to Ayah '[\s\S]*?aya-btn-num/);
+  assert.doesNotMatch(app, /aya-btn-text|aya-btn-unloaded/);
+  assert.match(app, /const btn = el\.ayaList\.querySelector\('\.aya-btn\[data-aya=/);
+  assert.match(app, /btn\.classList\.add\('active'\)/);
+  assert.match(styles, /Compact Ayah-number index: no text previews/);
+  assert.match(styles, /grid-template-columns:repeat\(auto-fill,minmax\(42px,1fr\)\)/);
+  assert.doesNotMatch(styles, /aya-btn-text\s*\{\s*display:\s*block/);
 });
