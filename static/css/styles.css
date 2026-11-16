@@ -476,6 +476,26 @@
     flex:1; max-width: 220px;
     font-size:13.5px; padding:9px 10px; border-radius:10px;
   }
+  .playback-speed-control {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex:1;
+    max-width:260px;
+  }
+  .playback-speed-control input[type="range"] {
+    flex:1;
+    min-width:90px;
+    accent-color:var(--accent);
+  }
+  .playback-speed-control output {
+    min-width:42px;
+    color:var(--accent);
+    font-size:13px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    text-align:right;
+  }
 
   /* repeat section is mobile-only (on desktop the block lives inline) */
   .sheet-section.repeat-section { display: none; }

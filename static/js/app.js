@@ -88,6 +88,8 @@ const el = {
   toggleUrdu: $('toggleUrdu'),
   togglePersian: $('togglePersian'),
   mobileToggleBismillah: $('mobileToggleBismillah'),
+  playbackSpeed: $('playbackSpeed'),
+  playbackSpeedValue: $('playbackSpeedValue'),
 
   toast: $('toast'),
   recordingStorageStatus: $('recordingStorageStatus'),
@@ -123,6 +125,7 @@ const state = {
 
   reciter: RECITERS[0].id,
   playBismillah: true,
+  playbackSpeed: 1,
 
   showTranslit: true,
   showEnglish: true,
@@ -144,6 +147,9 @@ function loadDisplayPrefs() {
     if (typeof saved.urdu === 'boolean')    state.showUrdu = saved.urdu;
     if (typeof saved.persian === 'boolean') state.showPersian = saved.persian;
     if (typeof saved.bismillah === 'boolean') state.playBismillah = saved.bismillah;
+    if (typeof saved.playbackSpeed === 'number' && Number.isFinite(saved.playbackSpeed)) {
+      state.playbackSpeed = Math.max(0.5, Math.min(1.5, saved.playbackSpeed));
+    }
   } catch (e) { /* ignore */ }
 }
 function saveDisplayPrefs() {
@@ -153,7 +159,8 @@ function saveDisplayPrefs() {
       english: state.showEnglish,
       urdu: state.showUrdu,
       persian: state.showPersian,
-      bismillah: state.playBismillah
+      bismillah: state.playBismillah,
+      playbackSpeed: state.playbackSpeed
     }));
   } catch (e) { /* ignore */ }
 }
@@ -220,6 +227,7 @@ window.onQuranMediaAction = function (action) {
 async function init() {
   injectRepeatBlock();
   loadDisplayPrefs();
+  audio.playbackRate = state.playbackSpeed;
   buildReciterSelects();
   syncDisplayTogglesUI();
   applyDisplayClasses();
@@ -585,6 +593,8 @@ function syncDisplayTogglesUI() {
   el.toggleUrdu.checked = state.showUrdu;
   el.togglePersian.checked = state.showPersian;
   el.mobileToggleBismillah.checked = state.playBismillah;
+  el.playbackSpeed.value = String(state.playbackSpeed);
+  el.playbackSpeedValue.textContent = state.playbackSpeed.toFixed(2).replace(/0$/, '') + '×';
 }
 
 /* ==================================================================
@@ -2484,6 +2494,14 @@ function bindEvents() {
   });
   el.mobileToggleBismillah.addEventListener('change', () => {
     state.playBismillah = el.mobileToggleBismillah.checked;
+    saveDisplayPrefs();
+  });
+  el.playbackSpeed.addEventListener('input', () => {
+    const speed = Number(el.playbackSpeed.value);
+    if (!Number.isFinite(speed)) return;
+    state.playbackSpeed = Math.max(0.5, Math.min(1.5, speed));
+    audio.playbackRate = state.playbackSpeed;
+    el.playbackSpeedValue.textContent = state.playbackSpeed.toFixed(2).replace(/0$/, '') + '×';
     saveDisplayPrefs();
   });
 
