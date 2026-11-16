@@ -79,12 +79,20 @@ test('Ayah picker is a number-only navigation index on desktop and mobile', () =
 });
 
 
-test('recitation speed setting persists and updates the shared audio element', () => {
+test('recitation speed is a persistent global preference applied to every audio source', () => {
   assert.match(app, /playbackSpeed: 1/);
   assert.match(app, /typeof saved\.playbackSpeed === 'number'/);
-  assert.match(app, /audio\.playbackRate = state\.playbackSpeed/);
+  assert.match(app, /function applyPlaybackSpeed\(\)/);
+  assert.match(app, /audio\.defaultPlaybackRate = speed/);
+  assert.match(app, /audio\.playbackRate = speed/);
+  assert.match(app, /function setAudioSource\(source\)[\s\S]*?audio\.src = source;[\s\S]*?applyPlaybackSpeed\(\)/);
+  assert.match(app, /audio\.addEventListener\('loadedmetadata', \(\) => \{\s*applyPlaybackSpeed\(\)/);
+  assert.match(app, /audio\.addEventListener\('play', \(\) => \{\s*applyPlaybackSpeed\(\)/);
   assert.match(app, /el\.playbackSpeed\.addEventListener\('input'/);
+  assert.match(app, /el\.resetPlaybackSpeed\.addEventListener\('click'/);
   assert.match(html, /id="playbackSpeed" type="range" min="0\.5" max="1\.5" step="0\.05"/);
   assert.match(html, /id="playbackSpeedValue"/);
+  assert.match(html, /id="resetPlaybackSpeed"/);
   assert.match(styles, /\.playback-speed-control/);
+  assert.match(styles, /\.playback-speed-reset/);
 });
