@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf8');
+const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const styles = await readFile(new URL('../static/css/styles.css', import.meta.url), 'utf8');
 const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
 
@@ -75,4 +76,15 @@ test('Ayah picker is a number-only navigation index on desktop and mobile', () =
   assert.match(styles, /Compact Ayah-number index: no text previews/);
   assert.match(styles, /grid-template-columns:repeat\(auto-fill,minmax\(42px,1fr\)\)/);
   assert.doesNotMatch(styles, /aya-btn-text\s*\{\s*display:\s*block/);
+});
+
+
+test('recitation speed setting persists and updates the shared audio element', () => {
+  assert.match(app, /playbackSpeed: 1/);
+  assert.match(app, /typeof saved\.playbackSpeed === 'number'/);
+  assert.match(app, /audio\.playbackRate = state\.playbackSpeed/);
+  assert.match(app, /el\.playbackSpeed\.addEventListener\('input'/);
+  assert.match(html, /id="playbackSpeed" type="range" min="0\.5" max="1\.5" step="0\.05"/);
+  assert.match(html, /id="playbackSpeedValue"/);
+  assert.match(styles, /\.playback-speed-control/);
 });
