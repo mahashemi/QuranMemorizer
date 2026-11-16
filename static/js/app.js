@@ -90,6 +90,7 @@ const el = {
   mobileToggleBismillah: $('mobileToggleBismillah'),
   playbackSpeed: $('playbackSpeed'),
   playbackSpeedValue: $('playbackSpeedValue'),
+  resetPlaybackSpeed: $('resetPlaybackSpeed'),
 
   toast: $('toast'),
   recordingStorageStatus: $('recordingStorageStatus'),
@@ -171,6 +172,17 @@ function saveDisplayPrefs() {
 const audio = new Audio();
 audio.preload = 'auto';
 
+function applyPlaybackSpeed() {
+  const speed = Math.max(0.5, Math.min(1.5, Number(state.playbackSpeed) || 1));
+  audio.defaultPlaybackRate = speed;
+  audio.playbackRate = speed;
+}
+
+function setAudioSource(source) {
+  audio.src = source;
+  applyPlaybackSpeed();
+}
+
 function setNativePlaybackActive(active) {
   try {
     const nativePlayback = window.QuranMemorizerNative;
@@ -227,7 +239,7 @@ window.onQuranMediaAction = function (action) {
 async function init() {
   injectRepeatBlock();
   loadDisplayPrefs();
-  audio.playbackRate = state.playbackSpeed;
+  applyPlaybackSpeed();
   buildReciterSelects();
   syncDisplayTogglesUI();
   applyDisplayClasses();
@@ -1822,7 +1834,7 @@ async function playUserRecording(sura, aya) {
     state.playingAya = aya;
     state.started = true;
     updateAyaUI(false);
-    audio.src = activeRecordingObjectUrl;
+    setAudioSource(activeRecordingObjectUrl);
     await audio.play();
   } catch (error) {
     toast('Could not play your recording: ' + (error.message || 'unknown error'));
@@ -1966,7 +1978,7 @@ async function playTrack(sura, aya) {
       if (custom && custom.blob) {
         if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
         activeRecordingObjectUrl = URL.createObjectURL(custom.blob);
-        audio.src = activeRecordingObjectUrl;
+        setAudioSource(activeRecordingObjectUrl);
         try {
           await audio.play();
           return;
@@ -1987,7 +1999,7 @@ async function playTrack(sura, aya) {
       if (cached && cached.blob instanceof Blob && cached.blob.size > 0) {
         if (activeRecitationObjectUrl) URL.revokeObjectURL(activeRecitationObjectUrl);
         activeRecitationObjectUrl = URL.createObjectURL(cached.blob);
-        audio.src = activeRecitationObjectUrl;
+        setAudioSource(activeRecitationObjectUrl);
         try { await audio.play(); return; }
         catch (cachedPlayError) {
           if (requestId !== playbackRequestId) return;
@@ -1998,7 +2010,7 @@ async function playTrack(sura, aya) {
     } catch (cacheError) { console.warn('Could not read offline recitation; streaming instead.', cacheError); }
   }
   if (requestId !== playbackRequestId) return;
-  audio.src = trackUrl(sura, aya);
+  setAudioSource(trackUrl(sura, aya));
   audio.play().catch(err => {
     if (err && err.name === 'NotAllowedError') {
       toast('Browser blocked autoplay — press ▶ to start.');
@@ -2113,6 +2125,7 @@ audio.addEventListener('ended', () => {
 });
 
 audio.addEventListener('play', () => {
+  applyPlaybackSpeed();
   setPlayIcon(true);
   if (playbackMode === 'sequence') updateNativeMediaMetadata(true);
 });
@@ -2136,6 +2149,7 @@ audio.addEventListener('timeupdate', () => {
 });
 
 audio.addEventListener('loadedmetadata', () => {
+  applyPlaybackSpeed();
   el.durTime.textContent = fmtTime(audio.duration);
 });
 
@@ -2144,7 +2158,7 @@ audio.addEventListener('error', () => {
     URL.revokeObjectURL(activeRecitationObjectUrl);
     activeRecitationObjectUrl = null;
     toast('Downloaded audio could not be played. Trying the online copy.');
-    audio.src = trackUrl(state.sura, state.playingAya);
+    setAudioSource(trackUrl(state.sura, state.playingAya));
     audio.play().catch(() => stopAll());
     return;
   }
@@ -2156,7 +2170,7 @@ audio.addEventListener('error', () => {
     URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = null;
     toast('Your recording could not be played. Trying Minshawi instead.');
-    audio.src = trackUrl(state.sura, state.playingAya);
+    setAudioSource(trackUrl(state.sura, state.playingAya));
     audio.play().catch(() => stopAll());
     return;
   }
@@ -2500,8 +2514,15 @@ function bindEvents() {
     const speed = Number(el.playbackSpeed.value);
     if (!Number.isFinite(speed)) return;
     state.playbackSpeed = Math.max(0.5, Math.min(1.5, speed));
-    audio.playbackRate = state.playbackSpeed;
+    applyPlaybackSpeed();
     el.playbackSpeedValue.textContent = Number(state.playbackSpeed.toFixed(2)).toString() + '×';
+    saveDisplayPrefs();
+  });
+  el.resetPlaybackSpeed.addEventListener('click', () => {
+    state.playbackSpeed = 1;
+    el.playbackSpeed.value = '1';
+    applyPlaybackSpeed();
+    el.playbackSpeedValue.textContent = '1×';
     saveDisplayPrefs();
   });
 
