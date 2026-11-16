@@ -594,7 +594,7 @@ function syncDisplayTogglesUI() {
   el.togglePersian.checked = state.showPersian;
   el.mobileToggleBismillah.checked = state.playBismillah;
   el.playbackSpeed.value = String(state.playbackSpeed);
-  el.playbackSpeedValue.textContent = state.playbackSpeed.toFixed(2).replace(/0$/, '') + '×';
+  el.playbackSpeedValue.textContent = Number(state.playbackSpeed.toFixed(2)).toString() + '×';
 }
 
 /* ==================================================================
@@ -2501,7 +2501,7 @@ function bindEvents() {
     if (!Number.isFinite(speed)) return;
     state.playbackSpeed = Math.max(0.5, Math.min(1.5, speed));
     audio.playbackRate = state.playbackSpeed;
-    el.playbackSpeedValue.textContent = state.playbackSpeed.toFixed(2).replace(/0$/, '') + '×';
+    el.playbackSpeedValue.textContent = Number(state.playbackSpeed.toFixed(2)).toString() + '×';
     saveDisplayPrefs();
   });
 
