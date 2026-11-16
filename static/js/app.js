@@ -174,10 +174,8 @@ audio.preload = 'auto';
 
 function applyPlaybackSpeed() {
   const speed = Math.max(0.5, Math.min(1.5, Number(state.playbackSpeed) || 1));
-  // defaultPlaybackRate makes the preference the media element's default;
-  // playbackRate applies it to the currently loaded Ayah immediately.
-  if (audio.defaultPlaybackRate !== speed) audio.defaultPlaybackRate = speed;
-  if (audio.playbackRate !== speed) audio.playbackRate = speed;
+  audio.defaultPlaybackRate = speed;
+  audio.playbackRate = speed;
 }
 
 function setAudioSource(source) {
@@ -2156,8 +2154,8 @@ audio.addEventListener('loadedmetadata', () => {
 });
 
 audio.addEventListener('error', () => {
-  if (activeRecitationObjectUrl && setAudioSource(== activeRecitationObjectUrl) {
-    URL.revokeObjectURL(activeRecitationObjectUrl));
+  if (activeRecitationObjectUrl && audio.src === activeRecitationObjectUrl) {
+    URL.revokeObjectURL(activeRecitationObjectUrl);
     activeRecitationObjectUrl = null;
     toast('Downloaded audio could not be played. Trying the online copy.');
     setAudioSource(trackUrl(state.sura, state.playingAya));
@@ -2168,8 +2166,8 @@ audio.addEventListener('error', () => {
     goToAya(1, { play: true, opening: false });
     return;
   }
-  if (activeRecordingObjectUrl && setAudioSource(== activeRecordingObjectUrl) {
-    URL.revokeObjectURL(activeRecordingObjectUrl));
+  if (activeRecordingObjectUrl && audio.src === activeRecordingObjectUrl) {
+    URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = null;
     toast('Your recording could not be played. Trying Minshawi instead.');
     setAudioSource(trackUrl(state.sura, state.playingAya));
