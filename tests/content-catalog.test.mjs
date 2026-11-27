@@ -52,6 +52,7 @@ test('reading collection builder preserves complete records and emits shared chu
     const sourceDir = join(root, 'data', 'duas', 'source');
     mkdirSync(sourceDir, { recursive: true });
     const records = Array.from({ length: 12 }, (_, index) => ({
+      id: 'passage-' + String(index + 1).padStart(3, '0'),
       section: index + 1,
       arabic_text: 'نص ' + (index + 1),
       english_text: 'Passage ' + (index + 1),
@@ -62,6 +63,7 @@ test('reading collection builder preserves complete records and emits shared chu
       title: 'Dua Kumayl',
       arabicTitle: 'دعاء كميل',
       attribution: 'Attributed to Imam Ali (a)',
+      storageChunkSize: 10,
       source: { title: 'Verified source', url: 'https://example.org/source' },
       records
     }));
