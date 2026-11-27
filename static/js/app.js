@@ -110,6 +110,7 @@ let repeatEls = {};
    ================================================================== */
 let SURAS = [];
 let SURA_BY_NUM = {};
+let activeCollectionSession = null;
 
 const state = {
   sura: 1, aya: 1,
@@ -406,6 +407,7 @@ async function writeCachedChunk(key, records) {
 
 async function ensureSuraLoaded(sura, aya, loadAll) {
   const targetAya = Math.max(1, Math.min(Number(aya) || 1, sura.ayaCount));
+  if (typeof sura.collectionLoad === 'function') return sura.collectionLoad(sura, targetAya, loadAll);
   if (!sura.chunkManifest) {
     if (!sura.chunkManifestPromise) {
       const manifestUrl = APP_SCRIPT_URL
@@ -547,12 +549,12 @@ function renderAyaList(num) {
   const s = SURA_BY_NUM[num];
   if (!s) { el.ayaList.innerHTML = ''; return; }
 
-  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayaCount;
+  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayaCount + (s.collection ? ' passages' : ' ayat');
 
   let html = '';
   for (let number = 1; number <= s.ayaCount; number++) {
     html +=
-      '<button class="aya-btn" data-aya="' + number + '" title="Go to Ayah ' + number + '" aria-label="Go to Ayah ' + number + '">' +
+      '<button class="aya-btn" data-aya="' + number + '" title="Go to ' + (s.collection ? 'passage ' : 'Ayah ') + number + '" aria-label="Go to ' + (s.collection ? 'passage ' : 'Ayah ') + number + '">' +
         '<span class="aya-btn-num">' + number + '</span>' +
       '</button>';
   }
@@ -567,21 +569,23 @@ function renderSura(restoreScrollTop) {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
 
+  const isCollection = Boolean(s.collection);
   let html =
     '<div class="sura-heading">' +
-      '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
-      '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
-      '<div class="meta">' + s.ayaCount + ' ayat</div>' +
-      '<div class="sura-download">' +
+      '<h1>' + (isCollection ? esc(s.englishName) : s.number + '. ' + esc(s.englishName)) + '</h1>' +
+      '<div class="ar-name" dir="rtl" lang="ar">' + esc(s.arabicName) + '</div>' +
+      '<div class="meta">' + s.ayaCount + (isCollection ? ' recitation passages' : ' ayat') + '</div>' +
+      (isCollection && s.sourceUrl ? '<p class="collection-source"><a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(s.sourceLabel || 'Text source') + '</a></p>' : '') +
+      (!isCollection ? '<div class="sura-download">' +
         '<button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button>' +
         '<span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span>' +
-      '</div>' +
+      '</div>' : '') +
     '</div>';
 
   for (const v of s.ayas) {
     if (!v) continue;
     html +=
-      '<article class="aya" id="' + getAyahElementId(state.sura, v.ayaNum) + '" data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
+      '<article class="aya" id="' + (isCollection ? 'reading-' + esc(s.collection.id) + '-section-' + v.ayaNum : getAyahElementId(state.sura, v.ayaNum)) + '" data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
         '<div class="aya-top">' +
           '<span class="aya-num">' + v.ayaNum + '</span>' +
           '<span class="aya-hint">click to play</span>' +
@@ -591,6 +595,7 @@ function renderSura(restoreScrollTop) {
         '<div class="english">' + esc(v.english_text || '') + '</div>' +
         '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
         '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+        (v.meaning ? '<details class="collection-word-meaning"><summary>Word meanings &amp; reflection</summary><p>' + esc(v.meaning) + '</p></details>' : '') +
         '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
           '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
           '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
@@ -633,7 +638,7 @@ function updateAyaUI(scrollReader) {
   if (!s) return;
 
   el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
-  const card = document.getElementById(getAyahElementId(state.sura, state.aya));
+  const card = s.collection ? el.reader.querySelector('.aya[data-aya="' + state.aya + '"]') : document.getElementById(getAyahElementId(state.sura, state.aya));
   if (card) {
     card.classList.add('active');
     if (scrollReader !== false) {
@@ -650,7 +655,7 @@ function updateAyaUI(scrollReader) {
 
   markCurrentSura();
 
-  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayaCount;
+  const line = (s.collection ? s.englishName : s.number + '. ' + s.englishName) + '  ·  ' + (s.collection ? 'Passage ' : 'Aya ') + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
   showMobileHeader();
 
@@ -661,14 +666,14 @@ function showMobileHeader() {
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
   el.mobHdrSura.textContent = s.englishName;
-  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayaCount;
+  el.mobHdrSub.textContent = (s.collection ? 'Passage ' : 'Aya ') + state.aya + ' of ' + s.ayaCount;
 }
 
 function updateStatus() {
   let txt = '';
   if (state.repeatMode === 'single') {
     const total = state.singleCount === 0 ? '∞' : state.singleCount;
-    txt = 'Aya repeat ' + state.singleCounter + ' / ' + total;
+    txt = (SURA_BY_NUM[state.sura] && SURA_BY_NUM[state.sura].collection ? 'Passage repeat ' : 'Aya repeat ') + state.singleCounter + ' / ' + total;
 
   } else if (state.repeatMode === 'range') {
     const total = state.rangeCount === 0 ? '∞' : state.rangeCount;
@@ -1857,7 +1862,7 @@ async function playUserRecording(sura, aya) {
   }
 }
 
-function hasOpening(sura) { return sura !== 1 && sura !== 9; }
+function hasOpening(sura) { return !SURA_BY_NUM[sura]?.collection && sura !== 1 && sura !== 9; }
 
 // Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
 // Accept the shorter legacy-style aliases too, but always write the canonical form.
@@ -1870,6 +1875,16 @@ function parseQuranHash(hash) {
   const aya = Number(match[2] || 1);
   if (!Number.isSafeInteger(sura) || !Number.isSafeInteger(aya) || sura < 1 || sura > 114 || aya < 1) return null;
   return { sura, aya };
+}
+
+function writeCurrentReadingHash(suraData, section) {
+  if (suraData && suraData.collection) {
+    if (window.QuranMemorizerCollections && typeof window.QuranMemorizerCollections.writeRoute === 'function') {
+      window.QuranMemorizerCollections.writeRoute(suraData.collection.collection, suraData.collection.id, section);
+    }
+    return;
+  }
+  writeQuranHash(suraData.number, section);
 }
 
 function writeQuranHash(sura, aya) {
@@ -1943,12 +1958,12 @@ async function loadSura(num, opts) {
   renderAyaList(num);
   updateAyaUI(true);
   requestAnimationFrame(loadAdjacentReaderChunk);
-  if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
+  if (document.body.classList.contains('reader-active')) writeCurrentReadingHash(s, state.aya);
 
   if (isMobile()) setDrawerTab('aya');
 
   if (opts.play) {
-    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+    goToAya(state.aya, { play: true, opening: !s.collection && opts.opening !== false && state.aya === 1 });
   }
 }
 
@@ -1966,7 +1981,7 @@ function goToAya(aya, opts) {
     if (!document.getElementById(getAyahElementId(state.sura, n))) renderSura();
     renderAyaList(state.sura);
     updateAyaUI(true);
-    if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
+    if (document.body.classList.contains('reader-active')) writeCurrentReadingHash(s, state.aya);
     const chunk = s.chunkManifest && s.chunkManifest.chunks.find(item => n >= item.start && n <= item.end);
     if (chunk && n >= chunk.end - 2 && chunk.end < s.ayaCount) {
       ensureSuraLoaded(s, chunk.end + 1, false)
@@ -2028,7 +2043,14 @@ async function playTrack(sura, aya) {
     } catch (cacheError) { console.warn('Could not read offline recitation; streaming instead.', cacheError); }
   }
   if (requestId !== playbackRequestId) return;
-  setAudioSource(trackUrl(sura, aya));
+  const current = SURA_BY_NUM[sura];
+  const currentRecord = current && current.collection && current.ayas[aya - 1];
+  if (current && current.collection && currentRecord && currentRecord.audio_url) setAudioSource(currentRecord.audio_url);
+  else if (current && current.collection) {
+    playbackMode = 'idle'; state.started = false; setNativePlaybackActive(false);
+    toast('No published recitation audio is attached to this passage yet. Record your own voice below to practise and repeat it.');
+    return;
+  } else setAudioSource(trackUrl(sura, aya));
   audio.play().catch(err => {
     if (err && err.name === 'NotAllowedError') {
       toast('Browser blocked autoplay — press ▶ to start.');
@@ -2663,6 +2685,37 @@ function toast(msg) {
 /* ==================================================================
    21. GO
    ================================================================== */
+window.QuranMemorizerReader = Object.freeze({
+  registerCollectionSura(sura) {
+    if (!sura || !sura.collection || !Number.isInteger(sura.number) || sura.number <= 114 ||
+        !Number.isInteger(sura.ayaCount) || sura.ayaCount < 1 || typeof sura.collectionLoad !== 'function') {
+      throw new Error('Invalid collection reading adapter.');
+    }
+    const existing = SURA_BY_NUM[sura.number];
+    if (existing && (!existing.collection || existing.collection.id !== sura.collection.id ||
+        existing.collection.collection !== sura.collection.collection)) {
+      throw new Error('Collection recording identity collision.');
+    }
+    SURA_BY_NUM[sura.number] = sura;
+    return sura.number;
+  },
+  openCollectionSura(sura, section = 1) {
+    this.registerCollectionSura(sura);
+    activeCollectionSession = sura.collection;
+    document.body.classList.add('collection-active');
+    activateReaderView();
+    return loadSura(sura.number, { aya: section, play: false });
+  },
+  openQuranSura(sura = 1, aya = 1) {
+    activeCollectionSession = null;
+    document.body.classList.remove('collection-active');
+    activateReaderView();
+    return loadSura(sura, { aya, play: false });
+  },
+  getActiveSura() { return SURA_BY_NUM[state.sura] || null; },
+  getState() { return { sura: state.sura, aya: state.aya, playbackSpeed: state.playbackSpeed }; }
+});
+
 updateOpts();
 init();
 ensureRecordingStorageInitialized().catch(error => {
