@@ -2608,5 +2608,7 @@
         "pause_after": true
       }
     }
-  ]
+  ],
+  "group": "Comprehensive visitations",
+  "order": 20
 }
