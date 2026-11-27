@@ -113,6 +113,7 @@ let SURA_BY_NUM = {};
 
 const state = {
   sura: 1, aya: 1,
+  activeCollection: null, activeReading: null, collectionCatalog: null,
   playingAya: null,
   started: false,
   repeatMode: 'none',
@@ -533,6 +534,7 @@ function buildSidebar() {
 
 function markCurrentSura() {
   el.suraList.querySelectorAll('.sura-item.current').forEach(i => i.classList.remove('current'));
+  if (state.activeCollection) return;
   const item = el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
   if (item) {
     item.classList.add('current');
@@ -544,17 +546,15 @@ function markCurrentSura() {
    10. AYA LIST
    ================================================================== */
 function renderAyaList(num) {
-  const s = SURA_BY_NUM[num];
+  const s = getCurrentReading();
   if (!s) { el.ayaList.innerHTML = ''; return; }
-
-  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayaCount;
-
+  const label = isCollectionReading() ? 'passages' : 'ayat';
+  const unit = isCollectionReading() ? 'Passage' : 'Ayah';
+  el.ayaColHead.innerHTML = '<b>' + esc(s.title || s.englishName) + '</b> · ' + s.ayaCount + ' ' + label;
   let html = '';
   for (let number = 1; number <= s.ayaCount; number++) {
-    html +=
-      '<button class="aya-btn" data-aya="' + number + '" title="Go to Ayah ' + number + '" aria-label="Go to Ayah ' + number + '">' +
-        '<span class="aya-btn-num">' + number + '</span>' +
-      '</button>';
+    html += '<button class="aya-btn" data-aya="' + number + '" title="Go to ' + unit + ' ' + number + '" aria-label="Go to ' + unit + ' ' + number + '">' +
+      '<span class="aya-btn-num">' + number + '</span></button>';
   }
   el.ayaList.innerHTML = html;
   el.ayaList.scrollTop = 0;
@@ -564,45 +564,41 @@ function renderAyaList(num) {
    11. READER
    ================================================================== */
 function renderSura(restoreScrollTop) {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-
-  let html =
-    '<div class="sura-heading">' +
-      '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
-      '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
-      '<div class="meta">' + s.ayaCount + ' ayat</div>' +
-      '<div class="sura-download">' +
-        '<button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button>' +
-        '<span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span>' +
-      '</div>' +
+  const collectionMode = isCollectionReading();
+  const title = s.title || s.englishName;
+  const arabicTitle = s.arabicTitle || s.arabicName || '';
+  let html = '<div class="sura-heading">' +
+    (collectionMode ? '<button type="button" class="reader-back-catalog" data-back-catalog>← Back to ' + (state.activeCollection === 'duas' ? 'Duas' : 'Ziyarats') + '</button>' : '') +
+    '<h1>' + (collectionMode ? esc(title) : s.number + '. ' + esc(title)) + '</h1>' +
+    '<div class="ar-name" dir="rtl">' + esc(arabicTitle) + '</div>' +
+    '<div class="meta">' + s.ayaCount + (collectionMode ? ' recitation passages' : ' ayat') + '</div>' +
+    (collectionMode ? '' : '<div class="sura-download"><button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button><span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span></div>') +
     '</div>';
-
   for (const v of s.ayas) {
     if (!v) continue;
-    html +=
-      '<article class="aya" id="' + getAyahElementId(state.sura, v.ayaNum) + '" data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
-        '<div class="aya-top">' +
-          '<span class="aya-num">' + v.ayaNum + '</span>' +
-          '<span class="aya-hint">click to play</span>' +
-        '</div>' +
-        '<div class="arabic" dir="rtl" lang="ar">' + esc(v.arabic_text || '') + '</div>' +
-        '<div class="translit">' + esc(v.transliteration || '') + '</div>' +
-        '<div class="english">' + esc(v.english_text || '') + '</div>' +
-        '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
-        '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
-        '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
-          '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
-          '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
-          '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
-          '<div class="recording-waveform" data-record-waveform="' + v.ayaNum + '" role="img" aria-label="Live microphone audio level" hidden>' + Array.from({ length: 28 }, () => '<span></span>').join('') + '</div>' +
-          '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
-        '</div>' +
-      '</article>';
+    const id = collectionMode ? 'reading-section-' + v.ayaNum : getAyahElementId(state.sura, v.ayaNum);
+    html += '<article class="aya" id="' + id + '" ' +
+      (collectionMode ? 'data-collection="' + esc(state.activeCollection) + '" data-reading-id="' + esc(s.id) + '" ' : 'data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" ') +
+      'data-aya="' + v.ayaNum + '">' +
+      '<div class="aya-top"><span class="aya-num">' + v.ayaNum + '</span><span class="aya-hint">click to play</span></div>' +
+      '<div class="arabic" dir="rtl" lang="ar">' + esc(v.arabic_text || '') + '</div>' +
+      '<div class="translit">' + esc(v.transliteration || '') + '</div>' +
+      '<div class="english">' + esc(v.english_text || '') + '</div>' +
+      '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
+      '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+      '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
+        '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
+        '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
+        '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
+        '<div class="recording-waveform" data-record-waveform="' + v.ayaNum + '" role="img" aria-label="Live microphone audio level" hidden>' + Array.from({ length: 28 }, () => '<span></span>').join('') + '</div>' +
+        '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
+      '</div></article>';
   }
   el.reader.innerHTML = html;
   el.reader.scrollTop = Number.isFinite(restoreScrollTop) ? restoreScrollTop : 0;
-  refreshRecordingControls(state.sura);
+  refreshRecordingControls(getCurrentRecordingIdentity());
 }
 
 /* ==================================================================
@@ -629,39 +625,30 @@ function syncDisplayTogglesUI() {
    13. UI SYNC
    ================================================================== */
 function updateAyaUI(scrollReader) {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-
   el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
-  const card = document.getElementById(getAyahElementId(state.sura, state.aya));
+  const card = document.getElementById(getCurrentReaderElementId(state.aya));
   if (card) {
     card.classList.add('active');
-    if (scrollReader !== false) {
-      card.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
+    if (scrollReader !== false) card.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
-
   el.ayaList.querySelectorAll('.aya-btn.active').forEach(b => b.classList.remove('active'));
   const btn = el.ayaList.querySelector('.aya-btn[data-aya="' + state.aya + '"]');
-  if (btn) {
-    btn.classList.add('active');
-    btn.scrollIntoView({ block: 'nearest' });
-  }
-
-  markCurrentSura();
-
-  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayaCount;
+  if (btn) { btn.classList.add('active'); btn.scrollIntoView({ block: 'nearest' }); }
+  if (!isCollectionReading()) markCurrentSura();
+  const unit = isCollectionReading() ? 'Passage' : 'Aya';
+  const line = (isCollectionReading() ? (s.title || s.englishName) : s.number + '. ' + s.englishName) + '  ·  ' + unit + ' ' + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
   showMobileHeader();
-
   updateStatus();
 }
 
 function showMobileHeader() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-  el.mobHdrSura.textContent = s.englishName;
-  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayaCount;
+  el.mobHdrSura.textContent = s.title || s.englishName;
+  el.mobHdrSub.textContent = (isCollectionReading() ? 'Passage ' : 'Aya ') + state.aya + ' of ' + s.ayaCount;
 }
 
 function updateStatus() {
@@ -701,7 +688,7 @@ function updateOpts() {
 }
 
 function syncRangeInputs() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
   const total = s.ayaCount;
   repeatEls.rangeFrom.max = total;
