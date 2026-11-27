@@ -1384,6 +1384,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 36,
       "manifest": "munajat-aarifeen/manifest.json"
+    },
+    {
+      "id": "munajat-zakireen",
+      "title": "13. The Whispered Prayer of the Rememberers (Zakireen)",
+      "arabicTitle": "مناجاة الذاكرين",
+      "description": "The thirteenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 213,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 13",
+        "url": "https://www.duas.org/sajjadiya/dua81.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "munajat-zakireen/manifest.json"
     }
   ]
 }
