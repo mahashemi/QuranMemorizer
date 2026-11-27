@@ -2717,6 +2717,7 @@ window.QuranMemorizerReader = Object.freeze({
     return sura.number;
   },
   openCollectionSura(sura, section = 1) {
+    stopAll();
     this.registerCollectionSura(sura);
     activeCollectionSession = sura.collection;
     document.body.classList.add('collection-active');
@@ -2724,6 +2725,7 @@ window.QuranMemorizerReader = Object.freeze({
     return loadSura(sura.number, { aya: section, play: false });
   },
   openQuranSura(sura = 1, aya = 1) {
+    stopAll();
     activeCollectionSession = null;
     document.body.classList.remove('collection-active', 'collection-catalog-active');
     const suraHeading = el.suraList.closest('.col')?.querySelector('.col-head');
