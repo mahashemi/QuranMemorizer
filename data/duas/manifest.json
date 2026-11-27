@@ -874,6 +874,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 23,
       "manifest": "sahifa-dua-40/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-41",
+      "title": "41. His Supplication in Asking for Covering and Protection",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ السَّتْرِ وَ الْوِقَايَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 41",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 141,
+      "canonicalNumber": 41,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-covering-and-protection",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-41/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-42",
+      "title": "42. Upon Completing a Reading of the Qur'an",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ خَتْمِهِ الْقُرْآنَ",
+      "description": "Sahifa Sajjadiya — Supplication 42",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 142,
+      "canonicalNumber": 42,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-upon-completing-a-reading-of-the-quran",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 131,
+      "manifest": "sahifa-dua-42/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-43",
+      "title": "43. When he Looked at the New Crescent Moon",
+      "arabicTitle": "دُعَاؤُهُ إِذَا نَظَرَ إِلَى الْهِلَالِ",
+      "description": "Sahifa Sajjadiya — Supplication 43",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 143,
+      "canonicalNumber": 43,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-looked-at-the-new-crescent-moon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "sahifa-dua-43/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-44",
+      "title": "44. For the Coming of the Month of Ramadan",
+      "arabicTitle": "دُعَاؤُهُ لِدُخُوْلِ شَهْرِ رَمَضَانَ",
+      "description": "Sahifa Sajjadiya — Supplication 44",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 144,
+      "canonicalNumber": 44,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-for-the-coming-of-the-month-of-ramadan",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 108,
+      "manifest": "sahifa-dua-44/manifest.json"
     }
   ]
 }
