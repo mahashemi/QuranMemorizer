@@ -2597,7 +2597,7 @@ function bindEvents() {
     const item = e.target.closest('.sura-item');
     if (!item) return;
     if (item.dataset.collectionTextId && state.activeCollection) {
-      if (window.QuranMemorizerCollections) window.QuranMemorizerCollections.openText(state.activeCollection, item.dataset.collectionTextId, 1);
+      if (window.QuranMemorizerCollections) window.QuranMemorizerCollections.writeRoute(state.activeCollection, item.dataset.collectionTextId, 1);
     } else if (item.dataset.sura) {
       loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
     }
