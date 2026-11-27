@@ -1588,6 +1588,12 @@ async function importRecordingsArchive(file) {
       if (!identity.collection) {
         const suraData = SURA_BY_NUM[identity.sura];
         if (!suraData || identity.aya < 1 || identity.aya > suraData.ayaCount) { ignored++; continue; }
+      } else {
+        const resolver = window.QuranMemorizerCollections && window.QuranMemorizerCollections.resolveRecordingIdentity;
+        if (typeof resolver !== 'function' || !await resolver(identity.collection, identity.readingId, identity.section)) {
+          ignored++;
+          continue;
+        }
       }
       try {
         const key = recordingIdentityKey(identity);
