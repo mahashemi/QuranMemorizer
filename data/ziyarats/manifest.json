@@ -7,7 +7,6 @@
       "title": "Ziyarat Ashura",
       "arabicTitle": "زيارة عاشوراء",
       "description": "The visitation of Imam al-Husayn (عليه السلام) on the day of Ashura and throughout the year.",
-      "occasion": "",
       "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
       "source": {
         "label": "Thaqalayn — CC0 1.0 source dataset",
@@ -17,19 +16,15 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
+      "manifest": "ziyarat-ashura/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 140,
-      "group": "",
-      "order": null,
-      "canonicalNumber": null,
-      "manifest": "ziyarat-ashura/manifest.json"
+      "sourcePairCount": 140
     },
     {
       "id": "ziyarat-jamia-kabira",
       "title": "Ziyarat Jamia Kabira",
       "arabicTitle": "زیارة الجامعة الکبیرة",
       "description": "The comprehensive visitation taught by Imam Ali al-Hadi (عليه السلام), for visiting the Ahl al-Bayt (عليهم السلام).",
-      "occasion": "",
       "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
       "source": {
         "label": "Thaqalayn — CC0 1.0 source dataset",
@@ -39,12 +34,9 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
+      "manifest": "ziyarat-jamia-kabira/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 412,
-      "group": "",
-      "order": null,
-      "canonicalNumber": null,
-      "manifest": "ziyarat-jamia-kabira/manifest.json"
+      "sourcePairCount": 412
     },
     {
       "id": "ziyarat-nahiya",
