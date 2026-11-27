@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-32",
+  "title": "32. In Confessing Sins after Finishing the Night Prayer",
+  "kind": "dua",
+  "recordCount": 63,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    },
+    {
+      "start": 61,
+      "end": 63,
+      "file": "segments_061_063.json"
+    }
+  ]
+}
