@@ -78,6 +78,7 @@ async function fetchJson(path) {
   return response.json();
 }
 async function openCatalog(collection) {
+  if (window.QuranMemorizerReader) window.QuranMemorizerReader.exitCollection();
   const token = ++requestToken;
   activeCollection = collection;
   setDomain(collection); showReader(); setLoading(COLLECTIONS[collection].title);
