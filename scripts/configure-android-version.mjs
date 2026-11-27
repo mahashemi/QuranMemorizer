@@ -42,13 +42,15 @@ export function configureGradleVersion(gradle, version, releaseSigning = false) 
 `;
       gradle = gradle.slice(0, buildTypesIndex) + signingBlock + gradle.slice(buildTypesIndex);
     }
-    const releaseBlock = gradle.match(/release\s*\{[\s\S]*?\n\s*\}/);
+    const buildTypesIndex = gradle.indexOf('buildTypes {');
+    if (buildTypesIndex < 0) throw new Error('Could not find buildTypes block for release signing.');
+    const beforeBuildTypes = gradle.slice(0, buildTypesIndex);
+    const buildTypes = gradle.slice(buildTypesIndex);
+    const releaseBlock = buildTypes.match(/release\s*\{[\s\S]*?\n\s*\}/);
     if (!releaseBlock) throw new Error('Could not locate release build type for signing configuration.');
     if (!releaseBlock[0].includes('signingConfig')) {
-      gradle = gradle.replace(
-        releaseBlock[0],
-        releaseBlock[0].replace('{', '{\n            signingConfig signingConfigs.release')
-      );
+      const updatedRelease = releaseBlock[0].replace('{', '{\n            signingConfig signingConfigs.release');
+      gradle = beforeBuildTypes + buildTypes.replace(releaseBlock[0], updatedRelease);
     }
   }
   return { gradle, versionName: version, versionCode };
@@ -57,11 +59,7 @@ export function configureGradleVersion(gradle, version, releaseSigning = false) 
 export function configureAndroidVersion(root = process.cwd(), releaseSigning = false) {
   const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
   const gradlePath = resolve(root, 'android/app/build.gradle');
-  const configured = configureGradleVersion(
-    readFileSync(gradlePath, 'utf8'),
-    packageJson.version,
-    releaseSigning
-  );
+  const configured = configureGradleVersion(readFileSync(gradlePath, 'utf8'), packageJson.version, releaseSigning);
   writeFileSync(gradlePath, configured.gradle);
   return { versionName: configured.versionName, versionCode: configured.versionCode };
 }

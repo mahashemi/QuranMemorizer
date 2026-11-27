@@ -2,6 +2,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } fr
 import { resolve } from 'node:path';
 import { build } from 'esbuild';
 import { splitQuranData } from './split-quran.mjs';
+import { validateCollectionManifest } from './content-catalog.mjs';
 
 const root = process.cwd();
 const output = resolve(root, 'www');
@@ -14,29 +15,34 @@ for (const path of ['index.html', 'static', 'assets', 'data/hadith']) {
   cpSync(resolve(root, path), resolve(output, path), { recursive: true });
 }
 
-// Ship version-controlled reading collections. Their source text is curated
-// separately; ordinary builds copy generated chunks without rewriting them.
+// Ship only committed collection manifests and generated payloads. Canonical
+// source JSON stays in the repository and is not duplicated in the app bundle.
 for (const collection of ['duas', 'ziyarats']) {
   const collectionDir = resolve(root, 'data', collection);
   const manifestPath = resolve(collectionDir, 'manifest.json');
-  if (!existsSync(manifestPath)) {
-    throw new Error('Missing ' + collection + ' collection manifest: ' + manifestPath);
+  if (!existsSync(manifestPath)) throw new Error('Missing ' + collection + ' collection manifest.');
+  const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+  validateCollectionManifest(collection, manifest);
+  const outputDir = resolve(output, 'data', collection);
+  mkdirSync(outputDir, { recursive: true });
+  cpSync(manifestPath, resolve(outputDir, 'manifest.json'));
+  for (const text of manifest.texts) {
+    const textDir = resolve(collectionDir, text.id);
+    if (!existsSync(resolve(textDir, 'manifest.json'))) {
+      throw new Error('Missing generated reading manifest for ' + collection + '/' + text.id);
+    }
+    cpSync(textDir, resolve(outputDir, text.id), { recursive: true });
   }
-  cpSync(collectionDir, resolve(output, 'data', collection), { recursive: true });
 }
 
-// Ship the pre-generated, version-controlled Quran chunks. Generation is an
-// explicit maintenance task; ordinary web/Android builds must not regenerate them.
+// Ship pre-generated, version-controlled Quran chunks. Ordinary builds never
+// regenerate them, and Dua/Ziyarat generation never reads the canonical Quran JSON.
 const quranChunks = resolve(root, 'data/quran/chunked');
 if (!existsSync(resolve(quranChunks, 'manifest.json'))) {
-  // Bootstrap a fresh checkout once; after generation the committed directory
-  // is copied verbatim and is not regenerated during normal builds.
   splitQuranData(resolve(root, 'data/quran/all_suras.json'), quranChunks);
 }
 cpSync(quranChunks, resolve(output, 'data/quran/chunked'), { recursive: true });
 
-// Bundle the Capacitor plugin adapter only into native web assets. The ordinary
-// GitHub Pages build remains dependency-free and uses the browser storage path.
 await build({
   entryPoints: [resolve(root, 'static/js/native-storage-adapter.mjs')],
   outfile: resolve(output, 'static/js/native-storage-adapter.js'),
@@ -49,14 +55,7 @@ await build({
 const indexPath = resolve(output, 'index.html');
 const indexHtml = readFileSync(indexPath, 'utf8');
 const appScript = '<script src="static/js/app.js" defer></script>';
-if (!indexHtml.includes(appScript)) {
-  throw new Error('Could not find the app.js script tag to prepare the Capacitor bridge.');
-}
-writeFileSync(indexPath, indexHtml.replace(
-  appScript,
-  '<script src="capacitor.js"></script>\n' + appScript
-));
-
+if (!indexHtml.includes(appScript)) throw new Error('Could not find the app.js script tag to prepare the Capacitor bridge.');
+writeFileSync(indexPath, indexHtml.replace(appScript, '<script src="capacitor.js"></script>\n' + appScript));
 rmSync(resolve(output, 'static/js/native-storage-adapter.mjs'), { force: true });
-
 console.log('Built QuranMemorizer web assets with committed Quran, Dua, and Ziyarat content collections.');
