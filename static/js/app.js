@@ -522,27 +522,45 @@ function currentReciter() {
    9. SIDEBAR
    ================================================================== */
 function buildSidebar() {
+  el.suraList.innerHTML = '';
+  const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+  if (heading) heading.textContent = 'Sura';
+  el.suraSearch.placeholder = 'Search sura…';
+  const tabs = el.drawerTabs.querySelectorAll('[data-tab]');
+  if (tabs[0]) tabs[0].textContent = 'Sura';
+  if (tabs[1]) tabs[1].textContent = 'Aya';
   const frag = document.createDocumentFragment();
   SURAS.forEach(s => {
     const item = document.createElement('div');
     item.className = 'sura-item';
     item.dataset.sura = s.number;
     item.dataset.search = (s.number + ' ' + s.englishName + ' ' + s.arabicName).toLowerCase();
-    item.innerHTML =
-      '<span class="sura-num">' + s.number + '</span>' +
-      '<span class="sura-names">' +
-        '<span class="en">' + esc(s.englishName) + '</span>' +
-        '<span class="ar" dir="rtl">' + esc(s.arabicName) + '</span>' +
-      '</span>';
+    item.innerHTML = '<span class="sura-num">' + s.number + '</span><span class="sura-names"><span class="en">' + esc(s.englishName) + '</span><span class="ar" dir="rtl">' + esc(s.arabicName) + '</span></span>';
     frag.appendChild(item);
   });
   el.suraList.appendChild(frag);
 }
+function renderCollectionSidebar() {
+  const texts = state.collectionCatalog && Array.isArray(state.collectionCatalog.texts) ? state.collectionCatalog.texts : [];
+  const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+  const collectionLabel = state.activeCollection === 'duas' ? 'Duas' : 'Ziyarats';
+  if (heading) heading.textContent = collectionLabel;
+  el.suraSearch.placeholder = 'Search ' + collectionLabel.toLowerCase() + '…';
+  const tabs = el.drawerTabs.querySelectorAll('[data-tab]');
+  if (tabs[0]) tabs[0].textContent = collectionLabel;
+  if (tabs[1]) tabs[1].textContent = 'Passages';
+  el.suraList.innerHTML = texts.map((item, index) =>
+    '<div class="sura-item' + (state.activeReading && state.activeReading.id === item.id ? ' current' : '') + '" data-collection-text-id="' + esc(item.id) + '" data-search="' + esc((item.title + ' ' + (item.arabicTitle || '')).toLowerCase()) + '">' +
+    '<span class="sura-num">' + (index + 1) + '</span><span class="sura-names"><span class="en">' + esc(item.title) + '</span><span class="ar" dir="rtl">' + esc(item.arabicTitle || '') + '</span></span></div>'
+  ).join('');
+}
 
 function markCurrentSura() {
   el.suraList.querySelectorAll('.sura-item.current').forEach(i => i.classList.remove('current'));
-  if (state.activeCollection) return;
-  const item = el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
+  const selector = isCollectionReading()
+    ? '.sura-item[data-collection-text-id="' + state.activeReading.id + '"]'
+    : '.sura-item[data-sura="' + state.sura + '"]';
+  const item = el.suraList.querySelector(selector);
   if (item) {
     item.classList.add('current');
     item.scrollIntoView({ block: 'nearest' });
@@ -1944,7 +1962,8 @@ async function loadSura(num, opts) {
   state.activeCollection = null;
   state.activeReading = null;
   state.collectionCatalog = null;
-  document.body.classList.remove('collection-active');
+  document.body.classList.remove('collection-active', 'collection-reading');
+  if (wasCollection) buildSidebar();
   state.sura = num;
   state.aya = aya;
   if (suraChanged || !el.reader.querySelector('.aya[data-aya="' + aya + '"]')) {
@@ -2013,8 +2032,9 @@ async function openCollectionReading(collection, readingId, section, textMeta, c
   state.aya = target;
   state.playingAya = null;
   state.ayaInner = 0;
-  document.body.classList.add('collection-active');
+  document.body.classList.add('collection-active', 'collection-reading');
   activateReaderView();
+  renderCollectionSidebar();
   await ensureCollectionSectionLoaded(state.activeReading, target);
   if (requestId !== ayaNavigationRequestId) return;
   renderSura();
@@ -2541,7 +2561,11 @@ function bindEvents() {
   el.suraList.addEventListener('click', e => {
     const item = e.target.closest('.sura-item');
     if (!item) return;
-    loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
+    if (item.dataset.collectionTextId && state.activeCollection) {
+      if (window.QuranMemorizerCollections) window.QuranMemorizerCollections.openText(state.activeCollection, item.dataset.collectionTextId, 1);
+    } else if (item.dataset.sura) {
+      loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
+    }
     if (isMobile()) setTimeout(closeDrawer, 140);
   });
 
