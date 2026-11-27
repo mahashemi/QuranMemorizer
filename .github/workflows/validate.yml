@@ -18,6 +18,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check static/js/app.js
+          node --check static/js/reading-collections.js
           node --check static/js/native-storage-adapter.mjs
           node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
@@ -34,6 +35,7 @@ jobs:
           test -f www/index.html
           test -f www/static/css/styles.css
           test -f www/static/js/app.js
+          test -f www/static/js/reading-collections.js
           test -f www/static/js/native-storage-adapter.js
           test -f www/data/quran/chunked/manifest.json
           test -f www/data/quran/chunked/chapter_1/manifest.json
