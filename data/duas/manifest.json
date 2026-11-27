@@ -1126,6 +1126,48 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 53,
       "manifest": "sahifa-dua-52/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-53",
+      "title": "53. Abasing himself before God",
+      "arabicTitle": "دُعَاؤُهُ فِي الْإِلْحَاحِ",
+      "description": "Sahifa Sajjadiya — Supplication 53",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 153,
+      "canonicalNumber": 53,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-abasing-himself-before-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 26,
+      "manifest": "sahifa-dua-53/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-54",
+      "title": "54. Removal of Worries",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّذَلُّلِ",
+      "description": "Sahifa Sajjadiya — Supplication 54",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 154,
+      "canonicalNumber": 54,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-removal-of-worries",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 46,
+      "manifest": "sahifa-dua-54/manifest.json"
     }
   ]
 }
