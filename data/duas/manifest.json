@@ -1204,6 +1204,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 36,
       "manifest": "munajat-shakeen/manifest.json"
+    },
+    {
+      "id": "munajat-khaifeen",
+      "title": "03. The Whispered Prayer of the Fearful (Khaifeen)",
+      "arabicTitle": "مناجاة الخائفين",
+      "description": "The third of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 203,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 3",
+        "url": "https://www.duas.org/sajjadiya/dua71.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "munajat-khaifeen/manifest.json"
     }
   ]
 }
