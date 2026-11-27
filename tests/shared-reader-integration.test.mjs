@@ -80,6 +80,29 @@ test('the new Duas.org imports preserve their inspected source segmentation and 
   }
 });
 
+test('Nahiya and Alqama source ranges are continuous and recitation segments are repeatable', () => {
+  const dua = JSON.parse(readFileSync(new URL('../data/duas/source/dua-alqama.json', import.meta.url), 'utf8'));
+  const ziyarat = JSON.parse(readFileSync(new URL('../data/ziyarats/source/ziyarat-nahiya.json', import.meta.url), 'utf8'));
+  for (const reading of [dua, ziyarat]) {
+    const records = reading.records;
+    assert.deepEqual(records.map(item => item.sequence), Array.from({ length: records.length }, (_, i) => i + 1));
+    assert.equal(new Set(records.map(item => item.id)).size, records.length);
+    assert.equal(records[0].source_pair_start, 1);
+    assert.equal(records.at(-1).source_pair_end, reading.sourcePairCount);
+    assert.ok(records.every(item => item.recitation_segment && item.recitation_segment.repeatable));
+    for (let i = 1; i < records.length; i++) {
+      assert.equal(records[i].source_pair_start, records[i - 1].source_pair_end + 1);
+    }
+  }
+  const nahiyaManifest = JSON.parse(readFileSync(new URL('../data/ziyarats/ziyarat-nahiya/manifest.json', import.meta.url), 'utf8'));
+  const alqamaManifest = JSON.parse(readFileSync(new URL('../data/duas/dua-alqama/manifest.json', import.meta.url), 'utf8'));
+  assert.equal(nahiyaManifest.recordCount, 481);
+  assert.equal(nahiyaManifest.chunks[0].start, 1);
+  assert.equal(nahiyaManifest.chunks.at(-1).end, 481);
+  assert.equal(alqamaManifest.recordCount, 191);
+  assert.equal(alqamaManifest.chunks.at(-1).end, 191);
+});
+
 test('all imported source records have non-empty Arabic, transliteration, and English fields', () => {
   for (const [collection, manifest] of [['duas', duas], ['ziyarats', ziyarats]]) {
     const sourceDir = new URL('../data/' + collection + '/source/', import.meta.url);
