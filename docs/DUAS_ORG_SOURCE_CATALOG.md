@@ -40,15 +40,33 @@ Duas.org explicitly asks reusers to extend due credit. Preserve a source link an
 
 ## Import status (2026-11-27)
 
-The following complete source records have been imported to the PR #28 feature branch from the CC0 Thaqalayn dataset. They are **imported, not yet independently reviewed or approved as verified editions**.
+The PR #28 feature branch now contains **73 Dua readings and 2 Ziyarat readings**. All are imported and review-required; none should be described as independently verified.
 
-| Reading | Source pairs | Recitation records | Storage chunks |
-|---|---:|---:|---:|
-| Dua Kumayl | 250 | 126 | 5 |
-| Dua Nudba | 222 | 158 | 6 |
-| Ziyarat Ashura | 140 | 74 | 3 |
-| Ziyarat Jamia Kabira | 412 | 162 | 6 |
+### Duas (73)
 
-Source repository commit: `075fe2e9d050bb40bd8147ed516d3592046ebc33`. Each source JSON retains the original source page, CC0 license metadata, source pair range for each recitation record, Arabic, transliteration, and English translation. Review the Arabic, punctuation, translation alignment, and completeness against the linked source pages before marking any reading verified.
+| Group / reading | Recitation records | Source / provenance |
+|---|---:|---|
+| Dua Kumayl | 126 | Duas.org; Arabic, transliteration and English |
+| Dua Nudba | 158 | Duas.org; Arabic, transliteration and English |
+| Dua Ahad | 80 | Duas.org PDF and source page |
+| Dua Jawshan Kabir | 100 sections | Sibtayn International Foundation, 10 linked parts; cross-reference Duas.org |
+| Sahifa Sajjadiya | 54 individually named supplications | Thaqalayn CC0 dataset; retain individual source-page attribution |
+| Munajat al-Khamsa Ashara | 15 individually named Munajat | Individual Duas.org source pages |
 
-Still to import: Dua Ahad, Dua Jawshan Kabir, Ziyarat Nahiya, Ziyarat Alqama, the 54 individually named Sahifa supplications, and the 15 individually named Munajat.
+### Ziyarats (2)
+
+| Reading | Recitation records | Source / provenance |
+|---|---:|---|
+| Ziyarat Ashura | 74 | Thaqalayn CC0 dataset; Duas.org cross-reference |
+| Ziyarat Jamia Kabira | 162 | Thaqalayn CC0 dataset; Duas.org cross-reference |
+
+The Thaqalayn source repository commit used for the CC0 imports is `075fe2e9d050bb40bd8147ed516d3592046ebc33`. Source JSON retains source-page URLs, provenance/license metadata, source-pair ranges, Arabic, transliteration and English translation. Dua Ahad and Jawshan Kabir retain their own source-specific attribution rather than being labelled CC0.
+
+### Still to import
+
+- Ziyarat Nahiya al-Muqaddasa (the original visitation text, not the separate martyrs-list variant).
+- Dua Alqama / Dua Safwan, as a separate supplication recited after Ziyarat Ashura. It is not part of the Ziyarat Ashura text.
+
+### Verification gate
+
+Automated structural checks now verify that every imported source record has non-empty Arabic, transliteration and English fields. This does **not** prove source completeness, correct tashkeel/punctuation, accurate translation alignment or edition fidelity. Keep every imported reading marked `imported-review-required` until it has been compared against the complete cited source and, where appropriate, an authoritative printed edition. Do not change any existing Quran JSON files.
