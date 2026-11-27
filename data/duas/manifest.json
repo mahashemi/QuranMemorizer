@@ -538,6 +538,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 77,
       "manifest": "sahifa-dua-24/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-25",
+      "title": "25. His Supplication for his Children",
+      "arabicTitle": "دُعَاؤُهُ لِوُلْدِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 25",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 125,
+      "canonicalNumber": 25,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-his-children",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 65,
+      "manifest": "sahifa-dua-25/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-26",
+      "title": "26. For his Neighbours and Friends",
+      "arabicTitle": "دُعَاؤُهُ لِجِيرَانِهِ وَ أَوْلِيَائِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 26",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 126,
+      "canonicalNumber": 26,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-for-his-neighbours-and-friends",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 27,
+      "manifest": "sahifa-dua-26/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-27",
+      "title": "27. His Supplication for the People of the Frontiers",
+      "arabicTitle": "دُعَاؤُهُ لِأَهْلِ الثُّغُورِ",
+      "description": "Sahifa Sajjadiya — Supplication 27",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 127,
+      "canonicalNumber": 27,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-the-people-of-the-frontiers",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 122,
+      "manifest": "sahifa-dua-27/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-28",
+      "title": "28. His Supplication in Fleeing to God for Protection",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّفَزُّعِ الى اللهِ",
+      "description": "Sahifa Sajjadiya — Supplication 28",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 128,
+      "canonicalNumber": 28,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-fleeing-to-god-for-protection",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 30,
+      "manifest": "sahifa-dua-28/manifest.json"
     }
   ]
 }
