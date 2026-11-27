@@ -19,12 +19,16 @@ jobs:
         run: |
           node --check static/js/app.js
           node --check static/js/deep-links.mjs
+          node --check static/js/reading-collections.js
           node --check static/js/native-storage-adapter.mjs
           node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
           node --check scripts/split-quran.mjs
           node --check scripts/content-chunks.mjs
-      - name: Test portable recording archives
+          node --check scripts/content-catalog.mjs
+          node --check scripts/build-readings.mjs
+          node --check scripts/configure-android-version.mjs
+      - name: Test portable recording archives and reading data
         run: npm test
       - name: Build Capacitor web assets
         run: |
@@ -32,10 +36,13 @@ jobs:
           test -f www/index.html
           test -f www/static/css/styles.css
           test -f www/static/js/app.js
+          test -f www/static/js/reading-collections.js
           test -f www/static/js/native-storage-adapter.js
           test -f www/data/quran/chunked/manifest.json
           test -f www/data/quran/chunked/chapter_1/manifest.json
           test -f www/data/quran/chunked/chapter_1/ayat_001_007.json
           test -f www/data/quran/chunked/chapter_2/manifest.json
           test -f www/data/quran/chunked/chapter_114/manifest.json
+          test -f www/data/duas/manifest.json
+          test -f www/data/ziyarats/manifest.json
           test ! -f www/data/quran/all_suras.json

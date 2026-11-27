@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "collection": "duas",
+  "texts": [
+    {
+      "id": "dua-kumayl",
+      "title": "Dua Kumayl",
+      "arabicTitle": "دُعَاء كُميل",
+      "description": "The supplication taught by Imam Ali (عليه السلام) to Kumayl ibn Ziyad.",
+      "occasion": "Thursday night / Friday eve",
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/dua-kumayl",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "manifest": "dua-kumayl/manifest.json"
+    },
+    {
+      "id": "dua-nudba",
+      "title": "Dua Nudba",
+      "arabicTitle": "دُعَاء الندبه",
+      "description": "A supplication of lament and longing for the divinely guided Imam.",
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/dua-nudba",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "manifest": "dua-nudba/manifest.json"
+    }
+  ]
+}

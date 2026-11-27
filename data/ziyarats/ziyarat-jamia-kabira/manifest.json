@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "id": "ziyarat-jamia-kabira",
+  "title": "Ziyarat Jamia Kabira",
+  "kind": "ziyarat",
+  "recordCount": 162,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    },
+    {
+      "start": 61,
+      "end": 90,
+      "file": "segments_061_090.json"
+    },
+    {
+      "start": 91,
+      "end": 120,
+      "file": "segments_091_120.json"
+    },
+    {
+      "start": 121,
+      "end": 150,
+      "file": "segments_121_150.json"
+    },
+    {
+      "start": 151,
+      "end": 162,
+      "file": "segments_151_162.json"
+    }
+  ]
+}

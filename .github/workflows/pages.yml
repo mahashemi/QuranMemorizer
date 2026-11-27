@@ -11,6 +11,8 @@ on:
       - "assets/**"
       - "static/**"
       - "data/quran/**"
+      - "data/duas/**"
+      - "data/ziyarats/**"
       - "data/hadith/**"
   workflow_dispatch:
 
@@ -43,7 +45,10 @@ jobs:
           touch www/.nojekyll
           test -f www/index.html
           test -f www/assets/bismillah_text_green.png
-          test -f www/data/quran/all_suras.json
+          test -f www/data/quran/chunked/manifest.json
+          test -f www/data/duas/manifest.json
+          test -f www/data/ziyarats/manifest.json
+          test ! -f www/data/quran/all_suras.json
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
