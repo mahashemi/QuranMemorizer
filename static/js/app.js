@@ -517,6 +517,14 @@ function currentReciter() {
    ================================================================== */
 function buildSidebar() {
   const frag = document.createDocumentFragment();
+  el.suraList.replaceChildren();
+  const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+  if (heading) heading.textContent = 'Sura';
+  if (el.suraSearch) el.suraSearch.placeholder = 'Search surah…';
+  const suraTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="sura"]');
+  const ayaTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="aya"]');
+  if (suraTab) suraTab.textContent = 'Sura';
+  if (ayaTab) ayaTab.textContent = 'Aya';
   SURAS.forEach(s => {
     const item = document.createElement('div');
     item.className = 'sura-item';
@@ -535,8 +543,9 @@ function buildSidebar() {
 
 function markCurrentSura() {
   el.suraList.querySelectorAll('.sura-item.current').forEach(i => i.classList.remove('current'));
-  if (state.activeCollection) return;
-  const item = el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
+  const item = state.activeCollection && state.activeReading
+    ? Array.from(el.suraList.querySelectorAll('.sura-item[data-collection-text-id]')).find(node => node.dataset.collectionTextId === state.activeReading.id)
+    : el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
   if (item) {
     item.classList.add('current');
     item.scrollIntoView({ block: 'nearest' });
@@ -575,6 +584,8 @@ function renderSura(restoreScrollTop) {
     '<h1>' + (collectionMode ? esc(title) : s.number + '. ' + esc(title)) + '</h1>' +
     '<div class="ar-name" dir="rtl">' + esc(arabicTitle) + '</div>' +
     '<div class="meta">' + s.ayaCount + (collectionMode ? ' recitation passages' : ' ayat') + '</div>' +
+    (collectionMode && s.attribution ? '<p class="collection-attribution">' + esc(s.attribution) + '</p>' : '') +
+    (collectionMode && s.source && s.source.url && /^https:\/\//i.test(s.source.url) ? '<p class="collection-source"><a href="' + esc(s.source.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.source.label || 'Text source') + '</a></p>' : '') +
     (collectionMode ? '' : '<div class="sura-download"><button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button><span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span></div>') +
     '</div>';
   for (const v of s.ayas) {
@@ -637,7 +648,7 @@ function updateAyaUI(scrollReader) {
   el.ayaList.querySelectorAll('.aya-btn.active').forEach(b => b.classList.remove('active'));
   const btn = el.ayaList.querySelector('.aya-btn[data-aya="' + state.aya + '"]');
   if (btn) { btn.classList.add('active'); btn.scrollIntoView({ block: 'nearest' }); }
-  if (!isCollectionReading()) markCurrentSura();
+  markCurrentSura();
   const unit = isCollectionReading() ? 'Passage' : 'Aya';
   const line = (isCollectionReading() ? (s.title || s.englishName) : s.number + '. ' + s.englishName) + '  ·  ' + unit + ' ' + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
@@ -1937,6 +1948,7 @@ async function loadSura(num, opts) {
   state.activeReading = null;
   state.collectionCatalog = null;
   document.body.classList.remove('collection-active');
+  if (wasCollection) buildSidebar();
   state.sura = num;
   state.aya = aya;
   if (suraChanged || !el.reader.querySelector('.aya[data-aya="' + aya + '"]')) {
@@ -1997,6 +2009,9 @@ async function openCollectionReading(collection, readingId, section, textMeta, c
     englishName: title,
     arabicTitle,
     arabicName: arabicTitle,
+    attribution: textMeta && textMeta.attribution ? textMeta.attribution : '',
+    source: textMeta && textMeta.source ? textMeta.source : null,
+    sourceStatus: textMeta && textMeta.sourceStatus ? textMeta.sourceStatus : 'imported-review-required',
     ayaCount: Number(manifest.recordCount),
     ayas: new Array(Number(manifest.recordCount)),
     loadedChunks: new Set(),
@@ -2456,7 +2471,41 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 async function loadAdjacentReaderChunk() {
-  if (isCollectionReading() || readerChunkLoadPending) return;
+  if (readerChunkLoadPending) return;
+  if (isCollectionReading()) {
+    const reading = state.activeReading;
+    const loaded = reading.chunks.filter(chunk => reading.loadedChunks.has(chunk.file));
+    if (!loaded.length) return;
+    const minChunk = loaded.reduce((a, b) => a.start < b.start ? a : b);
+    const maxChunk = loaded.reduce((a, b) => a.end > b.end ? a : b);
+    let adjacent = null;
+    let direction = null;
+    if (el.reader.scrollTop < 220 && minChunk.start > 1) {
+      adjacent = reading.chunks.filter(chunk => chunk.end < minChunk.start).slice(-1)[0] || null;
+      direction = 'previous';
+    } else if (el.reader.scrollTop + el.reader.clientHeight >= el.reader.scrollHeight - 480 && maxChunk.end < reading.ayaCount) {
+      adjacent = reading.chunks.find(chunk => chunk.start > maxChunk.start) || null;
+      direction = 'next';
+    }
+    if (!adjacent || !direction) return;
+    readerChunkLoadPending = true;
+    const oldTop = el.reader.scrollTop;
+    const oldHeight = el.reader.scrollHeight;
+    try {
+      await ensureCollectionSectionLoaded(reading, adjacent.start);
+      if (state.activeReading !== reading) return;
+      if (direction === 'previous') {
+        renderSura(0);
+        el.reader.scrollTop = oldTop + Math.max(0, el.reader.scrollHeight - oldHeight);
+      } else renderSura(oldTop);
+      renderAyaList(state.sura);
+    } catch (error) {
+      console.warn('Adjacent collection chunk could not be loaded.', error);
+    } finally {
+      readerChunkLoadPending = false;
+    }
+    return;
+  }
   const sura = SURA_BY_NUM[state.sura];
   if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
 
@@ -2529,6 +2578,11 @@ function bindEvents() {
   el.suraList.addEventListener('click', e => {
     const item = e.target.closest('.sura-item');
     if (!item) return;
+    if (item.dataset.collectionTextId && window.QuranMemorizerCollections) {
+      window.QuranMemorizerCollections.writeRoute(item.dataset.collection, item.dataset.collectionTextId, 1);
+      if (isMobile()) setTimeout(closeDrawer, 140);
+      return;
+    }
     loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
     if (isMobile()) setTimeout(closeDrawer, 140);
   });
@@ -2806,8 +2860,40 @@ function toast(msg) {
 /* ==================================================================
    21. GO
    ================================================================== */
+window.QuranMemorizerReader = Object.freeze({
+  openCollectionReading,
+  goToCollectionSection,
+  isCollectionReading,
+  stopPlayback() { stopAll(); },
+  isRecording() { return Boolean(activeRecorder); },
+  notify(message) { toast(message); },
+  getActiveReading() { return state.activeReading; },
+  getState() { return { collection: state.activeCollection, readingId: state.activeReading && state.activeReading.id, section: state.aya }; },
+  showCollectionNavigation(collection, catalog, activeId) {
+    state.collectionCatalog = catalog || null;
+    const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+    if (heading) heading.textContent = collection === 'duas' ? 'Duas' : 'Ziyarats';
+    if (el.suraSearch) el.suraSearch.placeholder = 'Search readings…';
+    const suraTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="sura"]');
+    const ayaTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="aya"]');
+    if (suraTab) suraTab.textContent = 'Reading';
+    if (ayaTab) ayaTab.textContent = 'Passages';
+    const items = (catalog && Array.isArray(catalog.texts) ? catalog.texts : []).slice().sort((a, b) =>
+      (Number(a.order || a.canonicalNumber || 999999) - Number(b.order || b.canonicalNumber || 999999)) || String(a.title).localeCompare(String(b.title))
+    );
+    el.suraList.innerHTML = items.map((item, index) =>
+      '<div class="sura-item' + (item.id === activeId ? ' current' : '') + '" data-collection="' + esc(collection) + '" data-collection-text-id="' + esc(item.id) + '" data-search="' + esc((item.title + ' ' + item.id + ' ' + (item.arabicTitle || '')).toLowerCase()) + '">' +
+      '<span class="sura-num">' + esc(item.canonicalNumber || item.order || index + 1) + '</span><span class="sura-names"><span class="en">' + esc(item.title) + '</span><span class="ar" dir="rtl">' + esc(item.arabicTitle || '') + '</span></span></div>'
+    ).join('');
+  },
+  async exitCollectionReading() {
+    if (!isCollectionReading()) { stopAll(); return; }
+    return loadSura(state.sura, { aya: 1, play: false });
+  }
+});
+
 updateOpts();
-init();
+window.QuranMemorizerReaderReady = init();
 ensureRecordingStorageInitialized().catch(error => {
   console.warn('Could not initialize local recording storage.', error);
   updateRecordingStorageUI();
