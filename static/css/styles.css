@@ -1678,3 +1678,5 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .home-collection-links button span{margin-left:8px}
 @media(max-width:760px){.reading-domain-nav{gap:4px}.reading-domain-nav button{padding:8px 9px;font-size:11px}.collection-active .reader{padding:12px 14px 45px}.collection-record{padding:20px 5px}.collection-pagination{flex-wrap:wrap}.collection-pagination span{order:-1;flex-basis:100%}}
 @media(max-width:430px){.reading-domain-nav button{padding:7px 8px;font-size:10px}.collection-planned li{align-items:flex-start;flex-direction:column;gap:2px}}
+
+.collection-active .mobile-header{display:none!important}
