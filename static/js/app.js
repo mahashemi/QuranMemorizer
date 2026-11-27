@@ -2745,7 +2745,7 @@ window.QuranMemorizerReader = Object.freeze({
 });
 
 updateOpts();
-init();
+window.QuranMemorizerReaderReady = init();
 ensureRecordingStorageInitialized().catch(error => {
   console.warn('Could not initialize local recording storage.', error);
   updateRecordingStorageUI();
