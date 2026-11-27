@@ -4,6 +4,7 @@ import { chunkRecords, createContentManifest } from './content-chunks.mjs';
 
 const COLLECTIONS = ['duas', 'ziyarats'];
 const SAFE_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const DEFAULT_STORAGE_CHUNK_SIZE = 30;
 
 function readSources(sourceDir) {
   if (!existsSync(sourceDir)) return [];
@@ -15,6 +16,20 @@ function readSources(sourceDir) {
     }
     if (name !== source.id + '.json') {
       throw new Error('Source filename must match its stable id: ' + source.id);
+    }
+    const size = source.storageChunkSize ?? DEFAULT_STORAGE_CHUNK_SIZE;
+    if (!Number.isInteger(size) || size < 1 || size > 250) {
+      throw new Error('storageChunkSize must be an integer between 1 and 250: ' + source.id);
+    }
+    for (const [index, record] of source.records.entries()) {
+      if (!record || typeof record !== 'object' || !record.id ||
+          typeof record.arabic_text !== 'string' || !record.arabic_text.trim()) {
+        throw new Error('Record ' + (index + 1) + ' in ' + source.id + ' needs an id and Arabic text');
+      }
+      if (record.recitation_segment && (typeof record.recitation_segment !== 'object' ||
+          !record.recitation_segment.id)) {
+        throw new Error('Invalid recitation_segment metadata in ' + source.id + ' record ' + (index + 1));
+      }
     }
     return source;
   });
@@ -35,7 +50,8 @@ export function buildReadingCollection(rootDir, collection) {
     const outputDir = join(collectionDir, source.id);
     rmSync(outputDir, { recursive: true, force: true });
     mkdirSync(outputDir, { recursive: true });
-    const chunks = chunkRecords(source.records, 10);
+    const chunkSize = source.storageChunkSize ?? DEFAULT_STORAGE_CHUNK_SIZE;
+    const chunks = chunkRecords(source.records, chunkSize);
     for (const chunk of chunks) {
       writeFileSync(join(outputDir, chunk.file), JSON.stringify(chunk.records) + '\n');
     }
@@ -44,7 +60,7 @@ export function buildReadingCollection(rootDir, collection) {
       title: source.title,
       kind,
       records: source.records,
-      chunkSize: 10
+      chunkSize
     });
     writeFileSync(join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
     texts.push({
