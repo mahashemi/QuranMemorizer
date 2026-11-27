@@ -18,7 +18,9 @@
       },
       "manifest": "ziyarat-ashura/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 140
+      "sourcePairCount": 140,
+      "group": "Karbala visitations",
+      "order": 10
     },
     {
       "id": "ziyarat-jamia-kabira",
@@ -36,7 +38,9 @@
       },
       "manifest": "ziyarat-jamia-kabira/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 412
+      "sourcePairCount": 412,
+      "group": "Comprehensive visitations",
+      "order": 20
     },
     {
       "id": "ziyarat-nahiya",
