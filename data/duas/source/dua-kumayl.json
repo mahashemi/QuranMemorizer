@@ -1,0 +1,2036 @@
+{
+  "id": "dua-kumayl",
+  "title": "Dua Kumayl",
+  "arabicTitle": "دُعَاء كُميل",
+  "description": "The supplication taught by Imam Ali (عليه السلام) to Kumayl ibn Ziyad.",
+  "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+  "source": {
+    "label": "Thaqalayn — CC0 1.0 source dataset",
+    "url": "https://thaqalayn.net/duas/dua-kumayl",
+    "license": "CC0-1.0",
+    "provider": "Thaqalayn public pages",
+    "sourceDataset": "adeeb10abbas/shia-library-json",
+    "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+  },
+  "sourceStatus": "imported-review-required",
+  "sourcePairCount": 250,
+  "storageChunkSize": 30,
+  "records": [
+    {
+      "id": "passage-001",
+      "sequence": 1,
+      "arabic_text": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ اللَّهُمَّ إِنِّي أَسْألُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيٍْء وَبِقُوَّتِكَ الَّتِي قَهَرْتَ بِهَا كُلَّ شَيٍْء وَخَضَعَ لَهَا كُلُّ شَيٍْء",
+      "transliteration": "bismillāh al-raḥmān al-raḥīm allāhumma innī as'aluka bi-raḥmatika allatī wasiʿat kulla shay'in wa biquwwatika allati qaharta biha kulla shay'in wa-khaḍaʿa lahā kullu shay-in",
+      "english_text": "In the Name of Allah, the All-merciful, the All-compassionate O Allah, I ask You by Your mercy, which “..embraces all things” (7:156), And by Your strength, through which You dominate all things, And toward which all things are humble",
+      "source_pair_start": 1,
+      "source_pair_end": 4,
+      "recitation_segment": {
+        "id": "segment-001",
+        "title": "Recitation segment 1",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-002",
+      "sequence": 2,
+      "arabic_text": "وَذَلَّ لَهَا كُلُّ شَيٍْء",
+      "transliteration": "wa dhal-la la-ha kullu shay'in",
+      "english_text": "And before which all things are lowly;",
+      "source_pair_start": 5,
+      "source_pair_end": 5,
+      "recitation_segment": {
+        "id": "segment-002",
+        "title": "Recitation segment 2",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-003",
+      "sequence": 3,
+      "arabic_text": "وَبِجَبرُوتِكَ الَّتِي غَلَبْتَ بِهَا كُلَّ شَيٍْء وَبِعِزَّتِكَ الَّتِي لا يَقُومُ لَهَا شَيْءٌ",
+      "transliteration": "wa bi jabrūtika allatī ghalabta bihā kulla shay'in wa bi'izzatika allati la yaqumu laha shay'un",
+      "english_text": "And by Your invincibility through which You overwhelm all things, And by Your might, which nothing can resist;",
+      "source_pair_start": 6,
+      "source_pair_end": 7,
+      "recitation_segment": {
+        "id": "segment-003",
+        "title": "Recitation segment 3",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-004",
+      "sequence": 4,
+      "arabic_text": "وَبِعَظَمَتِكَ الَّتِي مَلَأَتْ كُلَّ شَيٍْء",
+      "transliteration": "wa biʿaẓamatika allatī malā't kulla shay'in",
+      "english_text": "And by Your tremendousness, which has filled all things;",
+      "source_pair_start": 8,
+      "source_pair_end": 8,
+      "recitation_segment": {
+        "id": "segment-004",
+        "title": "Recitation segment 4",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-005",
+      "sequence": 5,
+      "arabic_text": "وَبِسُلْطَانِكَ الَّذِي عَلاَ كُلَّ شَيٍْء",
+      "transliteration": "wa bisulṭānik-al-ladhī ʿalā kulla shay'in",
+      "english_text": "by Your force, which towers over all things;",
+      "source_pair_start": 9,
+      "source_pair_end": 9,
+      "recitation_segment": {
+        "id": "segment-005",
+        "title": "Recitation segment 5",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-006",
+      "sequence": 6,
+      "arabic_text": "وَبِوَجْهِكَ الْبَاقِي بَعْدَ فَنَاءِ كُلِّ شَيٍْء وَبِأَسْمَائِكَ الَّتِي مَلَأَتْ أَرْكَانَ كُلِّ شَيٍْء",
+      "transliteration": "wa biwajhikal-baqī ba'da fana'i kulli shay'in. wa bi-asmā'ika allatī mal'at arkāna kulli shay'in",
+      "english_text": "And by Your face, which subsists after the annihilation of all things, And by Your Names, which have filled the foundations of all things;",
+      "source_pair_start": 10,
+      "source_pair_end": 11,
+      "recitation_segment": {
+        "id": "segment-006",
+        "title": "Recitation segment 6",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-007",
+      "sequence": 7,
+      "arabic_text": "وَبِعِلْمِكَ الَّذِي أَحَاطَ بِكُلِّ شَيٍْء",
+      "transliteration": "wa biʿilmika alladhī aḥāṭa bikulli shay'in",
+      "english_text": "And by Your knowledge, which encompasses all things;",
+      "source_pair_start": 12,
+      "source_pair_end": 12,
+      "recitation_segment": {
+        "id": "segment-007",
+        "title": "Recitation segment 7",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-008",
+      "sequence": 8,
+      "arabic_text": "وَبِنُورِ وَجْهِكَ الَّذِي أَضَاءَ لَهُ كُلُّ شَيٍْء",
+      "transliteration": "wa bi-nūri wajhika alladhī aḍā'a lahu kullu shay'in",
+      "english_text": "And by the light of Your face, through which all things are illumined!",
+      "source_pair_start": 13,
+      "source_pair_end": 13,
+      "recitation_segment": {
+        "id": "segment-008",
+        "title": "Recitation segment 8",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-009",
+      "sequence": 9,
+      "arabic_text": "يَّا نُورُ يَا قُدُّوسُ",
+      "transliteration": "yā nūru yā quddūs",
+      "english_text": "O Light! O All-holy!",
+      "source_pair_start": 14,
+      "source_pair_end": 14,
+      "recitation_segment": {
+        "id": "segment-009",
+        "title": "Recitation segment 9",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-010",
+      "sequence": 10,
+      "arabic_text": "يَا أَوَّلَ الأَوَّلِينَ وَيَا آخِرَ الآخِرِينَ",
+      "transliteration": "yā ʾawwal al-awwalīn wa yā ākhira al-ākhīrīn",
+      "english_text": "O First of those who are first And O Last of those who are last!",
+      "source_pair_start": 15,
+      "source_pair_end": 16,
+      "recitation_segment": {
+        "id": "segment-010",
+        "title": "Recitation segment 10",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-011",
+      "sequence": 11,
+      "arabic_text": "اَللَّهُمَ اغْفِرْ لِي الذُّنُوبَ الَّتِي تَهتِكُ الْعِصَمَ",
+      "transliteration": "allāhumma ighfir lī al-thunūba allatī tahţiku al-ʿişama",
+      "english_text": "O Allah, forgive me those sins which tear apart safeguards!",
+      "source_pair_start": 17,
+      "source_pair_end": 17,
+      "recitation_segment": {
+        "id": "segment-011",
+        "title": "Recitation segment 11",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-012",
+      "sequence": 12,
+      "arabic_text": "اَللَّهُمَ اغْفِرْ لِيَ الذُّنُوبَ الَّتِي تُنْزِلُ النِّقَمَ",
+      "transliteration": "allāhumma ighfir liya al-dhunūba allatī tunzilu al-niqama",
+      "english_text": "O Allah, forgive me those sins which draw down adversities!",
+      "source_pair_start": 18,
+      "source_pair_end": 18,
+      "recitation_segment": {
+        "id": "segment-012",
+        "title": "Recitation segment 12",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-013",
+      "sequence": 13,
+      "arabic_text": "اَللَّهُمَ اغْفِرْ لِيَ الذُّنُوبَ الَّتِي تُغيِّرُ النِّعَمَ",
+      "transliteration": "allāhumma ighfirliya al-dhunūb al-latī tughayyiru al-niʿam",
+      "english_text": "O Allah, forgive me those sins which alter blessings!",
+      "source_pair_start": 19,
+      "source_pair_end": 19,
+      "recitation_segment": {
+        "id": "segment-013",
+        "title": "Recitation segment 13",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-014",
+      "sequence": 14,
+      "arabic_text": "اَللَّهُمَّ اغْفِرْ لِيَ الذُّنُوبَ الَّتِي تَحْبِسُ الدُّعَاءَ",
+      "transliteration": "allāhumma ighfir liya dhunūba allatī taḥbisu al-duʿāʾa",
+      "english_text": "O Allah forgive me those sins which hold back supplication!",
+      "source_pair_start": 20,
+      "source_pair_end": 20,
+      "recitation_segment": {
+        "id": "segment-014",
+        "title": "Recitation segment 14",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-015",
+      "sequence": 15,
+      "arabic_text": "اَللَّهُمَّ اغْفِرْ لِيَ الذُّنُوبَ الَّتِي تَقْطَعُ الرَّجَاءَ",
+      "transliteration": "allāhumma ighfir lī al-dhunūba al-latī taqṭaʿu al-rajaʾa",
+      "english_text": "O Allah forgive me those sins which cut down hopes!",
+      "source_pair_start": 21,
+      "source_pair_end": 21,
+      "recitation_segment": {
+        "id": "segment-015",
+        "title": "Recitation segment 15",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-016",
+      "sequence": 16,
+      "arabic_text": "اَللَّهُمَّ اغْفِرْ لِيَ الذُّنُوبَ الَّتِي تُنْزِلُ البَلآءَ",
+      "transliteration": "allāhumma ighfir lī adh-dhunūba allatī tunzilu al-balā'a",
+      "english_text": "O Allah, forgive me those sins which draw down tribulation!",
+      "source_pair_start": 22,
+      "source_pair_end": 22,
+      "recitation_segment": {
+        "id": "segment-016",
+        "title": "Recitation segment 16",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-017",
+      "sequence": 17,
+      "arabic_text": "اَللَّهُمَّ اغْفِرْ لِيْ كُلَّ ذَنْبٍ أَذْنَبْتُهُ وَكُلَّ خَطِيئَةٍ أَخْطَأْتُهَا",
+      "transliteration": "allāhumma ighfir lī kulla dhambin aðnabtuhu wa kulla khaðīʾatin akhţaʾtuhā",
+      "english_text": "O Allah, forgive me every sin I have committed and every mistake I have made!",
+      "source_pair_start": 23,
+      "source_pair_end": 23,
+      "recitation_segment": {
+        "id": "segment-017",
+        "title": "Recitation segment 17",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-018",
+      "sequence": 18,
+      "arabic_text": "اَللَّهُمَّ إِنِّي أَتَقَرَّبُ إِلَيْكَ بِذِكْرِكَ وَأَسْتَشْفِعُ بِكَ إِلَى نَفْسِكَ وَأَسْألُكَ بِجُودِكَ أَن تُدْنِيَنِي مِن قُرْبِكَ وَأَن تُوزِعَنِي شُكْرَكَ",
+      "transliteration": "allāhumma innī ataqarrabu ilayka bi dhikrika wa astashfiʿu bika ila nafsika wa as'aluka bi judika an tudniyani min qurbika wa anna tuziʿani shukraka",
+      "english_text": "O Allah, verily I seek nearness to You through remembrance of You, And I seek intercession from You with Yourself, And I ask You through Your munificence to bring me near to Your proximity, And to provide me with gratitude toward You",
+      "source_pair_start": 24,
+      "source_pair_end": 27,
+      "recitation_segment": {
+        "id": "segment-018",
+        "title": "Recitation segment 18",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-019",
+      "sequence": 19,
+      "arabic_text": "وَأَن تُلْهِمَنِي ذِكْرَكَ",
+      "transliteration": "wa anna tulhimani dhikrak",
+      "english_text": "And to inspire me with Your remembrance.",
+      "source_pair_start": 28,
+      "source_pair_end": 28,
+      "recitation_segment": {
+        "id": "segment-019",
+        "title": "Recitation segment 19",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-020",
+      "sequence": 20,
+      "arabic_text": "اَللَّهُمَّ إِنِّي أَسْألُكَ سُؤَالَ خَاضِعٍ مُّتَذَلِّلٍ خَاشِعٍ أَن تُسَامِحَنِي وَتَرْحَمَنِي وَتَجْعَلَنِي بِقَسَمِكَ رَاضِيًا قَانِعًا، وَفِي جَمِيعِ الأَحْوَاِل مُتَوَاضِعًا",
+      "transliteration": "allāhumma innī as'aluka suāla khādiʿin mutadhallilin khāshiʿin an tusāmihanī wa tarhamanī wa tajʿalani biqasamika rāḍiyan qāniʿan, wa fī jamīʿi al-aḥwāli mutawāḍi",
+      "english_text": "O Allah, verily I ask You with the asking of a submissive, abased and lowly man to show me forbearance, to have mercy on me And to make me satisfied and content with Your apportionment and humble in every state.",
+      "source_pair_start": 29,
+      "source_pair_end": 30,
+      "recitation_segment": {
+        "id": "segment-020",
+        "title": "Recitation segment 20",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-021",
+      "sequence": 21,
+      "arabic_text": "اَللَّهُمَّ وَأَسْألُكَ سُؤَالَ مَنِ اشْتَدَّتْ فَاقَتُهُ وَأَنْزَلَ بِكَ عِنْدَ الشَّدَائِدِ حَاجَتَهُ وَعَظُمَ فِيمَا عِنْدَكَ رَغْبَتُهُ",
+      "transliteration": "allahumma wa as'aluka su'aala mani ishtaddat faqatuhu wa anzala bika ʿinda ash-shada'id haajatahu wa ʿaẓuma fīmā ʿindaka raghbatahu",
+      "english_text": "O Allah, I ask You with the asking of one whose indigence is extreme, And who has stated to You in difficulties his need And whose desire for what is with You has become great.",
+      "source_pair_start": 31,
+      "source_pair_end": 33,
+      "recitation_segment": {
+        "id": "segment-021",
+        "title": "Recitation segment 21",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-022",
+      "sequence": 22,
+      "arabic_text": "اَللَّهُمَّ عَظُمَ سُلْطَانُكَ وَعَلاَ مَكَانُكَ وَخَفِيَ مَكْرُكَ وَظَهَرَ أَمْرُكَ وَغَلَبَ قَهْرُكَ وَجَرَتْ قُدْرَتُكَ وَلا يُمْكِنُ الْفِرَارُ مِنْ حُكُومَتِكَ",
+      "transliteration": "allāhumma ʿaẓuma sultaanuka wa ʿalaa makānuka wa khafiyah makrukah wa zahara amruka wa ghala ba qahruka wa jarat qudratuka wala yunkinu al-firaru min hukumatika",
+      "english_text": "O Allah, Your force is tremendous, Your place is lofty, And Your deception is hidden, Your command is manifest, And Your domination is overwhelming, Your power is unhindered And escape from Your governance is impossible.",
+      "source_pair_start": 34,
+      "source_pair_end": 37,
+      "recitation_segment": {
+        "id": "segment-022",
+        "title": "Recitation segment 22",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-023",
+      "sequence": 23,
+      "arabic_text": "اَللَّهُمَّ لا أَجِدُ لِذُنُوبِي غَافِرًا وَلا لِقَبَائِحِي سَاتِرًا وَلا لِشَيٍْء مِّنْ عَمَلِيَ الْقَبِيحِ بِالْحَسَنِ مُبَدِّلاً غَيْرَكَ لا إِلَهَ إِلا أَنْتَ",
+      "transliteration": "allāhumma lā ʾajidu li‑dhunūbī ghāfirā walā liqabāʾihi sātiran wa lā li-shay'in min 'amalī al-qabīḥ bi-l-ḥasan mubaddiran ghayraka la ilaha illa anta",
+      "english_text": "O Allah, I find no forgiver of my sins, No concealer of my ugly acts, And no transformer of any of my ugly acts into good acts but You There is no god but You!",
+      "source_pair_start": 38,
+      "source_pair_end": 41,
+      "recitation_segment": {
+        "id": "segment-023",
+        "title": "Recitation segment 23",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-024",
+      "sequence": 24,
+      "arabic_text": "سُبْحَانَكَ وَبِحَمْدِكَ",
+      "transliteration": "subḥānaka wa biḥamdik",
+      "english_text": "Glory be to You, and Yours is the praise!",
+      "source_pair_start": 42,
+      "source_pair_end": 42,
+      "recitation_segment": {
+        "id": "segment-024",
+        "title": "Recitation segment 24",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-025",
+      "sequence": 25,
+      "arabic_text": "ظَلَمْتُ نَفْسِي وَتَجَرَّأْتُ بِجَهْلِي وَسَكَنْتُ إِلَى قَدِيمِ ذِكْرِكَ لِي وَمَنِّكَ عَلَيَّ",
+      "transliteration": "ẓalamtu nafsī wa tajarra'atu bi jahli wa sakantu ila qadimi dhikrika li wa mannik alayya",
+      "english_text": "I have wronged myself, And I have been audacious in my ignorance And I have depended upon Your ancient remembrance of me and Your favour toward me.",
+      "source_pair_start": 43,
+      "source_pair_end": 45,
+      "recitation_segment": {
+        "id": "segment-025",
+        "title": "Recitation segment 25",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-026",
+      "sequence": 26,
+      "arabic_text": "اللَّهُمَّ مَوْلايَ",
+      "transliteration": "allāhumma maulāya",
+      "english_text": "O Allah! O my Protector!",
+      "source_pair_start": 46,
+      "source_pair_end": 46,
+      "recitation_segment": {
+        "id": "segment-026",
+        "title": "Recitation segment 26",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-027",
+      "sequence": 27,
+      "arabic_text": "كَمْ مِّنْ قَبِيحٍ سَتَرْتَهُ",
+      "transliteration": "kam min qabīḥin satar­tahu",
+      "english_text": "How many ugly things You have concealed!",
+      "source_pair_start": 47,
+      "source_pair_end": 47,
+      "recitation_segment": {
+        "id": "segment-027",
+        "title": "Recitation segment 27",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-028",
+      "sequence": 28,
+      "arabic_text": "وَكَمْ مِّن فَاِدحٍ مِّنَ البَلاءِ أَقَلْتَهُ",
+      "transliteration": "wa kam min fādihin min al-balā'i aqaltahu",
+      "english_text": "How many burdensome tribulations You have abolished!",
+      "source_pair_start": 48,
+      "source_pair_end": 48,
+      "recitation_segment": {
+        "id": "segment-028",
+        "title": "Recitation segment 28",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-029",
+      "sequence": 29,
+      "arabic_text": "وَكَمْ مِّنْ عِثَارٍ وَّقَيْتَهُ",
+      "transliteration": "wa kam min ʿithārin waqa-ytahu",
+      "english_text": "And how many stumbles You have prevented!",
+      "source_pair_start": 49,
+      "source_pair_end": 49,
+      "recitation_segment": {
+        "id": "segment-029",
+        "title": "Recitation segment 29",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-030",
+      "sequence": 30,
+      "arabic_text": "وَكَمْ مِّن مَّكْرُوهٍ دَفَعْتَهُ",
+      "transliteration": "wa kam min makroohin dafʿatahu",
+      "english_text": "And how many ordeals You have repelled!",
+      "source_pair_start": 50,
+      "source_pair_end": 50,
+      "recitation_segment": {
+        "id": "segment-030",
+        "title": "Recitation segment 30",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-031",
+      "sequence": 31,
+      "arabic_text": "وَكَمْ مِّنْ ثَنَاءٍ جَمِيلٍ لَّسْتُ أَهْلاً لَّهُ نَشَرْتَهُ",
+      "transliteration": "wa kam min thanaa'in jameelin lastu ahlan lahu nashartahu",
+      "english_text": "And how much beautiful praise, for which I was unworthy, You have spread abroad!",
+      "source_pair_start": 51,
+      "source_pair_end": 51,
+      "recitation_segment": {
+        "id": "segment-031",
+        "title": "Recitation segment 31",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-032",
+      "sequence": 32,
+      "arabic_text": "اَللَّهُمَّ عَظُمَ بَلائِي وَأَفْرَطَ بِي سُوءُ حَاِلي وَقَصُرَتْ بِي أَعْمَاِلي وَقَعَدَتْ بِي أَغْلاَلِي",
+      "transliteration": "allāhumma ʿaẓuma balāʾī wa'afraṭa bī sū'u ḥālī wa qasurat biy a'mali waqa'adat biy aghlālī",
+      "english_text": "O Allah, my tribulation is tremendous, And my bad state is excessive, And my acts are inadequate, And my fetters have tied me down,",
+      "source_pair_start": 52,
+      "source_pair_end": 55,
+      "recitation_segment": {
+        "id": "segment-032",
+        "title": "Recitation segment 32",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-033",
+      "sequence": 33,
+      "arabic_text": "وَحَبَسَنِي عَن نَّفْعِي بُعْدُ آمَاِلي وَخَدَعَتْنِي الدُّنْيَا بِغُرُورِهَا وَنَفْسِي بِجِنَايَتِهَا (بِخِيَانَتِهَا) وَمِطَاِلي",
+      "transliteration": "wa ḥabasanī ʿan nafʿī buʿdu āmālī wa khadaʿatnī al-dunyā bi-ghurūrihā wa nafsī bi-jināyatiha (bi-khiyānatihā) wa miṭāli",
+      "english_text": "And my far-fetched hopes have held me back from my gain And this world with its delusions, my own soul with its offences and my delay have deceived me.",
+      "source_pair_start": 56,
+      "source_pair_end": 57,
+      "recitation_segment": {
+        "id": "segment-033",
+        "title": "Recitation segment 33",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-034",
+      "sequence": 34,
+      "arabic_text": "يَا سَيِّدِي فَأَسْأَلُكَ بِعِزَّتِكَ أَن لا يَحْجُبَ عَنْكَ دُعَآئِي سُوءُ عَمَلِي وَفِعَاِلي وَلا تَفْضَحْنِي بِخَفِيِّ مَا اطَّلَعْتَ عَلَيْهِ مِنْ سِرِّي وَلا تُعَاجِلْنِي بِالْعُقُوبَةِ عَلَى مَا عَمِلْتُهُ فِي خَلَوَاتِي مِنْ سُوءِ فِعْلِي وَإِسَاءَتِي،",
+      "transliteration": "yā sayyidī fa'as'aluka biʿizzatika an lā yaḥjuba ʿanka du'ā'ī su'ūʾ ʿamalī wa fiʿ walā tafḍaḥnī bi-ḵafīyyi mā aṭṭalaʿta ʿalayhi min sirrī walā tuʿājilnī bil-ʿuqūbat alā mā ʿamilthu fī khalawātī min suu'i fi'li wa isa'ati",
+      "english_text": "O my Master! So I ask You by Your might not to let my evil works and acts veil my supplication from You, And not to disgrace me through the hidden things You know of my secrets And not to hasten me to punishment for what I have done in private: My evil acts in secrecy and my misdeeds",
+      "source_pair_start": 58,
+      "source_pair_end": 61,
+      "recitation_segment": {
+        "id": "segment-034",
+        "title": "Recitation segment 34",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-035",
+      "sequence": 35,
+      "arabic_text": "وَدَوَامِ تَفْرِيطِي وَجَهَالَتِي وَكَثْرَةِ شَهَوَاتِي وَغَفْلَتِي",
+      "transliteration": "wadawāmi tafriṭī wa jahālatī wa-kathrati shahawati wa-ghaflatī",
+      "english_text": "And my continuous negligence and my ignorance And my manifold passions and my forgetfulness.",
+      "source_pair_start": 62,
+      "source_pair_end": 63,
+      "recitation_segment": {
+        "id": "segment-035",
+        "title": "Recitation segment 35",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-036",
+      "sequence": 36,
+      "arabic_text": "وَكُنِ اللَّهُمَّ بِعِزَّتِكَ لِي فِي كُلِّ الأَحْوَاِل رَؤُوفًا وَّعَلَيَّ فِي جَمِيعِ الأُمُورِ عَطُوفًا",
+      "transliteration": "wa kunillāhummah biʿizzatika lī fī kulli al-aḥwāli raʾūfan wa ʿalayya fī jamiʿi al-umūri ʿatūfan",
+      "english_text": "And by Your might, O Allah, be kind to me in all states And be gracious to me in all affairs!",
+      "source_pair_start": 64,
+      "source_pair_end": 65,
+      "recitation_segment": {
+        "id": "segment-036",
+        "title": "Recitation segment 36",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-037",
+      "sequence": 37,
+      "arabic_text": "إِلَهِي وَرَبِّي مَن لِّي غَيْرُكَ أَسْأَلُهُ كَشْفَ ضُرِّي وَالْنَّظَرَ فِي أَمْرِي!",
+      "transliteration": "allahumma rabbi man li ghayruka as'aluhu kashfath dhurri wal-nathara fi amri!",
+      "english_text": "My God and my Lord! Have I any but You from whom to ask removal of my affliction and regard for my affairs!",
+      "source_pair_start": 66,
+      "source_pair_end": 66,
+      "recitation_segment": {
+        "id": "segment-037",
+        "title": "Recitation segment 37",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-038",
+      "sequence": 38,
+      "arabic_text": "إِلَهِي وَمَوْلايَ أَجْرَيْتَ عَلَيَّ حُكْمًا اتَّبَعْتُ فِيهِ هَوَى نَفْسِي، وَلَمْ أَحْتَرِسْ فِيهِ مِن تَزْيِيْنِ عَدُوِّي،",
+      "transliteration": "ilāhī wa mawlāy 'ajrayta 'alayya ḥukman ittabaʿtu fīhi hawā nafsī walam ahtaris feehi min tazyini ʿaduwwi",
+      "english_text": "My God and my Protector! You put into effect through me a decree in which I followed the caprice of my own soul And did not remain wary of adorning my enemy.",
+      "source_pair_start": 67,
+      "source_pair_end": 68,
+      "recitation_segment": {
+        "id": "segment-038",
+        "title": "Recitation segment 38",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-039",
+      "sequence": 39,
+      "arabic_text": "فَغَرَّنِي بِمَا أَهْوَى وَأَسْعَدَهُ عَلَى ذَلِكَ القَضَاءُ فَتَجَاوَزْتُ بِمَا جَرَى عَلَيَّ مِنْ ذَلِكَ بَعْضَ حُدُودِكَ وَخَالَفْتُ بَعْضَ أَوَامِرِكَ",
+      "transliteration": "fagharreni bima ahwā waasʿadahu ʿalā dhālika al-qadāʾ fatajaawaztu bimaa jaraa `alayya min dhaalika ba`da hudoodika wa-khalaf-tu baʿḍa awaamirika",
+      "english_text": "So he deluded me through my soul's caprice and therein destiny favoured him So, in what was put into effect through me in that situation, I transgressed some of Your statutes And disobeyed some of Your commands.",
+      "source_pair_start": 69,
+      "source_pair_end": 71,
+      "recitation_segment": {
+        "id": "segment-039",
+        "title": "Recitation segment 39",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-040",
+      "sequence": 40,
+      "arabic_text": "فَلَكَ الْحُجَّةُ عَلَيَّ فِي جَمِيعِ ذَلِكَ وَلا حُجَّةَ لِي فِيمَا جَرَى عَلَيَّ فِيهِ قَضَاؤُكَ، وَأَلْزَمَنِي حُكْمُكَ وَبَلاؤُكَ",
+      "transliteration": "falaka al-ḥujjatu ʿalayya fī jamiʿi dhalika wa lā ḥujjata lī fīmā jarā ʿalayya fīhi qaḍāʾuka wa alzamani hukmuka wa balauka",
+      "english_text": "So Yours is the argument against me in all of that I have no argument in what Your destiny put into effect through me therein nor in what Your decree and Your tribulation imposed upon me.",
+      "source_pair_start": 72,
+      "source_pair_end": 74,
+      "recitation_segment": {
+        "id": "segment-040",
+        "title": "Recitation segment 40",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-041",
+      "sequence": 41,
+      "arabic_text": "وَقَدْ أَتَيْتُكَ يَا إِلَهِي بَعْدَ تَقْصِيرِي وَإِسْرَافِي عَلَى نَفْسِي مُعْتَذِرًا نَّادِمًا، مُّنْكَسِرًا مُّسْتَقِيلاً مُّسْتَغْفِرًا مُّنِيبًا،",
+      "transliteration": "waqad ataytuka ya ilahi baʿda taqṣīrī wa isrāfī ʿalā nafsī muʿtaḏiran nādiman munkasiran mustaqilan mustaghfirun muniban",
+      "english_text": "Now I have come to You, My God, after my shortcoming and my immoderation toward myself, Proffering my excuse, regretful, Broken, apologizing, Asking forgiveness, repenting,",
+      "source_pair_start": 75,
+      "source_pair_end": 78,
+      "recitation_segment": {
+        "id": "segment-041",
+        "title": "Recitation segment 41",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-042",
+      "sequence": 42,
+      "arabic_text": "مُّقِرًّا مُّذْعِنًا مُّعْتَرِفًا",
+      "transliteration": "muqirran mudhʿinan muʿtarifan",
+      "english_text": "Acknowledging, submissive, confessing.",
+      "source_pair_start": 79,
+      "source_pair_end": 79,
+      "recitation_segment": {
+        "id": "segment-042",
+        "title": "Recitation segment 42",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-043",
+      "sequence": 43,
+      "arabic_text": "لا أَجِدُ مَفَرًّا مِّمَّا كَانَ مِنِّي وَلا مَفْزَعًا أَتَوَجَّهُ إِلَيْهِ في أَمْرِي غَيْرَ قَبُولِكَ عُذْرِي، وَإِدخَاِلكَ إِيَّايَ فِي سَعَةٍ مِّن رَّحْمَتِكَ",
+      "transliteration": "lā ajidu mafarran mimmā kāna minnī wa lā mafzaʿan atawajjah ilayhi fī amrī ghayra qabulika ʿudhri, wa-idkhalika iyyaya fi saʿatin min rahmatik",
+      "english_text": "I find no place to flee from what occurred through me, Nor any place of escape to which I may turn in my affairs, Other than Your acceptance of my excuse and Your entering me into the compass of Your mercy.",
+      "source_pair_start": 80,
+      "source_pair_end": 82,
+      "recitation_segment": {
+        "id": "segment-043",
+        "title": "Recitation segment 43",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-044",
+      "sequence": 44,
+      "arabic_text": "اَللَّهُمَّ فَاقْبَل عُذْرِي وَارْحَمْ شِدَّةَ ضُرِّي وَفُكَّنِي مِنْ شَدِّ وَثَاقِي يَا رَبِّ ارْحَمْ ضَعْفَ بَدَنِي وَرِقَّةَ جِلْدِي وَدِقَّةَ عَظْمِي",
+      "transliteration": "allāhumma fāqbil ʿudhrī wa arham shiddat al-durri wafukkanī min shaddi wathāqī yā rabbar raḥma ḍaʿfa badanī wa riqqata jildī wa diqqata ʿaẓmī",
+      "english_text": "O Allah, so accept my excuse, Have mercy upon the severity of my affliction And release me from the tightness of my fetters, My Lord, have mercy upon the weakness of my body, the thinness of my skin and the frailty of my bones.",
+      "source_pair_start": 83,
+      "source_pair_end": 86,
+      "recitation_segment": {
+        "id": "segment-044",
+        "title": "Recitation segment 44",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-045",
+      "sequence": 45,
+      "arabic_text": "يَا مَنْ بَدَأَ خَلْقِي وَذِكْرِي وَتَرْبِيَتِي وَبِرِّي وَتَغْذِيَتِي هَبْنِي لابْتِدَآءِ كَرَمِكَ وَسَاِلفِ بِرِّكَ بِي",
+      "transliteration": "yā man badā'a kh alqī wa dhikrī wa tarbīyatī wa birrī wa taghdhīyatī habnī labtidāʾi karamika wa sāilfi birrika bī",
+      "english_text": "O Thou who gave rise to my creation, to the remembrance of me, to the nurture of me, to goodness toward me and to nourishment on me, Bestow upon me for the sake of Your having given rise [to me] with generosity and Your previous goodness to me!",
+      "source_pair_start": 87,
+      "source_pair_end": 88,
+      "recitation_segment": {
+        "id": "segment-045",
+        "title": "Recitation segment 45",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-046",
+      "sequence": 46,
+      "arabic_text": "يَا إِلَهِي وَسَيِّدِي وَرَبِّي",
+      "transliteration": "yā ʾilāhī wa-sayyidī wa-rabbī",
+      "english_text": "O Allah, my Master and my Lord!",
+      "source_pair_start": 89,
+      "source_pair_end": 89,
+      "recitation_segment": {
+        "id": "segment-046",
+        "title": "Recitation segment 46",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-047",
+      "sequence": 47,
+      "arabic_text": "أَتُرَاكَ مُعَذِّبِي بِنَارِكَ بَعْدَ تَوْحِيدِكَ وَبَعْدَ مَا انْطَوَى عَلَيْهِ قَلْبِي مِن مَّعْرِفَتِكَ وَلَهِجَ بِهِ لِسَانِي مِنْ ذِكْرِكَ وَاعْتَقَدَهُ ضَمِيرِي مِنْ حُبِّكَ",
+      "transliteration": "aturāka muʿaẓẓibī binārika baʿda tawḥīdika wa baʿda mā inṭawā ʿalayhi qalbī min maʿrifatika walahijabihi lisani min dhikrika waʿtaqadahu ḍamīrī min ḥubbika",
+      "english_text": "Can You see Yourself tormenting me with Your fire after I have professed Your Unity And after the knowledge of You my heart has embraced, And the remembrance of You my tongue has constantly mentioned And the love of You to which my mind has clung,",
+      "source_pair_start": 90,
+      "source_pair_end": 93,
+      "recitation_segment": {
+        "id": "segment-047",
+        "title": "Recitation segment 47",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-048",
+      "sequence": 48,
+      "arabic_text": "وَبَعْدَ صِدْقِ اعْتِرَافِي وَدُعَائِي خَاضِعًا لِّرُبُوبِيَّتِكَ",
+      "transliteration": "wa baʿda ṣidqi iʿtirāfī wa duʿāʾī khāḍiʿan li rubūbiyyatika",
+      "english_text": "And after the sincerity of my confession and my supplication, humble before Your lordship?",
+      "source_pair_start": 94,
+      "source_pair_end": 94,
+      "recitation_segment": {
+        "id": "segment-048",
+        "title": "Recitation segment 48",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-049",
+      "sequence": 49,
+      "arabic_text": "هَيْهَاتَ أَنْتَ أَكْرَمُ مِنْ أَنْ تُضَيِّعَ مَن رَّبَّيْتَهُ أَوْ تُبْعِدَ مَنْ أَدْنَيْتَهُ أَوْ تُشَرِّدَ مَنْ آوَيْتَهُ أَوْ تُسْلِمَ إِلىَ الْبلآءِ مَن كَفَيْتَهُ وَرَحِمْتَهُ",
+      "transliteration": "hayhāta ʾanta ʾakramu min ʾan tuḍayyaʿa man rabbaytahu aw tubʿida man adnaytahu aw tusharrida man awaytahu aw tuslima ila al-balāʾi man kafaytahu waraḥmatuhu",
+      "english_text": "Far be it from You! You are more generous than that You should squander him whom You have nurtured, Or banish him whom You have brought nigh, Or drive away him whom You have given an abode Or submit to tribulation him whom You have spared and shown mercy.",
+      "source_pair_start": 95,
+      "source_pair_end": 98,
+      "recitation_segment": {
+        "id": "segment-049",
+        "title": "Recitation segment 49",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-050",
+      "sequence": 50,
+      "arabic_text": "وَلَيْتَ شِعْرِي يَا سَيِّدِي وَإِلَهِي وَمَوْلايَ أَتُسَلِّطُ النَّارَ عَلَى وُجُوهٍ خَرَّتْ لِعَظَمَتِكَ سَاجِدَةً وَعَلَى أَلْسُنٍ نَّطَقَتْ بِتَوْحِيدِكَ صَادِقَةً وَّبِشُكْرِكَ مَادِحَةً وَعَلَى قُلُوبٍ اعْتَرَفَتْ بِإِلَهِيَّتِكَ مُحَقِّقَةً",
+      "transliteration": "walayta shiʿri yā sayyidī wa-ilāhī wa-mawlāyā atusalḷiṭu nanāra ʿalā wuǧūhin kharraṭ liʿaẓamatika sājidatan wa ʿalā al-sunni nataqat bi tawḥīdika ṣādiqatan wa bi shukrika mādḥatan wa ʿalá qulūbin ʿitráfat bi-ilahīyatik muhaqqiqatan",
+      "english_text": "Would that I knew, my Master, My God and my Protector, Whether You will give the Fire dominion over faces fallen down prostrate before Your Tremendousness, And over tongues voicing sincerely the profession of Your Unity and giving thanks to You in praise, And over hearts acknowledging Your Divinity through verification,",
+      "source_pair_start": 99,
+      "source_pair_end": 102,
+      "recitation_segment": {
+        "id": "segment-050",
+        "title": "Recitation segment 50",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-051",
+      "sequence": 51,
+      "arabic_text": "وَعَلَى ضَمَائِرَ حَوَتْ مِنَ الْعِلْمِ بِكَ حَتَّى صَارَتْ خَاشِعَةً وَعَلَى جَواِرحَ سَعَتْ إِلَى أَوْطَانِ تَعَبُّدِكَ طَائِعَةً وَّأَشَارَتْ بِاسْتِغْفَارِكَ مُذْعِنَةً",
+      "transliteration": "wa ʿalā ḍamaʾir ḥawat min al-ʿilmi bika ḥattā ṣārat khāshiʿatan waʿalā jawāriḥa saʿat ilā awṭān taʿabbudika ṭāʾiʿatan wa ashārat bi istighfārika",
+      "english_text": "And over minds encompassing knowledge of You until they have become humble And over bodily members speeding to the places of Your worship in obedience and beckoning for Your forgiveness in submission.",
+      "source_pair_start": 103,
+      "source_pair_end": 104,
+      "recitation_segment": {
+        "id": "segment-051",
+        "title": "Recitation segment 51",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-052",
+      "sequence": 52,
+      "arabic_text": "مَّا هَكَذَا الظَّنُّ بِكَ وَلا أُخْبِرْنَا بِفَضْلِكَ عَنْكَ يَا كَرِيمُ، يَا رَبِّ وَأَنْتَ تَعْلَمُ ضَعْفِي عَنْ قَلِيلٍ مِّن بَلآءِ الدُّنْيَا وَعُقُوبَاتِهَا، وَمَا يَجْرِي فِيهَا مِنَ الْمَكَارِهِ عَلَى أَهْلِهَا",
+      "transliteration": "mā hakadhā aẓẓannu bika walā ukhbirnā bifadlika ʿanka yā karīmu, yā rabbī wa anta taʿlamu ḍaʿfī ʿan qalīlin min balāʾi ad-dunyā wa ʿuqūbātihā wa mā yajrī fīhā min al-makārihi ʿalā ahlihā",
+      "english_text": "No such opinion is held of You! Nor has such been reported - thanks to Your bounty — concerning You, O All-generous! My Lord, And You know my weakness before a little of this world's tribulations and punishments, And before those ordeals which befall its inhabitants,",
+      "source_pair_start": 105,
+      "source_pair_end": 108,
+      "recitation_segment": {
+        "id": "segment-052",
+        "title": "Recitation segment 52",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-053",
+      "sequence": 53,
+      "arabic_text": "عَلَى أَنَّ ذَلِكَ بَلآءٌ وَّمَكْرُوهٌ قَلِيلٌ مَّكْثُهُ، يَسِيرٌ بَقَآؤُهُ، قَصِيرٌ مُّدَّتُهُ",
+      "transliteration": "ʿalā anna dhālika balāʾun wa makrūhun qalīlun makhthuhu, yasīrun baqāʾuhu, qasīrun mudd",
+      "english_text": "Even though it is a tribulation and ordeal whose stay is short, whose subsistence is but little and, whose period is but fleeting.",
+      "source_pair_start": 109,
+      "source_pair_end": 109,
+      "recitation_segment": {
+        "id": "segment-053",
+        "title": "Recitation segment 53",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-054",
+      "sequence": 54,
+      "arabic_text": "فَكَيْفَ احْتِمَاِلي لِبَلآءِ الآخِرَةِ وَجَلِيلِ وُقُوعِ الْمَكَارِهِ فِيهَا!",
+      "transliteration": "fakaifa ihtimālī libalāʾ al-ākhirah wa jalīl waqūʿi al-makārihi fīhā!",
+      "english_text": "So how can I endure the tribulations of the next world and the great ordeals that occur within it?",
+      "source_pair_start": 110,
+      "source_pair_end": 110,
+      "recitation_segment": {
+        "id": "segment-054",
+        "title": "Recitation segment 54",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-055",
+      "sequence": 55,
+      "arabic_text": "وَهُوَ بَلآءٌ تَطُولُ مُدَّتُهُ، وَيَدُومُ مَقَامُهُ، وَلا يُخَفَّفُ عَنْ أَهْلِهِ لِأَنَّهُ لا يَكُونُ إِلا عَنْ غَضَبِكَ وَانْتِقَامِكَ وَسَخَطِكَ وَهَذَا مَا لا تَقُومُ لَهُ السَّمَاوَاتُ وَالأَرْضُ",
+      "transliteration": "wa huwa balāʾun taṭūlu muddatuhu, wa yadūmu maqāmuhu, wa lā yukhaffafu ʿan ahlihi li'annahu la yakun illa 'an ghadabika wa intiqamika wa sakhatika wa-hādhā mā lā taqūmu lahū as-samāwātu wal-arḍu",
+      "english_text": "For it is a tribulation whose period is long, whose station endures and whose sufferers are given no respite, Since it only occurs as a result of Your wrath, Your vengeance and Your anger, And these cannot be withstood by the heavens and the earth.",
+      "source_pair_start": 111,
+      "source_pair_end": 113,
+      "recitation_segment": {
+        "id": "segment-055",
+        "title": "Recitation segment 55",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-056",
+      "sequence": 56,
+      "arabic_text": "يَا سَيِّدِي فَكَيْفَ بِي",
+      "transliteration": "yā sayyidī fakayfa bī",
+      "english_text": "O Master, so what about me?!",
+      "source_pair_start": 114,
+      "source_pair_end": 114,
+      "recitation_segment": {
+        "id": "segment-056",
+        "title": "Recitation segment 56",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-057",
+      "sequence": 57,
+      "arabic_text": "وَأَنَا عَبْدُكَ الضَّعِيفُ الذَّلِيلُ الْحَقِيرُ الْمِسْكِينُ الْمُسْتَكِينُ",
+      "transliteration": "wa ana ʿabduka al-ḍaʿīfu al-ẓalīlu al-ḥaqīru al-miskīnu al-mustakīnu.",
+      "english_text": "For I am Your weak, lowly, base, wretched and miserable slave.",
+      "source_pair_start": 115,
+      "source_pair_end": 115,
+      "recitation_segment": {
+        "id": "segment-057",
+        "title": "Recitation segment 57",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-058",
+      "sequence": 58,
+      "arabic_text": "يَا إِلَهِي وَرَبِّي وَسَيِّدِي وَمَوْلايَ",
+      "transliteration": "yā ʾilāhī wa rabbī wa sayyidī wa mawlāya",
+      "english_text": "My God! My Lord! My Master! My Protector!",
+      "source_pair_start": 116,
+      "source_pair_end": 116,
+      "recitation_segment": {
+        "id": "segment-058",
+        "title": "Recitation segment 58",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-059",
+      "sequence": 59,
+      "arabic_text": "لِأَيِّ الأُمُورِ إِلَيْكَ أَشْكُو",
+      "transliteration": "li-ayyi al-umoori ilayka ashku",
+      "english_text": "For which things would I complain to You?",
+      "source_pair_start": 117,
+      "source_pair_end": 117,
+      "recitation_segment": {
+        "id": "segment-059",
+        "title": "Recitation segment 59",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-060",
+      "sequence": 60,
+      "arabic_text": "وَلِمَا مِنْهَا أَضِجُّ وَأَبْكِي",
+      "transliteration": "walimā minhā 'aḍijju wa'abkī",
+      "english_text": "And for which of them would I lament and weep?",
+      "source_pair_start": 118,
+      "source_pair_end": 118,
+      "recitation_segment": {
+        "id": "segment-060",
+        "title": "Recitation segment 60",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-061",
+      "sequence": 61,
+      "arabic_text": "لِأَلِيمِ الْعَذَابِ وَشِدَّتِهِ!",
+      "transliteration": "li-alīmil-ʿaẓābi wa-shiddatih",
+      "english_text": "For the pain and severity of chastisement?",
+      "source_pair_start": 119,
+      "source_pair_end": 119,
+      "recitation_segment": {
+        "id": "segment-061",
+        "title": "Recitation segment 61",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-062",
+      "sequence": 62,
+      "arabic_text": "أَمْ لِطُولِ الْبَلآءِ وَمُدَّتِهِ!",
+      "transliteration": "am litọ̄li al-balāʾi wamuddatihi!",
+      "english_text": "Or for the length and period of tribulation?",
+      "source_pair_start": 120,
+      "source_pair_end": 120,
+      "recitation_segment": {
+        "id": "segment-062",
+        "title": "Recitation segment 62",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-063",
+      "sequence": 63,
+      "arabic_text": "فَلَئِن صَيَّرْتَنِي لِلْعُقُوبَاتِ مَعَ أَعْدَآئِكَ وَجَمَعْتَ بَيْنِي وَبَيْنَ أَهْلِ بَلآئِكَ وَفَرَّقْتَ بَيْنِي وَبَيْنَ أَحِبَّائِكَ وَأَوْلِيَائِكَ فَهَبْنِي يَا إِلَهِي وَسَيِّدِي وَمَوْلايَ وَرَبِّي صَبَرْتُ عَلَى عَذَابِكَ،",
+      "transliteration": "fa-lain ṣayyartanī lilʿuqūbāt maʿa ʾaʿdāʾika wa-jamʿata bayni wa-bayna ahl-i balāʾika wa-farraqtu bayni wa bayna aḥibba'ika wa awliyā'ika fahabnī yā ilāhī wa sayyidī wa mawlāy wa rabbī, ṣabartu ʿalā ʿadhābika",
+      "english_text": "So if You take me to the punishments with Your enemies, And gather me with the people of Your tribulation And separate me from Your friends and saints, Then suppose, My God, my Master, my Protector and my Lord that I am able to endure Your chastisement,",
+      "source_pair_start": 121,
+      "source_pair_end": 124,
+      "recitation_segment": {
+        "id": "segment-063",
+        "title": "Recitation segment 63",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-064",
+      "sequence": 64,
+      "arabic_text": "فَكَيْفَ أَصْبِرُ عَلَى فِرَاقِكَ",
+      "transliteration": "fakayfa 'asbiru 'ala firaaqika",
+      "english_text": "How can I endure separation from You?",
+      "source_pair_start": 125,
+      "source_pair_end": 125,
+      "recitation_segment": {
+        "id": "segment-064",
+        "title": "Recitation segment 64",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-065",
+      "sequence": 65,
+      "arabic_text": "وَهَبْنِي صَبَرْتُ عَلَى حَرِّ نَارِكَ، فَكَيْفَ أَصْبِرُ عَنِ النَّظَرِ إِلَى كَرَامَتِكَ",
+      "transliteration": "wa habnī, ṣabartu ʿalá ḥarri nārik fakayfa 'asbiru 'ani an-nadhari 'ila karamatika",
+      "english_text": "And suppose that I am able to endure the heat of Your fire, How can I endure not gazing upon Your generosity?",
+      "source_pair_start": 126,
+      "source_pair_end": 127,
+      "recitation_segment": {
+        "id": "segment-065",
+        "title": "Recitation segment 65",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-066",
+      "sequence": 66,
+      "arabic_text": "أَمْ كَيْفَ أَسْكُنُ فِي النَّارِ وَرَجَائِي عَفْوُكَ",
+      "transliteration": "am kayfa as-kunu fil-naar wa rajaa'i ʿafwuka",
+      "english_text": "Or how can I dwell in the Fire while my hope is Your pardon?",
+      "source_pair_start": 128,
+      "source_pair_end": 128,
+      "recitation_segment": {
+        "id": "segment-066",
+        "title": "Recitation segment 66",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-067",
+      "sequence": 67,
+      "arabic_text": "فَبِعِزَّتِكَ يَا سَيِّدِي وَمَوْلايَ أُقْسِمُ صَادِقًا، لَئِنْ تَرَكْتَنِي نَاطِقًا لَأَضِجَّنَّ إِلَيْكَ بَيْنَ أَهْلِهَا ضَجِيجَ الآمِلِينَ",
+      "transliteration": "fabi'izzatika ya sayyidi wa mawlaya uqsimu saadiqan, la'in tarakatani naatiqan la 'adijjanna ilayka bayna ahliha dajiij al-amiliin",
+      "english_text": "So by Your might, my Master and my protector, I swear sincerely, if You leave me with speech, I will lament to You from the midst of the Fire's inhabitants with lamentation of the hopeful;",
+      "source_pair_start": 129,
+      "source_pair_end": 130,
+      "recitation_segment": {
+        "id": "segment-067",
+        "title": "Recitation segment 67",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-068",
+      "sequence": 68,
+      "arabic_text": "وَلأَصْرُخَنَّ إِلَيكَ صُرَاخَ المُسْتَصْرِخِينَ",
+      "transliteration": "wa la asrukhanna ilayka suraakha al-mustasrikheen",
+      "english_text": "I will cry to You with the cry of those crying for help;",
+      "source_pair_start": 131,
+      "source_pair_end": 131,
+      "recitation_segment": {
+        "id": "segment-068",
+        "title": "Recitation segment 68",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-069",
+      "sequence": 69,
+      "arabic_text": "وَلَأَبْكِيَنَّ عَلَيْكَ بُكَاءَ الفَاقِدِينَ",
+      "transliteration": "walābakīyanna ʿalayka bukāʾa al-fāqideen",
+      "english_text": "I will weep to You with the weeping of the bereft;",
+      "source_pair_start": 132,
+      "source_pair_end": 132,
+      "recitation_segment": {
+        "id": "segment-069",
+        "title": "Recitation segment 69",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-070",
+      "sequence": 70,
+      "arabic_text": "وَلَأُنَادِيَنَّكَ أَيْنَ كُنْتَ يَا وَلِيَّ الْمُؤْمِنِينَ يَا غَايَةَ آمَاِل العَارِفِينَ يَا غِيَاثَ المُسْتَغِيْثِينَ يَا حَبِيبَ قُلُوبِ الصَّادِقِينَ",
+      "transliteration": "wa la'unadiyannaka ayna kuntaya waliyya al-mu'mineen yā ghāyat āmāl al-ʿārifīn yā ghīyath al-mustaghithīn yā ḥabība qulūbiṣ-ṣādiqīn",
+      "english_text": "And I will call to You, Where art Thou, O Sponsor of the believers, O Goal of the hopes of Your knowers, O Aid of those who seek assistance, O Friend of the hearts of the sincere",
+      "source_pair_start": 133,
+      "source_pair_end": 136,
+      "recitation_segment": {
+        "id": "segment-070",
+        "title": "Recitation segment 70",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-071",
+      "sequence": 71,
+      "arabic_text": "وَيَا إِلَهَ العَالَمِينَ",
+      "transliteration": "wa yā ʾilāha al-ʿālamīn",
+      "english_text": "And O God of all the world's inhabitants!",
+      "source_pair_start": 137,
+      "source_pair_end": 137,
+      "recitation_segment": {
+        "id": "segment-071",
+        "title": "Recitation segment 71",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-072",
+      "sequence": 72,
+      "arabic_text": "أَفَتُرَاكَ، سُبْحَانَكَ يَا إِلَهِي وَبِحَمْدِكَ، تَسْمَعُ فِيهَا صَوْتَ عَبْدٍ مُّسْلِمٍ سُجِنَ فِيهَا بِمُخَالَفَتِهِ وَذَاقَ طَعْمَ عَذَابِهَا بِمَعْصِيَتِهِ وَحُبِسَ بَيْنَ أَطْبَاقِهَا بِجُرْمِهِ وَجَرِيرَتِهِ",
+      "transliteration": "\"ʾafaturāka, subḥānaka yā ilāhī wa biḥamdik, tasmaʿu fīhā ṣawta ʿabdin muslimin sujina fiha bimukhalafatihi wa dhāqa ṭaʿma ʿadhābihā bi maʿṣiyatihī wa ḥubisa bayna aṭbāqihā bi jurmihi wa jarīratihi",
+      "english_text": "Can You see Yourself — Glory be to You My God, and Yours is the praise — hearing within the Fire the voice of a slave surrendered to Imprisoned there because of his violations, Tasting the flavour of its torment because of his disobedience, And confined within its levels because of his sin and crime,",
+      "source_pair_start": 138,
+      "source_pair_end": 141,
+      "recitation_segment": {
+        "id": "segment-072",
+        "title": "Recitation segment 72",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-073",
+      "sequence": 73,
+      "arabic_text": "وَهُوَ يَضِجُّ إلَيْكَ ضَجِيجَ مُؤَمِّلٍ لِّرَحْمَتِكَ وَيُنَادِيكَ بِلِسَانِ أَهْلِ تَوْحِيدِكَ وَيَتَوَسَّلُ إلَيْكَ بِرُبُوبِيَّتِكَ",
+      "transliteration": "wa huwa yaḍijju ilayka ḍajīja mujammilin li-raḥmatika wa yunādīka bi lisāni ahlit-tawḥīdik wayatawassalu ilayka bi rububiyyatika",
+      "english_text": "While he laments to You with the lament of one hopeful for Your mercy, And calls to You with the tongue of those who profess Your Unity And entreats You by Your lordship!",
+      "source_pair_start": 142,
+      "source_pair_end": 144,
+      "recitation_segment": {
+        "id": "segment-073",
+        "title": "Recitation segment 73",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-074",
+      "sequence": 74,
+      "arabic_text": "يَا مَوْلايَ فَكَيْفَ يَبْقَى فِي الْعَذَابِ وَهُوَ يَرْجُو مَا سَلَفَ مِنْ حِلْمِكَ",
+      "transliteration": "yā mawlāy, fakaīfa yabqā fīl-'adhabi wahūwa yarjū mā salafa min ḥilmika",
+      "english_text": "My Protector, so how should he remain in the chastisement, while he has hope for Your previous clemency?",
+      "source_pair_start": 145,
+      "source_pair_end": 145,
+      "recitation_segment": {
+        "id": "segment-074",
+        "title": "Recitation segment 74",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-075",
+      "sequence": 75,
+      "arabic_text": "أَمْ كَيْفَ تُؤْلِمُهُ النَّارُ وَهُوَ يَأْمَلُ فَضْلَكَ وَرَحْمَتَكَ",
+      "transliteration": "am kayfa tu'lamuhu alnnaru wahua ya'malu fadhlaka warahmatika",
+      "english_text": "Or how should the Fire cause him pain while he expects Your bounty and mercy?",
+      "source_pair_start": 146,
+      "source_pair_end": 146,
+      "recitation_segment": {
+        "id": "segment-075",
+        "title": "Recitation segment 75",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-076",
+      "sequence": 76,
+      "arabic_text": "أَمْ كَيْفَ يُحْرِقُهُ لَهِيبُهَا وَأَنتَ تَسْمَعُ صَوْتَهُ وَتَرَى مَكَانَهُ",
+      "transliteration": "am kayfa yuhriquhu lahibuhā wa anta tasmaʿu ṣawtahu wa tara makānahu",
+      "english_text": "Or how should its flames burn him, while You hear his voice and see his place?",
+      "source_pair_start": 147,
+      "source_pair_end": 147,
+      "recitation_segment": {
+        "id": "segment-076",
+        "title": "Recitation segment 76",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-077",
+      "sequence": 77,
+      "arabic_text": "أَمْ كَيْفَ يَشْتَمِلُ عَلَيْهِ زَفِيرُهَا وَأَنْتَ تَعْلَمُ ضَعْفَهُ",
+      "transliteration": "am kayfa yashtamilu ʿalayhi zafīruhā wa anta taʿlamu ḍaʿfahu",
+      "english_text": "Or how should its groaning encompass him, while You know his weakness?",
+      "source_pair_start": 148,
+      "source_pair_end": 148,
+      "recitation_segment": {
+        "id": "segment-077",
+        "title": "Recitation segment 77",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-078",
+      "sequence": 78,
+      "arabic_text": "أَمْ كَيْفَ يَتَقَلْقَلُ بَيْنَ أَطْبَاقِهَا وَأَنْتَ تَعْلَمُ صِدْقَهُ",
+      "transliteration": "am kayfa yataqallalu bayna aṭbāqihā wa anta taʿlamu ṣidqah",
+      "english_text": "Or how should he be convulsed among its levels, while You know his sincerity?",
+      "source_pair_start": 149,
+      "source_pair_end": 149,
+      "recitation_segment": {
+        "id": "segment-078",
+        "title": "Recitation segment 78",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-079",
+      "sequence": 79,
+      "arabic_text": "أَمْ كَيْفَ تَزْجُرُهُ زَبَانِيَتُهَا وَهُوَ يُنَادِيكَ يَا رَبَّهُ",
+      "transliteration": "amma kayfa tazjuruhu zabaaniyatuhā wa huwa yunādīka yā rabbahu",
+      "english_text": "Or how should its keepers torture him while he calls out to You, “O Lord”?",
+      "source_pair_start": 150,
+      "source_pair_end": 150,
+      "recitation_segment": {
+        "id": "segment-079",
+        "title": "Recitation segment 79",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-080",
+      "sequence": 80,
+      "arabic_text": "أَمْ كَيْفَ يَرْجُو فَضْلَكَ فِي عِتْقِهِ مِنْهَا فَتَتْرُكُهُ فِيهَا",
+      "transliteration": "am kayfa yarju fadlaka fi ʿitqihī minhā fatatrukuhū fīhā",
+      "english_text": "Or how should he have hope of Your bounty in freeing him from it, while You abandon him within it?",
+      "source_pair_start": 151,
+      "source_pair_end": 151,
+      "recitation_segment": {
+        "id": "segment-080",
+        "title": "Recitation segment 80",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-081",
+      "sequence": 81,
+      "arabic_text": "هَيهَاتَ مَا ذَلِكَ الظَّنُّ بِكَ وَلا الْمَعْرُوفُ مِنْ فَضْلِكَ وَلا مُشْبِهٌ لِمَا عَامَلْتَ بِهِ الْمُوَحِّدِينَ مِنْ بِرِّكَ وَإِحْسَانِكَ",
+      "transliteration": "hayhat mā dhālika al-ẓannu bika wa lā al-maʿrūf min faḍlika walā mushbihun limā ʿāmalta bihi al-muwahhidīna min birrika wa-iḥsānik",
+      "english_text": "Far be it from You! That is not what is expected of You, Nor what is well-known of Your bounty, Nor it is similar to the goodness and kindness Thou hast shown to those who profess Your Unity.",
+      "source_pair_start": 152,
+      "source_pair_end": 154,
+      "recitation_segment": {
+        "id": "segment-081",
+        "title": "Recitation segment 81",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-082",
+      "sequence": 82,
+      "arabic_text": "فَبِالْيَقِينِ أَقْطَعُ لَوْلا مَا حَكَمْتَ بِهِ مِن تَعْذِيبِ جَاحِدِيكَ وَقَضَيْتَ بِهِ مِنْ إِخْلاَدِ مُعَانِدِيكَ لَجَعَلْتَ النَّارَ كُلَّهَا بَرْدًا وَّسَلاَمًا، وَمَا كَانَ لأَحَدٍ فِيهَا مَقَرًّا وَّلا مُقَامًا",
+      "transliteration": "fa bil-yaqīni aqṭaʿu lawlā mā ḥakamta bihī min taʿẓībi jāḥidīka waqaḍayta bihi min ikhlādi muʿānidīka lajʿaltan-naara kullaha bardan wa salaaman wamā kāna li-aḥadin fīhā maqarran wallā muqāmān",
+      "english_text": "So I declare with certainty that were it not for what You have decreed concerning the chastisement of Your deniers And what You have foreordained concerning the everlasting home of those who stubbornly resist, You would make the Fire, all of it, coolness and safety, And no one would have a place of rest or abode within it.",
+      "source_pair_start": 155,
+      "source_pair_end": 158,
+      "recitation_segment": {
+        "id": "segment-082",
+        "title": "Recitation segment 82",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-083",
+      "sequence": 83,
+      "arabic_text": "لَّكِنَّكَ تَقَدَّسَتْ أَسْمَاؤُكَ أَقْسَمْتَ أَنْ تَمْلَأَهَا مِنَ الْكَافِرِينَ، مِنَ الْجِنَّةِ وَالنَّاسِ أَجْمَعِينَ وَأَنْ تُخَلِّدَ فِيهَا الْمُعَانِدِينَ",
+      "transliteration": "lākinna-ka taqaddasat asmā-uka, aqsamta an tamla'a-hā min al-kāfirīn min al-jinnati wa al-nāsi ajmaʿīna wa ʾan tukhallida fīhā almuʿāndīn",
+      "english_text": "But You —holy are Your Names—hast sworn that You will fill it with the unbelievers, Both Jinn and men together, And that You will place those who stubbornly resist therein forever.",
+      "source_pair_start": 159,
+      "source_pair_end": 161,
+      "recitation_segment": {
+        "id": "segment-083",
+        "title": "Recitation segment 83",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-084",
+      "sequence": 84,
+      "arabic_text": "وَأَنْتَ جَلَّ ثَنَاؤُكَ قُلْتَ مُبْتَدِئًا، وَّتَطَوَّلْتَ بِالإِنْعَامِ مُتَكَرِّمًا: أَفَمَنْ كَانَ مُؤْمِنًا كَمَنْ كَانَ فَاسِقًا لَّا يَسْتَوُونَ إِلَهِي وَسَيِّدِي فَأَسْألُكَ بِالْقُدْرَةِ الَّتِي قَدَّرْتَهَا وَبِالْقَضِيَّةِ الَّتِي حَتَمْتَهَا وَحَكَمْتَهَا وَغَلَبْتَ مَنْ عَلَيْهِ أَجْرَيْتَهَا",
+      "transliteration": "wa anta jalla thana'uka qulta mubtadiaan, wa tatawwaltu bil-in'aami mutakarriman afaman kana mu'minan kaman kana fasiquan la yastawun ilāhī wa-sayyidī fa-as'aluka bial-qudrah allatī qaddartahā wa bil-qadīyyah allatī ḥatamta-hā wa ḥakamta-hā wa ghalabta man ʿalay-hi ajraytahā",
+      "english_text": "And You — majestic is Your eulogy— said at the beginning and were gracious through kindness as a favour, “What? Is he who has been believer like unto him who has been ungodly? They are not equal” (32:18) My God and my Master! So I ask You by the power You have apportioned And by the decision which You have determined and imposed and through which You have overcome him toward whom it has been put into",
+      "source_pair_start": 162,
+      "source_pair_end": 165,
+      "recitation_segment": {
+        "id": "segment-084",
+        "title": "Recitation segment 84",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-085",
+      "sequence": 85,
+      "arabic_text": "أَن تَهَبَ لِي، فِي هذِهِ اللَّيْلَةِ، وَفِي هَذِهِ السَّاعَةِ كُلَّ جُرْمٍ أَجْرَمْتُهُ وَكُلَّ ذَنْبٍ أَذْنَبْتُهُ وَكُلَّ قَبِيحٍ أَسْرَرْتُهُ",
+      "transliteration": "'an tahaba li, fī hādhīhi al-laylah, wa fī hādhīhi al-sā'ah kullu jurmin ajramtuhu wa kulla dhanbin adhnabtuhu wa kulla qabīḥin asrartuhu",
+      "english_text": "That You forgive me in this night and at this hour Every offence I have committed, And every sin I have performed, And every ugly thing I have concealed",
+      "source_pair_start": 166,
+      "source_pair_end": 169,
+      "recitation_segment": {
+        "id": "segment-085",
+        "title": "Recitation segment 85",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-086",
+      "sequence": 86,
+      "arabic_text": "وَكُلَّ جَهْلٍ عَمِلْتُهُ، كَتَمْتُهُ أَوْ أَعْلَنتُهُ، أَخفَيْتُهُ أَوْ أَظْهَرْتُهُ وَكُلَّ سَيِّئَةٍ أَمَرْتَ بِإِثْبَاتِهَا الْكِرَامَ الكَاتِبِينَ",
+      "transliteration": "wa kulla jahlin 'amiltuhu katamtu-hu aw aʿlantu-hu akhfaytuhu aw athharthuhu wa kulla sayyiatin amarta bi'ithbatiha al-kirama al-katibin",
+      "english_text": "And every folly I have enacted Whether I have hidden or announced it, Or I have concealed it or manifested it And every evil act which You have commanded the Noble Writers to record,",
+      "source_pair_start": 170,
+      "source_pair_end": 173,
+      "recitation_segment": {
+        "id": "segment-086",
+        "title": "Recitation segment 86",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-087",
+      "sequence": 87,
+      "arabic_text": "الَّذِينَ وَكَّلْتَهُم بِحِفْظِ مَا يَكُونُ مِنِّي، وَجَعَلْتَهُمْ شُهُودًا عَلَيَّ مَعَ جَوَارِحِي،",
+      "transliteration": "alladhina wakkaltahum bihifdhi ma yakuunu minni wa jaʿaltahum shuhūdan ʿalayya maʿa jawāriḥī",
+      "english_text": "Those whom You have appointed to watch over what appears from me And whom You have made, along with my bodily members, witness against me.",
+      "source_pair_start": 174,
+      "source_pair_end": 175,
+      "recitation_segment": {
+        "id": "segment-087",
+        "title": "Recitation segment 87",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-088",
+      "sequence": 88,
+      "arabic_text": "وَكُنتَ أَنْتَ الرَّقِيبَ عَلَيَّ مِن وَّرَائِهِمْ، وَالشَّاهِدَ لِمَا خَفِيَ عَنْهُمْ، وَبِرَحْمَتِكَ أَخْفَيْتَهُ، وَبِفَضْلِكَ سَتَرْتَهُ",
+      "transliteration": "wa kunta anta al-raqība ʿalayya min warāʾihim wal-shāhida limā khafiya 'anhum، wa bi-raḥmatika akhfaytahu wa bifadlika satarthu",
+      "english_text": "And “You were Yourself the Watcher” (5:117) over me from behind them, And the Witness of what is hidden from them But through Your mercy You concealed it And through Your bounty You veiled it.",
+      "source_pair_start": 176,
+      "source_pair_end": 179,
+      "recitation_segment": {
+        "id": "segment-088",
+        "title": "Recitation segment 88",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-089",
+      "sequence": 89,
+      "arabic_text": "وَأَنْ تُوَفِّرَ حَظِّي مِن كُلِّ خَيْرٍ تُنْزِلُهُ، أَوْ إِحْسَانٍ تُفْضِلُهُ أَوْ بِرٍّ تَنْشُرُهُ، أَوْ رِزْقٍ تَبْسُطُهُ",
+      "transliteration": "wa an tuwaffira haẓẓī min kulli khayrin tunziluhu aw iḥsānin tufḍiluhu 'aw birrin tanshuruhu aw rizqin tabṣuṭuhu",
+      "english_text": "[And I ask You] that You bestow upon me an abundant share of every good You send down, Or kindness You confer, Or goodness You unfold, Or provision You spread out,",
+      "source_pair_start": 180,
+      "source_pair_end": 183,
+      "recitation_segment": {
+        "id": "segment-089",
+        "title": "Recitation segment 89",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-090",
+      "sequence": 90,
+      "arabic_text": "أَوْ ذَنْبٍ تَغْفِرُهُ أَوْ خَطَأٍ تَسْتُرُهُ",
+      "transliteration": "ʾaw ẓanbin taghfiruhu aw khata'an tasturu-hu",
+      "english_text": "Or sin You forgive, Or error You cover.",
+      "source_pair_start": 184,
+      "source_pair_end": 185,
+      "recitation_segment": {
+        "id": "segment-090",
+        "title": "Recitation segment 90",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-091",
+      "sequence": 91,
+      "arabic_text": "يَا رَبِّ يَا رَبِّ يَا رَبِّ",
+      "transliteration": "yā rabbi yā rabbi yā rabbi",
+      "english_text": "My Lord! My Lord! My Lord!",
+      "source_pair_start": 186,
+      "source_pair_end": 186,
+      "recitation_segment": {
+        "id": "segment-091",
+        "title": "Recitation segment 91",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-092",
+      "sequence": 92,
+      "arabic_text": "يَا إِلَهِي وَسَيِّدِي وَمَوْلايَ وَمَاِلكَ رِقِّي",
+      "transliteration": "yā ilāhī wa-sayyidī wa-mawlāy wa-mālik raqqī",
+      "english_text": "My God! My Master! My Protector! Owner of my bondage!",
+      "source_pair_start": 187,
+      "source_pair_end": 187,
+      "recitation_segment": {
+        "id": "segment-092",
+        "title": "Recitation segment 92",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-093",
+      "sequence": 93,
+      "arabic_text": "يَا مَنْ بِيَدِهِ نَاصِيَتِي",
+      "transliteration": "yā man bi-yadihi nāṣīyatī",
+      "english_text": "O He in whose hand is my forelock!",
+      "source_pair_start": 188,
+      "source_pair_end": 188,
+      "recitation_segment": {
+        "id": "segment-093",
+        "title": "Recitation segment 93",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-094",
+      "sequence": 94,
+      "arabic_text": "يَا عَلِيمًا بِضُرِّي وَمَسْكَنَتِي",
+      "transliteration": "yā ʿalīman biḍurrī wa maskanatī",
+      "english_text": "O He who knows my affliction and my misery!",
+      "source_pair_start": 189,
+      "source_pair_end": 189,
+      "recitation_segment": {
+        "id": "segment-094",
+        "title": "Recitation segment 94",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-095",
+      "sequence": 95,
+      "arabic_text": "يَا خَبِيرًا بِفَقْرِي وَفَاقَتِي",
+      "transliteration": "yā khabīran bifaqri wa faqatī",
+      "english_text": "O He who is aware of my poverty and indigence!",
+      "source_pair_start": 190,
+      "source_pair_end": 190,
+      "recitation_segment": {
+        "id": "segment-095",
+        "title": "Recitation segment 95",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-096",
+      "sequence": 96,
+      "arabic_text": "يَا رَبِّ يَا رَبِّ يَا رَبِّ",
+      "transliteration": "yā rabbi, yā rabbi, yā rabbi",
+      "english_text": "My Lord! My Lord! My Lord!",
+      "source_pair_start": 191,
+      "source_pair_end": 191,
+      "recitation_segment": {
+        "id": "segment-096",
+        "title": "Recitation segment 96",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-097",
+      "sequence": 97,
+      "arabic_text": "أَسْأَلُكَ بِحَقِّكَ وَقُدْسِكَ وَأَعْظَمِ صِفَاتِكَ وَأَسْمَائِكَ أنْ تَجْعَلَ أَوْقَاتِي فِى اللَّيلِ وَالنَّهَارِ بِذِكْرِكَ مَعْمُورَةً، وَبِخِدْمَتِكَ مَوْصُولَةً،",
+      "transliteration": "as'aluka bihaqqika wa qudsika wa'aʿẓami ṣifātika wa'asmā'ika 'an taj'al awqatī fil-layli wan-nahāri bidhikrika ma'mūrah wa bi-khidmatika mawṣūlatan",
+      "english_text": "I ask You by Your Truth and Your Holiness And the greatest of Your Attributes and Names, That You make my times in the night and the day inhabited by Your remembrance, And joined to Your service",
+      "source_pair_start": 192,
+      "source_pair_end": 195,
+      "recitation_segment": {
+        "id": "segment-097",
+        "title": "Recitation segment 97",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-098",
+      "sequence": 98,
+      "arabic_text": "وَّأَعْمَاِلي عِنْدَكَ مَقْبُولَةً، حَتَّى تَكُونَ أَعْمَاِلي وَأَوْرَادِي كُلُّهَا وِرْدًا وَّاحِدًا، وَّحَاِلي فِي خِدْمَتِكَ سَرْمَدًا",
+      "transliteration": "wa aʿmālī ʿindaka maqbūlatan ḥattá takūna aʿmālī waʾawrādī kulluhā wirḍan wāḥidan waḥāli fī khidmatika sarmadan",
+      "english_text": "And my works acceptable to You, So that my works and my litanies may all be a single litany And my occupation with Your service everlasting.",
+      "source_pair_start": 196,
+      "source_pair_end": 198,
+      "recitation_segment": {
+        "id": "segment-098",
+        "title": "Recitation segment 98",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-099",
+      "sequence": 99,
+      "arabic_text": "يَا سَيِّدِي، يَا مَنْ عَلَيْهِ مُعَوَّلِي",
+      "transliteration": "yā sayyidī, yā man ʿalayhi muʿawwaliyy",
+      "english_text": "My Master! O He upon whom I depend!",
+      "source_pair_start": 199,
+      "source_pair_end": 199,
+      "recitation_segment": {
+        "id": "segment-099",
+        "title": "Recitation segment 99",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-100",
+      "sequence": 100,
+      "arabic_text": "يَا مَنْ إلَيْهِ شَكَوْتُ أَحْوَاِلي",
+      "transliteration": "yā man ilayhi shakawtu aḥwālī",
+      "english_text": "O He to whom I complain about my states!",
+      "source_pair_start": 200,
+      "source_pair_end": 200,
+      "recitation_segment": {
+        "id": "segment-100",
+        "title": "Recitation segment 100",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-101",
+      "sequence": 101,
+      "arabic_text": "يَا رَبِّ يَا رَبِّ يَا رَبِّ",
+      "transliteration": "yā rabbi yā rabbi yā rabbi",
+      "english_text": "My Lord! My Lord! My Lord!",
+      "source_pair_start": 201,
+      "source_pair_end": 201,
+      "recitation_segment": {
+        "id": "segment-101",
+        "title": "Recitation segment 101",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-102",
+      "sequence": 102,
+      "arabic_text": "قَوِّ عَلَى خِدْمَتِكَ جَوَارِحِي وَاشْدُدْ عَلىَ الْعَزِيمَةِ جَوَانِحِي وَهَبْ لِيَ الْجِدَّ فِي خَشْيَتِكَ وَالدَّوَامَ فِي الإِتِّصَاِل بِخِدْمَتِكَ",
+      "transliteration": "qawwī ʿalá khidmatika jawārīḥī wa-ashuddu ʿalal-ʿazeemati jawanihi. wa hab liyal-jidda fee khashyatika wa al-dawāma fil i'ttiṣāl bi-khidmatika",
+      "english_text": "Strengthen my bodily members in Your service, And fortify my ribs in determination And bestow upon me earnestness in my fear of You And continuity in my being joined to Your service",
+      "source_pair_start": 202,
+      "source_pair_end": 205,
+      "recitation_segment": {
+        "id": "segment-102",
+        "title": "Recitation segment 102",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-103",
+      "sequence": 103,
+      "arabic_text": "حَتَّى أَسْرَحَ إِلَيكَ فِي مَيَادِينِ السَّابِقِينَ وَأُسْرِعَ إلَيْكَ فِي الْمبُادِرِينَ وَأَشْتَاقَ إلىَ قُرْبِكَ فِي الْمُشْتَاقِينَ وَأَدْنُوَ مِنْكَ دُنُوَّ الْمُخْلِصِينَ",
+      "transliteration": "ḥattá ʾasraḥa ʾilayka fī mayādīni al-sābiqīn wa usri'a ilayka fil mubadirin wa-ash-taqā ilā qur-bika fī al-mushtāqīn wa adnū min ka dunūwal-mukhliṣīn",
+      "english_text": "So that I may move easily toward You in the battlefields of the foremost And hurry to You among the prominent And desire fervently Your proximity among the fervently desirous And move nearer to You with the nearness of the sincere",
+      "source_pair_start": 206,
+      "source_pair_end": 209,
+      "recitation_segment": {
+        "id": "segment-103",
+        "title": "Recitation segment 103",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-104",
+      "sequence": 104,
+      "arabic_text": "وَأَخَافَكَ مَخَافَةَ الْمُوقِنِينَ وَأَجْتَمِعَ فِي جِوَارِكَ مَعَ الْمُؤْمنِينَ",
+      "transliteration": "wa-akhāfak(a) makhāfat(a) al-muqinīn wa-ʾajtamiʿa fī jiwarika maʿa al-muʾminīn",
+      "english_text": "And fear You with the fear of those who have certitude And gather with the believers in Your vicinity.",
+      "source_pair_start": 210,
+      "source_pair_end": 211,
+      "recitation_segment": {
+        "id": "segment-104",
+        "title": "Recitation segment 104",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-105",
+      "sequence": 105,
+      "arabic_text": "اَللَّهُمَّ وَمَنْ أَرَادَنِي بِسُوٍء فَأَرِدْهُ",
+      "transliteration": "allāhumma wa man arādani bi-sū’in fa-aridhu",
+      "english_text": "O Allah, whoever desires evil for me, desire [it] for him!",
+      "source_pair_start": 212,
+      "source_pair_end": 212,
+      "recitation_segment": {
+        "id": "segment-105",
+        "title": "Recitation segment 105",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-106",
+      "sequence": 106,
+      "arabic_text": "وَمَنْ كَادَنِي فَكِدْهُ",
+      "transliteration": "wa man kādana fakidhuhu",
+      "english_text": "whoever deceives me-deceive him!",
+      "source_pair_start": 213,
+      "source_pair_end": 213,
+      "recitation_segment": {
+        "id": "segment-106",
+        "title": "Recitation segment 106",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-107",
+      "sequence": 107,
+      "arabic_text": "وَاجْعَلْنِي مِنْ أَحْسَنِ عَبِيدِكَ نَصِيبًا عِنْدَكَ وَأَقْرَبِهِم مَّنْزِلَةً مِّنْكَ وَأَخَصِّهِمْ زُلْفَةً لَّدَيْكَ",
+      "transliteration": "wa-jʿalnī min aḥsani ʿibādika naṣīban ʿindaka wa-aqrabihim manzilatan minka wa-akhassihim zulfatan ladayka",
+      "english_text": "And make me one of the most excellent of Your slaves in Portion from You, And the nearest of them in station to You And the most elect of them in proximity to You.",
+      "source_pair_start": 214,
+      "source_pair_end": 216,
+      "recitation_segment": {
+        "id": "segment-107",
+        "title": "Recitation segment 107",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-108",
+      "sequence": 108,
+      "arabic_text": "فَإِنَّهُ لا يُنَالُ ذَلِكَ إِلاّ بِفَضْلِكَ",
+      "transliteration": "fa'innahu la yunālu dhālika illā bifadlika",
+      "english_text": "For that cannot be attained except by Your bounty.",
+      "source_pair_start": 217,
+      "source_pair_end": 217,
+      "recitation_segment": {
+        "id": "segment-108",
+        "title": "Recitation segment 108",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-109",
+      "sequence": 109,
+      "arabic_text": "وَجُدْ لِي بِجُودِكَ وَاعْطِفْ عَلَيَّ بِمَجْدِكَ وَاحْفَظْنِي بِرَحْمَتِكَ",
+      "transliteration": "wa judli bi joodika wa ʿaṭif ʿalayya bimajdika wa aḥfaẓnī bir-raḥmatika",
+      "english_text": "And grant generously to me through Your munificence, And incline toward me with Your splendour And protect me with Your mercy!",
+      "source_pair_start": 218,
+      "source_pair_end": 220,
+      "recitation_segment": {
+        "id": "segment-109",
+        "title": "Recitation segment 109",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-110",
+      "sequence": 110,
+      "arabic_text": "وَاجْعَل لِّسَانِي بِذِكْرِكَ لَهِجًا وَقَلْبِي بِحُبِّكَ مُتَيَّمًا",
+      "transliteration": "wa-jʿal lisanī bi-dhikrika lahiǧan wa qalbi biḥubbi-ka mutayyaman",
+      "english_text": "And make my tongue remember You without ceasing And my heart enthralled by Your love!",
+      "source_pair_start": 221,
+      "source_pair_end": 222,
+      "recitation_segment": {
+        "id": "segment-110",
+        "title": "Recitation segment 110",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-111",
+      "sequence": 111,
+      "arabic_text": "وَّمُنَّ عَلَيَّ بِحُسْنِ إِجَابَتِكَ وَأَقِلْنِي عَثْرَتِي وَاغْفِرْ زَلَّتِي",
+      "transliteration": "wamunna ʿalayya biḥusni ijābatika wa aqilni ʿathrati wa-aghfir zallati",
+      "english_text": "And be gracious to me by answering me favourably, And nullify my slips And forgive my lapses!",
+      "source_pair_start": 223,
+      "source_pair_end": 225,
+      "recitation_segment": {
+        "id": "segment-111",
+        "title": "Recitation segment 111",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-112",
+      "sequence": 112,
+      "arabic_text": "فَإِنَّكَ قَضَيْتَ عَلَى عِبَادِكَ بِعِبَادَتِكَ وَأَمَرْتَهُم بِدُعَائِكَ وَضَمِنْتَ لَهُمُ الإِجَابَةَ",
+      "transliteration": "fa'innaka qadaīta ʿalā ʿibādika biʿibādatika wa amartahum biduʿaika waḍaminta lahumul ijābah",
+      "english_text": "For Thou hast decreed Your worship for Your servants And commanded them to supplicate You And assured them that they would be answered.",
+      "source_pair_start": 226,
+      "source_pair_end": 228,
+      "recitation_segment": {
+        "id": "segment-112",
+        "title": "Recitation segment 112",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-113",
+      "sequence": 113,
+      "arabic_text": "فَإِلَيْكَ يَا رَبِّ نَصَبْتُ وَجْهِي وَإلَيْكَ يَا رَبِّ مَدَدْتُ يَدِي",
+      "transliteration": "fa'ilayka ya rabb insabtu wajhi wa-ilayka ya rabbi madadtu yadi",
+      "english_text": "So toward You, my Lord, I have turned my face And toward You, my Lord, I have extended my hand.",
+      "source_pair_start": 229,
+      "source_pair_end": 230,
+      "recitation_segment": {
+        "id": "segment-113",
+        "title": "Recitation segment 113",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-114",
+      "sequence": 114,
+      "arabic_text": "فَبِعِزَّتِكَ اسْتَجِبْ لِي دُعَائِي وَبَلِّغْنِي مُنَايَ",
+      "transliteration": "fa biʿizzatika astajib li duʿāʾi wa ballighnī munāya",
+      "english_text": "So by Your might, comply with my supplication And make me attain my desires!",
+      "source_pair_start": 231,
+      "source_pair_end": 232,
+      "recitation_segment": {
+        "id": "segment-114",
+        "title": "Recitation segment 114",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-115",
+      "sequence": 115,
+      "arabic_text": "وَلا تَقْطَعْ مِن فَضْلِكَ رَجَائِي وَاكْفِنِي شَرَّ الْجِنِّ وَالإِنْسِ مِنْ أَعْدَائِي",
+      "transliteration": "walā taqṭaʿ min faḍlika rajāʾī wakfinī sharra al-jinni wal-insi min aʿdā'ī",
+      "english_text": "Do not severe my hopes of Your favours And spare me the evil of my enemies from among the jinn and men!",
+      "source_pair_start": 233,
+      "source_pair_end": 234,
+      "recitation_segment": {
+        "id": "segment-115",
+        "title": "Recitation segment 115",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-116",
+      "sequence": 116,
+      "arabic_text": "يَا سَرِيعَ الرِّضَا",
+      "transliteration": "yā sarīʿa al-riḍā",
+      "english_text": "O He, whose pleasure is quickly achieved!",
+      "source_pair_start": 235,
+      "source_pair_end": 235,
+      "recitation_segment": {
+        "id": "segment-116",
+        "title": "Recitation segment 116",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-117",
+      "sequence": 117,
+      "arabic_text": "اِغْفِرْ لِمَن لا يَمْلِكُ إِلا الدُّعَاءَ فَإِنَّكَ فَعَّالٌ لِّمَا تَشَاءُ",
+      "transliteration": "ighfir liman la yamliku illa addu'aa' fa'innaka fa'ālun limā tashā'u",
+      "english_text": "Forgive him who owns nothing but supplication For You do what You will.",
+      "source_pair_start": 236,
+      "source_pair_end": 237,
+      "recitation_segment": {
+        "id": "segment-117",
+        "title": "Recitation segment 117",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-118",
+      "sequence": 118,
+      "arabic_text": "يَا مَنْ اسْمُهُ دَوَاءٌ وَذِكْرُهُ شِفَاءٌ وَطَاعَتُهُ غِنًى",
+      "transliteration": "yā man asmuhu dawā'un wa dhikruhu shifa'un waṭāʿatuhu ghinā",
+      "english_text": "O He whose Name is a remedy, And whose remembrance is a cure, And whose obedience is wealth!",
+      "source_pair_start": 238,
+      "source_pair_end": 240,
+      "recitation_segment": {
+        "id": "segment-118",
+        "title": "Recitation segment 118",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-119",
+      "sequence": 119,
+      "arabic_text": "ارْحَم مَّن رَّأْسُ مَاِلهِ الرَّجَاءُ وَسِلاَحُهُ الْبُكَاءُ",
+      "transliteration": "arḥam man raʾsu māʾilih al-rajaʾ wasilāhu al-bukāʾu",
+      "english_text": "Have mercy upon him whose capital is hope And whose weapon is tears!",
+      "source_pair_start": 241,
+      "source_pair_end": 242,
+      "recitation_segment": {
+        "id": "segment-119",
+        "title": "Recitation segment 119",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-120",
+      "sequence": 120,
+      "arabic_text": "يَا سَاِبغَ النِّعَمِ",
+      "transliteration": "yā sāibgha al-niʿam",
+      "english_text": "O Ample in blessings!",
+      "source_pair_start": 243,
+      "source_pair_end": 243,
+      "recitation_segment": {
+        "id": "segment-120",
+        "title": "Recitation segment 120",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-121",
+      "sequence": 121,
+      "arabic_text": "يَا دَافِعَ النِّقَمِ",
+      "transliteration": "yā dāfiʿa al-niqam",
+      "english_text": "O Repeller of adversities!",
+      "source_pair_start": 244,
+      "source_pair_end": 244,
+      "recitation_segment": {
+        "id": "segment-121",
+        "title": "Recitation segment 121",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-122",
+      "sequence": 122,
+      "arabic_text": "يَا نُورَ الْمُسْتَوْحِشِينَ فِي الظُّلَمِ",
+      "transliteration": "yā nūra al-mustawḥishīna fī aẓ-ẓulam",
+      "english_text": "O Light of those who are lonely in the darkness!",
+      "source_pair_start": 245,
+      "source_pair_end": 245,
+      "recitation_segment": {
+        "id": "segment-122",
+        "title": "Recitation segment 122",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-123",
+      "sequence": 123,
+      "arabic_text": "يَا عَالِمًا لا يُعَلَّمُ",
+      "transliteration": "yā ʿāliman lā yuʿallamu",
+      "english_text": "O Knower who was never taught!",
+      "source_pair_start": 246,
+      "source_pair_end": 246,
+      "recitation_segment": {
+        "id": "segment-123",
+        "title": "Recitation segment 123",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-124",
+      "sequence": 124,
+      "arabic_text": "صَلِّ عَلَى مُحَمَّدٍ وَّآلِ مُحَمَّدٍ",
+      "transliteration": "ṣalli ʿalā muḥammadin wa āli muḥammadin",
+      "english_text": "Bless Muhammad and Muhammad's household!",
+      "source_pair_start": 247,
+      "source_pair_end": 247,
+      "recitation_segment": {
+        "id": "segment-124",
+        "title": "Recitation segment 124",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-125",
+      "sequence": 125,
+      "arabic_text": "وافْعَلْ بِي مَا أَنتَ أَهْلُهُ",
+      "transliteration": "wafʿal biy mā anta ahluhu",
+      "english_text": "And do with me what is worthy of You!",
+      "source_pair_start": 248,
+      "source_pair_end": 248,
+      "recitation_segment": {
+        "id": "segment-125",
+        "title": "Recitation segment 125",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-126",
+      "sequence": 126,
+      "arabic_text": "وَصَلَّى اللَّهُ عَلَى رَسُولِهِ وَالأَئِمَّةِ الْمَيَامِينَ مِنْ آلِهِ وَسَلَّمَ تَسْلِيمًا كَثِيرًا",
+      "transliteration": "wa ṣalla allāhu ʿalā rasūlihī wal-aʾimmati al-mayāmīna min ālihī wa sallama taslīman kathīran",
+      "english_text": "And Allah bless His messenger and the holy Imams of his household And give them abundant peace!",
+      "source_pair_start": 249,
+      "source_pair_end": 250,
+      "recitation_segment": {
+        "id": "segment-126",
+        "title": "Recitation segment 126",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    }
+  ]
+}
