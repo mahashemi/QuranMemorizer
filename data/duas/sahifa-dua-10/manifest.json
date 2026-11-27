@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-10",
+  "title": "10. In seeking asylum with God",
+  "kind": "dua",
+  "recordCount": 8,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 8,
+      "file": "segments_001_008.json"
+    }
+  ]
+}
