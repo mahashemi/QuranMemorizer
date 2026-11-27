@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-shakireen",
+  "title": "06. The Whispered Prayer of the Thankful (Shakireen)",
+  "kind": "dua",
+  "recordCount": 32,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 32,
+      "file": "segments_031_032.json"
+    }
+  ]
+}
