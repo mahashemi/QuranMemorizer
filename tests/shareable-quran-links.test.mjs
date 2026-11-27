@@ -15,7 +15,7 @@ test('shared Quran links accept canonical Surah/Ayah routes', () => {
 
 test('initial deep link activates the reader and loads the requested ayah', () => {
   assert.match(app, /const initialRoute = parseQuranHash\(window\.location\.hash\)/);
-  assert.match(app, /if \(initialRoute\) activateReaderView\(\)/);
+  assert.match(app, /if \(initialRoute \|\| initialCollectionRoute\) activateReaderView\(\)/);
   assert.ok(app.includes('await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false })'));
   assert.ok(app.includes('scheduleSharedAyaFocus(initialRoute.aya)'));
 });
