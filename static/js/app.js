@@ -2478,18 +2478,20 @@ function bindEvents() {
       const aya = Number((recordButton || playRecordingButton || deleteRecordingButton).dataset[
         recordButton ? 'recordAya' : playRecordingButton ? 'playRecording' : 'deleteRecording'
       ]);
+      const identity = getCurrentRecordingIdentity(aya);
+      const identityKey = recordingIdentityKey(identity);
       if (recordButton) {
-        if (activeRecorder && activeRecordingKey && activeRecordingKey.sura === state.sura && activeRecordingKey.aya === aya) {
+        if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) === identityKey) {
           activeRecorder.stop();
           recordButton.textContent = 'Saving…';
         } else {
-          startUserRecording(state.sura, aya, recordButton);
+          startUserRecording(identity, null, recordButton);
         }
       } else if (playRecordingButton) {
-        playUserRecording(state.sura, aya);
+        playUserRecording(identity);
       } else {
-        deleteUserRecording(state.sura, aya).then(() => {
-          refreshRecordingControls(state.sura);
+        deleteUserRecording(identity).then(() => {
+          refreshRecordingControls(getCurrentRecordingIdentity());
           toast('Saved recording deleted.');
         }).catch(error => toast('Could not delete recording: ' + error.message));
       }
@@ -2520,7 +2522,7 @@ function bindEvents() {
   });
 
   el.btnNext.addEventListener('click', () => {
-    const s = SURA_BY_NUM[state.sura];
+    const s = getCurrentReading();
     if (!s) return;
     if (state.aya < s.ayaCount) goToAya(state.aya + 1, { play: true });
     else stopAll();
