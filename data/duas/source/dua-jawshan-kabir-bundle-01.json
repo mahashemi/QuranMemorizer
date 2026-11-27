@@ -27,7 +27,7 @@
         ]
       },
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 79,
+      "sourcePairCount": 80,
       "storageChunkSize": 30,
       "records": [
         {
@@ -1361,13 +1361,30 @@
           "sequence": 79,
           "section_number": 79,
           "title": "Section 79",
+          "arabic_text": "يَا مَنْ لَا شَرِيكَ لَهُ وَلَا وَزِيرَ يَا مَنْ لَا شَبِيهَ لَهُ وَلَا نَظِيرَ يَا خَالِقَ الشَّمْسِ وَالْقَمَرِ الْمُنِيرِ يَا مُغْنِيَ الْبَائِسِ الْفَقِيرِ يَا رَازِقَ الطِّفْلِ الصَّغِيرِ يَا رَاحِمَ الشَّيْخِ الْكَبِيرِ يَا جَابِرَ الْعَظْمِ الْكَسِيرِ يَا عِصْمَةَ الْخَائِفِ الْمُسْتَجِيرِ يَا مَنْ هُوَ بِعِبَادِهِ خَبِيرٌ بَصِيرٌ يَا مَنْ هُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya mal-la shareka lahu wa-la wazayir, ya mal-la shabeha lahu wa-la na¨er, ya khaliqash-sham-si wal-qamaril-muner, ya mugh-ni-yal-ba-isil-faqer, ya r-aziqat-tif-lis-sagher, ya r-ahimash-shaykhil-kaber, ya jabiral-a'¨mil-kaser, ya i`is-matal-kha-ifil-mus-tajer, ya man huwa bi-i`ibadihi khabayirum baser, ya man huwa `ala kul-li shay-in qader. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He Who has no partner and no adviser, O He Who has no equal and no match, O Creator of the sun and the bright moon, O Enricher of the poverty stricken, O Provider of sustenance to small children, O Merciful to the very aged ones, O Joiner of broken bones, O Protector of the frightened shelter seekers, O He Who is All-Aware and All-Seeing of His slaves, O He Who is Powerful over everything. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 79,
+          "recitation_segment": {
+            "id": "section-079",
+            "title": "Section 79",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-080",
+          "sequence": 80,
+          "section_number": 80,
+          "title": "Section 80",
           "arabic_text": "يَا ذَا الْجُودِ وَالنِّعَمِ يَا ذَا الْفَضْلِ وَالْكَرَمِ يَا خَالِقَ اللَّوْحِ وَالْقَلَمِ يَا بَارِئَ الذَّرِّ وَالنَّسَمِ يَا ذَا الْبَأْسِ وَالنِّقَمِ يَا مُلْهِمَ الْعَرَبِ وَالْعَجَمِ يَا كَاشِفَ الضُّرِّ وَالْأَلَمِ يَا عَالِمَ السِّرِّ وَالْهِمَمِ يَا رَبَّ الْبَيْتِ وَالْحَرَمِ يَا مَنْ خَلَقَ الْأَشْيَاءَ مِنَ الْعَدَمِ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
           "transliteration": "ya dhal-judi wan-nia'm, ya dhal-fadhli wal-karam, ya khaliqal-law-hi wal-qalam, ya bari-adh-dhar-ri wn-nasam, ya dhal-ba-si wan-niqam, ya mul-himal-a'rabi wal-a'jam, ya kashifadhur-ri wal-alam, ya `aalimas-sir-ri wal-himam, ya rab-bal-bayti wal-haram, ya man khalaqal-ash-ya-a minal-a'dam. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
           "english_text": "O Master of generosity and the Bestower of the bounties, O Gracious and Magnanimous, O Creator of the Tablet and the Pen, O Creator of ants and men, O Inflictor of punishment and retaliator, O Inspirer of Arabs and non-Arabs, O Expeller of pain and grief, O He Who knows the secrets and the mysteries, O Lord of the Kaaba and the Sacred Precinct, O He Who has created everything out of nothingness. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
           "source_section": 79,
           "recitation_segment": {
-            "id": "section-079",
-            "title": "Section 79",
+            "id": "section-080",
+            "title": "Section 80",
             "repeatable": true,
             "suggested_repetitions": 3,
             "pause_after": true
