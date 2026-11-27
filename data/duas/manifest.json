@@ -1294,6 +1294,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 28,
       "manifest": "munajat-muteeen/manifest.json"
+    },
+    {
+      "id": "munajat-mureedeen",
+      "title": "08. The Whispered Prayer of the Devotees (Mureedeen)",
+      "arabicTitle": "مناجاة المريدين",
+      "description": "The eighth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 208,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 8",
+        "url": "https://www.duas.org/sajjadiya/dua76.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 56,
+      "manifest": "munajat-mureedeen/manifest.json"
     }
   ]
 }
