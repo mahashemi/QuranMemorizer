@@ -94,6 +94,7 @@ export function buildReadingCollection(rootDir, collection) {
       sourcePairCount: source.sourcePairCount ?? null,
       group: source.group || '',
       order: source.order ?? null,
+      canonicalNumber: source.canonicalNumber ?? null,
       manifest: source.id + '/manifest.json'
     });
   }
