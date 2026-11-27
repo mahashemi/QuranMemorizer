@@ -1103,7 +1103,7 @@ async function writeFolderRecording(sura, aya, blob) {
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
   try {
-    await updateFolderManifest(dirs.recordingsDirectory, identity, fileName, blob.type || 'audio/' + ext, blob.size);
+    await updateFolderManifest(dirs.recordingsDirectory, identity, null, fileName, blob.type || 'audio/' + ext, blob.size);
   } catch (manifestError) {
     console.warn('Could not update the recordings manifest.', manifestError);
   }
@@ -1172,20 +1172,18 @@ async function migrateBrowserRecordingsToFolder() {
   let copied = 0;
   browserFallbackRecordingKeys = new Set();
   for (const record of records) {
-    if (!record || !record.blob || !record.sura || !record.aya) continue;
-    const key = record.key || record.sura + ':' + record.aya;
-    // Keep track only of ayat that actually exist in IndexedDB, so the file
-    // path is checked first and IndexedDB is consulted only for those keys.
+    if (!record || !record.blob) continue;
+    const identity = normalizeRecordingIdentity(record);
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) continue;
+    const key = record.key || recordingIdentityKey(identity);
     browserFallbackRecordingKeys.add(key);
     try {
-      const existing = await getFolderRecording(record.sura, record.aya);
+      const existing = await getFolderRecording(identity);
       if (!existing) {
-        await writeFolderRecording(record.sura, record.aya, record.blob);
+        await writeFolderRecording(identity, null, record.blob);
         copied++;
       }
     } catch (migrationError) {
-      // Retain a sparse list of browser-backed recordings. The reader can use
-      // them as a fallback without querying IndexedDB for every unrecorded ayah.
       browserFallbackRecordingKeys.add(key);
       console.warn('Could not migrate browser recording ' + key + '.', migrationError);
     }
@@ -1198,14 +1196,15 @@ async function migrateBrowserRecordingsToNative(native) {
   browserFallbackRecordingKeys = new Set();
   let copied = 0;
   for (const record of records) {
-    if (!record || !record.blob || !record.sura || !record.aya) continue;
-    const key = record.key || record.sura + ':' + record.aya;
-    // Keep a sparse fallback index while native files become the primary copy.
+    if (!record || !record.blob) continue;
+    const identity = normalizeRecordingIdentity(record);
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) continue;
+    const key = record.key || recordingIdentityKey(identity);
     browserFallbackRecordingKeys.add(key);
     try {
-      const existing = await native.read(record.sura, record.aya);
+      const existing = await native.read(identity);
       if (!existing) {
-        await native.write(record.sura, record.aya, record.blob);
+        await native.write(identity, null, record.blob);
         copied++;
       }
     } catch (migrationError) {
@@ -1385,58 +1384,57 @@ async function useBrowserRecordingStorage() {
 
 async function getUserRecording(sura, aya) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const native = await getNativeRecordingStorage();
   if (native) {
-    const record = await native.read(sura, aya);
+    const record = await native.read(identity);
     if (record) return record;
-    if (recordingStorageMode === 'native' && !browserFallbackRecordingKeys.has(sura + ':' + aya)) return null;
+    if (recordingStorageMode === 'native' && !browserFallbackRecordingKeys.has(key)) return null;
   }
   if (recordingStorageMode === 'folder-needs-permission') {
-    const browserRecord = await getBrowserRecording(sura, aya);
+    const browserRecord = await getBrowserRecording(identity);
     if (browserRecord) return browserRecord;
     throw new Error('Reconnect your recordings folder in Settings to access saved files.');
   }
   if (recordingStorageMode === 'folder') {
-    const key = sura + ':' + aya;
     try {
-      const record = await getFolderRecording(sura, aya);
+      const record = await getFolderRecording(identity);
       if (record) return record;
     } catch (folderError) {
       if (browserFallbackRecordingKeys.has(key)) {
-        const browserRecord = await getBrowserRecording(sura, aya);
+        const browserRecord = await getBrowserRecording(identity);
         if (browserRecord) return browserRecord;
       }
       throw folderError;
     }
     if (!browserFallbackRecordingKeys.has(key)) return null;
-    return getBrowserRecording(sura, aya);
+    return getBrowserRecording(identity);
   }
-  return getBrowserRecording(sura, aya);
+  return getBrowserRecording(identity);
 }
 
 async function saveUserRecording(sura, aya, blob) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const audioBlob = blob || (aya instanceof Blob ? aya : null);
+  if (!audioBlob) throw new Error('No recording audio was supplied.');
   const native = await getNativeRecordingStorage();
-  if (native) return native.write(sura, aya, blob);
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect your recordings folder in Settings before recording.');
-  }
-  if (recordingStorageMode === 'needs-folder-choice') {
-    throw new Error('Choose a recordings folder or browser-local storage in Settings before recording.');
-  }
-  if (recordingStorageMode === 'folder') return writeFolderRecording(sura, aya, blob);
-  return saveBrowserRecording(sura, aya, blob);
+  if (native) return native.write(identity, null, audioBlob);
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect your recordings folder in Settings before recording.');
+  if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before recording.');
+  if (recordingStorageMode === 'folder') return writeFolderRecording(identity, null, audioBlob);
+  return saveBrowserRecording(identity, null, audioBlob);
 }
 
 async function deleteUserRecording(sura, aya) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
   const native = await getNativeRecordingStorage();
-  if (native) await native.remove(sura, aya);
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect your recordings folder in Settings before deleting a recording.');
-  }
-  if (recordingStorageMode === 'folder') await removeFolderRecording(sura, aya);
-  await deleteBrowserRecording(sura, aya);
+  if (native) await native.remove(identity);
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect your recordings folder in Settings before deleting a recording.');
+  if (recordingStorageMode === 'folder') await removeFolderRecording(identity);
+  await deleteBrowserRecording(identity);
 }
 
 async function getRecordingArchiveModule() {
