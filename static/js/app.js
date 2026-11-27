@@ -1426,7 +1426,7 @@ async function collectFolderRecordingsForArchive() {
     const folderMatch = folderName.match(folderPattern);
     if (!folderMatch) continue;
     const sura = Number(folderMatch[1]);
-    if (!Number.isInteger(sura) || sura < 1 || sura > 114) continue;
+    if (!Number.isInteger(sura) || sura < 1 || sura > 999) continue;
     for await (const [fileName, fileHandle] of folderHandle.entries()) {
       if (fileHandle.kind !== 'file') continue;
       const fileMatch = fileName.match(filePattern);
