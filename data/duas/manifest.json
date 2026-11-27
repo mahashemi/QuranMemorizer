@@ -118,6 +118,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 45,
       "manifest": "sahifa-dua-04/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-05",
+      "title": "05. His Supplication for himself and the People under his Guardianship",
+      "arabicTitle": "دُعَاؤُهُ لِنَفسِهِ وَ اهل وِِلايتهِ",
+      "description": "Sahifa Sajjadiya — Supplication 5",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 105,
+      "canonicalNumber": 5,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-himself-and-the-people-under-his-guardianship",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 53,
+      "manifest": "sahifa-dua-05/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-06",
+      "title": "06. His Supplication in the Morning and Evening",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ الصَّبَاحِ وَ الْمَسَاءِ",
+      "description": "Sahifa Sajjadiya — Supplication 6",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 106,
+      "canonicalNumber": 6,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-the-morning-and-evening",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 78,
+      "manifest": "sahifa-dua-06/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-07",
+      "title": "07. When Faced with a Worrisome Task",
+      "arabicTitle": "دُعَاؤُهُ فِي الْمُهِمَّاتِ",
+      "description": "Sahifa Sajjadiya — Supplication 7",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 107,
+      "canonicalNumber": 7,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-faced-with-a-worrisome-task",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 37,
+      "manifest": "sahifa-dua-07/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-08",
+      "title": "08. Seeking Refuge from Hateful Things",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِعَاذَةِ مِنَ المَكارِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 8",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 108,
+      "canonicalNumber": 8,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-seeking-refuge-from-hateful-things",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 29,
+      "manifest": "sahifa-dua-08/manifest.json"
     }
   ]
 }
