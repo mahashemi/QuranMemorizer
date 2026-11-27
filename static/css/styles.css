@@ -988,6 +988,12 @@
 /* ============ initial home page ============ */
 body:not(.reader-active) .app { display: none !important; }
 body.reader-active .app { display: grid !important; }
+/* Collection catalogue pages use the full reader width; active readings reuse
+   the Quran sidebar as the Dua/Ziyarat list and the passage-number index. */
+body.collection-active:not(.collection-reading) .app { grid-template-columns: minmax(0, 1fr); }
+body.collection-active:not(.collection-reading) .sidebar { display: none; }
+body.collection-reading .topbar .field { display: none; }
+
 .home-page {
   min-height: 100vh;
   min-height: 100dvh;
