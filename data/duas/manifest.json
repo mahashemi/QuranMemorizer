@@ -622,6 +622,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 30,
       "manifest": "sahifa-dua-28/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-29",
+      "title": "29. His Supplication when his Provision was Stinted",
+      "arabicTitle": "دُعَاؤُهُ إِذَا قُتِّرَ عَلَيْهِ الرِّزْقُ",
+      "description": "Sahifa Sajjadiya — Supplication 29",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 129,
+      "canonicalNumber": 29,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-when-his-provision-was-stinted",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 15,
+      "manifest": "sahifa-dua-29/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-30",
+      "title": "30. His Supplication for Help in Repaying Debts",
+      "arabicTitle": "دُعَاؤُهُ فِي الْمَعُونَةِ عَلَى قَضَاءِ الدَّيْنِ",
+      "description": "Sahifa Sajjadiya — Supplication 30",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 130,
+      "canonicalNumber": 30,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-help-in-repaying-debts",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 29,
+      "manifest": "sahifa-dua-30/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-31",
+      "title": "31. In mentioning and asking for Repentance",
+      "arabicTitle": "دُعَاؤُهُ بِالتَّوْبَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 31",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 131,
+      "canonicalNumber": 31,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-mentioning-and-asking-for-repentance",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 131,
+      "manifest": "sahifa-dua-31/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-32",
+      "title": "32. In Confessing Sins after Finishing the Night Prayer",
+      "arabicTitle": "دُعَاؤُهُ فِي صَلَاةِ اللَّيْلِ",
+      "description": "Sahifa Sajjadiya — Supplication 32",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 132,
+      "canonicalNumber": 32,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-confessing-sins-after-finishing-the-night-prayer",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 134,
+      "manifest": "sahifa-dua-32/manifest.json"
     }
   ]
 }
