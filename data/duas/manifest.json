@@ -202,6 +202,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 29,
       "manifest": "sahifa-dua-08/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-09",
+      "title": "09. In Yearning to Ask Forgiveness from God",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاشْتِيَاقِ الى طَلَبِ المَغفِرَةِ مِن الله",
+      "description": "Sahifa Sajjadiya — Supplication 9",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 109,
+      "canonicalNumber": 9,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-yearning-to-ask-forgiveness-from-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-09/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-10",
+      "title": "10. In seeking asylum with God",
+      "arabicTitle": "دُعَاؤُهُ فِي اللَّجَإِ إِلَى اللَّهِ تَعَالَى",
+      "description": "Sahifa Sajjadiya — Supplication 10",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 110,
+      "canonicalNumber": 10,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-seeking-asylum-with-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-10/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-11",
+      "title": "11. His Supplication for Good Outcomes",
+      "arabicTitle": "دُعَاؤُهُ بِخَوَاتِمِ الْخَيْرِ",
+      "description": "Sahifa Sajjadiya — Supplication 11",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 111,
+      "canonicalNumber": 11,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-good-outcomes",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 21,
+      "manifest": "sahifa-dua-11/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-12",
+      "title": "12. His Supplication in Confession and in Seeking Repentance toward God",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاعْتِرَافِ و طَلَبِ التَوبَةِ الى الله تعالى",
+      "description": "Sahifa Sajjadiya — Supplication 12",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 112,
+      "canonicalNumber": 12,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-confession-and-in-seeking-repentance-toward-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 70,
+      "manifest": "sahifa-dua-12/manifest.json"
     }
   ]
 }
