@@ -1402,6 +1402,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 38,
       "manifest": "munajat-zakireen/manifest.json"
+    },
+    {
+      "id": "munajat-mutasimeen",
+      "title": "14. The Whispered Prayer of those Who Hold Fast (Mutasimeen)",
+      "arabicTitle": "مناجاة المعتصمين",
+      "description": "The fourteenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 214,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 14",
+        "url": "https://www.duas.org/sajjadiya/dua82.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 33,
+      "manifest": "munajat-mutasimeen/manifest.json"
     }
   ]
 }
