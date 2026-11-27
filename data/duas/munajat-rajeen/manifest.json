@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-rajeen",
+  "title": "04. The Whispered Prayer of the Hopeful (Rajeen)",
+  "kind": "dua",
+  "recordCount": 34,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 34,
+      "file": "segments_031_034.json"
+    }
+  ]
+}
