@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "id": "ziyarat-nahiya",
+  "title": "Ziyarat Nahiya al-Muqaddasa",
+  "kind": "ziyarat",
+  "recordCount": 481,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    },
+    {
+      "start": 61,
+      "end": 90,
+      "file": "segments_061_090.json"
+    },
+    {
+      "start": 91,
+      "end": 120,
+      "file": "segments_091_120.json"
+    },
+    {
+      "start": 121,
+      "end": 150,
+      "file": "segments_121_150.json"
+    },
+    {
+      "start": 151,
+      "end": 180,
+      "file": "segments_151_180.json"
+    },
+    {
+      "start": 181,
+      "end": 210,
+      "file": "segments_181_210.json"
+    },
+    {
+      "start": 211,
+      "end": 240,
+      "file": "segments_211_240.json"
+    },
+    {
+      "start": 241,
+      "end": 270,
+      "file": "segments_241_270.json"
+    },
+    {
+      "start": 271,
+      "end": 300,
+      "file": "segments_271_300.json"
+    },
+    {
+      "start": 301,
+      "end": 330,
+      "file": "segments_301_330.json"
+    },
+    {
+      "start": 331,
+      "end": 360,
+      "file": "segments_331_360.json"
+    },
+    {
+      "start": 361,
+      "end": 390,
+      "file": "segments_361_390.json"
+    },
+    {
+      "start": 391,
+      "end": 420,
+      "file": "segments_391_420.json"
+    },
+    {
+      "start": 421,
+      "end": 450,
+      "file": "segments_421_450.json"
+    },
+    {
+      "start": 451,
+      "end": 480,
+      "file": "segments_451_480.json"
+    },
+    {
+      "start": 481,
+      "end": 481,
+      "file": "segments_481_481.json"
+    }
+  ]
+}
