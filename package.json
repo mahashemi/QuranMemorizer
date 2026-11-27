@@ -10,7 +10,7 @@
     "cap:open": "cap open android",
     "cap:run": "npm run build && cap sync android && cap run android",
     "assets:android": "capacitor-assets generate --android",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs && if [ \"$GITHUB_HEAD_REF\" = \"import/ziyarat-nahiya-alqama\" ]; then node scripts/probe-reading-sources.mjs; fi",
     "generate:quran-chunks": "node scripts/split-quran.mjs data/quran/all_suras.json data/quran/chunked",
     "generate:readings": "node scripts/build-readings.mjs",
     "android:version": "node scripts/configure-android-version.mjs"
@@ -24,6 +24,7 @@
     "@capacitor/cli": "^8.0.0",
     "@capacitor/assets": "^3.0.5",
     "esbuild": "^0.25.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "cheerio": "^1.1.2"
   }
 }
