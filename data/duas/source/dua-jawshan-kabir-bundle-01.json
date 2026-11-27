@@ -24,7 +24,7 @@
         ]
       },
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 49,
+      "sourcePairCount": 50,
       "storageChunkSize": 30,
       "records": [
         {
@@ -746,6 +746,23 @@
           "sequence": 43,
           "section_number": 43,
           "title": "Section 43",
+          "arabic_text": "يَا مَنْ إِلَيْهِ يَهْرَبُ الْخَائِفُونَ يَا مَنْ إِلَيْهِ يَفْزَعُ الْمُذْنِبُونَ يَا مَنْ إِلَيْهِ يَقْصِدُ الْمُنِيبُونَ يَا مَنْ إِلَيْهِ يَرْغَبُ الزَّاهِدُونَ يَا مَنْ إِلَيْهِ يَلْجَأُ الْمُتَحَيِّرُونَ يَا أَغْنَى مِنْ كُلِّ غَنِيٍّ يَا أَجْوَدَ مِنْ كُلِّ جَوَادٍ يَا أَرْأَفَ مِنْ كُلِّ رَؤُوفٍ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya man ilayhi yah-rabul-kha-ifun, ya man ilayhi yafzau'l-mudhnibun, ya man ilayhi yaq-sidul-munebun, ya man ilayhi yar-ghabuz-zahidun, ya man ilayhi yal-jaul-mutahay-yirun, ya agh-na min kul-li ghane, ya aj-wada min kul-li jawad, ya ar-afa min kul-li ra’uf. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He to Whom the frightened flee, O He to Whom sinners turn for refuge, O He to Whom the repentant return, O He toward Whom the renunciants incline, O He in Whom the perplexed seek shelter, O Most Independent of all, O Most Generous of all, O Kindest of all those who are kind. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 43,
+          "recitation_segment": {
+            "id": "section-043",
+            "title": "Section 43",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-043",
+          "sequence": 44,
+          "section_number": 43,
+          "title": "Section 43",
           "arabic_text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِاسْمِكَ يَا حَبِيبُ يَا طَبِيبُ يَا قَرِيبُ يَا رَقِيبُ يَا حَسِيبُ يَا مُهِيبُ يَا مُثِيبُ يَا مُجِيبُ يَا خَبِيرُ يَا بَصِيرُ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
           "transliteration": "allahumma in-ne as-aluka bis-mika, ya habebu ya tabeb, ya qarebu ya raqeb, ya hasebu ya muheb, ya muthebu ya mujeb, ya khaberu ya baser. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
           "english_text": "O Allah, verily I beseech You in Your name: O Friend, O Physician, O Near, O Supervisor, O Reckoner, O Awesome, O Rewarder, O Acceptor, O Aware, O All-Seeing. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
@@ -760,7 +777,7 @@
         },
         {
           "id": "section-044",
-          "sequence": 44,
+          "sequence": 45,
           "section_number": 44,
           "title": "Section 44",
           "arabic_text": "يَا أَقْرَبَ مِنْ كُلِّ قَرِيبٍ يَا أَحَبَّ مِنْ كُلِّ حَبِيبٍ يَا أَبْصَرَ مِنْ كُلِّ بَصِيرٍ يَا أَخْبَرَ مِنْ كُلِّ خَبِيرٍ يَا أَشْرَفَ مِنْ كُلِّ شَرِيفٍ يَا أَرْفَعَ مِنْ كُلِّ رَفِيعٍ يَا أَقْوَى مِنْ كُلِّ قَوِيٍّ يَا أَغْنَى مِنْ كُلِّ غَنِيٍّ يَا أَجْوَدَ مِنْ كُلِّ جَوَادٍ يَا أَرْأَفَ مِنْ كُلِّ رَؤُوفٍ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
@@ -777,7 +794,7 @@
         },
         {
           "id": "section-045",
-          "sequence": 45,
+          "sequence": 46,
           "section_number": 45,
           "title": "Section 45",
           "arabic_text": "يَا غَالِباً غَيْرَ مَغْلُوبٍ يَا صَانِعاً غَيْرَ مَصْنُوعٍ يَا خَالِقاً غَيْرَ مَخْلُوقٍ يَا مَالِكاً غَيْرَ مَمْلُوكٍ يَا قَاهِراً غَيْرَ مَقْهُورٍ يَا رَافِعاً غَيْرَ مَرْفُوعٍ يَا حَافِظاً غَيْرَ مَحْفُوظٍ يَا نَاصِراً غَيْرَ مَنْصُورٍ يَا شَاهِداً غَيْرَ غَائِبٍ يَا قَرِيباً غَيْرَ بَعِيدٍ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
@@ -794,7 +811,7 @@
         },
         {
           "id": "section-046",
-          "sequence": 46,
+          "sequence": 47,
           "section_number": 46,
           "title": "Section 46",
           "arabic_text": "يَا نُورَ النُّورِ يَا مُنَوِّرَ النُّورِ يَا خَالِقَ النُّورِ يَا مُدَبِّرَ النُّورِ يَا مُقَدِّرَ النُّورِ يَا نُورَ كُلِّ نُورٍ يَا نُوراً قَبْلَ كُلِّ نُورٍ يَا نُوراً بَعْدَ كُلِّ نُورٍ يَا نُوراً فَوْقَ كُلِّ نُورٍ يَا نُوراً لَيْسَ كَمِثْلِهِ نُورٌ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
@@ -811,7 +828,7 @@
         },
         {
           "id": "section-047",
-          "sequence": 47,
+          "sequence": 48,
           "section_number": 47,
           "title": "Section 47",
           "arabic_text": "يَا مَنْ عَطَاؤُهُ شَرِيفٌ يَا مَنْ فِعْلُهُ لَطِيفٌ يَا مَنْ لُطْفُهُ مُقِيمٌ يَا مَنْ إِحْسَانُهُ قَدِيمٌ يَا مَنْ قَوْلُهُ حَقٌّ يَا مَنْ وَعْدُهُ صِدْقٌ يَا مَنْ عَفْوُهُ فَضْلٌ يَا مَنْ عَذَابُهُ عَدْلٌ يَا مَنْ ذِكْرُهُ حُلْوٌ يَا مَنْ فَضْلُهُ عَمِيمٌ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
@@ -828,7 +845,7 @@
         },
         {
           "id": "section-048",
-          "sequence": 48,
+          "sequence": 49,
           "section_number": 48,
           "title": "Section 48",
           "arabic_text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِاسْمِكَ يَا مُسَهِّلُ يَا مُفَصِّلُ يَا مُبَدِّلُ يَا مُذَلِّلُ يَا مُنَزِّلُ يَا مُنَوِّلُ يَا مُفْضِلُ يَا مُجْزِلُ يَا مُمْهِلُ يَا مُجْمِلُ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
@@ -845,7 +862,7 @@
         },
         {
           "id": "section-049",
-          "sequence": 49,
+          "sequence": 50,
           "section_number": 49,
           "title": "Section 49",
           "arabic_text": "يَا مَنْ يَرَى وَلَا يُرَى يَا مَنْ يَخْلُقُ وَلَا يُخْلَقُ يَا مَنْ يَهْدِي وَلَا يُهْدَى يَا مَنْ يُحْيِي وَلَا يُحْيَى يَا مَنْ يَسْأَلُ وَلَا يُسْأَلُ يَا مَنْ يُطْعِمُ وَلَا يُطْعَمُ يَا مَنْ يُجِيرُ وَلَا يُجَارُ عَلَيْهِ يَا مَنْ يَقْضِي وَلَا يُقْضَى عَلَيْهِ يَا مَنْ يَحْكُمُ وَلَا يُحْكَمُ عَلَيْهِ يَا مَنْ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُنْ لَهُ كُفُواً أَحَدٌ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
