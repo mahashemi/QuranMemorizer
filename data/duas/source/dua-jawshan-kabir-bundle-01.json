@@ -23,11 +23,12 @@
           "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3164:dua-a-jaushan-e-kabeer-part-5&option=com_content&view=article",
           "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3165:dua-a-jaushan-e-kabeer-part-6&option=com_content&view=article",
           "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3166:dua-a-jaushan-e-kabeer-part-7&option=com_content&view=article",
-          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3167:dua-a-jaushan-e-kabeer-part-8&option=com_content&view=article"
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3167:dua-a-jaushan-e-kabeer-part-8&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3168:dua-a-jaushan-e-kabeer-part-9&option=com_content&view=article"
         ]
       },
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 80,
+      "sourcePairCount": 90,
       "storageChunkSize": 30,
       "records": [
         {
@@ -1385,6 +1386,176 @@
           "recitation_segment": {
             "id": "section-080",
             "title": "Section 80",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-081",
+          "sequence": 81,
+          "section_number": 81,
+          "title": "Section 81",
+          "arabic_text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِاسْمِكَ يَا فَاعِلُ يَا جَاعِلُ يَا قَابِلُ يَا كَامِلُ يَا فَاصِلُ يَا وَاصِلُ يَا عَادِلُ يَا غَالِبُ يَا طَالِبُ يَا وَاهِبُ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "allahumma in-ne as-aluka bis-mika, ya fai`ilu ya ja-i`ilu, ya qabilu ya kamil, ya fasilu ya wasil, ya `aadilu ya ghalib, ya talibu ya wahib. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O Allah, verily I beseech You in Your name: O Doer, O Creator, O Acceptor, O Perfect, O Gracious, O Separator, O Just, O Dominant, O Seeker, O Generous. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 81,
+          "recitation_segment": {
+            "id": "section-081",
+            "title": "Section 81",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-082",
+          "sequence": 82,
+          "section_number": 82,
+          "title": "Section 82",
+          "arabic_text": "يَا مَنْ أَنْعَمَ بِطَوْلِهِ يَا مَنْ أَكْرَمَ بِجُودِهِ يَا مَنْ جَادَ بِلُطْفِهِ يَا مَنْ تَعَزَّزَ بِقُدْرَتِهِ يَا مَنْ قَدَّرَ بِحِكْمَتِهِ يَا مَنْ حَكَمَ بِتَدْبِيرِهِ يَا مَنْ دَبَّرَ بِعِلْمِهِ يَا مَنْ تَجَاوَزَ بِحِلْمِهِ يَا مَنْ دَنَا فِي عُلُوِّهِ يَا مَنْ عَلَا فِي دُنُوِّهِ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya man an-a'ma bitaw-lih, ya man ak-rama bijudih, ya man jada bilut-fih, ya man ta`az-zaza biqud-ratih, ya man qad-dara bihik-matih, ya man hakama bitad-berih, ya man dab-bara bi-i`il-mih, ya man tajawaza bihil-mih, ya man dana fe u'lu-wih, ya man `ala fe dunu-wih. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He Who graciously bestows His bounties on us, O He Who honours us with His charity, O He Who rewards us out of His beneficence, O He Who makes us respectable with His might, O He Who predestines with His wisdom, O He Who judges with His planning, O He Who decrees with His knowledge, O He Who is forbearing with His forbearance, O He Who is near us in spite of His exaltation, O He Who is exalted despite His nearness. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 82,
+          "recitation_segment": {
+            "id": "section-082",
+            "title": "Section 82",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-083",
+          "sequence": 83,
+          "section_number": 83,
+          "title": "Section 83",
+          "arabic_text": "يَا مَنْ يَخْلُقُ مَا يَشَاءُ يَا مَنْ يَفْعَلُ مَا يَشَاءُ يَا مَنْ يَهْدِي مَنْ يَشَاءُ يَا مَنْ يُضِلُّ مَنْ يَشَاءُ يَا مَنْ يُعَذِّبُ مَنْ يَشَاءُ يَا مَنْ يَغْفِرُ لِمَنْ يَشَاءُ يَا مَنْ يُعِزُّ مَنْ يَشَاءُ يَا مَنْ يُذِلُّ مَنْ يَشَاءُ يَا مَنْ يُصَوِّرُ فِي الْأَرْحَامِ مَا يَشَاءُ يَا مَنْ يَخْتَصُّ بِرَحْمَتِهِ مَنْ يَشَاءُ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya may-yakh-luqu ma yasha-u, ya may-yaf-a'lu ma yasha, ya may-yah-de may-yasha-u, ya may-yudhil-lu may-yasha-u, ya may-yua'dh-dhibu may-yasha-u, ya may-yagh-firu limay-yasha-u, ya may-yui`iz-zu may-yasha-u, ya may-yudhil-lu may-yasha-u, ya may-yusaw-wiru fil-ar-hami ma yasha-u, ya may-yakh-tas-su birah-matihi may-yasha-u. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He Who creates whatever He wishes, O He Who does whatever He wishes, O He Who guides whomever He wishes, O He Who leaves astray whomever He wishes, O He Who punishes whomever He wishes, O He Who forgives whomever He wishes, O He Who honors whomever He wishes, O He Who dishonors whomever He wishes, O He Who fashions in the womb as He wishes, O He Who chooses for His mercy whoever He wishes. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 83,
+          "recitation_segment": {
+            "id": "section-083",
+            "title": "Section 83",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-084",
+          "sequence": 84,
+          "section_number": 84,
+          "title": "Section 84",
+          "arabic_text": "يَا مَنْ لَمْ يَتَّخِذْ صَاحِبَةً وَلَا وَلَدًا يَا مَنْ جَعَلَ لِكُلِّ شَيْءٍ قَدْرًا يَا مَنْ لَا يُشْرِكُ فِي حُكْمِهِ أَحَدًا يَا مَنْ جَعَلَ الْمَلَائِكَةَ رُسُلًا يَا مَنْ جَعَلَ فِي السَّمَاءِ بُرُوجًا يَا مَنْ جَعَلَ الْأَرْضَ قَرَارًا يَا مَنْ خَلَقَ مِنَ الْمَاءِ بَشَرًا يَا مَنْ جَعَلَ لِكُلِّ شَيْءٍ أَمَدًا يَا مَنْ أَحَاطَ بِكُلِّ شَيْءٍ عِلْمًا يَا مَنْ أَحْصَى كُلَّ شَيْءٍ عَدَدًا سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya mal-lam yat-takhidh sahibataw-wa-la walada, ya man ja`ala likul-li shay-in qad-ra, ya mal-la yush-riku fe huk-mehi ahada, ya man ja`alal-mala-ikata rusulan, ya man ja`ala fis-sama-i burujan, ya man ja`alal-ar-dha qarara, ya man khalaqa minal-ma-i bashara, ya man ja`ala likul-li shay-in amada, ya man ahata bikul-li shay-in i`il-ma, ya man ah-sa kul-la shay-in `adada. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He Who has neither wife nor child, O He Who creates everything in a fixed measure, O He Who has no partner in His rule, O He Who appointed angels as messengers, O He Who made constellations in the heaven, O He Who made the earth a place of abode, O He Who created man from water, O He Who fixed a period for everything, O He Whose knowledge encompasses everything, O He Who knows the number and quantity of everything. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 84,
+          "recitation_segment": {
+            "id": "section-084",
+            "title": "Section 84",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-085",
+          "sequence": 85,
+          "section_number": 85,
+          "title": "Section 85",
+          "arabic_text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِاسْمِكَ يَا أَوَّلُ يَا آخِرُ يَا ظَاهِرُ يَا بَاطِنُ يَا بَرُّ يَا حَقُّ يَا فَرْدُ يَا وِتْرُ يَا صَمَدُ يَا سَرْمَدُ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "allahumma in-ne as-aluka bis-mika, ya aw-walu ya a-khir, ya ¨ahiru ya batin, ya bar-ru ya haq-qu, ya far-du ya wit-r, ya samadu ya sar-mad. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O Allah, verily I beseech You in Your name: O First, O Last, O Manifest, O Hidden, O Virtuous, O Right, O Unique, O Peerless, O Independent, O Eternal. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 85,
+          "recitation_segment": {
+            "id": "section-085",
+            "title": "Section 85",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-086",
+          "sequence": 86,
+          "section_number": 86,
+          "title": "Section 86",
+          "arabic_text": "يَا خَيْرَ مَعْرُوفٍ عُرِفَ يَا أَفْضَلَ مَعْبُودٍ عُبِدَ يَا أَجَلَّ مَشْكُورٍ شُكِرَ يَا أَعَزَّ مَذْكُورٍ ذُكِرَ يَا أَعْلَى مَحْمُودٍ حُمِدَ يَا أَقْدَمَ مَوْجُودٍ طُلِبَ يَا أَرْفَعَ مَوْصُوفٍ وُصِفَ يَا أَكْبَرَ مَقْصُودٍ قُصِدَ يَا أَكْرَمَ مَسْؤُولٍ سُئِلَ يَا أَشْرَفَ مَحْبُوبٍ عُلِمَ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya khayra ma`a-rufin u'rifa, ya af-dhala ma`a-budin u'bid, ya ajal-la mash-kurin shukir, ya a`az-za madhkurin dhukir, ya a`a-la mah-mudin humid, ya aq-dama maw-judin tulib, ya ar-fa`a maw-sufiw-wusif, ya ak-bara maq-sudin qusid, ya ak-rama mas-ulin su-il, ya ash-rafa mah-bubin u'lim. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O Best recognized of all the recognized, O Best of all to be worshipped, O Greatest of those to whom thanks are due, O Most remembered of all who are remembered, O Most praiseworthy of all those who are praised, O Eternal Existent who is sought, O Highest of those who are praised, O Greatest of the purposes which are striven for, O Most liberal giver who is requested, O Noblest Friend who is known. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 86,
+          "recitation_segment": {
+            "id": "section-086",
+            "title": "Section 86",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-087",
+          "sequence": 87,
+          "section_number": 87,
+          "title": "Section 87",
+          "arabic_text": "يَا حَبِيبَ الْبَاكِينَ يَا سَيِّدَ الْمُتَوَكِّلِينَ يَا هَادِيَ الْمُضِلِّينَ يَا وَلِيَّ الْمُؤْمِنِينَ يَا أَنِيسَ الذَّاكِرِينَ يَا مَفْزَعَ الْمَلْهُوفِينَ يَا مُنْجِيَ الصَّادِقِينَ يَا أَقْدَرَ الْقَادِرِينَ يَا أَعْلَمَ الْعَالَمِينَ يَا إِلَهَ الْخَلْقِ أَجْمَعِينَ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya habebal-baken, ya say-yidal-mutawak-kilen, ya hadi-yal-mudhil-len, ya wale-yal-mu-minen, ya anesadh-dhakiren, ya mafza`al-mal-hufen, ya munji-yas-sadiqen, ya aq-daral-qadiren, ya a`a-lamal-a'alimen, ya ilaha al-khal-qi aj-mae'en. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O Friend of those who weep, O Refuge of those who trust in Him, O Guide of the misguided, O Master of the faithful, O Friend of worshippers, O Shelter of the sorrowful, O Redeemer of the truthful, O Mightiest of all, O the most Knowledgeable of all beings, O Allah of the entire Creation. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 87,
+          "recitation_segment": {
+            "id": "section-087",
+            "title": "Section 87",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-088",
+          "sequence": 88,
+          "section_number": 88,
+          "title": "Section 88",
+          "arabic_text": "يَا مَنْ عَلَا فَقَهَرَ يَا مَنْ مَلَكَ فَقَدَرَ يَا مَنْ بَطَنَ فَخَبَرَ يَا مَنْ عُبِدَ فَشَكَرَ يَا مَنْ عُصِيَ فَغَفَرَ يَا مَنْ لَا تَحْوِيهِ الْفِكَرُ يَا مَنْ لَا يُدْرِكُهُ بَصَرٌ يَا مَنْ لَا يَخْفَى عَلَيْهِ أَثَرٌ يَا رَازِقَ الْبَشَرِ يَا مُقَدِّرَ كُلِّ قَدَرٍ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya man `ala faqahar, ya mam-malaka faqadar, ya mam batana fakhabara, ya man u'bida fashakara, ya man u'siya faghafar, ya mal-la tah-wehi al-fikar, ya mal-la yud-rikuhu basar, ya mal-la yakh-fa `ailayhi athar, ya raziqa al-bashar, ya muqad-dira kul-li qadar. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He Who is high and dominant, O He Who is masterful and powerful, O He Who is hidden and aware, O He Who is worshipped and who appreciates, O He Who is disobeyed and yet forgives, O He Whom thought cannot encompass, O He Whom eyes cannot see, O He from Whom nothing is concealed, O Provider of sustenance to mankind, O He Who ordained all destinies. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 88,
+          "recitation_segment": {
+            "id": "section-088",
+            "title": "Section 88",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-089",
+          "sequence": 89,
+          "section_number": 89,
+          "title": "Section 89",
+          "arabic_text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِاسْمِكَ يَا حَافِظُ يَا بَارِئُ يَا ذَارِئُ يَا بَاذِخُ يَا فَارِجُ يَا فَاتِحُ يَا كَاشِفُ يَا ضَامِنُ يَا آمِرُ يَا نَاهِي سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "allahumma in-ne as-aluka bis-mika, ya hafi¨u ya bari, ya dhari-u ya badhikh, ya fariju ya fatih, ya kashifu ya dhamin, ya a-miru ya nahe. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O Allah, verily I beseech You in Your name: O Protector, O Maker, O Creator, O All-generous, O Revealer, O Victorious, O Discloser, O Guarantor, O Commander, O Prohibiter. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 89,
+          "recitation_segment": {
+            "id": "section-089",
+            "title": "Section 89",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "section-090",
+          "sequence": 90,
+          "section_number": 90,
+          "title": "Section 90",
+          "arabic_text": "يَا مَنْ لَا يَعْلَمُ الْغَيْبَ إِلَّا هُوَ يَا مَنْ لَا يَصْرِفُ السُّوءَ إِلَّا هُوَ يَا مَنْ لَا يَخْلُقُ الْخَلْقَ إِلَّا هُوَ يَا مَنْ لَا يَغْفِرُ الذَّنْبَ إِلَّا هُوَ يَا مَنْ لَا يُتِمُّ النِّعْمَةَ إِلَّا هُوَ يَا مَنْ لَا يُقَلِّبُ الْقُلُوبَ إِلَّا هُوَ يَا مَنْ لَا يُدَبِّرُ الْأَمْرَ إِلَّا هُوَ يَا مَنْ لَا يُنَزِّلُ الْغَيْثَ إِلَّا هُوَ يَا مَنْ لَا يَبْسُطُ الرِّزْقَ إِلَّا هُوَ يَا مَنْ لَا يُحْيِي الْمَوْتَى إِلَّا هُوَ سُبْحَانَكَ يَا لَا إِلَهَ إِلَّا أَنْتَ، الْغَوْثَ الْغَوْثَ الْغَوْثَ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ.",
+          "transliteration": "ya mal-la ya`a-lamul-ghayba illa huwa, ya mal-la yas-rifus-suo-a illa huwa, ya mal-la yakh-luqul-khal-qa illa huwa, ya mal-la yagh-firudh-dham-ba illa huwa, ya mal-la yutimmun-nia'-mata illa huwa, ya mal-la yuqal-libul-quluba illa huwa, ya mal-la yudab-birul-am-ra illa hu, ya mal-la yunaz-zilul-ghaytha illa huwa, ya mal-la yab-sutur-rizqa illa huwa, ya mal-la yuh-yel-maw-ta illa huwa. subhanaka ya la ilaha illa anta, al-ghawth al-ghawth al-ghawth, khallisna minan-nari ya rabb.",
+          "english_text": "O He, besides Whom no one knows the secrets, O He, besides Whom no one drives away calamities, O He, besides Whom no one creates, O He, besides Whom no one forgives sins, O He, besides Whom no one perfects the bounties, O He, besides Whom no one transforms hearts, O He, besides Whom no one manages affairs, O He, besides Whom no one sends down rain, O He, besides Whom no one increases sustenance, O He, besides Whom no one revives the dead. Praise be to You, there is no god but You. I beseech You for relief, relief, relief. Protect us from the Fire, O Lord.",
+          "source_section": 90,
+          "recitation_segment": {
+            "id": "section-090",
+            "title": "Section 90",
             "repeatable": true,
             "suggested_repetitions": 3,
             "pause_after": true
