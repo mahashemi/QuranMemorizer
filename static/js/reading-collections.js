@@ -306,7 +306,106 @@ async function openText(collection, id, section = 1) {
 async function handleRoute() {
   const route = parseRoute();
   if (!route) {
-    if (/^#\\/surah\\/\\d+(?:\\/ayah\\/\\d+)?\\/?$/i.test(location.hash)) {
+    if (new RegExp('^#[/]surah[/][0-9]+(?:[/]ayah[/][0-9]+)?[/]?
+      readingVisible = false;
+      document.body.classList.remove('collection-active', 'collection-catalog-active');
+      setDomain('quran');
+    } else if (readingVisible) {
+      await openCatalog(activeCollection);
+    }
+    return;
+  }
+  await window.QuranMemorizerReaderReady;
+  const config = CONFIG[route.collection];
+  if (!config || !catalogs[route.collection]) return;
+  const current = window.QuranMemorizerReader.getActiveSura();
+  const state = window.QuranMemorizerReader.getState();
+  if (readingVisible && current && current.collection && current.collection.collection === route.collection && current.collection.id === route.id) {
+    if (state.aya !== route.section) window.QuranMemorizerReader.navigateCollectionSection(route.section, false);
+    return;
+  }
+  await openText(route.collection, route.id, route.section);
+}
+async function initialize() {
+  try {
+    await window.QuranMemorizerReaderReady;
+    const loaded = await Promise.all(Object.keys(CONFIG).map(async collection => {
+      catalogs[collection] = validateCollection(collection, await fetchJson('data/' + collection + '/manifest.json'));
+    }));
+    registerStableNumbers();
+    const route = parseRoute();
+    if (route) await handleRoute();
+    else setDomain('quran');
+  } catch (error) {
+    console.error('Dua/Ziyarat catalog could not be initialized.', error);
+  }
+}
+nav.addEventListener('click', event => {
+  const button = event.target.closest('[data-domain]');
+  if (!button) return;
+  if (button.dataset.domain === 'quran') {
+    readingVisible = false;
+    document.body.classList.remove('collection-catalog-active');
+    setDomain('quran');
+    window.QuranMemorizerReader.openQuranSura(1, 1);
+  } else {
+    openCatalog(button.dataset.domain).catch(error => {
+      reader.innerHTML = '<section class="collection-state"><h1>Unable to open library</h1><p>' + esc(error.message) + '</p></section>';
+    });
+  }
+});
+document.addEventListener('click', event => {
+  const homeButton = event.target.closest('[data-open-domain]');
+  if (homeButton) {
+    openCatalog(homeButton.dataset.openDomain).catch(error => console.error(error));
+    return;
+  }
+  const card = event.target.closest('[data-text-id]');
+  if (card) {
+    writeRoute(activeCollection, card.dataset.textId, 1);
+    return;
+  }
+  if (event.target.closest('[data-back-collection]')) {
+    readingVisible = false;
+    history.replaceState(null, '', location.pathname + location.search);
+    openCatalog(activeCollection).catch(error => console.error(error));
+  }
+});
+window.addEventListener('hashchange', handleRoute);
+async function resolveRecordingSura(number) {
+  await window.QuranMemorizerReaderReady;
+  if (!catalogs.duas || !catalogs.ziyarats) {
+    for (const collection of Object.keys(CONFIG)) {
+      if (!catalogs[collection]) catalogs[collection] = validateCollection(collection, await fetchJson('data/' + collection + '/manifest.json'));
+    }
+    if (!numberByKey.size) registerStableNumbers();
+  }
+  for (const collection of Object.keys(CONFIG)) {
+    for (const meta of catalogs[collection].texts) {
+      if (numberByKey.get(collection + ':' + meta.id) !== Number(number)) continue;
+      const manifest = validateReadingManifest(
+        await fetchJson('data/' + collection + '/' + meta.id + '/manifest.json'),
+        meta.id,
+        CONFIG[collection].kind
+      );
+      const sura = createSura(collection, meta, manifest);
+      window.QuranMemorizerReader.registerCollectionSura(sura);
+      return sura;
+    }
+  }
+  return null;
+}
+
+window.QuranMemorizerCollections = Object.freeze({
+  writeRoute,
+  openText,
+  openCatalog,
+  resolveRecordingSura,
+  getCatalog: collection => catalogs[collection] || null
+});
+initialize();
+})();
+, 'i').test(location.hash)) {
       readingVisible = false;
       document.body.classList.remove('collection-active', 'collection-catalog-active');
       setDomain('quran');
