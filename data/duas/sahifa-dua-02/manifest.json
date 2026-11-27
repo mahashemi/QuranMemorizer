@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-02",
+  "title": "02. Blessings upon God's Messenger",
+  "kind": "dua",
+  "recordCount": 16,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 16,
+      "file": "segments_001_016.json"
+    }
+  ]
+}
