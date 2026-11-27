@@ -662,7 +662,7 @@ function updateAyaUI(scrollReader) {
   el.ayaList.querySelectorAll('.aya-btn.active').forEach(b => b.classList.remove('active'));
   const btn = el.ayaList.querySelector('.aya-btn[data-aya="' + state.aya + '"]');
   if (btn) { btn.classList.add('active'); btn.scrollIntoView({ block: 'nearest' }); }
-  if (!isCollectionReading()) markCurrentSura();
+  markCurrentSura();
   const unit = isCollectionReading() ? 'Passage' : 'Aya';
   const line = (isCollectionReading() ? (s.title || s.englishName) : s.number + '. ' + s.englishName) + '  ·  ' + unit + ' ' + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
@@ -2052,7 +2052,8 @@ function exitCollectionReading() {
   state.activeCollection = null;
   state.activeReading = null;
   state.collectionCatalog = null;
-  document.body.classList.remove('collection-active');
+  document.body.classList.remove('collection-active', 'collection-reading');
+  buildSidebar();
 }
 
 async function goToCollectionSection(aya, opts) {
