@@ -79,3 +79,35 @@ test('reading collection builder preserves complete records and emits shared chu
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('reading storage defaults to 30 records and preserves independent recitation metadata', () => {
+  const root = mkdtempSync(join(tmpdir(), 'reading-default-chunks-'));
+  try {
+    const sourceDir = join(root, 'data', 'ziyarats', 'source');
+    mkdirSync(sourceDir, { recursive: true });
+    const records = Array.from({ length: 31 }, (_, index) => ({
+      id: 'phrase-' + String(index + 1).padStart(3, '0'),
+      section: index + 1,
+      arabic_text: 'عِبَارَةٌ ' + (index + 1),
+      recitation_segment: index === 0
+        ? { id: 'opening', title: 'Opening', repeatable: true, suggested_repetitions: 3 }
+        : undefined
+    }));
+    writeFileSync(join(sourceDir, 'ziyarat-example.json'), JSON.stringify({
+      id: 'ziyarat-example',
+      title: 'Example Ziyarat',
+      records
+    }));
+    buildReadingCollection(root, 'ziyarats');
+    const outputDir = join(root, 'data', 'ziyarats', 'ziyarat-example');
+    const manifest = JSON.parse(readFileSync(join(outputDir, 'manifest.json'), 'utf8'));
+    assert.equal(manifest.chunkSize, 30);
+    assert.deepEqual(manifest.chunks.map(({ start, end }) => [start, end]), [[1, 30], [31, 31]]);
+    const firstChunk = JSON.parse(readFileSync(join(outputDir, 'segments_001_030.json'), 'utf8'));
+    assert.deepEqual(firstChunk[0].recitation_segment, {
+      id: 'opening', title: 'Opening', repeatable: true, suggested_repetitions: 3
+    });
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
