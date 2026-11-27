@@ -1022,10 +1022,12 @@ function recordingMimeForExtension(ext) {
   return ({ webm: 'audio/webm', m4a: 'audio/mp4', mp4: 'audio/mp4', ogg: 'audio/ogg', wav: 'audio/wav', aac: 'audio/aac' })[ext] || 'application/octet-stream';
 }
 
-function recordingSuraFolderName(sura) {
-  const name = SURA_ENGLISH[sura - 1] || ('Surah ' + sura);
+function recordingSuraFolderName(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  if (identity.collection) return 'collection-' + identity.collection + '-' + identity.readingId;
+  const name = SURA_ENGLISH[identity.sura - 1] || ('Surah ' + identity.sura);
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  return 'surah-' + pad3(sura) + '-' + (slug || 'unknown');
+  return 'surah-' + pad3(identity.sura) + '-' + (slug || 'unknown');
 }
 
 async function getConnectedRecordingDirectories(create) {
@@ -1039,77 +1041,81 @@ async function getConnectedRecordingDirectories(create) {
   return { appDirectory, recordingsDirectory };
 }
 
-async function getFolderRecordingDirectory(sura) {
-  if (folderRecordingIndex.has(sura)) return folderRecordingIndex.get(sura);
+async function getFolderRecordingDirectory(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const folderKey = recordingFolderKey(identity);
+  if (folderRecordingIndex.has(folderKey)) return folderRecordingIndex.get(folderKey);
   const lookup = (async () => {
     const dirs = await getConnectedRecordingDirectories(false);
-    let suraDirectory;
+    let directory;
     try {
-      suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+      directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: false });
     } catch (error) {
       if (isNotFoundError(error)) return { directory: null, files: new Map() };
       throw error;
     }
     const files = new Map();
-    for await (const [name, handle] of suraDirectory.entries()) {
+    const prefix = identity.collection ? 'passage' : 'ayah';
+    for await (const [name, handle] of directory.entries()) {
       if (handle.kind !== 'file') continue;
-      const match = name.match(/^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      const match = name.match(new RegExp('^' + prefix + '-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$', 'i'));
       if (match) files.set(Number(match[1]), { name, ext: match[2].toLowerCase() });
     }
-    return { directory: suraDirectory, files };
+    return { directory, files };
   })();
-  folderRecordingIndex.set(sura, lookup);
-  try {
-    return await lookup;
-  } catch (error) {
-    folderRecordingIndex.delete(sura);
-    throw error;
-  }
+  folderRecordingIndex.set(folderKey, lookup);
+  try { return await lookup; }
+  catch (error) { folderRecordingIndex.delete(folderKey); throw error; }
 }
 
 async function getFolderRecording(sura, aya) {
-  const indexed = await getFolderRecordingDirectory(sura);
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
+  const indexed = await getFolderRecordingDirectory(identity);
   if (!indexed.directory) return null;
-  const fileInfo = indexed.files.get(aya);
+  const fileInfo = indexed.files.get(number);
   if (!fileInfo) return null;
   const handle = await indexed.directory.getFileHandle(fileInfo.name, { create: false });
   const file = await handle.getFile();
   return {
-    key: sura + ':' + aya, sura, aya, blob: file,
+    key: recordingIdentityKey(identity), ...identity, blob: file,
     mimeType: file.type || recordingMimeForExtension(fileInfo.ext),
     fileName: fileInfo.name, updatedAt: file.lastModified, storage: 'folder'
   };
 }
 
 async function writeFolderRecording(sura, aya, blob) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
   const dirs = await getConnectedRecordingDirectories(true);
-  const suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: true });
+  const directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: true });
   const ext = recordingExtension(blob.type);
-  const fileName = 'ayah-' + pad3(aya) + '.' + ext;
-  const fileHandle = await suraDirectory.getFileHandle(fileName, { create: true });
+  const prefix = identity.collection ? 'passage-' : 'ayah-';
+  const fileName = prefix + pad3(number) + '.' + ext;
+  const fileHandle = await directory.getFileHandle(fileName, { create: true });
   const writable = await fileHandle.createWritable();
   await writable.write(blob);
   await writable.close();
-  folderRecordingIndex.delete(sura);
+  folderRecordingIndex.delete(recordingFolderKey(identity));
   for (const oldExt of recordingExtensions()) {
     if (oldExt === ext) continue;
-    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
+    try { await directory.removeEntry(prefix + pad3(number) + '.' + oldExt); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
   try {
-    await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
+    await updateFolderManifest(dirs.recordingsDirectory, identity, fileName, blob.type || 'audio/' + ext, blob.size);
   } catch (manifestError) {
-    // The audio file is already safely written. A stale manifest must not cause
-    // the app to report that the recording itself failed.
     console.warn('Could not update the recordings manifest.', manifestError);
   }
   return {
-    key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/' + ext,
+    key: recordingIdentityKey(identity), ...identity, blob, mimeType: blob.type || 'audio/' + ext,
     fileName, updatedAt: Date.now(), storage: 'folder'
   };
 }
 
 async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mimeType, size) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const manifestName = 'manifest.json';
   let manifest = { schemaVersion: 1, app: 'QuranMemorizer', updatedAt: Date.now(), recordings: [] };
   try {
@@ -1119,9 +1125,8 @@ async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mi
   } catch (error) {
     if (!isNotFoundError(error)) throw error;
   }
-  const key = sura + ':' + aya;
   manifest.recordings = manifest.recordings.filter(item => item.key !== key);
-  manifest.recordings.push({ key, sura, aya, fileName, folder: recordingSuraFolderName(sura), mimeType, size, updatedAt: Date.now() });
+  manifest.recordings.push({ key, ...identity, fileName, folder: recordingSuraFolderName(identity), mimeType, size, updatedAt: Date.now() });
   manifest.updatedAt = Date.now();
   const manifestHandle = await recordingsDirectory.getFileHandle(manifestName, { create: true });
   const writable = await manifestHandle.createWritable();
@@ -1130,24 +1135,27 @@ async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mi
 }
 
 async function removeFolderRecording(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
+  const prefix = identity.collection ? 'passage-' : 'ayah-';
   const dirs = await getConnectedRecordingDirectories(false);
-  folderRecordingIndex.delete(sura);
-  let suraDirectory;
+  folderRecordingIndex.delete(recordingFolderKey(identity));
+  let directory;
   try {
-    suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+    directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: false });
   } catch (error) {
     if (isNotFoundError(error)) return;
     throw error;
   }
   for (const ext of recordingExtensions()) {
-    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + ext); }
+    try { await directory.removeEntry(prefix + pad3(number) + '.' + ext); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
   try {
     const handle = await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: false });
     const manifest = JSON.parse(await (await handle.getFile()).text());
     if (Array.isArray(manifest.recordings)) {
-      manifest.recordings = manifest.recordings.filter(item => item.key !== sura + ':' + aya);
+      manifest.recordings = manifest.recordings.filter(item => item.key !== recordingIdentityKey(identity));
       manifest.updatedAt = Date.now();
       const writable = await (await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: true })).createWritable();
       await writable.write(JSON.stringify(manifest, null, 2));
