@@ -198,11 +198,12 @@ function setNativePlaybackActive(active) {
 function updateNativeMediaMetadata(playing) {
   try {
     const nativePlayback = window.QuranMemorizerNative;
-    const sura = SURA_BY_NUM[state.sura];
+    const sura = getCurrentReading();
     if (!nativePlayback || typeof nativePlayback.updateMediaMetadata !== 'function' || !sura) return;
     const aya = state.playingAya === 0 ? 1 : (state.playingAya || state.aya);
+    const unit = isCollectionReading() ? 'Passage' : 'Ayah';
     nativePlayback.updateMediaMetadata(
-      sura.englishName + ' — Ayah ' + aya,
+      (sura.title || sura.englishName) + ' — ' + unit + ' ' + aya,
       currentReciter().name,
       Boolean(playing)
     );
@@ -653,9 +654,10 @@ function showMobileHeader() {
 
 function updateStatus() {
   let txt = '';
+  const unit = isCollectionReading() ? 'Passage' : 'Aya';
   if (state.repeatMode === 'single') {
     const total = state.singleCount === 0 ? '∞' : state.singleCount;
-    txt = 'Aya repeat ' + state.singleCounter + ' / ' + total;
+    txt = unit + ' repeat ' + state.singleCounter + ' / ' + total;
 
   } else if (state.repeatMode === 'range') {
     const total = state.rangeCount === 0 ? '∞' : state.rangeCount;
@@ -666,7 +668,7 @@ function updateStatus() {
     txt = 'Range ' + state.rangeFrom + '–' + state.rangeTo;
     if (state.repeatEach) {
       const eachDone = Math.min(state.ayaInner + 1, state.repeatEachCount);
-      txt += '  ·  aya ' + eachDone + '/' + state.repeatEachCount;
+      txt += '  ·  ' + unit.toLowerCase() + ' ' + eachDone + '/' + state.repeatEachCount;
     }
     txt += '  ·  loop ' + shownLoop + '/' + total;
   }
@@ -2232,7 +2234,7 @@ function stopAll() {
 function startPlayback() {
   configDirty = false;
   if (state.repeatMode === 'range') {
-    const s = SURA_BY_NUM[state.sura];
+    const s = getCurrentReading();
     const total = s ? s.ayaCount : 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
     state.rangeTo   = clampInt(state.rangeTo, 1, total);
@@ -2249,7 +2251,7 @@ function startPlayback() {
 }
 
 function handleEnded() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
   const total = s.ayaCount;
 
@@ -2362,6 +2364,11 @@ audio.addEventListener('error', () => {
   if (activeRecordingObjectUrl && audio.src === activeRecordingObjectUrl) {
     URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = null;
+    if (isCollectionReading()) {
+      toast('This saved passage recording could not be played on this device.');
+      stopAll();
+      return;
+    }
     toast('Your recording could not be played. Trying Minshawi instead.');
     setAudioSource(trackUrl(state.sura, state.playingAya));
     audio.play().catch(() => stopAll());
@@ -2491,7 +2498,7 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 async function loadAdjacentReaderChunk() {
-  if (readerChunkLoadPending) return;
+  if (isCollectionReading() || readerChunkLoadPending) return;
   const sura = SURA_BY_NUM[state.sura];
   if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
 
@@ -2808,6 +2815,7 @@ function bindEvents() {
 }
 
 function setReciter(id) {
+  if (isCollectionReading()) { toast('Reciter selection applies to Qur’an audio. Dua and Ziyarat passages use your saved recordings.'); return; }
   state.reciter = id;
   configDirty = true;
   syncReciterUI();
