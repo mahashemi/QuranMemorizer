@@ -1613,3 +1613,68 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
   font-size: 13px;
   text-align: left;
 }
+
+
+/* Shared Dua / Ziyarat reading library */
+.reading-domain-nav{display:flex;align-items:center;gap:5px;flex:0 0 auto}
+.reading-domain-nav button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:9px;padding:8px 12px;font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
+.reading-domain-nav button.active{background:var(--accent-soft);border-color:var(--accent-border);color:var(--accent)}
+.collection-active .sidebar,.collection-active .player{display:none!important}
+.collection-active .app{grid-template-columns:minmax(0,1fr)}
+.collection-active .topbar .field,.collection-active .topbar .now,.collection-active .topbar .topbar-btn{display:none}
+.collection-active .main{min-width:0}
+.collection-active .reader{padding:24px 22px 70px}
+.collection-page,.collection-reading{width:min(100%,900px);margin:0 auto}
+.collection-heading,.collection-reading-heading{text-align:center;padding:24px 12px 28px;border-bottom:1px solid var(--border);margin-bottom:22px}
+.collection-kicker{font-size:10px;letter-spacing:2.3px;font-weight:750;color:var(--accent);margin-bottom:12px}
+.collection-heading h1,.collection-reading-heading h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(34px,5vw,48px);letter-spacing:-.7px;margin:0 0 12px;color:var(--text)}
+.collection-heading>p,.collection-reading-heading>p{max-width:620px;margin:0 auto;color:var(--muted);line-height:1.8;font-size:14px}
+.collection-count{margin-top:16px;color:var(--muted);font-size:12px}
+.collection-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}
+.collection-card{display:flex;align-items:center;gap:15px;text-align:left;padding:20px;border:1px solid var(--border);border-radius:15px;background:var(--panel);color:var(--text);cursor:pointer;min-height:100px;transition:border-color .15s,transform .15s}
+.collection-card:hover{border-color:var(--accent-border);transform:translateY(-2px)}
+.collection-card-mark{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:20px}
+.collection-card-copy{display:grid;gap:5px;min-width:0}
+.collection-card-copy strong{font-size:16px}
+.collection-card-copy>span{font-size:12px;color:var(--muted);line-height:1.55}
+.collection-arabic,.collection-arabic-title{font-family:var(--arabic);direction:rtl;color:var(--accent);font-size:23px}
+.collection-card-arrow{margin-left:auto;color:var(--accent);font-size:20px}
+.collection-empty{max-width:700px;margin:28px auto;padding:clamp(22px,5vw,42px);border:1px solid var(--border);border-radius:20px;background:var(--panel);text-align:center}
+.collection-empty-symbol{font-size:34px;color:var(--accent);margin-bottom:10px}
+.collection-empty h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:26px;margin:0 0 12px}
+.collection-empty>p{color:var(--muted);font-size:13px;line-height:1.8;max-width:570px;margin:0 auto 22px}
+.collection-planned{text-align:left;max-width:490px;margin:0 auto;border-top:1px solid var(--border);padding-top:16px}
+.collection-planned h3{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+.collection-planned ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px}
+.collection-planned li{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.collection-planned li span{font-size:10px;color:var(--muted);white-space:nowrap}
+.collection-back{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:9px;padding:9px 13px;font-size:12px;cursor:pointer}
+.collection-heading+.collection-back,.collection-page>.collection-back{display:block;margin:24px auto}
+.collection-reading-heading{text-align:left;padding:8px 0 24px}
+.collection-reading-heading>.collection-kicker{margin-top:22px}
+.collection-reading-heading h1{font-size:clamp(30px,4vw,42px)}
+.collection-reading-heading .collection-arabic-title{text-align:center;margin:8px 0 16px;font-size:30px}
+.collection-records{max-width:800px;margin:0 auto}
+.collection-record{position:relative;padding:24px 16px 28px;border-bottom:1px solid var(--border)}
+.collection-record-number{font-size:11px;color:var(--muted);font-weight:700}
+.collection-record-arabic{font-family:var(--arabic);font-size:clamp(27px,4vw,37px);line-height:2.25;text-align:right;color:#f2f7fb;margin:8px 0 16px}
+.collection-record-translit{font-size:13px;font-style:italic;color:var(--muted);line-height:1.7}
+.collection-record-english{font-size:15px;line-height:1.85;color:var(--text)}
+.collection-record-urdu,.collection-record-persian{font-size:18px;line-height:2.1;text-align:right;font-family:var(--urdu)}
+.collection-record-persian{font-family:var(--persian)}
+.collection-word-meaning{margin-top:12px;border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--muted);font-size:12px}
+.collection-word-meaning summary{cursor:pointer;color:var(--accent);font-weight:650}
+.collection-word-meaning p{line-height:1.7}
+.collection-pagination{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:24px 0}
+.collection-pagination button{border:1px solid var(--border);border-radius:9px;padding:10px 13px;background:var(--panel);color:var(--text);cursor:pointer;font-size:12px}
+.collection-pagination button:disabled{opacity:.35;cursor:not-allowed}
+.collection-pagination span{font-size:11px;color:var(--muted);text-align:center}
+.collection-attribution{font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding:16px 0}
+.collection-attribution a{color:var(--accent)}
+.collection-state{max-width:650px;margin:15vh auto;text-align:center;color:var(--muted)}
+.collection-state h1{color:var(--text);font-family:Georgia,"Times New Roman",serif;font-weight:500}
+.home-collection-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.home-collection-links button{border:1px solid rgba(224,196,127,.32);border-radius:999px;background:rgba(255,255,255,.045);color:#e6d7ad;padding:10px 17px;font-size:12px;font-weight:650;cursor:pointer}
+.home-collection-links button span{margin-left:8px}
+@media(max-width:760px){.reading-domain-nav{gap:4px}.reading-domain-nav button{padding:8px 9px;font-size:11px}.collection-active .reader{padding:12px 14px 45px}.collection-record{padding:20px 5px}.collection-pagination{flex-wrap:wrap}.collection-pagination span{order:-1;flex-basis:100%}}
+@media(max-width:430px){.reading-domain-nav button{padding:7px 8px;font-size:10px}.collection-planned li{align-items:flex-start;flex-direction:column;gap:2px}}
