@@ -1438,6 +1438,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 23,
       "manifest": "munajat-zaahideen/manifest.json"
+    },
+    {
+      "id": "dua-ahad",
+      "title": "Dua Ahad — Supplication of the Covenant",
+      "arabicTitle": "دعاء العهد",
+      "description": "The daily covenant supplication seeking steadfastness and the reappearance of Imam al-Mahdi (عجّل الله فرجه).",
+      "group": "Core Duas",
+      "order": 30,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Dua Ahad edition; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Dua Ahad",
+        "url": "https://www.duas.org/pdfs/Ahad.pdf",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 80,
+      "manifest": "dua-ahad/manifest.json"
     }
   ]
 }
