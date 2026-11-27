@@ -58,6 +58,17 @@ test('the Dua catalogue includes all 54 Sahifa supplications, 15 Munajat, Ahad, 
   assert.ok(duas.texts.some(item => item.id === 'dua-alqama'));
 });
 
+test('catalogue order keeps the major Duas and Karbala Ziyarats in a deliberate sequence', () => {
+  const duaOrder = ['dua-kumayl', 'dua-nudba', 'dua-ahad', 'dua-jawshan-kabir', 'dua-alqama'];
+  const sortedDuas = duas.texts.filter(item => duaOrder.includes(item.id)).sort((a, b) => a.order - b.order);
+  assert.deepEqual(sortedDuas.map(item => item.id), duaOrder);
+  assert.deepEqual(sortedDuas.map(item => item.order), [10, 20, 30, 40, 50]);
+  const ziyaratOrder = ['ziyarat-ashura', 'ziyarat-jamia-kabira', 'ziyarat-nahiya'];
+  const sortedZiyarats = ziyarats.texts.slice().sort((a, b) => a.order - b.order);
+  assert.deepEqual(sortedZiyarats.map(item => item.id), ziyaratOrder);
+  assert.deepEqual(sortedZiyarats.map(item => item.order), [10, 20, 30]);
+});
+
 test('the current Ziyarat catalogue contains the two imported readings', () => {
   assert.equal(ziyarats.texts.length, 3);
   assert.deepEqual(ziyarats.texts.map(item => item.id).sort(), ['ziyarat-ashura', 'ziyarat-jamia-kabira', 'ziyarat-nahiya']);
