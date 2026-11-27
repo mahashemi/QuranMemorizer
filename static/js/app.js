@@ -2906,6 +2906,9 @@ window.QuranMemorizerReader = Object.freeze({
     document.body.classList.add('collection-active');
     document.body.classList.remove('collection-reading');
     renderCollectionSidebar();
+    if (el.ayaColHead) el.ayaColHead.textContent = 'Passages';
+    if (el.ayaList) el.ayaList.innerHTML = '<div class="collection-empty-state">Choose a reading to see its recitation passages.</div>';
+    setDrawerTab('sura');
   }
 });
 
