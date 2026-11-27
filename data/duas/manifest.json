@@ -1276,6 +1276,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 32,
       "manifest": "munajat-shakireen/manifest.json"
+    },
+    {
+      "id": "munajat-muteeen",
+      "title": "07. The Whispered Prayer of the Obedient (Mute'een)",
+      "arabicTitle": "مناجاة المطيعين لله",
+      "description": "The seventh of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 207,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 7",
+        "url": "https://www.duas.org/sajjadiya/dua75.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 28,
+      "manifest": "munajat-muteeen/manifest.json"
     }
   ]
 }
