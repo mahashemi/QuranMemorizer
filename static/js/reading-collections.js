@@ -14,6 +14,7 @@ let activeText = null;
 let activeManifest = null;
 let activeCatalog = null;
 let requestToken = 0;
+const readingManifestCache = new Map();
 
 const reader = $('#reader');
 const topbar = $('.topbar');
@@ -195,6 +196,7 @@ async function openText(collection, id, section = 1) {
       id,
       config.kind
     );
+    readingManifestCache.set(collection + ':' + id, manifest);
     if (token !== requestToken) return;
     activeCollection = collection;
     activeText = textMeta;
@@ -268,11 +270,16 @@ async function resolveRecordingIdentity(collection, readingId, section) {
     ? activeCatalog
     : validateCatalog(collection, await fetchJson('data/' + collection + '/manifest.json'));
   if (!catalog.texts.some(item => item.id === readingId)) return null;
-  const manifest = validateReadingManifest(
-    await fetchJson('data/' + collection + '/' + readingId + '/manifest.json'),
-    readingId,
-    config.kind
-  );
+  const key = collection + ':' + readingId;
+  let manifest = readingManifestCache.get(key);
+  if (!manifest) {
+    manifest = validateReadingManifest(
+      await fetchJson('data/' + collection + '/' + readingId + '/manifest.json'),
+      readingId,
+      config.kind
+    );
+    readingManifestCache.set(key, manifest);
+  }
   return target <= manifest.recordCount ? { collection, readingId, section: target } : null;
 }
 
