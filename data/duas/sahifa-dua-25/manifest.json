@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-25",
+  "title": "25. His Supplication for his Children",
+  "kind": "dua",
+  "recordCount": 25,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 25,
+      "file": "segments_001_025.json"
+    }
+  ]
+}
