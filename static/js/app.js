@@ -202,7 +202,7 @@ function updateNativeMediaMetadata(playing) {
     if (!nativePlayback || typeof nativePlayback.updateMediaMetadata !== 'function' || !sura) return;
     const aya = state.playingAya === 0 ? 1 : (state.playingAya || state.aya);
     nativePlayback.updateMediaMetadata(
-      sura.englishName + ' — Ayah ' + aya,
+      sura.englishName + ' — ' + (sura.collection ? 'Passage ' : 'Ayah ') + aya,
       currentReciter().name,
       Boolean(playing)
     );
@@ -573,6 +573,7 @@ function renderSura(restoreScrollTop) {
   const isCollection = Boolean(s.collection);
   let html =
     '<div class="sura-heading">' +
+      (isCollection ? '<button class="collection-back" type="button" data-back-collection>← Back to ' + esc(s.collection.collection === 'duas' ? 'Duas' : 'Ziyarats') + '</button>' : '') +
       '<h1>' + (isCollection ? esc(s.englishName) : s.number + '. ' + esc(s.englishName)) + '</h1>' +
       '<div class="ar-name" dir="rtl" lang="ar">' + esc(s.arabicName) + '</div>' +
       '<div class="meta">' + s.ayaCount + (isCollection ? ' recitation passages' : ' ayat') + '</div>' +
