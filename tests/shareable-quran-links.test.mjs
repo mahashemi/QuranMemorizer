@@ -5,7 +5,7 @@ import test from 'node:test';
 const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const styles = await readFile(new URL('../static/css/styles.css', import.meta.url), 'utf8');
-const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
+const workflow = await readFile(new URL('../.github/workflows/pages.yml', import.meta.url), 'utf8');
 
 test('shared Quran links accept canonical Surah/Ayah routes', () => {
   assert.ok(app.includes('function parseQuranHash(hash)'));
@@ -30,6 +30,10 @@ test('GitHub Pages workflow publishes the app and its Quran data from main', () 
   assert.match(workflow, /branches: \["main"\]/);
   assert.match(workflow, /npm run build/);
   assert.match(workflow, /path: www/);
+  assert.match(workflow, /data\/duas\/\*\*/);
+  assert.match(workflow, /data\/ziyarats\/\*\*/);
+  assert.match(workflow, /www\/data\/duas\/manifest\.json/);
+  assert.match(workflow, /www\/data\/ziyarats\/manifest\.json/);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
