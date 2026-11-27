@@ -1,5 +1,22 @@
 {
   "version": 1,
   "collection": "ziyarats",
-  "texts": []
+  "texts": [
+    {
+      "id": "ziyarat-ashura",
+      "title": "Ziyarat Ashura",
+      "arabicTitle": "زيارة عاشوراء",
+      "description": "The visitation of Imam al-Husayn (عليه السلام) on the day of Ashura and throughout the year.",
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/ziyarat-ashura",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "manifest": "ziyarat-ashura/manifest.json"
+    }
+  ]
 }
