@@ -142,3 +142,41 @@ test('source bundles expand into individually named readings with group and orde
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+
+test('reading builder preserves existing catalogue metadata and order when sources omit it', () => {
+  const root = mkdtempSync(join(tmpdir(), 'reading-catalogue-preserve-'));
+  try {
+    const collectionDir = join(root, 'data', 'duas');
+    const sourceDir = join(collectionDir, 'source');
+    mkdirSync(sourceDir, { recursive: true });
+    writeFileSync(join(collectionDir, 'manifest.json'), JSON.stringify({
+      version: 1,
+      collection: 'duas',
+      texts: [
+        { id: 'dua-second', title: 'Second', occasion: 'Friday', group: 'Core', order: 20, canonicalNumber: 2, description: 'Keep this description' },
+        { id: 'dua-first', title: 'First', occasion: 'Thursday', group: 'Core', order: 10, canonicalNumber: 1 }
+      ]
+    }));
+    const makeSource = (id, title) => ({
+      id,
+      title,
+      records: [{ id: 'passage-001', arabic_text: 'نَصٌّ', english_text: 'Text' }]
+    });
+    writeFileSync(join(sourceDir, 'dua-first.json'), JSON.stringify(makeSource('dua-first', 'First')));
+    writeFileSync(join(sourceDir, 'dua-second.json'), JSON.stringify(makeSource('dua-second', 'Second')));
+    writeFileSync(join(sourceDir, 'dua-third.json'), JSON.stringify({ ...makeSource('dua-third', 'Third'), order: 30 }));
+    const manifest = buildReadingCollection(root, 'duas');
+    assert.deepEqual(manifest.texts.map(item => item.id), ['dua-second', 'dua-first', 'dua-third']);
+    assert.equal(manifest.texts[0].occasion, 'Friday');
+    assert.equal(manifest.texts[0].group, 'Core');
+    assert.equal(manifest.texts[0].order, 20);
+    assert.equal(manifest.texts[0].canonicalNumber, 2);
+    assert.equal(manifest.texts[0].description, 'Keep this description');
+    assert.equal(manifest.texts[1].occasion, 'Thursday');
+    assert.equal(manifest.texts[1].order, 10);
+    assert.equal(manifest.texts[2].order, 30);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
