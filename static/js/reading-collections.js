@@ -193,6 +193,7 @@ function showCatalog(collection) {
   }
   html += '</section>';
   reader.innerHTML = html;
+  document.body.classList.add('collection-catalog-active');
   setSidebar(collection, null);
 }
 async function openCatalog(collection) {
@@ -276,6 +277,7 @@ async function openText(collection, id, section = 1) {
   if (!config || !meta) return openCatalog(collection);
   const token = ++routeToken;
   readingVisible = false;
+  document.body.classList.remove('collection-catalog-active');
   activeCollection = collection;
   setDomain(collection);
   setSidebar(collection, id);
@@ -330,6 +332,7 @@ nav.addEventListener('click', event => {
   if (!button) return;
   if (button.dataset.domain === 'quran') {
     readingVisible = false;
+    document.body.classList.remove('collection-catalog-active');
     setDomain('quran');
     window.QuranMemorizerReader.openQuranSura(1, 1);
   } else {
