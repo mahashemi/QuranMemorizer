@@ -131,9 +131,9 @@ async function importNahiya() {
     sourceStatus: 'imported-review-required',
     sourcePairCount: 483,
     storageChunkSize: 30,
-    segmentationMethod: 'One aligned source phrase per repeatable recitation segment. The source page splits two phrases across language rows; the translation continuation at source pairs 99–100 and Arabic/transliteration continuation at 421–422 are joined to preserve alignment. The final Arabic-only chain-of-transmission note is not part of the recitation and is excluded.',
+    segmentationMethod: 'One aligned source phrase per repeatable recitation segment. The source page splits two phrases across language rows; the translation continuation at source pairs 99–100 and Arabic-only continuation at 421–422 is joined to the previous phrase; its transliteration and English already cover both rows. The final Arabic-only chain-of-transmission note is not part of the recitation and is excluded.',
     sourceNotes: [
-      'Source phrase rows 99–100 and 421–422 were joined after inspecting the aligned Arabic, transliteration and English columns.',
+      'Source phrase rows 99–100 and 421–422 were joined after inspecting the aligned Arabic, transliteration and English columns; the 421–422 transliteration and translation already appeared in row 421.',
       'The final Arabic-only chain-of-transmission note on the source page is not included as a recitation segment.'
     ],
     records
