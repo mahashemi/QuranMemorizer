@@ -54,11 +54,12 @@ function setLoading(message) {
   reader.innerHTML = '<section class="collection-state"><div class="collection-kicker">QURAN &amp; DUA READING</div><h1>'+esc(message)+'</h1><p>Please wait…</p></section>';
 }
 function showCatalog(collection, manifest) {
+  if (window.QuranMemorizerReader) window.QuranMemorizerReader.exitCollection();
   activeCollection = collection; activeCatalog = manifest;
   activeText = null; activeManifest = null;
   setDomain(collection); showReader();
   const config = COLLECTIONS[collection];
-  let html = '<section class="collection-page"><header class="collection-heading"><div class="collection-kicker">READING LIBRARY</div><h1>'+config.title+'</h1><p>'+config.subtitle+'</p><div class="collection-count">'+manifest.texts.length+' verified reading'+(manifest.texts.length===1?'':'s')+' available</div></header>';
+  let html = '<section class="collection-page"><header class="collection-heading"><div class="collection-kicker">READING LIBRARY</div><h1>'+config.title+'</h1><p>'+config.subtitle+'</p><div class="collection-count">'+manifest.texts.length+' reading'+(manifest.texts.length===1?'':'s')+' available</div></header>';
   if (manifest.texts.length) {
     html += '<div class="collection-cards">';
     manifest.texts.forEach(text => {
@@ -102,49 +103,13 @@ async function openText(collection, id, section=1) {
     if (token !== requestToken) return;
     if (!manifest || manifest.version !== 1 || manifest.id !== id || manifest.kind !== config.kind || !Array.isArray(manifest.chunks) || !manifest.recordCount) throw new Error('The reading manifest is invalid.');
     activeManifest = manifest;
-    const target = Math.min(manifest.recordCount, Math.max(1,section));
-    const chunkIndex = manifest.chunks.findIndex(chunk => target >= chunk.start && target <= chunk.end);
-    if (chunkIndex < 0) throw new Error('The requested passage is not available.');
-    await renderChunk(chunkIndex, token);
+    if (!window.QuranMemorizerReader) throw new Error('The shared Quran reader engine is not ready.');
+    await window.QuranMemorizerReader.ready;
+    if (token !== requestToken) return;
+    await window.QuranMemorizerReader.openCollection(collection, id, Math.min(manifest.recordCount, Math.max(1, Number(section) || 1)), textMeta, activeCatalog, manifest);
   } catch (error) {
     if (token !== requestToken) return;
     reader.innerHTML = '<section class="collection-state"><h1>'+esc(textMeta.title)+'</h1><p>'+esc(error.message)+'</p><button class="collection-back" data-back-catalog type="button">← Back to '+config.title+'</button></section>';
-  }
-}
-async function renderChunk(index, token=requestToken) {
-  const chunk = activeManifest.chunks[index];
-  if (!chunk) return;
-  setLoading(activeText.title);
-  try {
-    const records = await fetchJson('data/'+activeCollection+'/'+activeText.id+'/'+chunk.file);
-    if (token !== requestToken) return;
-    if (!Array.isArray(records) || records.length !== chunk.end-chunk.start+1) throw new Error('A content segment failed validation.');
-    activeChunk = index;
-    let html = '<section class="collection-reading"><header class="collection-reading-heading"><button class="collection-back" type="button" data-back-catalog>← '+esc(COLLECTIONS[activeCollection].title)+'</button><div class="collection-kicker">'+(activeCollection==='duas'?'SUPPLICATION':'ZIYARAT')+'</div><h1>'+esc(activeText.title)+'</h1>'+(activeText.arabicTitle?'<div class="collection-arabic-title" lang="ar" dir="rtl">'+esc(activeText.arabicTitle)+'</div>':'')+(activeText.description?'<p>'+esc(activeText.description)+'</p>':'')+'</header>';
-    html += '<div class="collection-records">';
-    records.forEach((record, i) => {
-      const number = chunk.start+i;
-      html += '<article class="collection-record" id="reading-section-'+number+'"><div class="collection-record-number">'+number+'</div>';
-      if (record.arabic_text) html += '<div class="collection-record-arabic" lang="ar" dir="rtl">'+esc(record.arabic_text)+'</div>';
-      if (record.transliteration) html += '<p class="collection-record-translit">'+esc(record.transliteration)+'</p>';
-      if (record.english_text) html += '<p class="collection-record-english">'+esc(record.english_text)+'</p>';
-      if (record.urdu_text) html += '<p class="collection-record-urdu" lang="ur" dir="rtl">'+esc(record.urdu_text)+'</p>';
-      if (record.persian_text) html += '<p class="collection-record-persian" lang="fa" dir="rtl">'+esc(record.persian_text)+'</p>';
-      if (record.meaning) html += '<details class="collection-word-meaning"><summary>Word meanings &amp; reflection</summary><p>'+esc(record.meaning)+'</p></details>';
-      html += '</article>';
-    });
-    html += '</div><footer class="collection-pagination"><button type="button" data-chunk="'+(index-1)+'" '+(index===0?'disabled':'')+'>← Previous passages</button><span>Passages '+chunk.start+'–'+chunk.end+' of '+activeManifest.recordCount+'</span><button type="button" data-chunk="'+(index+1)+'" '+(index===activeManifest.chunks.length-1?'disabled':'')+'>Next passages →</button></footer>';
-    if (activeText.attribution || activeText.source) html += '<p class="collection-attribution">'+(activeText.attribution?esc(activeText.attribution)+' · ':'')+(safeSourceUrl(activeText.source)?'<a href="'+esc(safeSourceUrl(activeText.source))+'" target="_blank" rel="noopener noreferrer">'+esc(activeText.source.label||'Source')+'</a>':'')+'</p>';
-    html += '</section>';
-    reader.innerHTML = html;
-    const route = parseRoute();
-    if (route && route.section > chunk.start && route.section <= chunk.end) {
-      const target = $('#reading-section-'+route.section);
-      if (target) requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));
-    } else reader.scrollTop = 0;
-  } catch (error) {
-    if (token !== requestToken) return;
-    reader.innerHTML = '<section class="collection-state"><h1>Could not load this passage</h1><p>'+esc(error.message)+'</p></section>';
   }
 }
 async function handleRoute() {
@@ -191,6 +156,12 @@ document.addEventListener('click', event => {
     const section = chunk.start;
     writeRoute(activeCollection,activeText.id,section);
   }
+});
+window.QuranMemorizerCollections = Object.freeze({
+  openCatalog,
+  openText,
+  writeRoute,
+  getActiveCollection: () => activeCollection
 });
 window.addEventListener('hashchange', handleRoute);
 const initial = parseRoute();
