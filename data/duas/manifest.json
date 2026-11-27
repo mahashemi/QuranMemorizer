@@ -1456,6 +1456,35 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 80,
       "manifest": "dua-ahad/manifest.json"
+    },
+    {
+      "id": "dua-jawshan-kabir",
+      "title": "Dua Jawshan Kabir — 100 Sections",
+      "arabicTitle": "دعاء الجوشن الكبير",
+      "description": "The complete supplication in 100 sections; each section is a separate recitation unit.",
+      "group": "Core Duas",
+      "order": 40,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Sibtayn International Foundation's part-by-part edition; cross-reference: Duas.org Jawshan Kabir.",
+      "source": {
+        "label": "Sibtayn International Foundation — Dua Jawshan Kabir, Part 1",
+        "url": "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3160:dua-a-jaushan-e-kabeer-part-1&option=com_content&view=article",
+        "crossReference": "https://www.duas.org/mobile/ramadan-dua-jawshan-kabeer.html",
+        "license": "Attribution to source requested; review text against the canonical Arabic before release",
+        "parts": [
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3161:dua-a-jaushan-e-kabeer-part-2&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3162:dua-a-jaushan-e-kabeer-part-3&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3163:dua-a-jaushan-e-kabeer-part-4&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3164:dua-a-jaushan-e-kabeer-part-5&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3165:dua-a-jaushan-e-kabeer-part-6&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3166:dua-a-jaushan-e-kabeer-part-7&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3167:dua-a-jaushan-e-kabeer-part-8&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3168:dua-a-jaushan-e-kabeer-part-9&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3169:dua-a-jaushan-e-kabeer-part-10&option=com_content&view=article"
+        ]
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 100,
+      "manifest": "dua-jawshan-kabir/manifest.json"
     }
   ]
 }
