@@ -1576,7 +1576,7 @@ async function importRecordingsArchive(file) {
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const entryName = String(entry.name || '').replaceAll('\\\\', '/');
+      const entryName = String(entry.name || '').replaceAll(String.fromCharCode(92), '/');
       if (/(?:^|[/])manifest[.]json$/i.test(entryName)) continue;
       const quranMatch = entryName.match(quranPath);
       const collectionMatch = entryName.match(collectionPath);
