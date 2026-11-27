@@ -1,0 +1,41 @@
+name: Import remaining Dua and Ziyarat source texts
+on:
+  push:
+    branches: [import/remaining-readings]
+  pull_request:
+    branches: [feature/dua-ziyarat-reading-framework]
+permissions:
+  contents: write
+jobs:
+  import:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: \${{ github.head_ref || github.ref_name }}
+          token: \${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install temporary HTML parser
+        run: npm install --no-save --no-package-lock cheerio@1.1.2
+      - name: Import source phrase blocks
+        run: node scripts/import-duas-org-readings.mjs
+      - name: Generate committed collection chunks and manifests
+        run: node scripts/build-readings.mjs
+      - name: Run all content and reader tests
+        run: npm test
+      - name: Commit generated source and offline assets
+        env:
+          TARGET_BRANCH: \${{ github.head_ref || github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/duas data/ziyarats
+          if git diff --cached --quiet; then
+            echo "No generated reading changes."
+            exit 0
+          fi
+          git commit -m "Import Ziyarat Nahiya and Dua Alqama source texts"
+          git push origin "HEAD:\${TARGET_BRANCH}"
