@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-14",
+  "title": "14. When Hostility was shown to Him",
+  "kind": "dua",
+  "recordCount": 19,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 19,
+      "file": "segments_001_019.json"
+    }
+  ]
+}
