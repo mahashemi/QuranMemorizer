@@ -305,7 +305,16 @@ async function openText(collection, id, section = 1) {
 }
 async function handleRoute() {
   const route = parseRoute();
-  if (!route) return;
+  if (!route) {
+    if (/^#\\/surah\\/\\d+(?:\\/ayah\\/\\d+)?\\/?$/i.test(location.hash)) {
+      readingVisible = false;
+      document.body.classList.remove('collection-active', 'collection-catalog-active');
+      setDomain('quran');
+    } else if (readingVisible) {
+      await openCatalog(activeCollection);
+    }
+    return;
+  }
   await window.QuranMemorizerReaderReady;
   const config = CONFIG[route.collection];
   if (!config || !catalogs[route.collection]) return;
