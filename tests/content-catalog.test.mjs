@@ -111,3 +111,34 @@ test('reading storage defaults to 30 records and preserves independent recitatio
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+
+test('source bundles expand into individually named readings with group and order metadata', () => {
+  const root = mkdtempSync(join(tmpdir(), 'reading-source-bundle-'));
+  try {
+    const sourceDir = join(root, 'data', 'duas', 'source');
+    mkdirSync(sourceDir, { recursive: true });
+    const makeReading = (id, title, order) => ({
+      id, title, group: 'Sahifa Sajjadiya', order,
+      records: [{ id: 'passage-001', arabic_text: 'نَصٌّ', english_text: 'Text' }]
+    });
+    writeFileSync(join(sourceDir, 'sahifa-bundle-01.json'), JSON.stringify({
+      id: 'sahifa-bundle-01',
+      source: { label: 'CC0 source', license: 'CC0-1.0' },
+      readings: [
+        makeReading('sahifa-dua-01', 'Supplication 1', 101),
+        makeReading('sahifa-dua-02', 'Supplication 2', 102)
+      ]
+    }));
+    const manifest = buildReadingCollection(root, 'duas');
+    assert.deepEqual(manifest.texts.map(item => item.id), ['sahifa-dua-01', 'sahifa-dua-02']);
+    assert.deepEqual(manifest.texts.map(item => item.order), [101, 102]);
+    assert.ok(manifest.texts.every(item => item.group === 'Sahifa Sajjadiya'));
+    for (const id of ['sahifa-dua-01', 'sahifa-dua-02']) {
+      const outputDir = join(root, 'data', 'duas', id);
+      assert.ok(readFileSync(join(outputDir, 'manifest.json'), 'utf8').includes(id));
+    }
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
