@@ -14,6 +14,7 @@ const suras = new Map();
 const numberByKey = new Map();
 let activeCollection = 'duas';
 let routeToken = 0;
+let readingVisible = false;
 
 const reader = $('#reader');
 const topbar = $('.topbar');
@@ -198,6 +199,8 @@ async function openCatalog(collection) {
   await window.QuranMemorizerReaderReady;
   if (!catalogs[collection]) throw new Error('Unknown reading collection.');
   routeToken++;
+  readingVisible = false;
+  if (parseRoute()) history.replaceState(null, '', location.pathname + location.search);
   window.QuranMemorizerReader.stopPlayback();
   activeCollection = collection;
   setDomain(collection);
@@ -270,6 +273,7 @@ async function openText(collection, id, section = 1) {
   const meta = catalogs[collection] && catalogs[collection].texts.find(item => item.id === id);
   if (!config || !meta) return openCatalog(collection);
   const token = ++routeToken;
+  readingVisible = false;
   activeCollection = collection;
   setDomain(collection);
   setSidebar(collection, id);
@@ -283,6 +287,7 @@ async function openText(collection, id, section = 1) {
     if (token !== routeToken) return;
     const sura = createSura(collection, meta, manifest);
     await window.QuranMemorizerReader.openCollectionSura(sura, section);
+    readingVisible = true;
   } catch (error) {
     if (token !== routeToken) return;
     reader.innerHTML =
@@ -296,6 +301,12 @@ async function handleRoute() {
   await window.QuranMemorizerReaderReady;
   const config = CONFIG[route.collection];
   if (!config || !catalogs[route.collection]) return;
+  const current = window.QuranMemorizerReader.getActiveSura();
+  const state = window.QuranMemorizerReader.getState();
+  if (readingVisible && current && current.collection && current.collection.collection === route.collection && current.collection.id === route.id) {
+    if (state.aya !== route.section) window.QuranMemorizerReader.navigateCollectionSection(route.section, false);
+    return;
+  }
   await openText(route.collection, route.id, route.section);
 }
 async function initialize() {
@@ -316,6 +327,7 @@ nav.addEventListener('click', event => {
   const button = event.target.closest('[data-domain]');
   if (!button) return;
   if (button.dataset.domain === 'quran') {
+    readingVisible = false;
     setDomain('quran');
     window.QuranMemorizerReader.openQuranSura(1, 1);
   } else {
@@ -336,6 +348,7 @@ document.addEventListener('click', event => {
     return;
   }
   if (event.target.closest('[data-back-collection]')) {
+    readingVisible = false;
     history.replaceState(null, '', location.pathname + location.search);
     openCatalog(activeCollection).catch(error => console.error(error));
   }
