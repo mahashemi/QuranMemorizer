@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-45",
+  "title": "45. Farewell to the Month of Ramadan",
+  "kind": "dua",
+  "recordCount": 100,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    },
+    {
+      "start": 61,
+      "end": 90,
+      "file": "segments_061_090.json"
+    },
+    {
+      "start": 91,
+      "end": 100,
+      "file": "segments_091_100.json"
+    }
+  ]
+}
