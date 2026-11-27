@@ -454,6 +454,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 179,
       "manifest": "sahifa-dua-20/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-21",
+      "title": "21. When Something made him Sorrowful",
+      "arabicTitle": "دُعَاؤُهُ إِذَا حَزَنَهُ أَمْرٌ",
+      "description": "Sahifa Sajjadiya — Supplication 21",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 121,
+      "canonicalNumber": 21,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-something-made-him-sorrowful",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 69,
+      "manifest": "sahifa-dua-21/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-22",
+      "title": "22. His Supplication in Hardship, Effort, and Difficult Affairs",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ الشِّدَّةِ و الجَحدِ و تَعَسُّرِ اللُمور",
+      "description": "Sahifa Sajjadiya — Supplication 22",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 122,
+      "canonicalNumber": 22,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-hardship-effort-and-difficult-affairs",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 71,
+      "manifest": "sahifa-dua-22/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-23",
+      "title": "23. When he Asked God for Well-Being",
+      "arabicTitle": "دُعَاؤُهُ بِالْعَافِيَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 23",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 123,
+      "canonicalNumber": 23,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-asked-god-for-well-being",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 48,
+      "manifest": "sahifa-dua-23/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-24",
+      "title": "24. His Supplication for his Parents",
+      "arabicTitle": "دُعَاؤُهُ لِأَبَوَيْهِ",
+      "description": "Sahifa Sajjadiya — Supplication 24",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 124,
+      "canonicalNumber": 24,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-his-parents",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 77,
+      "manifest": "sahifa-dua-24/manifest.json"
     }
   ]
 }
