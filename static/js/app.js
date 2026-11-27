@@ -595,6 +595,7 @@ function renderSura(restoreScrollTop) {
       '<div class="english">' + esc(v.english_text || '') + '</div>' +
       '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
       '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+      (v.meaning || v.word_meanings ? '<details class="aya-meaning"><summary>Word meanings &amp; reflection</summary><div>' + esc(typeof (v.meaning || v.word_meanings) === 'string' ? (v.meaning || v.word_meanings) : JSON.stringify(v.meaning || v.word_meanings)) + '</div></details>' : '') +
       '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
         '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
         '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
@@ -1927,6 +1928,7 @@ async function loadSura(num, opts) {
   const s = SURA_BY_NUM[num];
   if (!s) return;
   const wasCollection = isCollectionReading();
+  if (wasCollection) stopAll();
   try {
     await ensureSuraLoaded(s, opts.aya || 1, false);
   } catch (error) {
@@ -2025,6 +2027,8 @@ async function openCollectionReading(collection, readingId, section, textMeta, c
 }
 
 function exitCollectionReading() {
+  if (activeRecorder) { try { activeRecorder.stop(); } catch (_) {} }
+  stopAll();
   state.activeCollection = null;
   state.activeReading = null;
   state.collectionCatalog = null;
@@ -2095,6 +2099,8 @@ async function playCollectionTrack(section) {
   setNativePlaybackActive(true);
   state.playingAya = section;
   state.started = true;
+  setPlayIcon(true);
+  updateAyaUI(false);
   updateNativeMediaMetadata(true);
   try {
     const custom = await getUserRecording(identity);
