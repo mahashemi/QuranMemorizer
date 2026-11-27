@@ -915,10 +915,47 @@ async function downloadSurahAudio(sura, button) {
   }
 }
 
+function normalizeRecordingIdentity(sura, aya) {
+  if (sura && typeof sura === 'object') {
+    if (sura.collection) {
+      const identity = { collection: String(sura.collection), readingId: String(sura.readingId), section: Number(aya ?? sura.section) };
+      if (!['duas', 'ziyarats'].includes(identity.collection) || !/^[a-z0-9-]+$/i.test(identity.readingId) || !Number.isInteger(identity.section) || identity.section < 1 || identity.section > 1000) {
+        throw new Error('Invalid collection recording identity.');
+      }
+      return identity;
+    }
+    return { sura: Number(sura.sura), aya: Number(aya ?? sura.aya) };
+  }
+  return { sura: Number(sura), aya: Number(aya) };
+}
+function recordingIdentityKey(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection
+    ? 'collection:' + identity.collection + ':' + identity.readingId + ':' + identity.section
+    : identity.sura + ':' + identity.aya;
+}
+function recordingFolderKey(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection
+    ? 'collection:' + identity.collection + ':' + identity.readingId
+    : 'surah:' + identity.sura;
+}
+function recordingUnitNumber(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection ? identity.section : identity.aya;
+}
+function getCurrentRecordingIdentity(aya) {
+  if (state.activeCollection && state.activeReading) {
+    return { collection: state.activeCollection, readingId: state.activeReading.id, section: Number(aya ?? state.aya) };
+  }
+  return { sura: Number(state.sura), aya: Number(aya ?? state.aya) };
+}
 async function getBrowserRecording(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).get(sura + ':' + aya);
+    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).get(key);
     request.onsuccess = () => {
       const record = request.result || null;
       if (record) record.storage = 'browser';
@@ -938,14 +975,16 @@ async function getAllBrowserRecordings() {
 }
 
 async function saveBrowserRecording(sura, aya, blob) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
+  const audioBlob = blob || (aya instanceof Blob ? aya : null);
+  if (!audioBlob) throw new Error('No recording audio was supplied.');
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
+    const record = { key, ...identity, blob: audioBlob, mimeType: audioBlob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
     request.onsuccess = () => {
-      if (recordingStorageMode !== 'browser' && recordingStorageMode !== 'needs-folder-choice') {
-        browserFallbackRecordingKeys.add(record.key);
-      }
+      if (recordingStorageMode !== 'browser' && recordingStorageMode !== 'needs-folder-choice') browserFallbackRecordingKeys.add(record.key);
       resolve(record);
     };
     request.onerror = () => reject(request.error || new Error('Could not save recording.'));
@@ -953,13 +992,11 @@ async function saveBrowserRecording(sura, aya, blob) {
 }
 
 async function deleteBrowserRecording(sura, aya) {
+  const key = recordingIdentityKey(sura, aya);
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
-    request.onsuccess = () => {
-      browserFallbackRecordingKeys.delete(sura + ':' + aya);
-      resolve();
-    };
+    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(key);
+    request.onsuccess = () => { browserFallbackRecordingKeys.delete(key); resolve(); };
     request.onerror = () => reject(request.error || new Error('Could not delete recording.'));
   });
 }
