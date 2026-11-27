@@ -91,7 +91,7 @@ async function importNahiya() {
   };
   console.log('Ziyarat Nahiya source alignment diagnostics: ' + JSON.stringify(diagnostics));
   if (arabic[99] || transliteration[99] || !english[99] ||
-      !arabic[421] || !transliteration[421] || english[421] ||
+      !arabic[421] || transliteration[421] || english[421] ||
       !arabic[483] || arabic[483].length < 200) {
     throw new Error('Ziyarat Nahiya continuation/source-note positions changed; stop rather than misalign translations.');
   }
@@ -108,7 +108,6 @@ async function importNahiya() {
       const previous = records.at(-1);
       if (!previous) throw new Error('Unexpected leading Arabic continuation.');
       previous.arabic_text = normalize(previous.arabic_text + ' ' + arabic[i]);
-      previous.transliteration = normalize(previous.transliteration + ' ' + transliteration[i]);
       previous.source_pair_end = 422;
       continue;
     }
