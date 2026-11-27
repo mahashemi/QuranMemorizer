@@ -1629,6 +1629,8 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .collection-page,.collection-reading{width:min(100%,900px);margin:0 auto}
 .collection-heading,.collection-reading-heading{text-align:center;padding:24px 12px 28px;border-bottom:1px solid var(--border);margin-bottom:22px}
 .collection-group{margin:24px 0 34px}
+.collection-empty-state{padding:18px 12px;color:var(--muted);font-size:12px;line-height:1.5;text-align:center}
+.collection-active:not(.collection-reading) .player{opacity:.55;pointer-events:none}
 .collection-group>h2{font-size:13px;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:0 0 12px}
 .collection-status{font-size:10px!important;letter-spacing:.2px;color:var(--muted)!important}
 .collection-source,.collection-attribution{font-size:11px;margin-top:10px}
