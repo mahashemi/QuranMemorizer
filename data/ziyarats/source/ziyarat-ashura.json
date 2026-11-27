@@ -1,0 +1,1204 @@
+{
+  "id": "ziyarat-ashura",
+  "title": "Ziyarat Ashura",
+  "arabicTitle": "زيارة عاشوراء",
+  "description": "The visitation of Imam al-Husayn (عليه السلام) on the day of Ashura and throughout the year.",
+  "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+  "source": {
+    "label": "Thaqalayn — CC0 1.0 source dataset",
+    "url": "https://thaqalayn.net/duas/ziyarat-ashura",
+    "license": "CC0-1.0",
+    "provider": "Thaqalayn public pages",
+    "sourceDataset": "adeeb10abbas/shia-library-json",
+    "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+  },
+  "sourceStatus": "imported-review-required",
+  "sourcePairCount": 140,
+  "storageChunkSize": 30,
+  "records": [
+    {
+      "id": "passage-001",
+      "sequence": 1,
+      "arabic_text": "السَّلام عَلَيْكَ يَا أبَا عَبْدِ اللهِ ،",
+      "transliteration": "al-salām ʿalayka yā abā ʿabdillāh",
+      "english_text": "Peace be on you, O Abu Abdullah!",
+      "source_pair_start": 1,
+      "source_pair_end": 1,
+      "recitation_segment": {
+        "id": "segment-001",
+        "title": "Recitation segment 1",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-002",
+      "sequence": 2,
+      "arabic_text": "السَّلام عَلَيْكَ يَا ابْنَ رَسُولِ اللهِ ،",
+      "transliteration": "as-salāmu ʿalayka yā ibna rasūlillāh",
+      "english_text": "Peace be on you, O son of the Apostle of Allah!",
+      "source_pair_start": 2,
+      "source_pair_end": 2,
+      "recitation_segment": {
+        "id": "segment-002",
+        "title": "Recitation segment 2",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-003",
+      "sequence": 3,
+      "arabic_text": "السَّلام عَلَيْكَ يَا ابْنَ أمِيرِ المُؤْمِنينَ ، وَابْنَ سَيِّدِ الوَصِيِّينَ ،",
+      "transliteration": "al-salām ʿalayka yā ibna amīr al-muʾminīn wa ibna sayyidi al-wasiyyeena",
+      "english_text": "Peace be on you, O son of the commander of the faithfuls, the forebear of the successors!",
+      "source_pair_start": 3,
+      "source_pair_end": 4,
+      "recitation_segment": {
+        "id": "segment-003",
+        "title": "Recitation segment 3",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-004",
+      "sequence": 4,
+      "arabic_text": "السَّلام عَلَيْكَ يَا ابْنَ فاطِمَةَ سَيِّدَةِ نِساءِ العالَمِينَ ،",
+      "transliteration": "al-salām ʿalayka yā ibna fāṭimah al-zahrāʾ sayyidati nisāʾ al-ʿālamīn",
+      "english_text": "Peace be on you, O son of Fatimah, the choicest among the women of the worlds!",
+      "source_pair_start": 5,
+      "source_pair_end": 5,
+      "recitation_segment": {
+        "id": "segment-004",
+        "title": "Recitation segment 4",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-005",
+      "sequence": 5,
+      "arabic_text": "السَّلام عَلَيْكَ يَا ثَارَ اللهِ وابْنَ ثارِهِ وَالْوِتْرَ المَوْتُورَ ،",
+      "transliteration": "as-salāmu ʿalayka yā thāra allahi wa-ibna thārihi wal-witr al-mawtūra",
+      "english_text": "Peace be on you, O the select, surpassing, chosen in preference over all good of Allah, and son of Allah's (such) good.",
+      "source_pair_start": 6,
+      "source_pair_end": 6,
+      "recitation_segment": {
+        "id": "segment-005",
+        "title": "Recitation segment 5",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-006",
+      "sequence": 6,
+      "arabic_text": "السَّلام عَلَيْكَ وَعَلَى الأرواحِ الّتي حَلّتْ بِفِنائِكَ ،",
+      "transliteration": "al-salāmu ʿalayka wa ʿalā al-arwāḥi allatī ḥallat bifināʾika",
+      "english_text": "Peace be on you, who was martyred while fighting heroically in the cause of Allah, the son of Allah's fearless warrior, you were isolated and had been attacked with a vengeance!",
+      "source_pair_start": 7,
+      "source_pair_end": 7,
+      "recitation_segment": {
+        "id": "segment-006",
+        "title": "Recitation segment 6",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-007",
+      "sequence": 7,
+      "arabic_text": "وَأنَاخَتْ بِرحْلِك",
+      "transliteration": "wa anaakhtu bi rahlik",
+      "english_text": "Peace be on you and on those souls who had gathered in your camp, and strided along with you, in your journey.",
+      "source_pair_start": 8,
+      "source_pair_end": 8,
+      "recitation_segment": {
+        "id": "segment-007",
+        "title": "Recitation segment 7",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-008",
+      "sequence": 8,
+      "arabic_text": "عَلَيْكُمْ مِنّي جَميعاً سَلامُ اللهِ أبَداً ما بَقِيتُ وَبَقِيَ الليْلُ وَالنَّهارُ.",
+      "transliteration": "ʿalaykum minnī jamīʿan salāmu allāhi abadan mā baqītu wa baqiya al-laylu wa al-nahāru",
+      "english_text": "I pray and invoke Allah to keep all of you tranquil and restful, for ever; so far I am alive, this is my prayer, and till nights and days follow each other.",
+      "source_pair_start": 9,
+      "source_pair_end": 9,
+      "recitation_segment": {
+        "id": "segment-008",
+        "title": "Recitation segment 8",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-009",
+      "sequence": 9,
+      "arabic_text": "يَا أبَا عَبْدِ اللهِ ،",
+      "transliteration": "yā aba ʿabdillāh",
+      "english_text": "O Abu Abdullah!",
+      "source_pair_start": 10,
+      "source_pair_end": 10,
+      "recitation_segment": {
+        "id": "segment-009",
+        "title": "Recitation segment 9",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-010",
+      "sequence": 10,
+      "arabic_text": "لَقَدْ عَظُمَتِ الرَّزِيَّةُ ، وجَلّتْ وعَظُمَتْ المُصِيبَةُ بِكَ عَلَيْنا وَعَلَى جَمِيعِ أهْلِ الإسلام ، وَجَلَّتْ وَعَظُمَتْ مُصِيبَتُكَ فِي السَّمَوَاتِ عَلَى جَمِيعِ أهْلِ السَّمَوَاتِ ،",
+      "transliteration": "laqad ʿaẓumatir-razīya, wa jal-lat waʿaẓumatil-muṣība bika ʿalayna wa ʿala jamiʿi ahlil-islam wa jal-lat waʿaẓumat muṣībatuka fī al-sama-wāti ʿalā jamiʿi ahl al-sama-wāti",
+      "english_text": "unbearable is the sorrow, nerve-racking is the agony, you put up with, for us and for all the (true) Muslims, crimes committed against you also shocked and unnerved the dwellers of the heavens, one and all.",
+      "source_pair_start": 11,
+      "source_pair_end": 13,
+      "recitation_segment": {
+        "id": "segment-010",
+        "title": "Recitation segment 10",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-011",
+      "sequence": 11,
+      "arabic_text": "فَلَعَنَ اللهُ اُمَّةً أسَّسَتْ أساسَ الظُّلْمِ وَالجَوْرِ عَلَيْكُمْ أهْلَ البَيْتِ ،",
+      "transliteration": "fala'ana allahumma ummatan assasat asasa alththulmi waljawri 'alaykum ahla albayti",
+      "english_text": "May Allah condemn and damn the people who laid the basis and set up the groundwork, to wander astray and turn aside from not only you and your family but to take liberties and bear hard upon you.",
+      "source_pair_start": 14,
+      "source_pair_end": 14,
+      "recitation_segment": {
+        "id": "segment-011",
+        "title": "Recitation segment 11",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-012",
+      "sequence": 12,
+      "arabic_text": "وَلَعَنَ اللهُ اُمَّةً دَفَعَتْكُمْ عَنْ مَقامِكُمْ وَأزالَتْكُمْ عَنْ مَراتِبِكُمُ الّتِي رَتَّبَكُمُ اللهُ فِيها ،",
+      "transliteration": "wa laʿana allāhu ummatan dafʿatkum ʿan maqāmikum wa'azalat-kum 'an maratibikum allati rattabakum allahu fiha",
+      "english_text": "May Allah condemn and damn the people who tried to obscure and deny your office and status, willfully neglected your rank and class Allah had made know in clear terms.",
+      "source_pair_start": 15,
+      "source_pair_end": 16,
+      "recitation_segment": {
+        "id": "segment-012",
+        "title": "Recitation segment 12",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-013",
+      "sequence": 13,
+      "arabic_text": "وَلَعَنَ اللهُ اُمَّةً قَتَلَتْكُمْ ،",
+      "transliteration": "wa laʿana allah ummatan qatalatkum",
+      "english_text": "May Allah condemn and damn the people who killed you.",
+      "source_pair_start": 17,
+      "source_pair_end": 17,
+      "recitation_segment": {
+        "id": "segment-013",
+        "title": "Recitation segment 13",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-014",
+      "sequence": 14,
+      "arabic_text": "وَلَعَنَ اللهُ الْمُمَهِّدِينَ لَهُمْ بِالتَّمْكِينِ مِنْ قِتالِكُمْ ،",
+      "transliteration": "wa laʿan allāhu al-mumahhidīna lahum bi-al-tamkīni min qitālikum",
+      "english_text": "May Allah condemn and damn the abettors who instigated and had a part in your murder.",
+      "source_pair_start": 18,
+      "source_pair_end": 18,
+      "recitation_segment": {
+        "id": "segment-014",
+        "title": "Recitation segment 14",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-015",
+      "sequence": 15,
+      "arabic_text": "بَرِئْتُ إلى اللهِ وَإلَيْكُمْ مِنْهُمْ وَمِنْ أشْياعِهِمْ وَأتْباعِهِمْ وَأوْلِيائِهِمْ.",
+      "transliteration": "bariʾtu ila allahi wa ilaykum minhum wa min ashya'ihim wa atbā'ihim wa awliyā'ihim",
+      "english_text": "I turn to you and Allah, away from them, their henchmen, their followers and their friends,",
+      "source_pair_start": 19,
+      "source_pair_end": 20,
+      "recitation_segment": {
+        "id": "segment-015",
+        "title": "Recitation segment 15",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-016",
+      "sequence": 16,
+      "arabic_text": "يَا أبَا عَبْدِ اللهِ ، إنِّي سِلْمٌ لِمَنْ سالَمَكُمْ ، وَحَرْبٌ لِمَنْ حارَبَكُمْ وَوليٌ لِمَنْ والاكُم",
+      "transliteration": "yā abā ʿabdillāh 'innī silmun liman salamakum wa ḥarbun liman ḥārabakum wa waliyun liman walakum",
+      "english_text": "O Abu Abdullah, I make peace with those who make their peace with you, I make war on those who go to war against you, I am his friend who is a friend of yours,",
+      "source_pair_start": 21,
+      "source_pair_end": 24,
+      "recitation_segment": {
+        "id": "segment-016",
+        "title": "Recitation segment 16",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-017",
+      "sequence": 17,
+      "arabic_text": "وعدوٌّ لِمَنْ عَاداكُمْ إلى يَوْمِ القِيامَةِ ،",
+      "transliteration": "waʿdawwun liman ʿadākum ilā yawm al-qiyāmah",
+      "english_text": "And Iam his enemy who shows enemity towards you, till the Day of Judgement.",
+      "source_pair_start": 25,
+      "source_pair_end": 25,
+      "recitation_segment": {
+        "id": "segment-017",
+        "title": "Recitation segment 17",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-018",
+      "sequence": 18,
+      "arabic_text": "وَلَعَنَ اللهُ آل زِيَاد وَآلَ مَرْوانَ ،",
+      "transliteration": "walaʿana allahu āl ziyād wa āla marwān",
+      "english_text": "May Allah condemn and damn the family of Ziyaad and the family of Marwaan;",
+      "source_pair_start": 26,
+      "source_pair_end": 26,
+      "recitation_segment": {
+        "id": "segment-018",
+        "title": "Recitation segment 18",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-019",
+      "sequence": 19,
+      "arabic_text": "وَلَعَنَ اللهُ بَنِي اُمَيَّةَ قاطِبَةً ،",
+      "transliteration": "wa la'ana allahu bani umayyah qatiban",
+      "english_text": "may Allah condemn and damn the group and the tribe of Umayyah, one and all, altogether;",
+      "source_pair_start": 27,
+      "source_pair_end": 27,
+      "recitation_segment": {
+        "id": "segment-019",
+        "title": "Recitation segment 19",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-020",
+      "sequence": 20,
+      "arabic_text": "وَلَعَنَ اللهُ ابْنَ مَرْجانَةَ ،",
+      "transliteration": "wa laʿana allah ibn marjana'h",
+      "english_text": "may Allah condemn and damn the son of Marjaanah;",
+      "source_pair_start": 28,
+      "source_pair_end": 28,
+      "recitation_segment": {
+        "id": "segment-020",
+        "title": "Recitation segment 20",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-021",
+      "sequence": 21,
+      "arabic_text": "وَلَعَنَ اللهُ عُمَرَ بْنَ سَعْد ،",
+      "transliteration": "walana allahu ʿumar ibn saʿd",
+      "english_text": "may Allah condemn and damn Umar son of Saad;",
+      "source_pair_start": 29,
+      "source_pair_end": 29,
+      "recitation_segment": {
+        "id": "segment-021",
+        "title": "Recitation segment 21",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-022",
+      "sequence": 22,
+      "arabic_text": "وَلَعَنَ اللهُ شِمْراً ،",
+      "transliteration": "wa laʿana allah shi*mran",
+      "english_text": "may Allah condemn and damn Shimr;",
+      "source_pair_start": 30,
+      "source_pair_end": 30,
+      "recitation_segment": {
+        "id": "segment-022",
+        "title": "Recitation segment 22",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-023",
+      "sequence": 23,
+      "arabic_text": "وَلَعَنَ اللهُ اُمَّةً أسْرَجَتْ وَألْجَمَتْ وَتَهيّأتْ وَتَنَقَّبَتْ لِقِتالِكَ ،",
+      "transliteration": "wa la'ana allahu ummatan asrajat wa aljamat wa tahiyyat wa tanaggabat liqitalika",
+      "english_text": "may Allah condemn and damn the people who bridled the horses and errected the saddles for your martyrdom.",
+      "source_pair_start": 31,
+      "source_pair_end": 31,
+      "recitation_segment": {
+        "id": "segment-023",
+        "title": "Recitation segment 23",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-024",
+      "sequence": 24,
+      "arabic_text": "بِأبِي أنْتَ وَاُمِّي لَقَدْ عَظُمَ مُصابِي بِكَ ،",
+      "transliteration": "bi-abi anta wa ummi laqad ʿazhuma musabbi bi-ka",
+      "english_text": "I, my father and mother are at your disposal. Profound is my sorrow for you.",
+      "source_pair_start": 32,
+      "source_pair_end": 32,
+      "recitation_segment": {
+        "id": "segment-024",
+        "title": "Recitation segment 24",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-025",
+      "sequence": 25,
+      "arabic_text": "فَأسْالُ اللهَ الّذِي أكْرَمَ مَقامَكَ ، وَأكْرَمَنِي بِكَ ، أنْ يَرْزُقَني طَلَبَ ثارِكَ مَعَ إمام مَنْصُور",
+      "transliteration": "fa-ʾasʾalu allāh al-laḏī akramamaqāmaka, wa-ʾakramanī bika an yarzuqanī ṭalaba ṯārika maʿa imām manṣūr",
+      "english_text": "I beg Allah, who honoured you above others, to be generous towards me on account of you, and give me the opportunity to be with the victorious Imam, at the time of the final and decisive war against Allah's enemies.",
+      "source_pair_start": 33,
+      "source_pair_end": 34,
+      "recitation_segment": {
+        "id": "segment-025",
+        "title": "Recitation segment 25",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-026",
+      "sequence": 26,
+      "arabic_text": "مِنْ أهْلِ بَيْتِ مُحَمَّد صَلّى الله عَلَيْهِ وَآلِهِ.",
+      "transliteration": "min ahli bayti muhammad ṣallā allāhu ʿalayhi wa ālihi",
+      "english_text": "the descendent of Mohammad (blessings and peace be on him and on his children from Allah)",
+      "source_pair_start": 35,
+      "source_pair_end": 35,
+      "recitation_segment": {
+        "id": "segment-026",
+        "title": "Recitation segment 26",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-027",
+      "sequence": 27,
+      "arabic_text": "اللهمّ اجْعَلْني عِنْدَكَ وَجِيهاً بِالحُسَيْنِ عَلَيهِ السَّلام الدُّنْيا وَالآخِرَةِ مِنَ المقَرّبينْ .",
+      "transliteration": "allahumma ij'alni 'indaka wajihan bil-husayn 'alayhi assalam ad-dunya wal-akhirati min-al-muqarrabīn",
+      "english_text": "O my Allah make me attend to Your cause, sincerely, in every respect following in Husayn's footsteps, in this world and the hereafter.",
+      "source_pair_start": 36,
+      "source_pair_end": 37,
+      "recitation_segment": {
+        "id": "segment-027",
+        "title": "Recitation segment 27",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-028",
+      "sequence": 28,
+      "arabic_text": "يَا أبَا عَبْدِ اللهِ ، إنِّي أتَقَرَّبُ إلى اللهِ تعالى ، وَإلَى رَسُولِهِ ، وَإلى أمِيرِ المُؤْمِنينَ ، وَإلَى فاطِمَةَ ، وإلى الحَسَنِ وَإلَيْكَ بِمُوالاتِكَ ،",
+      "transliteration": "yā ʾabā ʿabd allāh 'innī ataqqarabu ilá allāhi taʿālá, wa-ilá rasūlihi wa'ilā ʾamīr al-muʾminīn, wa'ilā fāṭimah wa-ilā al-ḥasan wa-ilayka bimuwālatika",
+      "english_text": "O Abu Abdullah, I pray and invoke Allah to send blessings on you. I come nearer and seek greater intimacy with Allah, with His Apostle, with Ameerul Moomineen, with Fatimah, with Hasan and with you, with the help of your love and patronage,",
+      "source_pair_start": 38,
+      "source_pair_end": 41,
+      "recitation_segment": {
+        "id": "segment-028",
+        "title": "Recitation segment 28",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-029",
+      "sequence": 29,
+      "arabic_text": "ومُوالاةِ أَوليائِك وَبِالْبَرَاءَةِ مِمَّنْ قَاتَلَكَ وَنَصبَ لَكَ الحَربَ ،",
+      "transliteration": "wa mūwālati awliyā'ik wa bil-barā'ati mimman qātalaka wa naṣaba lakal-ḥarb",
+      "english_text": "cutting off every connection with those who took up arms against you and killed you.",
+      "source_pair_start": 42,
+      "source_pair_end": 42,
+      "recitation_segment": {
+        "id": "segment-029",
+        "title": "Recitation segment 29",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-030",
+      "sequence": 30,
+      "arabic_text": "وبالْبَرَاءةِ مِمَّنْ أسَّسَ أساسَ الظُّلْمِ وَالجَوْرِ عَلَيْكُمْ ، وَعلى أشياعِكُم وَأبْرَأُ إلى اللهِ وَإلى رَسُولِهِ وَبِالبراءِةِ مِمَّنْ أسَّسَ أساسَ ذلِكَ ، وَبَنى عَلَيْهِ بُنْيانَهُ ،",
+      "transliteration": "wa bil-barāʾati mimmam assasa asāsa al-ẓulmi wal-jawri ʿalaykum waʿalā ashya'ikum wa ʾabraru ʾilā allāhi wa ʾilā rasūlih wa bil-barāʾati mimman asasa asāsa dhālika wa bannā ʿalayhi bunyānahū",
+      "english_text": "I disconnect all links with those who, in the beginning, took the first steps to take liberties with and bear hard upon you, I take refuge with Allah and His Apostle (blessings of Allah be on him and on his children), free from the guilt of associating with those who laid the foundation for (your suffering), devised and carried out their corrupt plan of action,",
+      "source_pair_start": 43,
+      "source_pair_end": 46,
+      "recitation_segment": {
+        "id": "segment-030",
+        "title": "Recitation segment 30",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-031",
+      "sequence": 31,
+      "arabic_text": "وَجَرَى في ظُلْمِهِ وَجَوْرِهِ عَلَيْكُمْ وَعَلَى أشْياعِكُمْ ،",
+      "transliteration": "wa jarā fī ẓulmihi wa jawrihi ʿalaykum wa ʿalā ash-yāʿikum",
+      "english_text": "boldly gave currency to reign of terror and cruelty to oppress you and your friends and followers;",
+      "source_pair_start": 47,
+      "source_pair_end": 47,
+      "recitation_segment": {
+        "id": "segment-031",
+        "title": "Recitation segment 31",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-032",
+      "sequence": 32,
+      "arabic_text": "بَرِئْتُ إلى اللهِ وَإلَيْكُمْ مِنْهُمْ ، وَأتَقَرَّبُّ إلى اللهِ وَإلى رَسولِهِ ثُمَّ إلَيْكُمْ بِمُوالاتِكُم وَمُوالاةِ وَلِيِّكُمْ ، وَبِالْبَرَاءَةِ مِنْ أعْدائِكُمْ ،وَالنَّاصِبِينَ لَكُم الحَرْبَ ،",
+      "transliteration": "baritu ila allahi wa-ilaykum minhum wa ʾataqarrabu ʾilā allāhi wa ʾilā rasūlihi thumma ilaykum bimuwalatikum wa muwalat awliyaa'ikum wa bil-barā'ati min aʿdā'ikum, wa al-nāṣibīna lakum al-ḥarb",
+      "english_text": "I detach myself from them and present myself to Allah and to you, I (first) seek greater intimacy with Allah and then with you to win your love and patronage, and to make friends with your friends, cut off all links with your enemies, and with those who planted the seeds of hostility against you,",
+      "source_pair_start": 48,
+      "source_pair_end": 51,
+      "recitation_segment": {
+        "id": "segment-032",
+        "title": "Recitation segment 32",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-033",
+      "sequence": 33,
+      "arabic_text": "وَبِالبَرَاءَةِ مِنْ أشْياعِهِمْ وَأتْباعِهِمْ ،",
+      "transliteration": "wa bil-barā'ati min ash-yā'iham wa atbā'iham",
+      "english_text": "and reject and discard their associates, their followers and their friends.",
+      "source_pair_start": 52,
+      "source_pair_end": 52,
+      "recitation_segment": {
+        "id": "segment-033",
+        "title": "Recitation segment 33",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-034",
+      "sequence": 34,
+      "arabic_text": "يا أبا عَبدِ الله",
+      "transliteration": "yā abā ʿabdillāh",
+      "english_text": "O Abu Abdillah.",
+      "source_pair_start": 53,
+      "source_pair_end": 53,
+      "recitation_segment": {
+        "id": "segment-034",
+        "title": "Recitation segment 34",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-035",
+      "sequence": 35,
+      "arabic_text": "إنِّي سِلْمٌ لِمَنْ سالَمَكُمْ ، وَحَرْبٌ لِمَنْ حارَبَكُمْ ، وَوَلِيٌّ لِمَنْ والاكُمْ ، وَعَدُوٌّ لِمَنْ عاداكُمْ ،",
+      "transliteration": "'innī ṣilmun liman sālamakum waḥarbum liman ḥārabakum wa waliyyun liman walaakum waʿaduwwun liman ʿādākum",
+      "english_text": "I make peace with those who made their peace with you, I search out and confront those who waged war against you, I make friends with those who stood by you, I strive against those who came in conflict with you, therefore,",
+      "source_pair_start": 54,
+      "source_pair_end": 57,
+      "recitation_segment": {
+        "id": "segment-035",
+        "title": "Recitation segment 35",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-036",
+      "sequence": 36,
+      "arabic_text": "فَأسْألُ اللهَ الّذِي أكْرَمَني بِمَعْرِفَتِكُمْ ، وَمَعْرِفَةِ أوْلِيائِكُمْ ، وَرَزَقَني البَراءَةَ مِنْ أعْدائِكُمْ ، أنْ يَجْعَلَني مَعَكُمْ في الدُّنْيا وَالآخِرَةِ ، وَأنْ يُثَبِّتَ لي عِنْدَكُمْ قَدَمَ صِدْق في الدُّنْيا وَالآخِرَةِ ،",
+      "transliteration": "fa-as'alullah alladhi akramani bi-ma'rifatikum, wa ma'rifati awliya'ikum wa razaqani al-bara'ata min a'da'ikum an yajʿalani maʿakum fi ad-dunya wal-akhirah wa-an yuthabbita li ʿindakum qadamu sidqin fi al-dunya wa al-akhirah",
+      "english_text": "I make a request to Allah to acquaint (me) with the awareness that perceives you and your friends, to set me free from the corrupting influence of your enemies, to make me keep company with you in this would and in the Hereafter, stand firm beside you and follow your footsteps closely in this world and in the next world.",
+      "source_pair_start": 58,
+      "source_pair_end": 61,
+      "recitation_segment": {
+        "id": "segment-036",
+        "title": "Recitation segment 36",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-037",
+      "sequence": 37,
+      "arabic_text": "وَأسْألُهُ أنْ يُبَلِّغَنِي الْمقامَ الْمَحْمُودَ لَكُمْ عِنْدَ اللهِ ، وَأنْ يَرْزُقَنِي طَلَبَ ثَارِي مَعَ إمَام مَهْدِيٍّ ظَاهِر نَاطِق بالحقِّ مِنْكُمْ ،",
+      "transliteration": "wa as'aluhu an yuballighani al-maqam al-mahmud lakhum 'inda allah wa-an yarzuqanī ṭalaba ṯārī maʿa imām maḥdī naẓīr ʾbil-ḥaqq min-kum",
+      "english_text": "I beseech Him that he helps me to reach your highly praised station, given to you by Allah, (to meet you), He provides me the opportunity to fight for justice and fairplay alongwith and under the leadership of the rightly guided guide (in your progeny) who surely will come and speak the truth.",
+      "source_pair_start": 62,
+      "source_pair_end": 63,
+      "recitation_segment": {
+        "id": "segment-037",
+        "title": "Recitation segment 37",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-038",
+      "sequence": 38,
+      "arabic_text": "وَأسْألُ اللهَ بِحَقِّكُمْ وَبِالشَّأنِ الَّذِي لَكُمْ عِنْدَهُ أنْ يُعْطِيَنِي بِمُصابِي بِكُمْ أفْضَلَ ما يُعْطِي مصاباً بِمُصِيبَتِهِ ، يا لَها منْ مُصِيبَة مَا أعْظَمَها وَأعْظَمَ رَزِيّتهَا فِي الإسلام وَفِي جَمِيعِ أهلِ السَّموَاتِ وَالارْضِ .",
+      "transliteration": "wa as'alullaha bihaqqikum wa bilsha'ni alladhi lakum 'indahu 'an yu'tiya nī bimuṣābī bikum afḍala mā yu'tī muṣīban bimuṣībatihī yā lahā min muṣībatin mā aʿẓamahā wa aʿẓama razīyatuhā fī al-islām wa fī jamiʿi ahli as-samāwāti wal-ardh",
+      "english_text": "I beseech Allah in the name of your right and the purpose He assigned to you, that He overwhelms me with grief in memory of your sorrows, more than the personal grief that torments any one who is in great agony, sorrows which have no parallel and overshadow all calamities that took place in the history of Islam, for that matter, through out the whole universe.",
+      "source_pair_start": 64,
+      "source_pair_end": 67,
+      "recitation_segment": {
+        "id": "segment-038",
+        "title": "Recitation segment 38",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-039",
+      "sequence": 39,
+      "arabic_text": "اللهُمَّ اجْعَلْني في مَقامِي هذا مِمَّن تَنالُهُ مِنْكَ صَلَواتٌ وَرَحْمَةٌ وَمَغْفِرَةٌ .",
+      "transliteration": "allahumma ij'alni fi maqami hatha mimman tanaluho minka ṣalawātun wa raḥmatun wa maghfiratun",
+      "english_text": "O my Allah, in my on the spot situation, treat me like him (or her) who obtains from You (Your) blessings, mercy and forgiveness.",
+      "source_pair_start": 68,
+      "source_pair_end": 69,
+      "recitation_segment": {
+        "id": "segment-039",
+        "title": "Recitation segment 39",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-040",
+      "sequence": 40,
+      "arabic_text": "اللهُمَّ اجْعَلْ مَحْيايَ مَحْيا مُحَمَّد وَآلِ مُحَمَّد ، وَمَماتي مَماتَ مُحَمَّد وَآل مُحَمَّد .",
+      "transliteration": "allāhumma ajʿal mahyāya mahya muḥammadin wa āli muḥammadin wa mamātī mamāta muḥammad wa āl muḥammad",
+      "english_text": "O my Allah, bring me to life again, after death, in the place Mohammad and his \"Aal\" (children) are dwelling, make me depart from this world like Mohammad and his \"Aal\" (children) had left,",
+      "source_pair_start": 70,
+      "source_pair_end": 71,
+      "recitation_segment": {
+        "id": "segment-040",
+        "title": "Recitation segment 40",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-041",
+      "sequence": 41,
+      "arabic_text": "اللهُمَّ إنَّ هَذا يَوْمٌ تَبَرَّكَتْ بِهِ بَنُو اُمَيَّةَ وَابْنُ آكِلَةِ الاكْبادِ ، اللعِينُ بْنُ اللعِينِ عَلَى لِسانِكَ وَلِسانِ نَبِيِّكَ صَلّى الله عَلَيْهِ وَآلِهِ في كُلِّ مَوْطِن وَمَوْقِف وَقَفَ فِيهِ نَبيُّكَ - صَلّى الله عَلَيْهِ وَآلِهِ - .",
+      "transliteration": "allāhumma innahā yawmun tabarrakat bihi banū umayyah wa ibn ʾākilatil akbād al-laʿīnu bn al-laʿīni ʿalā lisānik wa lisāni nabiyyika ṣallā llāh ʿalayhi wa ālihi fī kulli mawṭin wa-mawqif waqafa fīhi nabiyyuka - ṣallā allāhu ʿalayhi wa-ālih -",
+      "english_text": "O my Allah this day is a day of rejoicing for the \"Bani Umayyah\", the herd of hardened criminals, the eternally damned and accursed group, a fact that had been made public by You and by Your Prophet (blessings of Allah be on him and on his children), who, in every place and at all occasions, drew attention of people to this truism.",
+      "source_pair_start": 72,
+      "source_pair_end": 74,
+      "recitation_segment": {
+        "id": "segment-041",
+        "title": "Recitation segment 41",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-042",
+      "sequence": 42,
+      "arabic_text": "اللهُمَّ الْعَنْ أبَا سُفْيانَ وَمُعَاوِيَةَ وَيَزيدَ بْنَ مُعَاوِيَةَ وآلَ مَرْوَانَ عَلَيْهِمْ مِنْكَ اللعْنَةُ أبَدَ الآبِدِينَ ،",
+      "transliteration": "allāhumma l-ʿan abā sufyāna wa muʿāwiyah wa yazīd ibn muʿāwiyah wa āla marwān, ʿalayhim minka al-laʿnatu abadan al-ābidīn",
+      "english_text": "O my Allah condemn and damn Abu Sufyaan, and Muawa'awiyah, son of Muwa'awiyah and let it be an everlasting curse upon tem from You.",
+      "source_pair_start": 75,
+      "source_pair_end": 77,
+      "recitation_segment": {
+        "id": "segment-042",
+        "title": "Recitation segment 42",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-043",
+      "sequence": 43,
+      "arabic_text": "وَهذا يَوْمٌ فَرِحَتْ بِهِ آلُ زِيَاد وَآلُ مَرْوانَ عَليهِمُ اللَّعْنةُ بِقَتْلِهِمُ الحُسَيْنَ عَلَيْهِ السَّلام ،",
+      "transliteration": "wa-haḏā yawmun fariḥat bihi ālu ziyād wa-ālu marwān ʿalayhimu al-laʿnatu bi-qatlihimu al-ḥusayn ʿalayhi al-salām",
+      "english_text": "Today the descendants of Ziyaad and Marwan make merry, may they be cursed because they had killed al-Husayn (blessings of Allah be on him).",
+      "source_pair_start": 78,
+      "source_pair_end": 79,
+      "recitation_segment": {
+        "id": "segment-043",
+        "title": "Recitation segment 43",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-044",
+      "sequence": 44,
+      "arabic_text": "اللهُمَّ فَضاعِفْ عَلَيْهِمُ اللعْنَ وَالعَذابَ الأليم .",
+      "transliteration": "allāhumma faḍāʿif ʿalayhimu al-laʿna wa al-ʿadhāba al-alīm",
+      "english_text": "O my Allah, therefore, double up the curse You brings upon them and also the punishment You decrees for them.",
+      "source_pair_start": 80,
+      "source_pair_end": 80,
+      "recitation_segment": {
+        "id": "segment-044",
+        "title": "Recitation segment 44",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-045",
+      "sequence": 45,
+      "arabic_text": "اللهُمَّ إنِّي أتَقَرَّبُّ إلَيْكَ في هذَا اليَوْمِ ، وَفِي مَوْقِفِي هَذا ، وَأيَّامِ حَيَاتِي بِالبَرَاءَةِ مِنْهُمْ، وَاللعْنَةِ عَلَيْهِمْ ، وَبِالْمُوالاةِ لِنَبِيِّكَ وَآلِ نَبِيِّكَ عَلَيِه وعَلَيْهِمُ السَّلام.",
+      "transliteration": "allāhumma innī ataqarrabu ilayka fī hādha al-yawm wa fī mauqifī hadhā, wa ayyāmī ḥayātī bil-barāʾati minhum, wal-laʿnatu ʿalayhim wa bil-muwalāt li-nabiyyika wa āli nabiyyika ʿalayhi wa ʿalayhimus-salām",
+      "english_text": "O my Allah, I seek nearness to You today in this frame of mind, cutting off all links with them for the rest of my life, denouncing them because of my love for Your Prophet and his children, peace be on him and them.",
+      "source_pair_start": 81,
+      "source_pair_end": 83,
+      "recitation_segment": {
+        "id": "segment-045",
+        "title": "Recitation segment 45",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-046",
+      "sequence": 46,
+      "arabic_text": "اللهُمَّ الْعَنْ أوّلَ ظالِم ظَلَمَ حَقَّ مُحَمَّد وَآلِ مُحَمَّد ، وَآخِرَ تَابِع لَهُ عَلَى ذلِكَ ،",
+      "transliteration": "allāhumma alʿan awala ẓālim ẓalama ḥaqq muḥammad wa āli muḥammad wa ākhir tābiʿ lahu ʿalā dhālika",
+      "english_text": "O my Allah condemn and damn the first tyrant who unjustly and wrongfully usurped that which rightly belonged to Mohammad and the children of Mohammad, and bring curse upon those who, after him, followed in his footsteps.",
+      "source_pair_start": 84,
+      "source_pair_end": 85,
+      "recitation_segment": {
+        "id": "segment-046",
+        "title": "Recitation segment 46",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-047",
+      "sequence": 47,
+      "arabic_text": "اللهُمَّ الْعَنِ العِصابَةَ الَّتِي جاهَدَتِ الْحُسَيْنَ عَلَيْهِ السَّلام وَشايَعَتْ وَبايَعَتْ وَتابَعَتْ عَلَى قَتْلِهِ.",
+      "transliteration": "allāhumma al-ʿani al-ʿiṣābata allatī jāhadatil-ḥusayna ʿalayhis-salām wa shāyaʿat wa bāyaʿat wa tābaʿat ʿalā qatlih",
+      "english_text": "O my Allah condemn and damn those conspirators who vexed and harassed Husayn, eagerness, agreed mutually, and joined hands to kill him.",
+      "source_pair_start": 86,
+      "source_pair_end": 87,
+      "recitation_segment": {
+        "id": "segment-047",
+        "title": "Recitation segment 47",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-048",
+      "sequence": 48,
+      "arabic_text": "اللهُمَّ الْعَنْهم جَميعاً",
+      "transliteration": "allahumma al'anhum jami'an",
+      "english_text": "O my Allah bring curse upon all of them.",
+      "source_pair_start": 88,
+      "source_pair_end": 88,
+      "recitation_segment": {
+        "id": "segment-048",
+        "title": "Recitation segment 48",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-049",
+      "sequence": 49,
+      "arabic_text": "السَّلام عَلَيْكَ يَا أبا عَبْدِ اللهِ وَعلَى الأرواحِ الّتي حَلّتْ بِفِنائِكَ ،",
+      "transliteration": "al-salām ʿalayka yā abā ʿabd allāh wa ʿalā al-arwāḥi al-latī ḥallat bifināʾika",
+      "english_text": "Peace be on you, O Abu Abdullah, and on those souls who came to your camp to put themselves at your disposal.",
+      "source_pair_start": 89,
+      "source_pair_end": 90,
+      "recitation_segment": {
+        "id": "segment-049",
+        "title": "Recitation segment 49",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-050",
+      "sequence": 50,
+      "arabic_text": "وَأنَاخَت برَحْلِك عَلَيْكَ مِنِّي سَلامُ اللهِ أبَداً مَا بَقِيتُ وَبَقِيَ الليْلُ وَالنَّهارُ ، وَلا جَعَلَهُ اللهُ آخِرَ العَهْدِ مِنِّي لِزِيَارَتِكُمْ ،",
+      "transliteration": "wa ana-khatab raḥlika ʿalayka minnī salāmu allāh abadan ma baqītu wa baqiya al-laylu wa al-nahār wa lā jaʿalahu allāhu ākhira al-ʿahdi minnī li-ziyāratikum",
+      "english_text": "So far I am alive and the days and nights follow each other I invoke Allah to send blessings on you for ever and ever. May Allah not make my this pledge of close association, physical as well as spiritual, with you the last fulfillment.",
+      "source_pair_start": 91,
+      "source_pair_end": 93,
+      "recitation_segment": {
+        "id": "segment-050",
+        "title": "Recitation segment 50",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-051",
+      "sequence": 51,
+      "arabic_text": "السَّلام عَلَى الحُسَيْن ، وَعَلَى عَليِّ بْنِ الحُسَيْنِ ، وَعَلَى أوْلادِ الحُسَيْنِ ، وَعَلَى أصْحابِ الحُسَينِ الذينَ بَذَلُوا مُهَجَهُم دُونَ الحُسين",
+      "transliteration": "al-salām ʿalá al-ḥusayn wa ʿalā ʿaliyy ibn al-ḥusayn, wa ʿalā awlād al-ḥusayn wa ʿalā aṣḥābi al-ḥusayn alladhīna baḏalu muhajahum dūna al-ḥusayn",
+      "english_text": "Peace be on Husayn, and on Ali son of Husayn, and on the children of Husayn, and on the friends of Husayn.",
+      "source_pair_start": 94,
+      "source_pair_end": 96,
+      "recitation_segment": {
+        "id": "segment-051",
+        "title": "Recitation segment 51",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-052",
+      "sequence": 52,
+      "arabic_text": "اللهمَّ خُصَّ أنْتَ أوّلَ ظالم بِاللّعْنِ مِنِّي ،",
+      "transliteration": "allāhumma khuṣṣa anta awwala ẓālimin bil-laʿni minnī",
+      "english_text": "O my Allah, let the curse I call down on the head of the first tyrant stick like a leech;",
+      "source_pair_start": 97,
+      "source_pair_end": 97,
+      "recitation_segment": {
+        "id": "segment-052",
+        "title": "Recitation segment 52",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-053",
+      "sequence": 53,
+      "arabic_text": "وَابْدَأْ بِهِ أوّلاً ، ثُمَّ الثَّانِي ، وَالثَّالِثَ وَالرَّابِع ، اللهُمَّ الْعَنْ يزِيَدَ خامِساً ، وَالْعَنْ عُبَيْدَ اللهِ بْنَ زِيَاد وَابْنَ مَرْجانَةَ وَعُمَرَ بْنَ سَعْد وَشِمْراً",
+      "transliteration": "wa-ibda' bihi aw-walan, thumma ath-thani wa al-thalitha wa al-rabia, allahumma al'an yazid khamsan walʿan ʿubayd allāh ibn ziyād wa ibn marjānah waʿumar ibn saʿd wa shimran",
+      "english_text": "and stay put for ever on the first, then the second, the third and the fourth. O my Allah damn and call down evil on the fifth, Yazid son of Mua'awyah, and bring a curse upon Ubaydullah son of Ziyaad, ibna Marjanah, Umar son of Saad, and Shimr,",
+      "source_pair_start": 98,
+      "source_pair_end": 101,
+      "recitation_segment": {
+        "id": "segment-053",
+        "title": "Recitation segment 53",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-054",
+      "sequence": 54,
+      "arabic_text": "وَآلَ أبي سُفْيانَ وَآلَ زِيَاد وآلَ مَرْوانَ إلَى يَوْمِ القِيامَةِ.",
+      "transliteration": "wa āla abī sufyan wa āla ziyād wa āla marwāna ilā yawm al-qiyāmah",
+      "english_text": "on the descendants of Abu Sufyaan, on the descendants of Ziyaad, on the descendants of Marwaan, till the Day of judgement.",
+      "source_pair_start": 102,
+      "source_pair_end": 102,
+      "recitation_segment": {
+        "id": "segment-054",
+        "title": "Recitation segment 54",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-055",
+      "sequence": 55,
+      "arabic_text": "اللهمَّ لَكَ الحَمْدُ حَمْدَ الشَّاكِرينَ لَكَ عَلَى مُصابِهِمْ ،",
+      "transliteration": "allāhumma laka al-ḥamdu ḥamda al-shākirīna laka ʿalā muṣābihim",
+      "english_text": "O my Allah! (All) praise is for You (alone); praise of the \"Ever-thankful to You\", who glorify You whatever come to pass.",
+      "source_pair_start": 103,
+      "source_pair_end": 103,
+      "recitation_segment": {
+        "id": "segment-055",
+        "title": "Recitation segment 55",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-056",
+      "sequence": 56,
+      "arabic_text": "الحَمْدُ للهِ عَلَى عَظِيمِ رَزِيّتي.",
+      "transliteration": "al-ḥamdu li-llāh ʿalā ʿaẓīmi raziyyatī",
+      "english_text": "(All) praise is for Allah for my deep-felt intense grief.",
+      "source_pair_start": 104,
+      "source_pair_end": 104,
+      "recitation_segment": {
+        "id": "segment-056",
+        "title": "Recitation segment 56",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-057",
+      "sequence": 57,
+      "arabic_text": "اللهُمَّ ارْزُقْني شَفاعَةَ الحُسَيْن عَلَيهِ السَّلام يَوْمَ الوُرُودِ ، وَثَبِّتْ لي قَدَمَ صِدْق عِنْدَكَ مَعَ الحُسَيْنِ وَأصْحابِ الحُسَيْن الّذِينَ بَذَلُوا مُهَجَهُمْ دُونَ الْحُسَيْن عَلَيْهِ السَّلام.",
+      "transliteration": "allāhumma arzuq-nī shafāʿata al-ḥusayn ʿalayhi as-salām yawma al-wurūd wa thabbit li qadam sadqi `indaka ma`a al-husayn wa-aṣḥābi al-ḥusayn alladhīna baḏalū muhajahum dūna al-ḥusayn ʿalayhi as-salām",
+      "english_text": "O my Allah make available for me the recommendations of Husayn on the day I present myself before You, let me stand firm in safety before You on account of my sincere attachment with Husayn, alongwith him and his comrades, who sacrificed everything they had (heart, mind, soul and life) for Husayn, peace be on him.",
+      "source_pair_start": 105,
+      "source_pair_end": 108,
+      "recitation_segment": {
+        "id": "segment-057",
+        "title": "Recitation segment 57",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-058",
+      "sequence": 58,
+      "arabic_text": "اَللَّهُمَّ ٱلْعَنْ أَوَّلَ ظَالِمٍ ظَلَمَ حَقَّ مُحَمَّدٍ وَآلِ مُحَمَّدٍ وَآخِرَ تَابِعٍ لَهُ عَلَىٰ ذٰلِكَ",
+      "transliteration": "allāhumma al'ana ʾawwala żālimin. ẓalama ḥaqq muḥammadin wa āli muḥammadin. wa akhira tabi'in lahu 'ala dhalika.",
+      "english_text": "O Allah, pour curses upon the foremost persecutor who usurped the right of Muhammad and Muhammad’s Household and the last follower who acceded to his deed.",
+      "source_pair_start": 109,
+      "source_pair_end": 111,
+      "recitation_segment": {
+        "id": "segment-058",
+        "title": "Recitation segment 58",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-059",
+      "sequence": 59,
+      "arabic_text": "اَللَّهُمَّ ٱلْعَنِ ٱلْعِصَابَةَ ٱلَّتِي جَاهَدَتِ ٱلْحُسَيْنَ وَشَايَعَتْ وَبَايَعَتْ وَتَابَعَتْ عَلَىٰ قَتْلِهِ",
+      "transliteration": "allāhumma al'anil ʿiṣābata allatī jāhadata al-ḥusayn. wa shāyaʿat wabāyaʿat watabaʿat ʿalá qatlihi",
+      "english_text": "O Allah, pour curses upon the gang that struggled against al-Husayn and who supported each other against him, paid homage to his enemies, and participated in slaying him.",
+      "source_pair_start": 112,
+      "source_pair_end": 113,
+      "recitation_segment": {
+        "id": "segment-059",
+        "title": "Recitation segment 59",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-060",
+      "sequence": 60,
+      "arabic_text": "اَللَّهُمَّ ٱلْعَنْهُمْ جَمِيعاً",
+      "transliteration": "Allāhumma al-ʿanhum jameeʿan.",
+      "english_text": "O Allah, pour curses upon all of them.",
+      "source_pair_start": 114,
+      "source_pair_end": 114,
+      "recitation_segment": {
+        "id": "segment-060",
+        "title": "Recitation segment 60",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-061",
+      "sequence": 61,
+      "arabic_text": "اَللَّهُمَّ ٱلْعَنْهُمْ جَمِيعاً",
+      "transliteration": "allāhumma al'anhum jamī'an.",
+      "english_text": "O Allah, pour curses upon all of them.",
+      "source_pair_start": 115,
+      "source_pair_end": 115,
+      "recitation_segment": {
+        "id": "segment-061",
+        "title": "Recitation segment 61",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-062",
+      "sequence": 62,
+      "arabic_text": "اَلسَّلاَمُ عَلَيْكَ يَا أَبَا عَبْدِ ٱللَّهِ وَعَلَىٰ ٱلأَرْوَاحِ ٱلَّتِي حَلَّتْ بِفِنَائِكَ",
+      "transliteration": "al-salāmu ʿalayka yā aba ʿabdillāh. wa ʿalā al-arwāḥi allatī hallat bifināʾik.",
+      "english_text": "Peace be upon you, O Abu-`Abdullah and upon the souls that gathered in your courtyard.",
+      "source_pair_start": 116,
+      "source_pair_end": 117,
+      "recitation_segment": {
+        "id": "segment-062",
+        "title": "Recitation segment 62",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-063",
+      "sequence": 63,
+      "arabic_text": "عَلَيْكَ مِنِّي سَلاَمُ ٱللَّهِ أَبَداً مَا بَقيتُ وَبَقِيَ ٱللَّيْلُ وَٱلنَّهَارُ",
+      "transliteration": "ʿAlayka minnī salāmu Allahi abadan. mā baqītu wa baqiya l-laylu wa n-nahāru.",
+      "english_text": "Peace of Allah be upon you from me forever as long as I am existent and as long as there are day and night.",
+      "source_pair_start": 118,
+      "source_pair_end": 119,
+      "recitation_segment": {
+        "id": "segment-063",
+        "title": "Recitation segment 63",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-064",
+      "sequence": 64,
+      "arabic_text": "وَلاَ جَعَلَهُ ٱللَّهُ آخِرَ ٱلْعَهْدِ مِنِّي لِزِيَارَتِكُمْ",
+      "transliteration": "walā jaʿalahu allāhu ākhira al-ʿahdi minnī liziyāratikum.",
+      "english_text": "May Allah not cause this (visit) to be the last of my visit to you (all).",
+      "source_pair_start": 120,
+      "source_pair_end": 120,
+      "recitation_segment": {
+        "id": "segment-064",
+        "title": "Recitation segment 64",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-065",
+      "sequence": 65,
+      "arabic_text": "اَلسَّلاَمُ عَلَىٰ ٱلْحُسَيْنِ وَعَلَىٰ عَلِيِّ بْنِ ٱلْحُسَيْنِ وَعَلَىٰ أَوْلاَدِ ٱلْحُسَيْنِ وَعَلَىٰ أَصْحَابِ ٱلْحُسَيْنِ",
+      "transliteration": "as-salāmu ʿalā al-ḥusayn. wa ʿalā ʿalī ibn al-ḥusayn. wa ʿalā awlād al-ḥusayn. wa ʿalā aṣḥābi al-ḥusayn.",
+      "english_text": "Peace be upon al-Husayn, upon `Ali ibn al-Husayn, upon the sons of al-Husayn, and upon the companions of al-Husayn.",
+      "source_pair_start": 121,
+      "source_pair_end": 124,
+      "recitation_segment": {
+        "id": "segment-065",
+        "title": "Recitation segment 65",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-066",
+      "sequence": 66,
+      "arabic_text": "وَعَلَىٰ أَصْحَابِ ٱلْحُسَيْنِ",
+      "transliteration": "wa ʿalā aṣḥābi al-ḥusayn.",
+      "english_text": "and upon the companions of al-Husayn.",
+      "source_pair_start": 125,
+      "source_pair_end": 125,
+      "recitation_segment": {
+        "id": "segment-066",
+        "title": "Recitation segment 66",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-067",
+      "sequence": 67,
+      "arabic_text": "اَللَّهُمَّ خُصَّ أَنْتَ أَوَّلَ ظَالِمٍ بِٱللَّعْنِ مِنِّي وَٱبْدَأْ بِهِ أَوَّلًا ثُمَّ ٱلْعَنِ ٱلثَّانِيَ وَٱلثَّالِثَ وَٱلرَّابِعَ",
+      "transliteration": "allāhumma khuṣṣa anta awwala dhālimin bi-l-la'ni minnī. wa'ibda' bihi awwalan. thumma al'ani alththaniya walththalitha waarrrabi'a.",
+      "english_text": "O Allah, pour special curses on the foremost persecutor and begin with him first, and then pour curses on the second, the third, and the fourth.",
+      "source_pair_start": 126,
+      "source_pair_end": 128,
+      "recitation_segment": {
+        "id": "segment-067",
+        "title": "Recitation segment 67",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-068",
+      "sequence": 68,
+      "arabic_text": "اَللَّهُمَّ ٱلْعَنْ يَزِيدَ خَامِساً وَٱلْعَنْ عُبَيْدَ ٱللَّهِ بْنَ زِيَادٍ وَٱبْنَ مَرْجَانَةَ وَعُمَرَ بْنَ سَعْدٍ وَشِمْراً وَآلَ أَبِي سُفْيَانَ وَآلَ زِيَادٍ وَآلَ مَرْوَانَ",
+      "transliteration": "allahumma al'an yazid khamesan. wa al'an ʿubayd allāh ibn ziyād wa ibn marjānah. waʿumar ibn saʿd wa shimran. wa āla abī sufyan wa āla ziyād wa āla marwāna.",
+      "english_text": "O Allah, curse Yazid fifthly, and curse `Ubaydullah ibn Ziyad, the son of Marjanah, `Umar ibn Sa`d, Shimr, the family of Abu-Sufyan, the family of Ziyad, and the family of Marwan",
+      "source_pair_start": 129,
+      "source_pair_end": 132,
+      "recitation_segment": {
+        "id": "segment-068",
+        "title": "Recitation segment 68",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-069",
+      "sequence": 69,
+      "arabic_text": "إِلَىٰ يَوْمِ ٱلْقِيَامَةِ",
+      "transliteration": "ʾIlā yawmi al-qiyāmah.",
+      "english_text": "up to the Resurrection Day.",
+      "source_pair_start": 133,
+      "source_pair_end": 133,
+      "recitation_segment": {
+        "id": "segment-069",
+        "title": "Recitation segment 69",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-070",
+      "sequence": 70,
+      "arabic_text": "إِلَىٰ يَوْمِ ٱلْقِيَامَةِ",
+      "transliteration": "'ilā yawm al-qiyāmah.",
+      "english_text": "up to the Resurrection Day.",
+      "source_pair_start": 134,
+      "source_pair_end": 134,
+      "recitation_segment": {
+        "id": "segment-070",
+        "title": "Recitation segment 70",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-071",
+      "sequence": 71,
+      "arabic_text": "اَللَّهُمَّ لَكَ ٱلْحَمْدُ",
+      "transliteration": "allāhumma lakal-ḥamdu.",
+      "english_text": "O Allah, all praise be to You;",
+      "source_pair_start": 135,
+      "source_pair_end": 135,
+      "recitation_segment": {
+        "id": "segment-071",
+        "title": "Recitation segment 71",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-072",
+      "sequence": 72,
+      "arabic_text": "حَمْدَ ٱلشَّاكِرِينَ لَكَ عَلَىٰ مُصَابِهِمْ",
+      "transliteration": "ḥamd ash-shākireen laka ʿalā muṣābihim.",
+      "english_text": "the praise of those who thank You for their misfortunes.",
+      "source_pair_start": 136,
+      "source_pair_end": 136,
+      "recitation_segment": {
+        "id": "segment-072",
+        "title": "Recitation segment 72",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-073",
+      "sequence": 73,
+      "arabic_text": "اَلْحَمْدُ لِلَّهِ عَلَىٰ عَظِيمِ رَزِيَّتِي",
+      "transliteration": "al-ḥamdulillāhi ʿalā ʿaẓīmi razīyatī.",
+      "english_text": "All praise be to Allah for my great misfortune.",
+      "source_pair_start": 137,
+      "source_pair_end": 137,
+      "recitation_segment": {
+        "id": "segment-073",
+        "title": "Recitation segment 73",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    },
+    {
+      "id": "passage-074",
+      "sequence": 74,
+      "arabic_text": "اَللَّهُمَّ ٱرْزُقْنِي شَفَاعَةَ ٱلْحُسَيْنِ يَوْمَ ٱلْوُرُودِ وَثَبِّتْ لِي قَدَمَ صِدْقٍ عِنْدَكَ مَعَ ٱلْحُسَيْنِ وَأَصْحَابِ ٱلْحُسَيْنِ",
+      "transliteration": "allāhumma arzuqnī shafāʿata al-ḥusayn yawm al-wurūd. wa thabbit li qadam sidqin 'indaka. maʿa al-ḥusayn wa-ashābi al-ḥusayn.",
+      "english_text": "O Allah, (please) grant me the intercession of al-Husayn on the Day of Coming (to You) and make for me with You a firm step of honesty with al-Husayn and the companions of al-Husayn",
+      "source_pair_start": 138,
+      "source_pair_end": 140,
+      "recitation_segment": {
+        "id": "segment-074",
+        "title": "Recitation segment 74",
+        "repeatable": true,
+        "suggested_repetitions": 3,
+        "pause_after": true
+      }
+    }
+  ]
+}
