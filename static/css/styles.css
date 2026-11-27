@@ -164,6 +164,21 @@
     border:2px solid var(--panel); background-clip:content-box; }
   .reader::-webkit-scrollbar-track { background:transparent; }
 
+  .reader-back-catalog {
+    display:inline-flex; align-items:center; justify-content:center;
+    margin:0 0 12px; padding:7px 12px; border:1px solid var(--border);
+    border-radius:8px; background:var(--panel-2); color:var(--muted);
+    font-size:12px; cursor:pointer;
+  }
+  .reader-back-catalog:hover { color:var(--text); border-color:var(--accent-border); }
+  .reading-attribution { width:min(100%,680px); margin:12px auto 0; text-align:left; color:var(--muted); font-size:11px; }
+  .reading-attribution summary { cursor:pointer; color:var(--accent); }
+  .reading-attribution p { margin:8px 0; line-height:1.5; }
+  .reading-attribution a { color:var(--accent); text-decoration:underline; }
+  .aya-meaning { margin-top:12px; padding:9px 11px; border:1px solid var(--border); border-radius:9px; background:var(--panel-2); font-size:12px; }
+  .aya-meaning summary { cursor:pointer; color:var(--accent); font-weight:600; }
+  .aya-meaning > div { margin-top:8px; color:var(--muted); line-height:1.6; white-space:pre-wrap; }
+
   .sura-heading { max-width:920px; margin:14px auto 22px; text-align:center;
     padding-bottom:16px; border-bottom:1px solid var(--border); }
   .sura-heading h1 { margin:0; font-size:20px; font-weight:700; letter-spacing:.3px; }
