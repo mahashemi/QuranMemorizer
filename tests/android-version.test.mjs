@@ -22,5 +22,6 @@ test('Gradle release signing is inserted only into buildTypes.release', () => {
   assert.match(configured.gradle, /versionCode 1000001/);
   assert.match(configured.gradle, /versionName "1\.0\.1"/);
   assert.match(configured.gradle, /release \{\s*signingConfig signingConfigs\.release/);
-  assert.doesNotMatch(configured.gradle, /signingConfigs \{[\s\S]*?signingConfig signingConfigs\.release/);
+  const signingConfigs = configured.gradle.split('buildTypes {')[0];
+  assert.doesNotMatch(signingConfigs, /signingConfig signingConfigs\.release/);
 });
