@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-mutasimeen",
+  "title": "14. The Whispered Prayer of those Who Hold Fast (Mutasimeen)",
+  "kind": "dua",
+  "recordCount": 33,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 33,
+      "file": "segments_031_033.json"
+    }
+  ]
+}
