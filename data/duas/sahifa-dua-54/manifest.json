@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-54",
+  "title": "54. Removal of Worries",
+  "kind": "dua",
+  "recordCount": 20,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 20,
+      "file": "segments_001_020.json"
+    }
+  ]
+}
