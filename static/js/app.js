@@ -2742,6 +2742,7 @@ window.QuranMemorizerReader = Object.freeze({
   },
   stopPlayback() { stopAll(); },
   getActiveSura() { return SURA_BY_NUM[state.sura] || null; },
+  navigateCollectionSection(section, play = false) { goToAya(section, { play: Boolean(play), opening: false }); },
   getState() { return { sura: state.sura, aya: state.aya, playbackSpeed: state.playbackSpeed }; }
 });
 
