@@ -1222,6 +1222,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 38,
       "manifest": "munajat-khaifeen/manifest.json"
+    },
+    {
+      "id": "munajat-rajeen",
+      "title": "04. The Whispered Prayer of the Hopeful (Rajeen)",
+      "arabicTitle": "مناجاة الراجين",
+      "description": "The fourth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 204,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 4",
+        "url": "https://www.duas.org/sajjadiya/dua72.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 34,
+      "manifest": "munajat-rajeen/manifest.json"
     }
   ]
 }
