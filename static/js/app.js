@@ -1896,8 +1896,17 @@ async function playUserRecording(sura, aya) {
 function hasOpening(sura) { return sura !== 1 && sura !== 9; }
 
 // Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
-// Accept the shorter legacy-style aliases too, but always write the canonical form.
 function getAyahElementId(sura, aya) { return 'ayah-' + Number(sura) + '-' + Number(aya); }
+function isCollectionReading() { return !!(state.activeCollection && state.activeReading); }
+function getCurrentReading() { return isCollectionReading() ? state.activeReading : SURA_BY_NUM[state.sura]; }
+function getCurrentReaderElementId(aya) {
+  return isCollectionReading() ? 'reading-section-' + Number(aya) : getAyahElementId(state.sura, aya);
+}
+function writeCollectionHash(collection, readingId, section) {
+  const route = '#/' + (collection === 'ziyarats' ? 'ziyarat' : 'dua') + '/' + encodeURIComponent(readingId) + '/section/' + Number(section);
+  if (window.location.hash === route) return;
+  window.history.replaceState(null, '', window.location.pathname + window.location.search + route);
+}
 
 function parseQuranHash(hash) {
   const match = String(hash || '').match(/^#\/(?:surah|sura)\/(\d+)(?:\/(?:ayah|aya)\/(\d+))?\/?$/i);
@@ -1951,26 +1960,25 @@ async function loadSura(num, opts) {
   ayaNavigationRequestId++;
   const s = SURA_BY_NUM[num];
   if (!s) return;
-
+  const wasCollection = isCollectionReading();
   try {
     await ensureSuraLoaded(s, opts.aya || 1, false);
   } catch (error) {
     toast(error.message || 'Could not load this Surah.');
     return;
   }
-
-  // If the user navigates away mid-recording, stop and save the current take.
-  if (activeRecorder && activeRecordingKey && activeRecordingKey.sura !== num) {
+  if (activeRecorder && activeRecordingKey && (activeRecordingKey.collection || activeRecordingKey.sura !== num)) {
     activeRecorder.stop();
-    toast('Recording stopped and will be saved before changing surah.');
+    toast('Recording stopped and will be saved before changing reading.');
   }
-
   const aya = Math.max(1, Math.min(opts.aya || 1, s.ayaCount));
-  const suraChanged = state.sura !== num;
-
+  const suraChanged = wasCollection || state.sura !== num;
+  state.activeCollection = null;
+  state.activeReading = null;
+  state.collectionCatalog = null;
+  document.body.classList.remove('collection-active');
   state.sura = num;
   state.aya = aya;
-
   if (suraChanged || !el.reader.querySelector('.aya[data-aya="' + aya + '"]')) {
     renderSura();
     syncRangeInputs();
@@ -1980,33 +1988,130 @@ async function loadSura(num, opts) {
   updateAyaUI(true);
   requestAnimationFrame(loadAdjacentReaderChunk);
   if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
-
   if (isMobile()) setDrawerTab('aya');
+  if (opts.play) goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+}
 
-  if (opts.play) {
-    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+async function ensureCollectionSectionLoaded(reading, section) {
+  const chunk = (reading.chunks || []).find(item => section >= item.start && section <= item.end);
+  if (!chunk) throw new Error('No storage chunk contains passage ' + section + '.');
+  if (reading.loadedChunks.has(chunk.file)) return;
+  if (reading.loadingChunks.has(chunk.file)) return reading.loadingChunks.get(chunk.file);
+  const load = (async () => {
+    const url = new URL('data/' + reading.collection + '/' + reading.id + '/' + chunk.file, document.baseURI);
+    const response = await fetch(url.href);
+    if (!response.ok) throw new Error('Could not load reading passages (' + response.status + ').');
+    const records = await response.json();
+    if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) throw new Error('Reading chunk is incomplete or has an invalid record count.');
+    records.forEach((record, index) => {
+      if (!record || typeof record.arabic_text !== 'string' || !record.arabic_text.trim()) throw new Error('Passage ' + (chunk.start + index) + ' is missing Arabic text.');
+      reading.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
+    });
+    reading.loadedChunks.add(chunk.file);
+  })();
+  reading.loadingChunks.set(chunk.file, load);
+  try { await load; }
+  finally { reading.loadingChunks.delete(chunk.file); }
+}
+
+async function openCollectionReading(collection, readingId, section, textMeta, catalog, manifest) {
+  if (!['duas', 'ziyarats'].includes(collection)) throw new Error('Unknown reading collection.');
+  if (!manifest || !Number.isInteger(Number(manifest.recordCount)) || !Array.isArray(manifest.chunks)) throw new Error('Reading manifest is invalid.');
+  const requestId = ++ayaNavigationRequestId;
+  const target = clampInt(section || 1, 1, Number(manifest.recordCount));
+  const identity = { collection, readingId, section: target };
+  if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(identity)) {
+    activeRecorder.stop();
+    toast('Recording stopped and will be saved before changing reading.');
+  }
+  stopAll();
+  const title = textMeta && textMeta.title ? textMeta.title : manifest.title || readingId;
+  const arabicTitle = textMeta && textMeta.arabicTitle ? textMeta.arabicTitle : '';
+  state.activeCollection = collection;
+  state.collectionCatalog = catalog || null;
+  state.activeReading = {
+    ...manifest,
+    id: readingId,
+    collection,
+    title,
+    englishName: title,
+    arabicTitle,
+    arabicName: arabicTitle,
+    ayaCount: Number(manifest.recordCount),
+    ayas: new Array(Number(manifest.recordCount)),
+    loadedChunks: new Set(),
+    loadingChunks: new Map()
+  };
+  state.aya = target;
+  state.playingAya = null;
+  state.ayaInner = 0;
+  document.body.classList.add('collection-active');
+  activateReaderView();
+  await ensureCollectionSectionLoaded(state.activeReading, target);
+  if (requestId !== ayaNavigationRequestId) return;
+  renderSura();
+  renderAyaList(state.sura);
+  syncRangeInputs();
+  resetCounters();
+  updateAyaUI(true);
+  applyDisplayClasses();
+  if (isMobile()) setDrawerTab('aya');
+}
+
+function exitCollectionReading() {
+  state.activeCollection = null;
+  state.activeReading = null;
+  state.collectionCatalog = null;
+  document.body.classList.remove('collection-active');
+}
+
+async function goToCollectionSection(aya, opts) {
+  opts = opts || {};
+  const reading = state.activeReading;
+  if (!reading) return;
+  const n = clampInt(aya, 1, reading.ayaCount);
+  const identity = { collection: state.activeCollection, readingId: reading.id, section: n };
+  if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(identity)) {
+    activeRecorder.stop();
+    toast('Recording stopped and will be saved before changing passage.');
+  }
+  const requestId = ++ayaNavigationRequestId;
+  state.aya = n;
+  state.ayaInner = 0;
+  try {
+    await ensureCollectionSectionLoaded(reading, n);
+    if (requestId !== ayaNavigationRequestId || state.activeReading !== reading) return;
+    if (!document.getElementById(getCurrentReaderElementId(n))) renderSura();
+    renderAyaList(state.sura);
+    updateAyaUI(true);
+    if (document.body.classList.contains('reader-active')) writeCollectionHash(state.activeCollection, reading.id, n);
+    if (opts.play) playTrack(state.sura, n);
+  } catch (error) {
+    if (requestId === ayaNavigationRequestId) toast(error.message || 'Could not load this passage.');
   }
 }
 
 function goToAya(aya, opts) {
   opts = opts || {};
+  if (isCollectionReading()) {
+    goToCollectionSection(aya, opts);
+    return;
+  }
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
-
   const n = Math.max(1, Math.min(aya, s.ayaCount));
   const requestId = ++ayaNavigationRequestId;
   state.aya = n;
   state.ayaInner = 0;
   ensureSuraLoaded(s, n, false).then(() => {
-    if (requestId !== ayaNavigationRequestId || state.sura !== s.number) return;
+    if (requestId !== ayaNavigationRequestId || state.sura !== s.number || isCollectionReading()) return;
     if (!document.getElementById(getAyahElementId(state.sura, n))) renderSura();
     renderAyaList(state.sura);
     updateAyaUI(true);
     if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
     const chunk = s.chunkManifest && s.chunkManifest.chunks.find(item => n >= item.start && n <= item.end);
     if (chunk && n >= chunk.end - 2 && chunk.end < s.ayaCount) {
-      ensureSuraLoaded(s, chunk.end + 1, false)
-        .catch(error => console.warn('Next Quran chunk prefetch failed.', error));
+      ensureSuraLoaded(s, chunk.end + 1, false).catch(error => console.warn('Next Quran chunk prefetch failed.', error));
     }
     if (opts.play) {
       if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) playTrack(state.sura, 0);
@@ -2017,7 +2122,41 @@ function goToAya(aya, opts) {
   });
 }
 
+async function playCollectionTrack(section) {
+  const identity = getCurrentRecordingIdentity(section);
+  const requestId = ++playbackRequestId;
+  playbackMode = 'sequence';
+  setNativePlaybackActive(true);
+  state.playingAya = section;
+  state.started = true;
+  updateNativeMediaMetadata(true);
+  try {
+    const custom = await getUserRecording(identity);
+    if (requestId !== playbackRequestId) return;
+    if (!custom || !custom.blob) {
+      playbackMode = 'idle';
+      state.started = false;
+      state.playingAya = null;
+      setNativePlaybackActive(false);
+      setPlayIcon(false);
+      toast('Record this passage first to create a replay.');
+      return;
+    }
+    if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
+    activeRecordingObjectUrl = URL.createObjectURL(custom.blob);
+    setAudioSource(activeRecordingObjectUrl);
+    await audio.play();
+  } catch (error) {
+    if (requestId !== playbackRequestId) return;
+    playbackMode = 'idle';
+    state.started = false;
+    setNativePlaybackActive(false);
+    toast('Could not play this passage recording: ' + (error.message || 'unknown error'));
+  }
+}
+
 async function playTrack(sura, aya) {
+  if (isCollectionReading()) return playCollectionTrack(aya);
   if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
   const requestId = ++playbackRequestId;
   playbackMode = 'sequence';
