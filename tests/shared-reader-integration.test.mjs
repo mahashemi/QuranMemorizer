@@ -30,6 +30,8 @@ test('collection recordings use namespaced identities in browser and Android sto
   assert.match(native, /identity\.collection \? 'passage-' : 'ayah-'/);
   assert.match(native, /String\(number\)\.padStart\(3/);
   assert.match(app, /getCurrentRecordingIdentity\(aya\)/);
+  assert.match(app, /recordings\/collections\/' \+ identity\.collection \+ '\/' \+ identity\.readingId/);
+  assert.match(app, /collectionPath = \/.*recordings\\\/collections/);
 });
 
 test('the existing Quran sidebar, mobile header, and player remain available in collection mode', () => {
