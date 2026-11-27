@@ -9,13 +9,12 @@ export function ayahElementId(surah, ayah) {
 }
 
 export function buildAyahHash(surah, ayah) {
-  const id = ayahElementId(surah, ayah);
-  const [, s, a] = id.match(/^ayah-(\\d+)-(\\d+)$/);
-  return '#/surah/' + s + '/ayah/' + a;
+  ayahElementId(surah, ayah);
+  return '#/surah/' + Number(surah) + '/ayah/' + Number(ayah);
 }
 
 export function parseAyahHash(hash) {
-  const match = String(hash || '').match(/^#\\/surah\\/(\\d+)\\/ayah\\/(\\d+)\\/?$/i);
+  const match = String(hash || '').match(/^#\/surah\/(\d+)\/ayah\/(\d+)\/?$/i);
   if (!match) return null;
   const surah = Number(match[1]), ayah = Number(match[2]);
   if (!Number.isInteger(surah) || surah < 1 || surah > SURAH_COUNT ||
