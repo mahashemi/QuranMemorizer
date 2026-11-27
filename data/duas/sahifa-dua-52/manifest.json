@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-52",
+  "title": "52. His Supplication in Imploring God",
+  "kind": "dua",
+  "recordCount": 26,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 26,
+      "file": "segments_001_026.json"
+    }
+  ]
+}
