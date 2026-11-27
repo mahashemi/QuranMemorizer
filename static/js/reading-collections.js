@@ -165,6 +165,7 @@ async function openCatalog(collection) {
     return;
   }
   const token = ++requestToken;
+  if (parseRoute()) history.replaceState(null, '', location.pathname + location.search);
   setDomain(collection);
   showReader();
   reader.innerHTML = '<section class="collection-state"><h1>' + esc(config.title) + '</h1><p>Loading reading library…</p></section>';
