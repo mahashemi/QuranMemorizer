@@ -19,7 +19,9 @@
       },
       "manifest": "dua-kumayl/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 250
+      "sourcePairCount": 250,
+      "group": "Core Duas",
+      "order": 10
     },
     {
       "id": "dua-nudba",
@@ -37,7 +39,9 @@
       },
       "manifest": "dua-nudba/manifest.json",
       "sourceStatus": "imported-review-required",
-      "sourcePairCount": 222
+      "sourcePairCount": 222,
+      "group": "Core Duas",
+      "order": 20
     },
     {
       "id": "sahifa-dua-01",
