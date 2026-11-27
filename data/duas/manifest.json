@@ -958,6 +958,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 108,
       "manifest": "sahifa-dua-44/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-45",
+      "title": "45. Farewell to the Month of Ramadan",
+      "arabicTitle": "دُعَاؤُهُ لِوَدَاعِ شَهْرِ رَمَضَانَ",
+      "description": "Sahifa Sajjadiya — Supplication 45",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 145,
+      "canonicalNumber": 45,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-farewell-to-the-month-of-ramadan",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 222,
+      "manifest": "sahifa-dua-45/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-46",
+      "title": "46. On the Day of Fast-Breaking and on Friday",
+      "arabicTitle": "دُعَاؤُهُ فِي عِيدِ الْفِطْرِ وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 46",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 146,
+      "canonicalNumber": 46,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-on-the-day-of-fast-breaking-and-on-friday",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 77,
+      "manifest": "sahifa-dua-46/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-47",
+      "title": "47. His Supplication on the Day of 'Arafa",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ عَرَفَةَ",
+      "description": "Sahifa Sajjadiya — Supplication 47",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 147,
+      "canonicalNumber": 47,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-on-the-day-of-arafa",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 417,
+      "manifest": "sahifa-dua-47/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-48",
+      "title": "48. His Supplication on the Day of Sacrifice and on Friday",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ الْأَضْحَى وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 48",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 148,
+      "canonicalNumber": 48,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-on-the-day-of-sacrifice-and-on-friday",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 193,
+      "manifest": "sahifa-dua-48/manifest.json"
     }
   ]
 }
