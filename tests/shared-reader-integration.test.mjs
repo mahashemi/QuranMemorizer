@@ -33,13 +33,15 @@ test('the collection view does not hide the existing sidebar or player', () => {
 });
 
 test('the imported library includes all 54 Sahifa supplications and 15 Munajat', () => {
-  assert.equal(duas.texts.length, 72);
+  assert.equal(duas.texts.length, 73);
   const sahifa = duas.texts.filter(item => item.group === 'Sahifa Sajjadiya — 54 Supplications');
   const munajat = duas.texts.filter(item => item.group === '15 Munajat');
   assert.equal(sahifa.length, 54);
   assert.deepEqual(sahifa.map(item => item.canonicalNumber).sort((a, b) => a - b), Array.from({ length: 54 }, (_, i) => i + 1));
   assert.equal(munajat.length, 15);
   assert.ok(munajat.every(item => item.id.startsWith('munajat-')));
+  assert.ok(duas.texts.some(item => item.id === 'dua-ahad'));
+  assert.ok(duas.texts.some(item => item.id === 'dua-jawshan-kabir'));
 });
 
 test('all imported Dua and Ziyarat source records have Arabic, transliteration, and English fields', () => {
