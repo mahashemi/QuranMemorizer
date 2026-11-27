@@ -1433,8 +1433,14 @@ async function getRecordingArchiveModule() {
 }
 
 function recordingArchivePath(sura, aya, mimeType) {
-  const ext = recordingExtension(mimeType);
-  return 'recordings/' + recordingSuraFolderName(sura) + '/ayah-' + pad3(aya) + '.' + ext;
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const type = mimeType || (typeof aya === 'string' ? aya : '');
+  const ext = recordingExtension(type);
+  if (identity.collection) {
+    return 'recordings/collections/' + identity.collection + '/' + identity.readingId +
+      '/passage-' + pad3(identity.section) + '.' + ext;
+  }
+  return 'recordings/' + recordingSuraFolderName(identity) + '/ayah-' + pad3(identity.aya) + '.' + ext;
 }
 
 async function collectFolderRecordingsForArchive() {
@@ -1442,29 +1448,28 @@ async function collectFolderRecordingsForArchive() {
   const dirs = await getConnectedRecordingDirectories(false);
   const records = [];
   const seen = new Set();
-  const folderPattern = /^surah-(\d{3})-/i;
-  const filePattern = /^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-
-  // Discover files directly so an interrupted manifest update cannot hide audio.
+  const quranFolderPattern = /^surah-(\\d{3})-/i;
+  const collectionFolderPattern = /^collection-(duas|ziyarats)-(.+)$/i;
+  const quranFilePattern = /^ayah-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+  const collectionFilePattern = /^passage-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
   for await (const [folderName, folderHandle] of dirs.recordingsDirectory.entries()) {
     if (folderHandle.kind !== 'directory') continue;
-    const folderMatch = folderName.match(folderPattern);
-    if (!folderMatch) continue;
-    const sura = Number(folderMatch[1]);
-    if (!Number.isInteger(sura) || sura < 1 || sura > 114) continue;
+    const quranFolder = folderName.match(quranFolderPattern);
+    const collectionFolder = folderName.match(collectionFolderPattern);
+    if (!quranFolder && !collectionFolder) continue;
     for await (const [fileName, fileHandle] of folderHandle.entries()) {
       if (fileHandle.kind !== 'file') continue;
-      const fileMatch = fileName.match(filePattern);
-      if (!fileMatch) continue;
-      const aya = Number(fileMatch[1]);
-      const key = sura + ':' + aya;
+      const quranFile = fileName.match(quranFilePattern);
+      const collectionFile = fileName.match(collectionFilePattern);
+      if ((!quranFolder || !quranFile) && (!collectionFolder || !collectionFile)) continue;
+      const identity = quranFolder
+        ? { sura: Number(quranFolder[1]), aya: Number(quranFile[1]) }
+        : { collection: collectionFolder[1].toLowerCase(), readingId: collectionFolder[2], section: Number(collectionFile[1]) };
+      const key = recordingIdentityKey(identity);
       if (seen.has(key)) continue;
       const file = await fileHandle.getFile();
-      records.push({
-        key, sura, aya, blob: file,
-        mimeType: file.type || recordingMimeForExtension(fileMatch[2].toLowerCase()),
-        fileName, updatedAt: file.lastModified, storage: 'folder'
-      });
+      const extension = (quranFile || collectionFile)[2].toLowerCase();
+      records.push({ key, ...identity, blob: file, mimeType: file.type || recordingMimeForExtension(extension), fileName, updatedAt: file.lastModified, storage: 'folder' });
       seen.add(key);
     }
   }
@@ -1473,69 +1478,41 @@ async function collectFolderRecordingsForArchive() {
 
 async function collectRecordingsForArchive() {
   await ensureRecordingStorageInitialized();
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect the recordings folder in Settings before exporting.');
-  }
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect the recordings folder in Settings before exporting.');
   const records = [];
   const seen = new Set();
+  const add = record => {
+    if (!record || !record.blob) return;
+    let identity;
+    try { identity = normalizeRecordingIdentity(record); } catch (_) { return; }
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) return;
+    const key = record.key || recordingIdentityKey(identity);
+    if (seen.has(key)) return;
+    records.push({ ...record, ...identity, key });
+    seen.add(key);
+  };
   const native = await getNativeRecordingStorage();
-  if (native && typeof native.list === 'function') {
-    const nativeRecords = await native.list();
-    for (const record of nativeRecords) {
-      if (!record || !record.blob) continue;
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  if (recordingStorageMode === 'folder') {
-    const folderRecords = await collectFolderRecordingsForArchive();
-    for (const record of folderRecords) {
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  // Include browser-local recordings that could not yet be migrated.
-  if (!native) {
-    const localRecords = await getAllBrowserRecordings();
-    for (const record of localRecords) {
-      if (!record || !record.blob) continue;
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  return records.filter(record => record && record.blob && Number.isInteger(Number(record.sura)) && Number.isInteger(Number(record.aya)));
+  if (native && typeof native.list === 'function') (await native.list()).forEach(add);
+  if (recordingStorageMode === 'folder') (await collectFolderRecordingsForArchive()).forEach(add);
+  if (!native) (await getAllBrowserRecordings()).forEach(add);
+  return records;
 }
 
 async function exportRecordingsArchive() {
   try {
     const records = await collectRecordingsForArchive();
-    if (!records.length) {
-      toast('There are no saved recordings to export yet.');
-      return;
-    }
+    if (!records.length) { toast('There are no saved recordings to export yet.'); return; }
     const { createZip } = await getRecordingArchiveModule();
-    const manifest = {
-      schemaVersion: 1,
-      app: 'QuranMemorizer',
-      exportedAt: new Date().toISOString(),
-      recordings: []
-    };
+    const manifest = { schemaVersion: 2, app: 'QuranMemorizer', exportedAt: new Date().toISOString(), recordings: [] };
     const entries = [];
     for (const record of records) {
-      const sura = Number(record.sura);
-      const aya = Number(record.aya);
+      const identity = normalizeRecordingIdentity(record);
       const mimeType = record.mimeType || record.blob.type || 'audio/webm';
-      const name = recordingArchivePath(sura, aya, mimeType);
+      const name = recordingArchivePath(identity, mimeType);
       entries.push({ name, data: record.blob });
       manifest.recordings.push({
-        key: sura + ':' + aya, sura, aya, fileName: name.split('/').pop(),
-        folder: recordingSuraFolderName(sura), mimeType, size: record.blob.size,
+        key: recordingIdentityKey(identity), ...identity, fileName: name.split('/').pop(),
+        folder: recordingSuraFolderName(identity), mimeType, size: record.blob.size,
         updatedAt: record.updatedAt || Date.now()
       });
     }
@@ -1560,66 +1537,47 @@ async function importRecordingsArchive(file) {
   if (!file) return;
   try {
     await ensureRecordingStorageInitialized();
-    if (recordingStorageMode === 'folder-needs-permission') {
-      throw new Error('Reconnect the recordings folder in Settings before importing.');
-    }
-    if (recordingStorageMode === 'needs-folder-choice') {
-      throw new Error('Choose a recordings folder or explicitly select browser-local storage in Settings first.');
-    }
+    if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect the recordings folder in Settings before importing.');
+    if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before importing.');
     const { readZip } = await getRecordingArchiveModule();
     const entries = await readZip(file);
-    const audioPath = /(?:^|\/)(?:QuranMemorizer\/)?recordings\/(surah-(\d{3})-[^/]+)\/(ayah-(\d{3}))\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const quranPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/(surah-(\\d{3})-[^/]+)\\/(ayah-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const collectionPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/collections\\/(duas|ziyarats)\\/([a-z0-9-]+)\\/(passage-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const entryName = String(entry.name || '').replace(/\\/g, '/');
-      if (/(?:^|\/)manifest\.json$/i.test(entryName)) continue;
-      const match = entryName.match(audioPath);
-      if (!match) { ignored++; continue; }
-      const sura = Number(match[2]);
-      const aya = Number(match[4]);
-      const extension = match[5].toLowerCase();
-      const suraData = SURA_BY_NUM[sura];
-      if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayaCount) {
-        ignored++;
-        continue;
+      const entryName = String(entry.name || '').replace(/\\\\/g, '/');
+      if (/(?:^|\\/)manifest\\.json$/i.test(entryName)) continue;
+      const quranMatch = entryName.match(quranPath);
+      const collectionMatch = entryName.match(collectionPath);
+      if (!quranMatch && !collectionMatch) { ignored++; continue; }
+      const extension = (quranMatch ? quranMatch[5] : collectionMatch[5]).toLowerCase();
+      const identity = quranMatch
+        ? { sura: Number(quranMatch[2]), aya: Number(quranMatch[4]) }
+        : { collection: collectionMatch[1].toLowerCase(), readingId: collectionMatch[2], section: Number(collectionMatch[4]) };
+      if (!identity.collection) {
+        const suraData = SURA_BY_NUM[identity.sura];
+        if (!suraData || identity.aya < 1 || identity.aya > suraData.ayaCount) { ignored++; continue; }
       }
-      byKey.set(sura + ':' + aya, {
-        sura,
-        aya,
-        blob: new Blob([entry.blob], { type: recordingMimeForExtension(extension) })
-      });
+      try {
+        const key = recordingIdentityKey(identity);
+        byKey.set(key, { ...identity, key, blob: new Blob([entry.blob], { type: recordingMimeForExtension(extension) }) });
+      } catch (_) { ignored++; }
     }
     const recordings = Array.from(byKey.values());
-    if (!recordings.length) {
-      toast('No valid QuranMemorizer ayah recordings were found in this ZIP archive.');
-      return;
-    }
-
+    if (!recordings.length) { toast('No valid QuranMemorizer recordings were found in this ZIP archive.'); return; }
     let duplicateCount = 0;
     for (const recording of recordings) {
-      try {
-        if (await getUserRecording(recording.sura, recording.aya)) duplicateCount++;
-      } catch (_) { /* A missing or inaccessible record is not counted as a conflict. */ }
+      try { if (await getUserRecording(recording)) duplicateCount++; } catch (_) {}
     }
     if (duplicateCount && !window.confirm('This archive contains ' + recordings.length +
-      ' recording(s), including ' + duplicateCount + ' ayah(s) that already have recordings. Replace matching recordings?')) return;
-
-    let imported = 0;
-    let browserFallback = 0;
-    let failed = 0;
+      ' recording(s), including ' + duplicateCount + ' existing recording(s). Replace matching recordings?')) return;
+    let imported = 0, browserFallback = 0, failed = 0;
     for (const recording of recordings) {
-      try {
-        await saveUserRecording(recording.sura, recording.aya, recording.blob);
-        imported++;
-      } catch (storageError) {
-        try {
-          await saveBrowserRecording(recording.sura, recording.aya, recording.blob);
-          imported++;
-          browserFallback++;
-        } catch (_) {
-          failed++;
-        }
+      try { await saveUserRecording(recording, null, recording.blob); imported++; }
+      catch (storageError) {
+        try { await saveBrowserRecording(recording, null, recording.blob); imported++; browserFallback++; }
+        catch (_) { failed++; }
       }
     }
     refreshRecordingControls(getCurrentRecordingIdentity());
