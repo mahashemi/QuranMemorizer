@@ -18,21 +18,56 @@ export function androidVersionCode(version) {
   return versionCode;
 }
 
-export function configureAndroidVersion(root = process.cwd()) {
-  const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
-  const versionCode = androidVersionCode(packageJson.version);
-  const gradlePath = resolve(root, 'android/app/build.gradle');
-  let gradle = readFileSync(gradlePath, 'utf8');
+export function configureGradleVersion(gradle, version, releaseSigning = false) {
+  const versionCode = androidVersionCode(version);
   if (!/versionCode\s+\d+/.test(gradle) || !/versionName\s+['"][^'"]+['"]/.test(gradle)) {
     throw new Error('Could not locate versionCode and versionName in generated android/app/build.gradle.');
   }
   gradle = gradle.replace(/versionCode\s+\d+/, 'versionCode ' + versionCode);
-  gradle = gradle.replace(/versionName\s+['"][^'"]+['"]/, 'versionName "' + packageJson.version + '"');
-  writeFileSync(gradlePath, gradle);
-  return { versionName: packageJson.version, versionCode };
+  gradle = gradle.replace(/versionName\s+['"][^'"]+['"]/, 'versionName "' + version + '"');
+
+  if (releaseSigning) {
+    if (!gradle.includes('signingConfigs {')) {
+      const buildTypesIndex = gradle.indexOf('    buildTypes {');
+      if (buildTypesIndex < 0) throw new Error('Could not find buildTypes block in generated Gradle file.');
+      const signingBlock = `    signingConfigs {
+        release {
+            storeFile file(System.getenv("QURAN_RELEASE_STORE_FILE"))
+            storePassword System.getenv("QURAN_RELEASE_STORE_PASSWORD")
+            keyAlias System.getenv("QURAN_RELEASE_KEY_ALIAS")
+            keyPassword System.getenv("QURAN_RELEASE_KEY_PASSWORD")
+        }
+    }
+
+`;
+      gradle = gradle.slice(0, buildTypesIndex) + signingBlock + gradle.slice(buildTypesIndex);
+    }
+    const releaseBlock = gradle.match(/release\s*\{[\s\S]*?\n\s*\}/);
+    if (!releaseBlock) throw new Error('Could not locate release build type for signing configuration.');
+    if (!releaseBlock[0].includes('signingConfig')) {
+      gradle = gradle.replace(
+        releaseBlock[0],
+        releaseBlock[0].replace('{', '{\n            signingConfig signingConfigs.release')
+      );
+    }
+  }
+  return { gradle, versionName: version, versionCode };
+}
+
+export function configureAndroidVersion(root = process.cwd(), releaseSigning = false) {
+  const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
+  const gradlePath = resolve(root, 'android/app/build.gradle');
+  const configured = configureGradleVersion(
+    readFileSync(gradlePath, 'utf8'),
+    packageJson.version,
+    releaseSigning
+  );
+  writeFileSync(gradlePath, configured.gradle);
+  return { versionName: configured.versionName, versionCode: configured.versionCode };
 }
 
 if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).href) {
-  const result = configureAndroidVersion();
+  const releaseSigning = process.env.QURAN_CONFIGURE_RELEASE_SIGNING === 'true';
+  const result = configureAndroidVersion(process.cwd(), releaseSigning);
   console.log('Configured Android ' + result.versionName + ' (versionCode ' + result.versionCode + ').');
 }
