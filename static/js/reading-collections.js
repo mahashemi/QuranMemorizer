@@ -27,6 +27,7 @@ if (homeActions) {
 const home = $('#homePage');
 
 function baseUrl(path) { return new URL(path, document.baseURI).href; }
+function safeSourceUrl(source) { const value = source && source.url; if (!value) return ''; try { const url = new URL(value, document.baseURI); return url.protocol === 'https:' ? url.href : ''; } catch (_) { return ''; } }
 function setDomain(domain) {
   document.body.classList.toggle('collection-active', domain !== 'quran');
   nav.querySelectorAll('button').forEach(button => {
@@ -133,7 +134,7 @@ async function renderChunk(index, token=requestToken) {
       html += '</article>';
     });
     html += '</div><footer class="collection-pagination"><button type="button" data-chunk="'+(index-1)+'" '+(index===0?'disabled':'')+'>← Previous passages</button><span>Passages '+chunk.start+'–'+chunk.end+' of '+activeManifest.recordCount+'</span><button type="button" data-chunk="'+(index+1)+'" '+(index===activeManifest.chunks.length-1?'disabled':'')+'>Next passages →</button></footer>';
-    if (activeText.attribution || activeText.source) html += '<p class="collection-attribution">'+(activeText.attribution?esc(activeText.attribution)+' · ':'')+(activeText.source?'<a href="'+esc(activeText.source.url||'#')+'" target="_blank" rel="noopener noreferrer">'+esc(activeText.source.label||'Source')+'</a>':'')+'</p>';
+    if (activeText.attribution || activeText.source) html += '<p class="collection-attribution">'+(activeText.attribution?esc(activeText.attribution)+' · ':'')+(safeSourceUrl(activeText.source)?'<a href="'+esc(safeSourceUrl(activeText.source))+'" target="_blank" rel="noopener noreferrer">'+esc(activeText.source.label||'Source')+'</a>':'')+'</p>';
     html += '</section>';
     reader.innerHTML = html;
     const route = parseRoute();
@@ -189,7 +190,6 @@ document.addEventListener('click', event => {
     if (!chunk) return;
     const section = chunk.start;
     writeRoute(activeCollection,activeText.id,section);
-    renderChunk(index);
   }
 });
 window.addEventListener('hashchange', handleRoute);
