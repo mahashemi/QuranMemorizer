@@ -199,6 +199,10 @@ function showCatalog(collection) {
 async function openCatalog(collection) {
   await window.QuranMemorizerReaderReady;
   if (!catalogs[collection]) throw new Error('Unknown reading collection.');
+  if (window.QuranMemorizerReader.isRecording()) {
+    window.QuranMemorizerReader.notify('Finish the current recording before opening a reading library. Your recording is still active.');
+    return;
+  }
   routeToken++;
   readingVisible = false;
   if (parseRoute()) history.replaceState(null, '', location.pathname + location.search);
