@@ -18,6 +18,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check static/js/app.js
+          node --check static/js/deep-links.mjs
           node --check static/js/native-storage-adapter.mjs
           node --check static/js/recording-archive.mjs
           node --check scripts/build-web.mjs
