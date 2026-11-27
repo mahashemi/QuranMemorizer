@@ -27,7 +27,8 @@ test('collection recordings use namespaced identities in browser and Android sto
   assert.match(app, /collection:\s*String\(sura\.collection\), readingId:\s*String\(sura\.readingId\), section:/);
   assert.match(app, /recordingIdentityKey\(sura, aya\)/);
   assert.match(native, /recordings\/collections\/' \+ identity\.collection \+ '\/' \+ identity\.readingId/);
-  assert.match(native, /'passage-' \+ String\(number\)/);
+  assert.match(native, /identity\.collection \? 'passage-' : 'ayah-'/);
+  assert.match(native, /String\(number\)\.padStart\(3/);
   assert.match(app, /getCurrentRecordingIdentity\(aya\)/);
 });
 
