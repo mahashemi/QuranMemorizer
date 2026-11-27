@@ -61,3 +61,17 @@ Imported on the feature branch: Dua Ahad, Dua Jawshan Kabir, Dua Alqama (191 rec
 Duas.org states on its [About Us page](https://www.duas.org/mobile/about-us.html) that its content may be freely used and appreciates a reference to the site. The same page warns that Arabic text, punctuation, transliteration and translations may contain errors, and that verifying authenticity or chains of narrators is beyond its scope. The importer preserves this attribution and keeps both new readings review-required.
 
 For Ziyarat Nahiya, the online source separates Arabic, transliteration and English into phrase-level rows. Two split rows were joined to maintain alignment (source pairs 99–100 and 421–422); the final Arabic-only chain-of-transmission note is not part of the recitation and is excluded. This yields 481 repeatable recitation segments covering 483 source phrase rows. Dua Alqama contains 191 aligned phrase rows and is kept as a separate Dua, not appended to Ziyarat Ashura.
+
+
+## Reproducing the two phrase imports
+
+The source importer is retained at `scripts/import-duas-org-readings.mjs`. To refresh the two source files and regenerate offline manifests/chunks manually:
+
+```sh
+npm install --no-save --no-package-lock cheerio@1.1.2
+node scripts/import-duas-org-readings.mjs
+node scripts/build-readings.mjs
+npm test
+```
+
+The importer intentionally checks the Duas.org HTML phrase counts and the two split-row positions before writing any file. If the source page changes, it stops rather than silently misaligning Arabic, transliteration and English.
