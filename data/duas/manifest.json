@@ -1042,6 +1042,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 193,
       "manifest": "sahifa-dua-48/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-49",
+      "title": "49. Repelling the trickery of enemies",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ الْأَضْحَى وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 49",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 149,
+      "canonicalNumber": 49,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-repelling-the-trickery-of-enemies",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 90,
+      "manifest": "sahifa-dua-49/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-50",
+      "title": "50. His Supplication in Fear",
+      "arabicTitle": "دُعَاؤُهُ فِي دَفْعِ كَيْدِ الْأَعْدَاءِ",
+      "description": "Sahifa Sajjadiya — Supplication 50",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 150,
+      "canonicalNumber": 50,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-fear",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 42,
+      "manifest": "sahifa-dua-50/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-51",
+      "title": "51. In Pleading and Abasement",
+      "arabicTitle": "دُعَاؤُهُ فِي الرَّهْبَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 51",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 151,
+      "canonicalNumber": 51,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-pleading-and-abasement",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 65,
+      "manifest": "sahifa-dua-51/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-52",
+      "title": "52. His Supplication in Imploring God",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّضَرُّعِ وَ الِاسْتِكَانَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 52",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 152,
+      "canonicalNumber": 52,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-imploring-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 53,
+      "manifest": "sahifa-dua-52/manifest.json"
     }
   ]
 }
