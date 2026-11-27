@@ -2,6 +2,8 @@ name: Probe external Dua and Ziyarat source structure
 on:
   push:
     branches: [import/ziyarat-nahiya-alqama]
+  pull_request:
+    branches: [feature/dua-ziyarat-reading-framework]
 permissions:
   contents: read
 jobs:
