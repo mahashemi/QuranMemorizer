@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-aarifeen",
+  "title": "12. The Whispered Prayer of the Knowers (Aarifeen)",
+  "kind": "dua",
+  "recordCount": 36,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 36,
+      "file": "segments_031_036.json"
+    }
+  ]
+}
