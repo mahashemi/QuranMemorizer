@@ -111,6 +111,9 @@ let repeatEls = {};
 let SURAS = [];
 let SURA_BY_NUM = {};
 
+let resolveAppReady;
+const appReady = new Promise(resolve => { resolveAppReady = resolve; });
+
 const state = {
   sura: 1, aya: 1,
   activeCollection: null, activeReading: null, collectionCatalog: null,
@@ -257,7 +260,8 @@ async function init() {
   // Switch to the reader immediately for a syntactically valid shared link.
   // Do not leave the homepage covering the reader while the Quran data downloads.
   const initialRoute = parseQuranHash(window.location.hash);
-  if (initialRoute) activateReaderView();
+  const initialCollectionRoute = /^#\/(?:dua|ziyarat)\//i.test(window.location.hash || '');
+  if (initialRoute || initialCollectionRoute) activateReaderView();
 
   let manifestUrl;
   try {
@@ -275,6 +279,7 @@ async function init() {
       '<p>Check that the deployed site includes <code>data/quran/chunked/manifest.json</code>.</p>' +
       '<p class="error-detail">Requested: <code>' + esc(manifestUrl || '') + '</code></p></div>';
     el.nowPlaying.textContent = 'Quran index not loaded';
+    resolveAppReady();
     return;
   }
   buildSidebar();
@@ -287,9 +292,10 @@ async function init() {
     activateReaderView();
     await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
     scheduleSharedAyaFocus(initialRoute.aya);
-  } else {
+  } else if (!initialCollectionRoute) {
     await loadSura(1, { aya: 1, play: false });
   }
+  resolveAppReady();
 }
 
 /* Inject the repeat block from the template into the DOM (into the desktop slot by default) */
@@ -2807,6 +2813,12 @@ function toast(msg) {
    21. GO
    ================================================================== */
 updateOpts();
+window.QuranMemorizerReader = Object.freeze({
+  ready: appReady,
+  openCollection: (...args) => appReady.then(() => openCollectionReading(...args)),
+  exitCollection: () => exitCollectionReading()
+});
+
 init();
 ensureRecordingStorageInitialized().catch(error => {
   console.warn('Could not initialize local recording storage.', error);
