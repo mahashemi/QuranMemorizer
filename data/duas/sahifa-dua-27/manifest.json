@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-27",
+  "title": "27. His Supplication for the People of the Frontiers",
+  "kind": "dua",
+  "recordCount": 39,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 39,
+      "file": "segments_031_039.json"
+    }
+  ]
+}
