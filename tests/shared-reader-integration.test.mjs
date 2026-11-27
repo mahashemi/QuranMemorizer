@@ -40,6 +40,8 @@ test('the existing Quran sidebar, mobile header, and player remain available in 
   assert.doesNotMatch(styles, /\.collection-active \.sidebar,\.collection-active \.player\s*\{\s*display:\s*none/);
   assert.doesNotMatch(styles, /\.collection-active \.mobile-header\s*\{\s*display:\s*none/);
   assert.match(app, /renderCollectionSidebar\(\)/);
+  assert.match(app, /collection-empty-state/);
+  assert.doesNotMatch(styles, /collection-active \.topbar \.topbar-btn\s*\{\s*display:\s*none/);
   assert.match(app, /if \(wasCollection\) buildSidebar\(\)/);
 });
 
