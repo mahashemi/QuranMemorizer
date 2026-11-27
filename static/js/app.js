@@ -1692,8 +1692,10 @@ function stopRecordingWaveform() {
 }
 
 function startRecordingWaveform(stream, sura, aya) {
-  const wave = document.querySelector('[data-record-waveform="' + aya + '"]');
-  if (!wave || state.sura !== sura) return;
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const unitNumber = recordingUnitNumber(identity);
+  const wave = document.querySelector('[data-record-waveform="' + unitNumber + '"]');
+  if (!wave || recordingIdentityKey(identity) !== recordingIdentityKey(getCurrentRecordingIdentity(unitNumber))) return;
   wave.hidden = false;
   wave.classList.add('is-live');
   const bars = Array.from(wave.children);
@@ -1712,7 +1714,7 @@ function startRecordingWaveform(stream, sura, aya) {
   }
   const samples = new Uint8Array(analyser.frequencyBinCount);
   const draw = () => {
-    if (!activeRecorder || !recordingAnalyser || state.sura !== sura) return;
+    if (!activeRecorder || !recordingAnalyser || recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(getCurrentRecordingIdentity(unitNumber))) return;
     recordingAnalyser.getByteTimeDomainData(samples);
     const middle = samples.length / 2;
     bars.forEach((bar, index) => {
@@ -1727,6 +1729,8 @@ function startRecordingWaveform(stream, sura, aya) {
 }
 
 async function startUserRecording(sura, aya, button) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const unitNumber = recordingUnitNumber(identity);
   try {
     await ensureRecordingStorageInitialized();
     if (recordingStorageMode === 'folder-needs-permission') {
@@ -1747,7 +1751,7 @@ async function startUserRecording(sura, aya, button) {
   ++playbackRequestId;
   playbackMode = 'idle';
   state.started = false;
-  state.aya = aya;
+  state.aya = unitNumber;
   updateAyaUI(false);
   audio.pause();
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
@@ -1776,7 +1780,7 @@ async function startUserRecording(sura, aya, button) {
       recorder = new MediaRecorder(stream);
     }
     activeRecorder = recorder;
-    activeRecordingKey = { sura, aya };
+    activeRecordingKey = identity;
     activeRecordingChunks = [];
     recorder.ondataavailable = event => {
       if (event.data && event.data.size) activeRecordingChunks.push(event.data);
@@ -1811,22 +1815,22 @@ async function startUserRecording(sura, aya, button) {
       if (!key || !blob.size) return;
       let savedRecord;
       try {
-        savedRecord = await saveUserRecording(key.sura, key.aya, blob);
+        savedRecord = await saveUserRecording(key, null, blob);
       } catch (error) {
         // Preserve the take in browser-local storage if a removable folder or native
         // filesystem unexpectedly becomes unavailable at the moment recording stops.
         try {
-          savedRecord = await saveBrowserRecording(key.sura, key.aya, blob);
+          savedRecord = await saveBrowserRecording(key, null, blob);
           toast('The selected storage was unavailable. Your take was kept in this browser instead.');
         } catch (fallbackError) {
           toast('Could not save recording: ' + (error.message || fallbackError.message));
           return;
         }
       }
-      refreshRecordingControls(key.sura);
-      if (state.sura === key.sura && state.aya === key.aya) {
+      refreshRecordingControls(key);
+      if (recordingIdentityKey(getCurrentRecordingIdentity(state.aya)) === recordingIdentityKey(key)) {
         toast((savedRecord.storage === 'folder' ? 'Audio file saved. ' : savedRecord.storage === 'native' ? 'Saved in app-private storage. ' : 'Saved in this browser. ') + 'Playing it back now.');
-        await playUserRecording(key.sura, key.aya);
+        await playUserRecording(key);
       } else {
         toast(savedRecord.storage === 'folder' ? 'Audio file saved.' : savedRecord.storage === 'native' ? 'Saved in app-private storage.' : 'Saved in this browser.');
       }
@@ -1834,7 +1838,7 @@ async function startUserRecording(sura, aya, button) {
     recorder.start();
     button.textContent = 'Stop recording';
     setRecordingPlaybackLock(true);
-    startRecordingWaveform(stream, sura, aya);
+    startRecordingWaveform(stream, identity, null);
     const recordingCard = button.closest('.aya-recording');
     if (recordingCard) recordingCard.classList.add('is-recording');
     const status = button.parentElement.querySelector('[data-record-status]');
@@ -1879,9 +1883,11 @@ async function startUserRecording(sura, aya, button) {
 
 async function playUserRecording(sura, aya) {
   try {
-    const record = await getUserRecording(sura, aya);
+    const identity = normalizeRecordingIdentity(sura, aya);
+    const unitNumber = recordingUnitNumber(identity);
+    const record = await getUserRecording(identity);
     if (!record || !record.blob) {
-      toast('No saved voice recording for this aya yet.');
+      toast('No saved voice recording for this passage yet.');
       return;
     }
     ++playbackRequestId;
@@ -1889,8 +1895,8 @@ async function playUserRecording(sura, aya) {
     audio.pause();
     if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = URL.createObjectURL(record.blob);
-    state.aya = aya;
-    state.playingAya = aya;
+    state.aya = unitNumber;
+    state.playingAya = unitNumber;
     state.started = true;
     updateAyaUI(false);
     setAudioSource(activeRecordingObjectUrl);
