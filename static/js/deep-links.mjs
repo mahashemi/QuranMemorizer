@@ -14,7 +14,7 @@ export function buildAyahHash(surah, ayah) {
 }
 
 export function parseAyahHash(hash) {
-  const match = String(hash || '').match(/^#\/surah\/(\d+)\/ayah\/(\d+)\/?$/i);
+  const match = String(hash || '').match(new RegExp('^#[/]surah[/]([0-9]+)[/]ayah[/]([0-9]+)[/]?$', 'i'));
   if (!match) return null;
   const surah = Number(match[1]), ayah = Number(match[2]);
   if (!Number.isInteger(surah) || surah < 1 || surah > SURAH_COUNT ||
