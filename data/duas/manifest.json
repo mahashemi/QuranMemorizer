@@ -706,6 +706,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 134,
       "manifest": "sahifa-dua-32/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-33",
+      "title": "33. His Supplication in Asking for the Best",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِخَارَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 33",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 133,
+      "canonicalNumber": 33,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-the-best",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-33/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-34",
+      "title": "34. When he was afflicted or saw someone afflicted with the Disgrace of Sin",
+      "arabicTitle": "دُعَاؤُهُ إِذَا ابْتُلِيَ أَوْ رَأَى مُبْتَلًى بِفَضِيحَةٍ بِذَنْبٍ",
+      "description": "Sahifa Sajjadiya — Supplication 34",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 134,
+      "canonicalNumber": 34,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-was-afflicted-or-saw-someone-afflicted-with-the-disgrace-of-sin",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 22,
+      "manifest": "sahifa-dua-34/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-35",
+      "title": "35. In Satisfaction when he Looked upon the Companions of this world",
+      "arabicTitle": "دُعَاؤُهُ فِي الرِّضَا إذا نَظَرَ الى اَصحابِ الدُنيا",
+      "description": "Sahifa Sajjadiya — Supplication 35",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 135,
+      "canonicalNumber": 35,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-satisfaction-when-he-looked-upon-the-companions-of-this-world",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-35/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-36",
+      "title": "36. When he saw Clouds and Lightening and heard the Thunder",
+      "arabicTitle": "دُعَاؤُهُ إذا نَظَرَ الى السَّحابِ و البَرقِ و عِنْدَ سَمَاعِ الرَّعْدِ",
+      "description": "Sahifa Sajjadiya — Supplication 36",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 136,
+      "canonicalNumber": 36,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-saw-clouds-and-lightening-and-heard-the-thunder",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 35,
+      "manifest": "sahifa-dua-36/manifest.json"
     }
   ]
 }
