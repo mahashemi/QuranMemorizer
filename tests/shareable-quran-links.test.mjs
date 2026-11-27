@@ -15,7 +15,7 @@ test('shared Quran links accept canonical Surah/Ayah routes', () => {
 
 test('initial deep link activates the reader and loads the requested ayah', () => {
   assert.match(app, /const initialRoute = parseQuranHash\(window\.location\.hash\)/);
-  assert.match(app, /if \(initialRoute\) activateReaderView\(\)/);
+  assert.match(app, /if \(initialRoute \|\| initialCollectionRoute\) activateReaderView\(\)/);
   assert.ok(app.includes('await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false })'));
   assert.ok(app.includes('scheduleSharedAyaFocus(initialRoute.aya)'));
 });
@@ -73,7 +73,7 @@ test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () =>
 
 
 test('Ayah picker is a number-only navigation index on desktop and mobile', () => {
-  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to Ayah '[\s\S]*?aya-btn-num/);
+  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to ' \+ unit \+ ' ' \+ number/);
   assert.doesNotMatch(app, /aya-btn-text|aya-btn-unloaded/);
   assert.match(app, /const btn = el\.ayaList\.querySelector\('\.aya-btn\[data-aya=/);
   assert.match(app, /btn\.classList\.add\('active'\)/);

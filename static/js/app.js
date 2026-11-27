@@ -1478,10 +1478,10 @@ async function collectFolderRecordingsForArchive() {
   const dirs = await getConnectedRecordingDirectories(false);
   const records = [];
   const seen = new Set();
-  const quranFolderPattern = /^surah-(\\d{3})-/i;
+  const quranFolderPattern = /^surah-([0-9]{3})-/i;
   const collectionFolderPattern = /^collection-(duas|ziyarats)-(.+)$/i;
-  const quranFilePattern = /^ayah-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-  const collectionFilePattern = /^passage-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+  const quranFilePattern = /^ayah-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+  const collectionFilePattern = /^passage-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
   for await (const [folderName, folderHandle] of dirs.recordingsDirectory.entries()) {
     if (folderHandle.kind !== 'directory') continue;
     const quranFolder = folderName.match(quranFolderPattern);
@@ -1571,13 +1571,13 @@ async function importRecordingsArchive(file) {
     if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before importing.');
     const { readZip } = await getRecordingArchiveModule();
     const entries = await readZip(file);
-    const quranPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/(surah-(\\d{3})-[^/]+)\\/(ayah-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-    const collectionPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/collections\\/(duas|ziyarats)\\/([a-z0-9-]+)\\/(passage-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const quranPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/](surah-([0-9]{3})-[^/]+)[/](ayah-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+    const collectionPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/]collections[/](duas|ziyarats)[/]([a-z0-9-]+)[/](passage-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const entryName = String(entry.name || '').replace(/\\\\/g, '/');
-      if (/(?:^|\\/)manifest\\.json$/i.test(entryName)) continue;
+      const entryName = String(entry.name || '').replaceAll(String.fromCharCode(92), '/');
+      if (/(?:^|[/])manifest[.]json$/i.test(entryName)) continue;
       const quranMatch = entryName.match(quranPath);
       const collectionMatch = entryName.match(collectionPath);
       if (!quranMatch && !collectionMatch) { ignored++; continue; }
@@ -1588,6 +1588,12 @@ async function importRecordingsArchive(file) {
       if (!identity.collection) {
         const suraData = SURA_BY_NUM[identity.sura];
         if (!suraData || identity.aya < 1 || identity.aya > suraData.ayaCount) { ignored++; continue; }
+      } else {
+        const resolver = window.QuranMemorizerCollections && window.QuranMemorizerCollections.resolveRecordingIdentity;
+        if (typeof resolver !== 'function' || !await resolver(identity.collection, identity.readingId, identity.section)) {
+          ignored++;
+          continue;
+        }
       }
       try {
         const key = recordingIdentityKey(identity);
@@ -1950,8 +1956,8 @@ async function loadSura(num, opts) {
   ayaNavigationRequestId++;
   const s = SURA_BY_NUM[num];
   if (!s) return;
-  const wasCollection = isCollectionReading();
-  if (wasCollection) stopAll();
+  const wasCollection = Boolean(state.activeCollection);
+  if (isCollectionReading()) stopAll();
   try {
     await ensureSuraLoaded(s, opts.aya || 1, false);
   } catch (error) {
@@ -2031,6 +2037,7 @@ async function openCollectionReading(collection, readingId, section, textMeta, c
     arabicName: arabicTitle,
     attribution: textMeta && textMeta.attribution ? textMeta.attribution : '',
     source: textMeta && textMeta.source ? textMeta.source : null,
+    sourceStatus: textMeta && textMeta.sourceStatus ? textMeta.sourceStatus : 'imported-review-required',
     ayaCount: Number(manifest.recordCount),
     ayas: new Array(Number(manifest.recordCount)),
     loadedChunks: new Set(),
@@ -2053,14 +2060,9 @@ async function openCollectionReading(collection, readingId, section, textMeta, c
   if (isMobile()) setDrawerTab('aya');
 }
 
-function exitCollectionReading() {
-  if (activeRecorder) { try { activeRecorder.stop(); } catch (_) {} }
+async function exitCollectionReading() {
+  if (state.activeCollection) return loadSura(state.sura, { aya: 1, play: false });
   stopAll();
-  state.activeCollection = null;
-  state.activeReading = null;
-  state.collectionCatalog = null;
-  document.body.classList.remove('collection-active', 'collection-reading');
-  buildSidebar();
 }
 
 async function goToCollectionSection(aya, opts) {
@@ -2496,7 +2498,41 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 async function loadAdjacentReaderChunk() {
-  if (isCollectionReading() || readerChunkLoadPending) return;
+  if ((state.activeCollection && !state.activeReading) || readerChunkLoadPending) return;
+  if (isCollectionReading()) {
+    const reading = state.activeReading;
+    const loaded = reading.chunks.filter(chunk => reading.loadedChunks.has(chunk.file));
+    if (!loaded.length) return;
+    const minChunk = loaded.reduce((a, b) => a.start < b.start ? a : b);
+    const maxChunk = loaded.reduce((a, b) => a.end > b.end ? a : b);
+    let adjacent = null;
+    let direction = null;
+    if (el.reader.scrollTop < 220 && minChunk.start > 1) {
+      adjacent = reading.chunks.filter(chunk => chunk.end < minChunk.start).slice(-1)[0] || null;
+      direction = 'previous';
+    } else if (el.reader.scrollTop + el.reader.clientHeight >= el.reader.scrollHeight - 480 && maxChunk.end < reading.ayaCount) {
+      adjacent = reading.chunks.find(chunk => chunk.start > maxChunk.start) || null;
+      direction = 'next';
+    }
+    if (!adjacent || !direction) return;
+    readerChunkLoadPending = true;
+    const oldTop = el.reader.scrollTop;
+    const oldHeight = el.reader.scrollHeight;
+    try {
+      await ensureCollectionSectionLoaded(reading, adjacent.start);
+      if (state.activeReading !== reading) return;
+      if (direction === 'previous') {
+        renderSura(0);
+        el.reader.scrollTop = oldTop + Math.max(0, el.reader.scrollHeight - oldHeight);
+      } else renderSura(oldTop);
+      renderAyaList(state.sura);
+    } catch (error) {
+      console.warn('Adjacent collection chunk could not be loaded.', error);
+    } finally {
+      readerChunkLoadPending = false;
+    }
+    return;
+  }
   const sura = SURA_BY_NUM[state.sura];
   if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
 
@@ -2854,7 +2890,26 @@ updateOpts();
 window.QuranMemorizerReader = Object.freeze({
   ready: appReady,
   openCollection: (...args) => appReady.then(() => openCollectionReading(...args)),
-  exitCollection: () => exitCollectionReading()
+  exitCollection: () => exitCollectionReading(),
+  goToCollectionSection: (section, opts) => goToCollectionSection(section, opts),
+  isCollectionReading,
+  isRecording: () => Boolean(activeRecorder),
+  notify: message => toast(message),
+  stopPlayback: () => stopAll(),
+  getActiveReading: () => state.activeReading,
+  getState: () => ({ collection: state.activeCollection, readingId: state.activeReading && state.activeReading.id, section: state.aya }),
+  showCollectionCatalog(collection, catalog) {
+    stopAll();
+    state.activeCollection = collection;
+    state.activeReading = null;
+    state.collectionCatalog = catalog || null;
+    document.body.classList.add('collection-active');
+    document.body.classList.remove('collection-reading');
+    renderCollectionSidebar();
+    if (el.ayaColHead) el.ayaColHead.textContent = 'Passages';
+    if (el.ayaList) el.ayaList.innerHTML = '<div class="collection-empty-state">Choose a reading to see its recitation passages.</div>';
+    setDrawerTab('sura');
+  }
 });
 
 init();

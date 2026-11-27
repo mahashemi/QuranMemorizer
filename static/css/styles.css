@@ -164,21 +164,6 @@
     border:2px solid var(--panel); background-clip:content-box; }
   .reader::-webkit-scrollbar-track { background:transparent; }
 
-  .reader-back-catalog {
-    display:inline-flex; align-items:center; justify-content:center;
-    margin:0 0 12px; padding:7px 12px; border:1px solid var(--border);
-    border-radius:8px; background:var(--panel-2); color:var(--muted);
-    font-size:12px; cursor:pointer;
-  }
-  .reader-back-catalog:hover { color:var(--text); border-color:var(--accent-border); }
-  .reading-attribution { width:min(100%,680px); margin:12px auto 0; text-align:left; color:var(--muted); font-size:11px; }
-  .reading-attribution summary { cursor:pointer; color:var(--accent); }
-  .reading-attribution p { margin:8px 0; line-height:1.5; }
-  .reading-attribution a { color:var(--accent); text-decoration:underline; }
-  .aya-meaning { margin-top:12px; padding:9px 11px; border:1px solid var(--border); border-radius:9px; background:var(--panel-2); font-size:12px; }
-  .aya-meaning summary { cursor:pointer; color:var(--accent); font-weight:600; }
-  .aya-meaning > div { margin-top:8px; color:var(--muted); line-height:1.6; white-space:pre-wrap; }
-
   .sura-heading { max-width:920px; margin:14px auto 22px; text-align:center;
     padding-bottom:16px; border-bottom:1px solid var(--border); }
   .sura-heading h1 { margin:0; font-size:20px; font-weight:700; letter-spacing:.3px; }
@@ -1005,8 +990,6 @@ body:not(.reader-active) .app { display: none !important; }
 body.reader-active .app { display: grid !important; }
 /* Collection catalogue pages use the full reader width; active readings reuse
    the Quran sidebar as the Dua/Ziyarat list and the passage-number index. */
-body.collection-active:not(.collection-reading) .app { grid-template-columns: minmax(0, 1fr); }
-body.collection-active:not(.collection-reading) .sidebar { display: none; }
 body.collection-reading .topbar .field { display: none; }
 
 .home-page {
@@ -1640,13 +1623,26 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .reading-domain-nav{display:flex;align-items:center;gap:5px;flex:0 0 auto}
 .reading-domain-nav button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:9px;padding:8px 12px;font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
 .reading-domain-nav button.active{background:var(--accent-soft);border-color:var(--accent-border);color:var(--accent)}
-.collection-active .sidebar,.collection-active .player{display:none!important}
-.collection-active .app{grid-template-columns:minmax(0,1fr)}
-.collection-active .topbar .field,.collection-active .topbar .now,.collection-active .topbar .topbar-btn{display:none}
+.collection-active .topbar .field,.collection-active .topbar .now{display:none}
 .collection-active .main{min-width:0}
 .collection-active .reader{padding:24px 22px 70px}
 .collection-page,.collection-reading{width:min(100%,900px);margin:0 auto}
 .collection-heading,.collection-reading-heading{text-align:center;padding:24px 12px 28px;border-bottom:1px solid var(--border);margin-bottom:22px}
+.collection-group{margin:24px 0 34px}
+.collection-empty-state{padding:18px 12px;color:var(--muted);font-size:12px;line-height:1.5;text-align:center}
+.collection-active:not(.collection-reading) .player{opacity:.55;pointer-events:none}
+.collection-group>h2{font-size:13px;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:0 0 12px}
+.collection-status{font-size:10px!important;letter-spacing:.2px;color:var(--muted)!important}
+.collection-source,.collection-attribution{font-size:11px;margin-top:10px}
+.collection-source a{color:var(--accent)}
+.reader-back-catalog{margin:0 0 12px;padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:var(--panel-2);color:var(--muted);font-size:12px;cursor:pointer}
+.reader-back-catalog:hover{color:var(--text);border-color:var(--accent-border)}
+.aya-meaning{margin-top:12px;padding:9px 11px;border:1px solid var(--border);border-radius:9px;background:var(--panel-2);font-size:12px}
+.aya-meaning summary{cursor:pointer;color:var(--accent);font-weight:600}
+.aya-meaning>div{margin-top:8px;color:var(--muted);line-height:1.6;white-space:pre-wrap}
+.reading-attribution{font-size:11px;color:var(--muted);margin-top:10px}
+.reading-attribution summary{cursor:pointer;color:var(--accent)}
+.reading-attribution p{margin:8px 0}
 .collection-kicker{font-size:10px;letter-spacing:2.3px;font-weight:750;color:var(--accent);margin-bottom:12px}
 .collection-heading h1,.collection-reading-heading h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(34px,5vw,48px);letter-spacing:-.7px;margin:0 0 12px;color:var(--text)}
 .collection-heading>p,.collection-reading-heading>p{max-width:620px;margin:0 auto;color:var(--muted);line-height:1.8;font-size:14px}
@@ -1700,4 +1696,3 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 @media(max-width:760px){.reading-domain-nav{gap:4px}.reading-domain-nav button{padding:8px 9px;font-size:11px}.collection-active .reader{padding:12px 14px 45px}.collection-record{padding:20px 5px}.collection-pagination{flex-wrap:wrap}.collection-pagination span{order:-1;flex-basis:100%}}
 @media(max-width:430px){.reading-domain-nav button{padding:7px 8px;font-size:10px}.collection-planned li{align-items:flex-start;flex-direction:column;gap:2px}}
 
-.collection-active .mobile-header{display:none!important}

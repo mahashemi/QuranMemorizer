@@ -1,33 +1,46 @@
 (function () {
 'use strict';
+
 const COLLECTIONS = {
-  duas: { kind: 'dua', title: 'Duas', subtitle: 'Supplications narrated in the teachings of Ahl al-Bayt (عليهم السلام)', planned: ['Dua Nudba','Dua Kumayl','Dua Ahad','Dua al-Jamiʿa al-Kabira','Dua Jawshan al-Kabir','Sahifa Sajjadiya'] },
-  ziyarats: { kind: 'ziyarat', title: 'Ziyarats', subtitle: 'Visitations and salutations to the Prophet and his purified family (عليهم السلام)', planned: ['Ziyarat Nahiya','Ziyarat Ashura','Ziyarat Alqama'] }
+  duas: { kind: 'dua', title: 'Duas', subtitle: 'Supplications narrated in the teachings of Ahl al-Bayt (عليهم السلام)' },
+  ziyarats: { kind: 'ziyarat', title: 'Ziyarats', subtitle: 'Visitations and salutations to the Prophet and his purified family (عليهم السلام)' }
 };
-const $ = (s, root=document) => root.querySelector(s);
-const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let activeCollection = null, activeText = null, activeManifest = null, activeCatalog = null;
-let activeChunk = 0, requestToken = 0;
-const reader = $('#reader'), topbar = $('.topbar');
+const $ = (selector, root = document) => root.querySelector(selector);
+const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[char]));
+let activeCollection = null;
+let activeText = null;
+let activeManifest = null;
+let activeCatalog = null;
+let requestToken = 0;
+const readingManifestCache = new Map();
+
+const reader = $('#reader');
+const topbar = $('.topbar');
+const home = $('#homePage');
 if (!reader || !topbar) return;
 
 const nav = document.createElement('nav');
 nav.className = 'reading-domain-nav';
-nav.setAttribute('aria-label','Reading collections');
-nav.innerHTML = '<button type="button" data-domain="quran">Qur’an</button><button type="button" data-domain="duas">Duas</button><button type="button" data-domain="ziyarats">Ziyarat</button>';
+nav.setAttribute('aria-label', 'Reading collections');
+nav.innerHTML =
+  '<button type="button" data-domain="quran">Qur’an</button>' +
+  '<button type="button" data-domain="duas">Duas</button>' +
+  '<button type="button" data-domain="ziyarats">Ziyarat</button>';
 const spacer = $('.spacer', topbar);
 topbar.insertBefore(nav, spacer || null);
+
 const homeActions = $('.home-actions');
 if (homeActions) {
   const links = document.createElement('div');
   links.className = 'home-collection-links';
-  links.innerHTML = '<button type="button" data-open-domain="duas">Explore Duas <span>→</span></button><button type="button" data-open-domain="ziyarats">Explore Ziyarat <span>→</span></button>';
+  links.innerHTML =
+    '<button type="button" data-open-domain="duas">Explore Duas <span>→</span></button>' +
+    '<button type="button" data-open-domain="ziyarats">Explore Ziyarat <span>→</span></button>';
   homeActions.appendChild(links);
 }
-const home = $('#homePage');
 
-function baseUrl(path) { return new URL(path, document.baseURI).href; }
-function safeSourceUrl(source) { const value = source && source.url; if (!value) return ''; try { const url = new URL(value, document.baseURI); return url.protocol === 'https:' ? url.href : ''; } catch (_) { return ''; } }
 function setDomain(domain) {
   document.body.classList.toggle('collection-active', domain !== 'quran');
   nav.querySelectorAll('button').forEach(button => {
@@ -38,134 +51,250 @@ function setDomain(domain) {
 }
 function showReader() {
   document.body.classList.add('reader-active');
-  if (home) home.setAttribute('aria-hidden','true');
+  if (home) home.setAttribute('aria-hidden', 'true');
 }
-function writeRoute(collection, id, section=1) {
-  const kind = COLLECTIONS[collection].kind;
-  const next = '#/' + kind + '/' + id + '/section/' + section;
+function writeRoute(collection, id, section = 1) {
+  const config = COLLECTIONS[collection];
+  if (!config || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(String(id || '')) ||
+      !Number.isSafeInteger(Number(section)) || Number(section) < 1) return;
+  const next = '#/' + config.kind + '/' + id + '/section/' + Number(section);
   if (location.hash !== next) location.hash = next;
 }
 function parseRoute() {
   const match = String(location.hash || '').match(/^#\/(dua|ziyarat)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/section\/(\d+)\/?$/i);
   if (!match) return null;
-  return { collection: match[1].toLowerCase()==='dua'?'duas':'ziyarats', id:match[2].toLowerCase(), section:Math.max(1,Number(match[3])||1) };
+  const section = Number(match[3]);
+  if (!Number.isSafeInteger(section) || section < 1) return null;
+  return { collection: match[1].toLowerCase() === 'dua' ? 'duas' : 'ziyarats', id: match[2].toLowerCase(), section };
 }
-function setLoading(message) {
-  reader.innerHTML = '<section class="collection-state"><div class="collection-kicker">QURAN &amp; DUA READING</div><h1>'+esc(message)+'</h1><p>Please wait…</p></section>';
+async function fetchJson(path) {
+  const response = await fetch(new URL(path, document.baseURI).href, { cache: 'no-cache' });
+  if (!response.ok) throw new Error('Could not load ' + path + ' (HTTP ' + response.status + ').');
+  return response.json();
+}
+function validateCatalog(collection, manifest) {
+  if (!COLLECTIONS[collection] || !manifest || manifest.version !== 1 ||
+      manifest.collection !== collection || !Array.isArray(manifest.texts)) {
+    throw new Error('The ' + collection + ' catalogue is invalid.');
+  }
+  const seen = new Set();
+  for (const item of manifest.texts) {
+    if (!item || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(item.id || '') ||
+        seen.has(item.id) || !item.title || item.manifest !== item.id + '/manifest.json') {
+      throw new Error('The collection catalogue contains invalid or duplicate reading metadata.');
+    }
+    seen.add(item.id);
+  }
+  return manifest;
+}
+function validateReadingManifest(manifest, id, kind) {
+  if (!manifest || manifest.version !== 1 || manifest.id !== id || manifest.kind !== kind ||
+      !Number.isInteger(manifest.recordCount) || manifest.recordCount < 1 ||
+      !Array.isArray(manifest.chunks) || !manifest.chunks.length) {
+    throw new Error('The reading manifest is invalid.');
+  }
+  let next = 1;
+  for (const chunk of manifest.chunks) {
+    if (!chunk || chunk.start !== next || !Number.isInteger(chunk.end) ||
+        chunk.end < chunk.start || chunk.end > manifest.recordCount ||
+        !/^segments_\d{3,}_\d{3,}\.json$/.test(chunk.file || '')) {
+      throw new Error('The reading manifest has a missing or invalid passage range.');
+    }
+    next = chunk.end + 1;
+  }
+  if (next !== manifest.recordCount + 1) throw new Error('The reading manifest does not cover every passage.');
+  return manifest;
+}
+function orderedTexts(manifest) {
+  return (manifest && manifest.texts || []).slice().sort((a, b) =>
+    (Number(a.order || a.canonicalNumber || 999999) - Number(b.order || b.canonicalNumber || 999999)) ||
+    String(a.title).localeCompare(String(b.title))
+  );
 }
 function showCatalog(collection, manifest) {
-  if (window.QuranMemorizerReader) window.QuranMemorizerReader.exitCollection();
-  activeCollection = collection; activeCatalog = manifest;
-  activeText = null; activeManifest = null;
-  setDomain(collection); showReader();
+  activeCollection = collection;
+  activeCatalog = manifest;
+  activeText = null;
+  activeManifest = null;
+  setDomain(collection);
+  showReader();
   const config = COLLECTIONS[collection];
-  let html = '<section class="collection-page"><header class="collection-heading"><div class="collection-kicker">READING LIBRARY</div><h1>'+config.title+'</h1><p>'+config.subtitle+'</p><div class="collection-count">'+manifest.texts.length+' reading'+(manifest.texts.length===1?'':'s')+' available</div></header>';
-  if (manifest.texts.length) {
-    html += '<div class="collection-cards">';
-    manifest.texts.forEach(text => {
-      html += '<button class="collection-card" type="button" data-text-id="'+esc(text.id)+'"><span class="collection-card-mark">✦</span><span class="collection-card-copy"><strong>'+esc(text.title)+'</strong>'+(text.arabicTitle?'<span class="collection-arabic" lang="ar" dir="rtl">'+esc(text.arabicTitle)+'</span>':'')+(text.description?'<span>'+esc(text.description)+'</span>':'')+'</span><span class="collection-card-arrow">→</span></button>';
-    });
-    html += '</div>';
-  } else {
-    html += '<section class="collection-empty"><div class="collection-empty-symbol">۞</div><h2>The reading library is being prepared</h2><p>The reading interface and separate content catalogue are now connected. Verified, complete source texts will appear here as they are reviewed and added. We will not label an excerpt as a complete dua or ziyarat.</p><div class="collection-planned"><h3>Planned readings</h3><ul>'+config.planned.map(name=>'<li>'+esc(name)+' <span>in preparation</span></li>').join('')+'</ul></div></section>';
+  const groups = new Map();
+  for (const item of orderedTexts(manifest)) {
+    const group = item.group || config.title;
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(item);
+  }
+  let html =
+    '<section class="collection-page">' +
+      '<header class="collection-heading">' +
+        '<div class="collection-kicker">READING LIBRARY</div>' +
+        '<h1>' + esc(config.title) + '</h1>' +
+        '<p>' + esc(config.subtitle) + '</p>' +
+        '<div class="collection-count">' + manifest.texts.length + ' readings · source review status shown individually</div>' +
+      '</header>';
+  for (const [group, items] of groups) {
+    html += '<section class="collection-group"><h2>' + esc(group) + '</h2><div class="collection-cards">';
+    for (const item of items) {
+      const status = item.sourceStatus === 'verified' ? 'Verified' : 'Imported · review pending';
+      html +=
+        '<button class="collection-card" type="button" data-text-id="' + esc(item.id) + '">' +
+          '<span class="collection-card-mark">✦</span>' +
+          '<span class="collection-card-copy"><strong>' + esc(item.title) + '</strong>' +
+          (item.arabicTitle ? '<span class="collection-arabic" lang="ar" dir="rtl">' + esc(item.arabicTitle) + '</span>' : '') +
+          (item.description ? '<span>' + esc(item.description) + '</span>' : '') +
+          '<span class="collection-status">' + status + '</span></span>' +
+          '<span class="collection-card-arrow">→</span>' +
+        '</button>';
+    }
+    html += '</div></section>';
   }
   html += '<button class="collection-back" type="button" data-back-home>← Back to home</button></section>';
   reader.innerHTML = html;
-}
-async function fetchJson(path) {
-  const response = await fetch(baseUrl(path), {cache:'no-cache'});
-  if (!response.ok) throw new Error('Could not load '+path+' (HTTP '+response.status+').');
-  return response.json();
+  window.QuranMemorizerReader.showCollectionCatalog(collection, manifest);
 }
 async function openCatalog(collection) {
-  if (window.QuranMemorizerReader) window.QuranMemorizerReader.exitCollection();
+  const config = COLLECTIONS[collection];
+  if (!config) return;
+  await window.QuranMemorizerReader.ready;
+  if (window.QuranMemorizerReader.isRecording()) {
+    window.QuranMemorizerReader.notify('Finish the current recording before leaving this passage. Your recording is still active.');
+    return;
+  }
   const token = ++requestToken;
-  activeCollection = collection;
-  setDomain(collection); showReader(); setLoading(COLLECTIONS[collection].title);
+  if (parseRoute()) history.replaceState(null, '', location.pathname + location.search);
+  setDomain(collection);
+  showReader();
+  reader.innerHTML = '<section class="collection-state"><h1>' + esc(config.title) + '</h1><p>Loading reading library…</p></section>';
   try {
-    const manifest = await fetchJson('data/'+collection+'/manifest.json');
+    const manifest = validateCatalog(collection, await fetchJson('data/' + collection + '/manifest.json'));
     if (token !== requestToken) return;
-    if (!manifest || manifest.version !== 1 || manifest.collection !== collection || !Array.isArray(manifest.texts)) throw new Error('The collection catalogue is not valid.');
+    await window.QuranMemorizerReader.exitCollection();
+    if (token !== requestToken) return;
     showCatalog(collection, manifest);
   } catch (error) {
     if (token !== requestToken) return;
-    reader.innerHTML = '<section class="collection-state"><h1>Unable to open '+esc(COLLECTIONS[collection].title)+'</h1><p>'+esc(error.message)+'</p><button class="collection-back" data-back-home type="button">← Back to home</button></section>';
+    reader.innerHTML = '<section class="collection-state"><h1>Unable to open ' + esc(config.title) + '</h1><p>' + esc(error.message) + '</p></section>';
   }
 }
-async function openText(collection, id, section=1) {
-  const token = ++requestToken;
+async function openText(collection, id, section = 1) {
+  await window.QuranMemorizerReader.ready;
   const config = COLLECTIONS[collection];
-  const textMeta = activeCatalog && activeCatalog.texts.find(item => item.id === id);
-  if (!textMeta) return openCatalog(collection);
-  activeText = textMeta; activeCollection = collection;
-  setDomain(collection); showReader(); setLoading(textMeta.title);
+  if (!config) return;
+  const token = ++requestToken;
   try {
-    const manifest = await fetchJson('data/'+collection+'/'+id+'/manifest.json');
+    if (!activeCatalog || activeCollection !== collection) {
+      activeCatalog = validateCatalog(collection, await fetchJson('data/' + collection + '/manifest.json'));
+    }
+    const textMeta = activeCatalog.texts.find(item => item.id === id);
+    if (!textMeta) throw new Error('This reading is not present in the current catalogue.');
+    setDomain(collection);
+    showReader();
+    reader.innerHTML = '<section class="collection-state"><h1>' + esc(textMeta.title) + '</h1><p>Loading recitation passages…</p></section>';
+    const manifest = validateReadingManifest(
+      await fetchJson('data/' + collection + '/' + id + '/manifest.json'),
+      id,
+      config.kind
+    );
+    readingManifestCache.set(collection + ':' + id, manifest);
     if (token !== requestToken) return;
-    if (!manifest || manifest.version !== 1 || manifest.id !== id || manifest.kind !== config.kind || !Array.isArray(manifest.chunks) || !manifest.recordCount) throw new Error('The reading manifest is invalid.');
+    activeCollection = collection;
+    activeText = textMeta;
     activeManifest = manifest;
-    if (!window.QuranMemorizerReader) throw new Error('The shared Quran reader engine is not ready.');
-    await window.QuranMemorizerReader.ready;
-    if (token !== requestToken) return;
-    await window.QuranMemorizerReader.openCollection(collection, id, Math.min(manifest.recordCount, Math.max(1, Number(section) || 1)), textMeta, activeCatalog, manifest);
+    await window.QuranMemorizerReader.openCollection(collection, id, section, textMeta, activeCatalog, manifest);
   } catch (error) {
     if (token !== requestToken) return;
-    reader.innerHTML = '<section class="collection-state"><h1>'+esc(textMeta.title)+'</h1><p>'+esc(error.message)+'</p><button class="collection-back" data-back-catalog type="button">← Back to '+config.title+'</button></section>';
+    reader.innerHTML =
+      '<section class="collection-state"><h1>' + esc(id) + '</h1><p>' + esc(error.message) + '</p>' +
+      '<button class="collection-back" type="button" data-back-catalog>← Back to ' + esc(config.title) + '</button></section>';
   }
 }
 async function handleRoute() {
   const route = parseRoute();
   if (!route) {
-    if (location.hash.startsWith('#/surah/') || location.hash.startsWith('#/sura/')) setDomain('quran');
+    if (/^#\/surah\//i.test(location.hash) || /^#\/sura\//i.test(location.hash)) setDomain('quran');
+    else if (window.QuranMemorizerReader && window.QuranMemorizerReader.isCollectionReading()) openCatalog(activeCollection || 'duas');
     return;
   }
   const config = COLLECTIONS[route.collection];
   if (!config) return;
-  if (!activeCatalog || activeCollection !== route.collection) {
-    const token = ++requestToken;
-    setDomain(route.collection); showReader(); setLoading(config.title);
-    try {
-      const manifest = await fetchJson('data/'+route.collection+'/manifest.json');
-      if (token !== requestToken) return;
-      activeCatalog = manifest; activeCollection = route.collection;
-    } catch (error) { reader.innerHTML='<section class="collection-state"><h1>Unable to open library</h1><p>'+esc(error.message)+'</p></section>'; return; }
+  const current = window.QuranMemorizerReader.getActiveReading();
+  const state = window.QuranMemorizerReader.getState();
+  if (current && current.collection === route.collection && current.id === route.id) {
+    if (state.section !== route.section) window.QuranMemorizerReader.goToCollectionSection(route.section, { play: false });
+    return;
   }
   await openText(route.collection, route.id, route.section);
 }
-nav.addEventListener('click', event => {
+nav.addEventListener('click', async event => {
   const button = event.target.closest('[data-domain]');
   if (!button) return;
-  if (button.dataset.domain === 'quran') { setDomain('quran'); location.hash = '#/surah/1/ayah/1'; }
-  else openCatalog(button.dataset.domain);
+  if (button.dataset.domain === 'quran') {
+    requestToken++;
+    await window.QuranMemorizerReader.exitCollection();
+    setDomain('quran');
+  } else {
+    openCatalog(button.dataset.domain);
+  }
 });
-document.addEventListener('click', event => {
+document.addEventListener('click', async event => {
   const homeButton = event.target.closest('[data-open-domain]');
-  if (homeButton) { openCatalog(homeButton.dataset.openDomain); return; }
-  const card = event.target.closest('[data-text-id]');
-  if (card) { writeRoute(activeCollection, card.dataset.textId, 1); return; }
-  if (event.target.closest('[data-back-home]')) {
-    document.body.classList.remove('reader-active','collection-active');
-    if (home) home.removeAttribute('aria-hidden');
-    history.replaceState(null,'',location.pathname+location.search);
+  if (homeButton) {
+    openCatalog(homeButton.dataset.openDomain);
     return;
   }
-  if (event.target.closest('[data-back-catalog]')) { openCatalog(activeCollection); return; }
-  const chunkButton = event.target.closest('[data-chunk]');
-  if (chunkButton && !chunkButton.disabled) {
-    const index = Number(chunkButton.dataset.chunk), chunk = activeManifest && activeManifest.chunks[index];
-    if (!chunk) return;
-    const section = chunk.start;
-    writeRoute(activeCollection,activeText.id,section);
+  const card = event.target.closest('[data-text-id]');
+  if (card) {
+    writeRoute(activeCollection, card.dataset.textId, 1);
+    return;
+  }
+  if (event.target.closest('[data-back-catalog]')) {
+    openCatalog(activeCollection || 'duas');
+    return;
+  }
+  if (event.target.closest('[data-back-home]')) {
+    requestToken++;
+    await window.QuranMemorizerReader.exitCollection();
+    document.body.classList.remove('reader-active', 'collection-active');
+    if (home) home.removeAttribute('aria-hidden');
+    history.replaceState(null, '', location.pathname + location.search);
   }
 });
-window.QuranMemorizerCollections = Object.freeze({
-  openCatalog,
-  openText,
-  writeRoute,
-  getActiveCollection: () => activeCollection
-});
 window.addEventListener('hashchange', handleRoute);
-const initial = parseRoute();
-if (initial) handleRoute();
-else setDomain('quran');
+async function resolveRecordingIdentity(collection, readingId, section) {
+  const config = COLLECTIONS[collection];
+  const target = Number(section);
+  if (!config || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(String(readingId || '')) ||
+      !Number.isSafeInteger(target) || target < 1) return null;
+  const catalog = activeCatalog && activeCollection === collection
+    ? activeCatalog
+    : validateCatalog(collection, await fetchJson('data/' + collection + '/manifest.json'));
+  if (!catalog.texts.some(item => item.id === readingId)) return null;
+  const key = collection + ':' + readingId;
+  let manifest = readingManifestCache.get(key);
+  if (!manifest) {
+    manifest = validateReadingManifest(
+      await fetchJson('data/' + collection + '/' + readingId + '/manifest.json'),
+      readingId,
+      config.kind
+    );
+    readingManifestCache.set(key, manifest);
+  }
+  return target <= manifest.recordCount ? { collection, readingId, section: target } : null;
+}
+
+window.QuranMemorizerCollections = Object.freeze({
+  writeRoute,
+  openText,
+  openCatalog,
+  resolveRecordingIdentity,
+  getCatalog: collection => collection === activeCollection ? activeCatalog : null
+});
+async function initialize() {
+  await window.QuranMemorizerReader.ready;
+  const initial = parseRoute();
+  if (initial) await handleRoute();
+  else setDomain('quran');
+}
+initialize().catch(error => console.error('Reading collections could not be initialized.', error));
 })();
