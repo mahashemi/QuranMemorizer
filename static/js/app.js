@@ -1433,7 +1433,7 @@ async function getRecordingArchiveModule() {
 }
 
 function recordingArchivePath(sura, aya, mimeType) {
-  const identity = normalizeRecordingIdentity(sura, aya);
+  const identity = normalizeRecordingIdentity(sura, typeof aya === 'string' ? undefined : aya);
   const type = mimeType || (typeof aya === 'string' ? aya : '');
   const ext = recordingExtension(type);
   if (identity.collection) {
