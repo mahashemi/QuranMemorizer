@@ -594,13 +594,16 @@ function renderSura(restoreScrollTop) {
   const collectionMode = isCollectionReading();
   const title = s.title || s.englishName;
   const arabicTitle = s.arabicTitle || s.arabicName || '';
+  let sourceUrl = '';
+  if (collectionMode && s.source && s.source.url) {
+    try { const parsed = new URL(s.source.url); if (parsed.protocol === 'https:') sourceUrl = parsed.href; } catch (_) {}
+  }
   let html = '<div class="sura-heading">' +
     (collectionMode ? '<button type="button" class="reader-back-catalog" data-back-catalog>← Back to ' + (state.activeCollection === 'duas' ? 'Duas' : 'Ziyarats') + '</button>' : '') +
     '<h1>' + (collectionMode ? esc(title) : s.number + '. ' + esc(title)) + '</h1>' +
     '<div class="ar-name" dir="rtl">' + esc(arabicTitle) + '</div>' +
     '<div class="meta">' + s.ayaCount + (collectionMode ? ' recitation passages' : ' ayat') + '</div>' +
-    (collectionMode && s.attribution ? '<p class="collection-attribution">' + esc(s.attribution) + '</p>' : '') +
-    (collectionMode && s.source && s.source.url && /^https:\/\//i.test(s.source.url) ? '<p class="collection-source"><a href="' + esc(s.source.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.source.label || 'Text source') + '</a></p>' : '') +
+    (collectionMode && (s.attribution || sourceUrl) ? '<details class="reading-attribution"><summary>Source &amp; attribution</summary>' + (s.attribution ? '<p>' + esc(s.attribution) + '</p>' : '') + (sourceUrl ? '<a href="' + esc(sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc((s.source && s.source.label) || 'Open source') + '</a>' : '') + '</details>' : '') +
     (collectionMode ? '' : '<div class="sura-download"><button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button><span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span></div>') +
     '</div>';
   for (const v of s.ayas) {
