@@ -17,7 +17,11 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
-      "manifest": "dua-kumayl/manifest.json"
+      "manifest": "dua-kumayl/manifest.json",
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 250,
+      "group": "Core Duas",
+      "order": 10
     },
     {
       "id": "dua-nudba",
@@ -33,7 +37,11 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
-      "manifest": "dua-nudba/manifest.json"
+      "manifest": "dua-nudba/manifest.json",
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 222,
+      "group": "Core Duas",
+      "order": 20
     },
     {
       "id": "sahifa-dua-01",
@@ -1485,6 +1493,27 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 100,
       "manifest": "dua-jawshan-kabir/manifest.json"
+    },
+    {
+      "id": "dua-alqama",
+      "title": "Dua Alqama (Safwan)",
+      "arabicTitle": "دعاء العلقمة",
+      "description": "A supplication recited after Ziyarat Ashura, also known as Dua Safwan.",
+      "occasion": "",
+      "attribution": "Arabic text, transliteration and English translation from Duas.org. Duas.org states that its content may be freely used without copyright and appreciates a reference to the site. Duas.org notes that errors may exist in Arabic text, punctuation, transliteration and translation, and that verifying authenticity or chains of narrators is beyond its scope. This import therefore remains review-required.",
+      "source": {
+        "provider": "Duas.org",
+        "label": "Duas.org — Dua Alqama",
+        "url": "https://www.duas.org/alqama.htm",
+        "terms_url": "https://www.duas.org/mobile/about-us.html",
+        "license": "Duas.org states that its content may be freely used without copyright and appreciates a reference to the site."
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 191,
+      "group": "Supplications after Ziyarat Ashura",
+      "order": 50,
+      "canonicalNumber": null,
+      "manifest": "dua-alqama/manifest.json"
     }
   ]
 }

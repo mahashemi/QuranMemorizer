@@ -59,6 +59,12 @@ export function buildReadingCollection(rootDir, collection) {
   const collectionDir = resolve(rootDir, 'data', collection);
   const sourceDir = join(collectionDir, 'source');
   const sources = readSources(sourceDir);
+  const manifestPath = join(collectionDir, 'manifest.json');
+  const previousManifest = existsSync(manifestPath)
+    ? JSON.parse(readFileSync(manifestPath, 'utf8'))
+    : null;
+  const previousTexts = Array.isArray(previousManifest && previousManifest.texts) ? previousManifest.texts : [];
+  const previousById = new Map(previousTexts.map((item, index) => [item.id, { item, index }]));
   const ids = new Set();
   const texts = [];
 
@@ -82,25 +88,36 @@ export function buildReadingCollection(rootDir, collection) {
       chunkSize
     });
     writeFileSync(join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+    const previous = previousById.get(source.id)?.item || {};
     texts.push({
+      ...previous,
       id: source.id,
       title: source.title,
-      arabicTitle: source.arabicTitle || '',
-      description: source.description || '',
-      occasion: source.occasion || '',
-      attribution: source.attribution || '',
-      source: source.source || null,
-      sourceStatus: source.sourceStatus || 'imported-review-required',
-      sourcePairCount: source.sourcePairCount ?? null,
-      group: source.group || '',
-      order: source.order ?? null,
-      canonicalNumber: source.canonicalNumber ?? null,
+      arabicTitle: source.arabicTitle || previous.arabicTitle || '',
+      description: source.description || previous.description || '',
+      occasion: source.occasion || previous.occasion || '',
+      attribution: source.attribution || previous.attribution || '',
+      source: source.source || previous.source || null,
+      sourceStatus: source.sourceStatus || previous.sourceStatus || 'imported-review-required',
+      sourcePairCount: source.sourcePairCount ?? previous.sourcePairCount ?? null,
+      group: source.group || previous.group || '',
+      order: source.order ?? previous.order ?? null,
+      canonicalNumber: source.canonicalNumber ?? previous.canonicalNumber ?? null,
       manifest: source.id + '/manifest.json'
     });
   }
 
+  texts.sort((a, b) => {
+    const previousA = previousById.get(a.id);
+    const previousB = previousById.get(b.id);
+    if (previousA && previousB) return previousA.index - previousB.index;
+    if (previousA) return -1;
+    if (previousB) return 1;
+    return (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) ||
+      String(a.title).localeCompare(String(b.title));
+  });
   const collectionManifest = { version: 1, collection, texts };
-  writeFileSync(join(collectionDir, 'manifest.json'), JSON.stringify(collectionManifest, null, 2) + '\n');
+  writeFileSync(manifestPath, JSON.stringify(collectionManifest, null, 2) + '\n');
   return collectionManifest;
 }
 

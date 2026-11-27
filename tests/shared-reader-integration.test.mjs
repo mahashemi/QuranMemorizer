@@ -46,7 +46,7 @@ test('the existing Quran sidebar, mobile header, and player remain available in 
 });
 
 test('the Dua catalogue includes all 54 Sahifa supplications, 15 Munajat, Ahad, and Jawshan Kabir', () => {
-  assert.equal(duas.texts.length, 73);
+  assert.equal(duas.texts.length, 74);
   const sahifa = duas.texts.filter(item => item.group === 'Sahifa Sajjadiya — 54 Supplications');
   const munajat = duas.texts.filter(item => item.group === '15 Munajat');
   assert.equal(sahifa.length, 54);
@@ -55,11 +55,63 @@ test('the Dua catalogue includes all 54 Sahifa supplications, 15 Munajat, Ahad, 
   assert.ok(munajat.every(item => item.id.startsWith('munajat-')));
   assert.ok(duas.texts.some(item => item.id === 'dua-ahad'));
   assert.ok(duas.texts.some(item => item.id === 'dua-jawshan-kabir'));
+  assert.ok(duas.texts.some(item => item.id === 'dua-alqama'));
+});
+
+test('catalogue order keeps the major Duas and Karbala Ziyarats in a deliberate sequence', () => {
+  const duaOrder = ['dua-kumayl', 'dua-nudba', 'dua-ahad', 'dua-jawshan-kabir', 'dua-alqama'];
+  const sortedDuas = duas.texts.filter(item => duaOrder.includes(item.id)).sort((a, b) => a.order - b.order);
+  assert.deepEqual(sortedDuas.map(item => item.id), duaOrder);
+  assert.deepEqual(sortedDuas.map(item => item.order), [10, 20, 30, 40, 50]);
+  const ziyaratOrder = ['ziyarat-ashura', 'ziyarat-jamia-kabira', 'ziyarat-nahiya'];
+  const sortedZiyarats = ziyarats.texts.slice().sort((a, b) => a.order - b.order);
+  assert.deepEqual(sortedZiyarats.map(item => item.id), ziyaratOrder);
+  assert.deepEqual(sortedZiyarats.map(item => item.order), [10, 20, 30]);
 });
 
 test('the current Ziyarat catalogue contains the two imported readings', () => {
-  assert.equal(ziyarats.texts.length, 2);
-  assert.deepEqual(ziyarats.texts.map(item => item.id).sort(), ['ziyarat-ashura', 'ziyarat-jamia-kabira']);
+  assert.equal(ziyarats.texts.length, 3);
+  assert.deepEqual(ziyarats.texts.map(item => item.id).sort(), ['ziyarat-ashura', 'ziyarat-jamia-kabira', 'ziyarat-nahiya']);
+});
+
+test('the new Duas.org imports preserve their inspected source segmentation and attribution', () => {
+  const dua = JSON.parse(readFileSync(new URL('../data/duas/source/dua-alqama.json', import.meta.url), 'utf8'));
+  const ziyarat = JSON.parse(readFileSync(new URL('../data/ziyarats/source/ziyarat-nahiya.json', import.meta.url), 'utf8'));
+  assert.equal(dua.records.length, 191);
+  assert.equal(dua.sourcePairCount, 191);
+  assert.equal(ziyarat.records.length, 481);
+  assert.equal(ziyarat.sourcePairCount, 483);
+  assert.equal(ziyarat.records[98].source_pair_end, 100);
+  assert.equal(ziyarat.records[419].source_pair_end, 422);
+  for (const reading of [dua, ziyarat]) {
+    assert.equal(reading.sourceStatus, 'imported-review-required');
+    assert.equal(reading.source.provider, 'Duas.org');
+    assert.ok(reading.source.terms_url.includes('about-us'));
+    assert.ok(reading.attribution.includes('freely used'));
+  }
+});
+
+test('Nahiya and Alqama source ranges are continuous and recitation segments are repeatable', () => {
+  const dua = JSON.parse(readFileSync(new URL('../data/duas/source/dua-alqama.json', import.meta.url), 'utf8'));
+  const ziyarat = JSON.parse(readFileSync(new URL('../data/ziyarats/source/ziyarat-nahiya.json', import.meta.url), 'utf8'));
+  for (const reading of [dua, ziyarat]) {
+    const records = reading.records;
+    assert.deepEqual(records.map(item => item.sequence), Array.from({ length: records.length }, (_, i) => i + 1));
+    assert.equal(new Set(records.map(item => item.id)).size, records.length);
+    assert.equal(records[0].source_pair_start, 1);
+    assert.equal(records.at(-1).source_pair_end, reading.sourcePairCount);
+    assert.ok(records.every(item => item.recitation_segment && item.recitation_segment.repeatable));
+    for (let i = 1; i < records.length; i++) {
+      assert.equal(records[i].source_pair_start, records[i - 1].source_pair_end + 1);
+    }
+  }
+  const nahiyaManifest = JSON.parse(readFileSync(new URL('../data/ziyarats/ziyarat-nahiya/manifest.json', import.meta.url), 'utf8'));
+  const alqamaManifest = JSON.parse(readFileSync(new URL('../data/duas/dua-alqama/manifest.json', import.meta.url), 'utf8'));
+  assert.equal(nahiyaManifest.recordCount, 481);
+  assert.equal(nahiyaManifest.chunks[0].start, 1);
+  assert.equal(nahiyaManifest.chunks.at(-1).end, 481);
+  assert.equal(alqamaManifest.recordCount, 191);
+  assert.equal(alqamaManifest.chunks.at(-1).end, 191);
 });
 
 test('all imported source records have non-empty Arabic, transliteration, and English fields', () => {

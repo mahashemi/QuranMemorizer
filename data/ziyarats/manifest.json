@@ -16,7 +16,11 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
-      "manifest": "ziyarat-ashura/manifest.json"
+      "manifest": "ziyarat-ashura/manifest.json",
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 140,
+      "group": "Karbala visitations",
+      "order": 10
     },
     {
       "id": "ziyarat-jamia-kabira",
@@ -32,7 +36,32 @@
         "sourceDataset": "adeeb10abbas/shia-library-json",
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
-      "manifest": "ziyarat-jamia-kabira/manifest.json"
+      "manifest": "ziyarat-jamia-kabira/manifest.json",
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 412,
+      "group": "Comprehensive visitations",
+      "order": 20
+    },
+    {
+      "id": "ziyarat-nahiya",
+      "title": "Ziyarat Nahiya al-Muqaddasa",
+      "arabicTitle": "زيارة الناحية المقدسة",
+      "description": "The visitation attributed to the Sacred Deputation, including salutations to Imam al-Husayn and the martyrs of Karbala.",
+      "occasion": "",
+      "attribution": "Arabic text, transliteration and English translation from Duas.org. Duas.org states that its content may be freely used without copyright and appreciates a reference to the site. Duas.org notes that errors may exist in Arabic text, punctuation, transliteration and translation, and that verifying authenticity or chains of narrators is beyond its scope. This import therefore remains review-required.",
+      "source": {
+        "provider": "Duas.org",
+        "label": "Duas.org — Ziyarat Nahiya",
+        "url": "https://www.duas.org/ziaratnahiya.htm",
+        "terms_url": "https://www.duas.org/mobile/about-us.html",
+        "license": "Duas.org states that its content may be freely used without copyright and appreciates a reference to the site."
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 483,
+      "group": "Karbala visitations",
+      "order": 30,
+      "canonicalNumber": null,
+      "manifest": "ziyarat-nahiya/manifest.json"
     }
   ]
 }

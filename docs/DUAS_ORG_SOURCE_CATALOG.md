@@ -14,6 +14,8 @@ Duas.org explicitly asks reusers to extend due credit. Preserve a source link an
 | Duas | dua-nudba | https://www.duas.org/dua-nudbah.html |
 | Duas | dua-ahad | https://www.duas.org/dua-ahad.html; https://www.duas.org/ereaderpdfs/Ahad2.pdf |
 | Duas | dua-jawshan-kabir | https://www.duas.org/mobile/ramadan-dua-jawshan-kabeer.html |
+| Duas | dua-alqama | https://www.duas.org/alqama.htm |
+| Ziyarats | ziyarat-nahiya | https://www.duas.org/ziaratnahiya.htm |
 | Duas | sahifa-sajjadiya | https://www.duas.org/sajjadiya/sajjadiya-desktop-index.htm; individual supplications are linked from the index |
 | Ziyarats | ziyarat-nahiya | https://www.duas.org/ziaratnahiya.htm; https://www.duas.org/pdfs/ziarat%20nahiya2.pdf |
 | Ziyarats | ziyarat-ashura | https://www.duas.org/ashura/z_ashura.htm; https://www.duas.org/ereaderpdfs/ziarat_ashura3.pdf |
@@ -51,4 +53,25 @@ The following complete source records have been imported to the PR #28 feature b
 
 Source repository commit: `075fe2e9d050bb40bd8147ed516d3592046ebc33`. Each source JSON retains the original source page, CC0 license metadata, source pair range for each recitation record, Arabic, transliteration, and English translation. Review the Arabic, punctuation, translation alignment, and completeness against the linked source pages before marking any reading verified.
 
-Still to import: Dua Ahad, Dua Jawshan Kabir, Ziyarat Nahiya, Ziyarat Alqama, the 54 individually named Sahifa supplications, and the 15 individually named Munajat.
+Imported on the feature branch: Dua Ahad, Dua Jawshan Kabir, Dua Alqama (191 recitation segments), Ziyarat Nahiya al-Muqaddasa (481 recitation segments), all 54 individually named Sahifa supplications, and all 15 individually named Munajat. The two new readings remain `imported-review-required` pending source-level verification.
+
+
+## Reuse terms and editorial caveat
+
+Duas.org states on its [About Us page](https://www.duas.org/mobile/about-us.html) that its content may be freely used and appreciates a reference to the site. The same page warns that Arabic text, punctuation, transliteration and translations may contain errors, and that verifying authenticity or chains of narrators is beyond its scope. The importer preserves this attribution and keeps both new readings review-required.
+
+For Ziyarat Nahiya, the online source separates Arabic, transliteration and English into phrase-level rows. Two split rows were joined to maintain alignment: the English continuation at source pairs 99–100 was appended to the preceding translation, and the Arabic-only continuation at 421–422 was appended to the preceding Arabic phrase (its transliteration and English translation already covered both rows). The final Arabic-only chain-of-transmission note is not part of the recitation and is excluded. This yields 481 repeatable recitation segments covering 483 source phrase rows. Dua Alqama contains 191 aligned phrase rows and is kept as a separate Dua, not appended to Ziyarat Ashura. The catalogue order is explicit: Kumayl (10), Nudba (20), Ahad (30), Jawshan Kabir (40), Alqama (50); Ziyarat Ashura (10), Jamia Kabira (20), and Nahiya (30).
+
+
+## Reproducing the two phrase imports
+
+The source importer is retained at `scripts/import-duas-org-readings.mjs`. To refresh the two source files and regenerate offline manifests/chunks manually:
+
+```sh
+npm install --no-save --no-package-lock cheerio@1.1.2
+node scripts/import-duas-org-readings.mjs
+node scripts/build-readings.mjs
+npm test
+```
+
+The importer intentionally checks the Duas.org HTML phrase counts and the two split-row positions before writing any file. If the source page changes, it stops rather than silently misaligning Arabic, transliteration and English.
