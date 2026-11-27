@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-34",
+  "title": "34. When he was afflicted or saw someone afflicted with the Disgrace of Sin",
+  "kind": "dua",
+  "recordCount": 10,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "segments_001_010.json"
+    }
+  ]
+}
