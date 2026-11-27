@@ -2032,5 +2032,7 @@
         "pause_after": true
       }
     }
-  ]
+  ],
+  "group": "Core Duas",
+  "order": 10
 }
