@@ -1554,7 +1554,12 @@ async function importRecordingsArchive(file) {
       const sura = Number(match[2]);
       const aya = Number(match[4]);
       const extension = match[5].toLowerCase();
-      const suraData = SURA_BY_NUM[sura];
+      let suraData = SURA_BY_NUM[sura];
+      if (!suraData && window.QuranMemorizerCollections &&
+          typeof window.QuranMemorizerCollections.resolveRecordingSura === 'function') {
+        try { suraData = await window.QuranMemorizerCollections.resolveRecordingSura(sura); }
+        catch (_) { suraData = null; }
+      }
       if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayaCount) {
         ignored++;
         continue;
@@ -2211,6 +2216,11 @@ audio.addEventListener('error', () => {
   if (activeRecordingObjectUrl && audio.src === activeRecordingObjectUrl) {
     URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = null;
+    if (SURA_BY_NUM[state.sura] && SURA_BY_NUM[state.sura].collection) {
+      toast('This recording format could not be played on this device. Please record again using the device-supported format.');
+      stopAll();
+      return;
+    }
     toast('Your recording could not be played. Trying Minshawi instead.');
     setAudioSource(trackUrl(state.sura, state.playingAya));
     audio.play().catch(() => stopAll());
