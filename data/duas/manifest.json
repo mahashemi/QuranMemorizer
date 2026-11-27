@@ -1186,6 +1186,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 49,
       "manifest": "munajat-taibeen/manifest.json"
+    },
+    {
+      "id": "munajat-shakeen",
+      "title": "02. The Whispered Prayer of the Complainers (Shakeen)",
+      "arabicTitle": "مناجاة الشاكين",
+      "description": "The second of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 202,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 2",
+        "url": "https://www.duas.org/sajjadiya/dua70.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 36,
+      "manifest": "munajat-shakeen/manifest.json"
     }
   ]
 }
