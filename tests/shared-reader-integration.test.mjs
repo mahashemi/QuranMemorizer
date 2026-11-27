@@ -42,6 +42,8 @@ test('the imported library includes all 54 Sahifa supplications and 15 Munajat',
   assert.ok(munajat.every(item => item.id.startsWith('munajat-')));
   assert.ok(duas.texts.some(item => item.id === 'dua-ahad'));
   assert.ok(duas.texts.some(item => item.id === 'dua-jawshan-kabir'));
+  assert.ok(duas.texts.some(item => item.id === 'dua-ahad'));
+  assert.ok(duas.texts.some(item => item.id === 'dua-jawshan-kabir'));
 });
 
 test('all imported Dua and Ziyarat source records have Arabic, transliteration, and English fields', () => {
