@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-15",
+  "title": "15. His Supplication when Sick",
+  "kind": "dua",
+  "recordCount": 10,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 10,
+      "file": "segments_001_010.json"
+    }
+  ]
+}
