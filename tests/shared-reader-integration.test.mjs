@@ -20,6 +20,8 @@ test('Dua and Ziyarat passages are rendered by the shared Quran reader', () => {
   assert.match(app, /async function loadAdjacentReaderChunk\(\)[\s\S]*?ensureCollectionSectionLoaded\(reading, adjacent\.start\)/);
   assert.match(adapter, /QuranMemorizerReader\.openCollection/);
   assert.match(adapter, /QuranMemorizerReader\.goToCollectionSection/);
+  assert.match(adapter, /async function resolveRecordingIdentity\(collection, readingId, section\)/);
+  assert.match(app, /await resolver\(identity\.collection, identity\.readingId, identity\.section\)/);
   assert.doesNotMatch(adapter, /class="collection-reading"|class="collection-record"/);
 });
 
