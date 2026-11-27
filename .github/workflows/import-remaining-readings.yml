@@ -38,4 +38,4 @@ jobs:
             exit 0
           fi
           git commit -m "Import Ziyarat Nahiya and Dua Alqama source texts"
-          git push origin "HEAD:\${TARGET_BRANCH}"
+          git push origin "HEAD:${TARGET_BRANCH}"
