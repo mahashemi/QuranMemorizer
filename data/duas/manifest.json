@@ -790,6 +790,90 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 35,
       "manifest": "sahifa-dua-36/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-37",
+      "title": "37. His supplication in giving Thanks",
+      "arabicTitle": "دُعَاؤُهُ فِي الشُّكْرِ",
+      "description": "Sahifa Sajjadiya — Supplication 37",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 137,
+      "canonicalNumber": 37,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-giving-thanks",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 66,
+      "manifest": "sahifa-dua-37/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-38",
+      "title": "38. In asking Pardon",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاعْتِذَارِ",
+      "description": "Sahifa Sajjadiya — Supplication 38",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 138,
+      "canonicalNumber": 38,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-asking-pardon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 16,
+      "manifest": "sahifa-dua-38/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-39",
+      "title": "39. His Supplication in Seeking Pardon and Mercy",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ الْعَفْوِ و المَغْفِرَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 39",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 139,
+      "canonicalNumber": 39,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-seeking-pardon-and-mercy",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 69,
+      "manifest": "sahifa-dua-39/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-40",
+      "title": "40. When he remembered Death",
+      "arabicTitle": "دُعَاؤُهُ إذا ذَكَرَ الْمَوْتِ",
+      "description": "Sahifa Sajjadiya — Supplication 40",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 140,
+      "canonicalNumber": 40,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-remembered-death",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-40/manifest.json"
     }
   ]
 }
