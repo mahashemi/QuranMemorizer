@@ -517,6 +517,7 @@ function currentReciter() {
    ================================================================== */
 function buildSidebar() {
   const frag = document.createDocumentFragment();
+  el.suraList.replaceChildren();
   SURAS.forEach(s => {
     const item = document.createElement('div');
     item.className = 'sura-item';
@@ -2411,6 +2412,11 @@ function bindEvents() {
   el.suraList.addEventListener('click', e => {
     const item = e.target.closest('.sura-item');
     if (!item) return;
+    if (item.dataset.collectionTextId && window.QuranMemorizerCollections) {
+      window.QuranMemorizerCollections.openText(item.dataset.collection, item.dataset.collectionTextId, 1);
+      if (isMobile()) setTimeout(closeDrawer, 140);
+      return;
+    }
     loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
     if (isMobile()) setTimeout(closeDrawer, 140);
   });
@@ -2709,9 +2715,31 @@ window.QuranMemorizerReader = Object.freeze({
   openQuranSura(sura = 1, aya = 1) {
     activeCollectionSession = null;
     document.body.classList.remove('collection-active');
+    const suraHeading = el.suraList.closest('.col')?.querySelector('.col-head');
+    if (suraHeading) suraHeading.textContent = 'Sura';
+    if (el.suraSearch) el.suraSearch.placeholder = 'Search surah…';
+    const drawerSuraTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="sura"]');
+    const drawerAyaTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="aya"]');
+    if (drawerSuraTab) drawerSuraTab.textContent = 'Sura';
+    if (drawerAyaTab) drawerAyaTab.textContent = 'Aya';
+    buildSidebar();
     activateReaderView();
     return loadSura(sura, { aya, play: false });
   },
+  showCollectionNavigation(items, collectionTitle) {
+    const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+    if (heading) heading.textContent = collectionTitle || 'Readings';
+    if (el.suraSearch) el.suraSearch.placeholder = 'Search readings…';
+    const drawerSuraTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="sura"]');
+    const drawerAyaTab = el.drawerTabs && el.drawerTabs.querySelector('[data-tab="aya"]');
+    if (drawerSuraTab) drawerSuraTab.textContent = 'Reading';
+    if (drawerAyaTab) drawerAyaTab.textContent = 'Passages';
+    el.suraList.innerHTML = (items || []).map(item =>
+      '<div class="sura-item' + (item.active ? ' current' : '') + '" data-sura="' + Number(item.number) + '" data-collection="' + esc(item.collection) + '" data-collection-text-id="' + esc(item.id) + '" data-search="' + esc((item.title + ' ' + item.id).toLowerCase()) + '">' +
+      '<span class="sura-num">' + Number(item.order || 0) + '</span><span class="sura-names"><span class="en">' + esc(item.title) + '</span><span class="ar" dir="rtl">' + esc(item.arabicTitle || '') + '</span></span></div>'
+    ).join('');
+  },
+  stopPlayback() { stopAll(); },
   getActiveSura() { return SURA_BY_NUM[state.sura] || null; },
   getState() { return { sura: state.sura, aya: state.aya, playbackSpeed: state.playbackSpeed }; }
 });
