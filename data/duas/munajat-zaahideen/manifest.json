@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "munajat-zaahideen",
+  "title": "15. The Whispered Prayer of the Abstainers (Zaahideen)",
+  "kind": "dua",
+  "recordCount": 23,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 23,
+      "file": "segments_001_023.json"
+    }
+  ]
+}
