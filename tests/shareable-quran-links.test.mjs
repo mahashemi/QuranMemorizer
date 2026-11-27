@@ -73,7 +73,7 @@ test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () =>
 
 
 test('Ayah picker is a number-only navigation index on desktop and mobile', () => {
-  assert.match(app, /function renderAyaList\\(num\\)[\\s\\S]*?data-aya=.*?aria-label="Go to ' \\+ \\(s\\.collection \\? 'passage ' : 'Ayah '\\)/);
+  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to ' \+ \(s\.collection \? 'passage ' : 'Ayah '\)/);
   assert.doesNotMatch(app, /aya-btn-text|aya-btn-unloaded/);
   assert.match(app, /const btn = el\.ayaList\.querySelector\('\.aya-btn\[data-aya=/);
   assert.match(app, /btn\.classList\.add\('active'\)/);
