@@ -259,10 +259,28 @@ document.addEventListener('click', async event => {
   }
 });
 window.addEventListener('hashchange', handleRoute);
+async function resolveRecordingIdentity(collection, readingId, section) {
+  const config = COLLECTIONS[collection];
+  const target = Number(section);
+  if (!config || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(String(readingId || '')) ||
+      !Number.isSafeInteger(target) || target < 1) return null;
+  const catalog = activeCatalog && activeCollection === collection
+    ? activeCatalog
+    : validateCatalog(collection, await fetchJson('data/' + collection + '/manifest.json'));
+  if (!catalog.texts.some(item => item.id === readingId)) return null;
+  const manifest = validateReadingManifest(
+    await fetchJson('data/' + collection + '/' + readingId + '/manifest.json'),
+    readingId,
+    config.kind
+  );
+  return target <= manifest.recordCount ? { collection, readingId, section: target } : null;
+}
+
 window.QuranMemorizerCollections = Object.freeze({
   writeRoute,
   openText,
   openCatalog,
+  resolveRecordingIdentity,
   getCatalog: collection => collection === activeCollection ? activeCatalog : null
 });
 async function initialize() {
