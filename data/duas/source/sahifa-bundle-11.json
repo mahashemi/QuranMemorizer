@@ -1,0 +1,1753 @@
+{
+  "id": "sahifa-bundle-11",
+  "title": "Sahifa Sajjadiya — Supplications 41–44",
+  "sourceStatus": "imported-review-required",
+  "source": {
+    "label": "Thaqalayn — CC0 1.0 source dataset",
+    "license": "CC0-1.0",
+    "sourceDataset": "adeeb10abbas/shia-library-json",
+    "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+  },
+  "readings": [
+    {
+      "id": "sahifa-dua-41",
+      "title": "41. His Supplication in Asking for Covering and Protection",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ السَّتْرِ وَ الْوِقَايَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 41",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 141,
+      "canonicalNumber": 41,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-covering-and-protection",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "storageChunkSize": 30,
+      "records": [
+        {
+          "id": "passage-001",
+          "sequence": 1,
+          "arabic_text": "أَللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، وَأَفْرِشْنِي مِهَادَ كَـرَامَتِـكَ، وَأَوْرِدْنِي مَشَارِعَ رَحْمَتِـكَ، وَأَحْلِلْنِي بُحْبُوحَةَ جَنَّتِكَ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihi wa ʾafrishnī mihāda karāmatika wa-awridnī mashāriʿa raḥmatik wa ahlilnī buḥbūḥata jannatika",
+          "english_text": "O God, bless Muhammad and his Household, spread for me the bed of Thy honour, bring me to the wateringholes of Thy mercy, set me down in the midst of Thy Garden,",
+          "source_pair_start": 1,
+          "source_pair_end": 4,
+          "recitation_segment": {
+            "id": "segment-001",
+            "title": "Recitation segment 1",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-002",
+          "sequence": 2,
+          "arabic_text": "وَلاَ تَسُمْنِي بِالرَّدِّ عَنْكَ، وَلا تَحْرِمْنِي بِـالْخَيْبَةِ مِنْـكَ، وَلاَ تُقَاصَّنِي بِمَـا اجْتَرَحْتُ، وَلاَ تُنَاقِشْنِي بِمَا اكْتَسَبْتُ،",
+          "transliteration": "wa lā tasumnī bil-raddi ʿank walā taḥrimnī bil-khaybah minnak walā tuqāṣṣanī bimā ijtarah-tu wa lā tunāqishnī bimā iktasabtū",
+          "english_text": "stamp me not with rejection by Thee, deprive me not through disappointment by Thee, settle not accounts with me for what I have committed, make no reckoning with me for what I have earned,",
+          "source_pair_start": 5,
+          "source_pair_end": 8,
+          "recitation_segment": {
+            "id": "segment-002",
+            "title": "Recitation segment 2",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-003",
+          "sequence": 3,
+          "arabic_text": "وَلا تُـبْرِزْ مَكْتُوْمِي، وَلاَ تَكْشِفْ مَسْتُورِي، وَلاَ تَحْمِلْ عَلَى مِيزانِ الأنْصَافِ عَمَلِي، وَلاَ تُعْلِنْ عَلَى عُيُونِ الْمَلاَءِ خَبَـرِي.",
+          "transliteration": "walā tubriz maktūmī, walā takhshif mastūrī walā tahmil ʿalā mīzāni'l-ʾinsāfi ʿamalī wala tuʿlin ʿalā ʿuyūni al-malāʾi khabarī",
+          "english_text": "display not what I have hidden, expose not what I have covered over, weigh not my works on the scales of fairness, and make not my tidings known to the eyes of the crowd!",
+          "source_pair_start": 9,
+          "source_pair_end": 11,
+          "recitation_segment": {
+            "id": "segment-003",
+            "title": "Recitation segment 3",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-004",
+          "sequence": 4,
+          "arabic_text": "أَخْفِ عَنْهُمْ مَا يَكُونُ نَشْرُهُ عَلَيَّ عَاراً، وَاطْوِ عَنْهُمْ مَا يُلْحِقُنِي عِنْدَكَ شَنَاراً،",
+          "transliteration": "akhfī ʿanhum mā yakūnu nashruhu ʿalayya ʿāran waṭwi ʿanhum mā yulḥiqunī ʿindaka shanāran",
+          "english_text": "Conceal from them everything whose unfolding would shame me and roll up before them all which would join me to disgrace with Thee!",
+          "source_pair_start": 12,
+          "source_pair_end": 13,
+          "recitation_segment": {
+            "id": "segment-004",
+            "title": "Recitation segment 4",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-005",
+          "sequence": 5,
+          "arabic_text": "شَرِّفْ دَرَجَتِي بِرِضْوَانِكَ، وَأكْمِلْ كَرَامَتِي بِغُفْرَانِكَ، وَانْظِمْنِي فِي أَصْحَابِ الْيَمِينِ، وَوَجِّهْنِي فِي مَسَالِكِ الآمِنِينَ،",
+          "transliteration": "sharraf darajati bi ridhwanika wa-akmil karāmatī bi-ghufrānik wa anzimni fi ashabil yameen wa wajjihni fi masalikil amineen",
+          "english_text": "Ennoble my degree through Thy good pleasure, perfect my honour through Thy forgiveness, rank me among the companions of the right hand, direct me to the roads of the secure,",
+          "source_pair_start": 14,
+          "source_pair_end": 17,
+          "recitation_segment": {
+            "id": "segment-005",
+            "title": "Recitation segment 5",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-006",
+          "sequence": 6,
+          "arabic_text": "وَاجْعَلْنِي فِي فَوْجِ الْفَائِزِينَ، وَاعْمُرْ بِي مَجَالِسَ الصَّالِحِينَ،",
+          "transliteration": "wa-jaʿalnī fī fawj al-fāʾizīn wāʿmur bī majālis aṣ-ṣāliḥīn",
+          "english_text": "place me in the throng of the triumphant, and through me let the sessions of the righteous thrive!",
+          "source_pair_start": 18,
+          "source_pair_end": 19,
+          "recitation_segment": {
+            "id": "segment-006",
+            "title": "Recitation segment 6",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-007",
+          "sequence": 7,
+          "arabic_text": "آمِينَ رَبَّ الْعَالَمِينَ .",
+          "transliteration": "ʾāmīn rabbi al-ʿālamīn",
+          "english_text": "Amen, Lord of the worlds!",
+          "source_pair_start": 20,
+          "source_pair_end": 20,
+          "recitation_segment": {
+            "id": "segment-007",
+            "title": "Recitation segment 7",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sahifa-dua-42",
+      "title": "42. Upon Completing a Reading of the Qur'an",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ خَتْمِهِ الْقُرْآنَ",
+      "description": "Sahifa Sajjadiya — Supplication 42",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 142,
+      "canonicalNumber": 42,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-upon-completing-a-reading-of-the-quran",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 131,
+      "storageChunkSize": 30,
+      "records": [
+        {
+          "id": "passage-001",
+          "sequence": 1,
+          "arabic_text": "أَللَّهُمَّ إنَّكَ أَعَنْتَنِي عَلَى خَتْمِ كِتَابِكَ الَّذِي أَنْزَلْتَهُ نُوراً وَجَعَلْتَهُ مُهَيْمِناً عَلَى كُلِّ كِتَاب أَنْزَلْتَهُ، وَفَضَّلْتَهُ عَلَى كُلِّ حَدِيث قَصَصْتَهُ،",
+          "transliteration": "allāhumma innaka aʿantani ʿalā khatmi kitābik al-ladhī anzaltahu nūran wa jaʿaltahu muhayminan ʿalā kulli kitābin anzaltahu wafadhdhaltahu ʿalaa kulli ḥadiith qassashtahu",
+          "english_text": "O God, Thou hast helped me complete Thy Book, which Thou sent down as a light and appointed as a guardian over every book Thou hast sent down, preferring it over every narrative which Thou hast recounted,",
+          "source_pair_start": 1,
+          "source_pair_end": 4,
+          "recitation_segment": {
+            "id": "segment-001",
+            "title": "Recitation segment 1",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-002",
+          "sequence": 2,
+          "arabic_text": "وَفُرْقاناً فَرَقْتَ بِهِ بَيْنَ حَلالِكَ وَحَرَامِكَ، وَقُرْآناً أَعْرَبْتَ بِهِ عَنْ شَرَائِعِ أَحْكَامِكَ، وَكِتَاباً فَصَّلْتَهُ لِعِبَادِكَ تَفْصِيلاً، وَوَحْياً أَنْزَلْتَهُ عَلَى نَبِيِّكَ مُحَمَّد صَلَوَاتُكَ عَلَيْهِ وَآلِهِ تَنْزِيلاً،",
+          "transliteration": "wa furqānan faraqta bihī bayna ḥalālika wa ḥarāmika wa qur'ānan 'aʿrabta bihi ʿan sharāʾiʿi ahkāmika wa kitāban faṣṣaltahu li'ibādika tafṣīlā wa wahyan anzaltahu ʿala nabiyyika muhammad ṣalātuka ʿalayhi wa ālihi tanzīlan",
+          "english_text": "a separator, through which Thou hast separated Thy lawful from Thy unlawful, a Qur'an, through which Thou hast made plain the approaches to Thy ordinances, a book, which Thou hast distinguished very distinctly for Thy servants, a revelation, which Thou hast sent down, a sending down, upon Thy prophet Muhammad (Thy blessings be upon him and his Household).",
+          "source_pair_start": 5,
+          "source_pair_end": 8,
+          "recitation_segment": {
+            "id": "segment-002",
+            "title": "Recitation segment 2",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-003",
+          "sequence": 3,
+          "arabic_text": "وَجَعَلْتَهُ نُوراً نَهْتَدِي مِنْ ظُلَمِ الضَّلاَلَةِ وَالْجَهَـالَةِ بِـاتِّبَاعِـهِ، وَشِفَـاءً لِمَنْ أَنْصَتَ بِفَهْم التَّصْدِيقِ إلَى اسْتِمَاعِهِ، وَمِيزَانَ قِسْط لاَ يَحِيْفُ عَنِ الْحَقِّ لِسَانُهُ، وَنُورَ هُدىً لاَ يُطْفَأُ عَنِ الشَّاهِدِينَ بُرْهَانُهُ،",
+          "transliteration": "wajaʿaltahu nuran nahtadi min zulami al-dhalalati wal-jahalati bi at-tibaʿihi wa-shifā'an li-man anṣata bi-fahmi al-taṣdīqi ilā istimā'ih wa mīzāna qisṭin lā yaḥīfu ʿani al-ḥaqqi lisānuhu wa nūra hudan lā yuṭfa'u ʿani alshāhidīna burhānuhu",
+          "english_text": "Thou appointed it a light through following which we may be guided from the shadows of error and ignorance, a healing for him who turns ear toward hearing it with the understanding of attestation, a just balance whose tongue does not incline away from truth, a light of guidance whose proof is not extinguished before the witnesses,",
+          "source_pair_start": 9,
+          "source_pair_end": 12,
+          "recitation_segment": {
+            "id": "segment-003",
+            "title": "Recitation segment 3",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-004",
+          "sequence": 4,
+          "arabic_text": "وَعَلَمَ نَجَاة لاَ يَضِلُّ مَنْ أَمَّ قَصْدَ سُنَّتِهِ وَلاَ تَنَالُ أَيْدِي الْهَلَكَاتِ مَنْ تَعَلَّقَ بِعُرْوَةِ عِصْمَتِهِ،",
+          "transliteration": "waʿalama najāt la yadillu man amma qasd sunnatihi wa lā tanālu aydī al-halakāt man taʿallaqa biʿurwatī ʿiṣmatih",
+          "english_text": "and a guidepost of deliverance, so that he who repairs straightway to its prescription will not go astray and he who clings to its preservation's handhold will not be touched by the hands of disasters.",
+          "source_pair_start": 13,
+          "source_pair_end": 14,
+          "recitation_segment": {
+            "id": "segment-004",
+            "title": "Recitation segment 4",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-005",
+          "sequence": 5,
+          "arabic_text": "أَللَّهُمَّ فَإذْ أَفَدْتَنَا الْمعُونَةَ عَلَى تِلاَوَتِهِ، وَسَهَّلْتَ جَوَاسِيَ أَلْسِنَتِنَا بِحُسْنِ عِبَارَتِهِ، فَاجْعَلْنَا مِمَّنْ يَرْعَاهُ حَقَّ رِعَايَتِهِ، وَيَدِينُ لَكَ بِاعْتِقَادِ التَّسْلِيْمِ لِمُحْكَمِ آياتِهِ،",
+          "transliteration": "allāhumma fa'itha afadtanā almuaūnata 'alā tilāwatihi wasahhaltal jawāsiya al-sinatinā bihusni ʿibāratihi fajʿalna mimman yarʿahu haqqa riʿayatihi wayadīnu laka biiʿtiqādi attaslīmi limuḥkami āyātihi",
+          "english_text": "O God, since Thou hast given us help to recite it and made smooth the roughness of our tongues through the beauty of its expression, place us among those who observe it as it should be observed, serve Thee by adhering in submission to the firm text of its verses,",
+          "source_pair_start": 15,
+          "source_pair_end": 18,
+          "recitation_segment": {
+            "id": "segment-005",
+            "title": "Recitation segment 5",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-006",
+          "sequence": 6,
+          "arabic_text": "وَيَفْزَعُ إلى الإِقْرَارِ بِمُتَشَابِهِهِ وَمُوضَحَاتِ بَيِّناتِهِ.",
+          "transliteration": "wayafzaʿu ilā al-iqrāri bi-mutashābihihī wa-mūḍaḥāti bayyinātihī",
+          "english_text": "and seek refuge in admitting both its ambiguous parts and the elucidations of its clear signs!",
+          "source_pair_start": 19,
+          "source_pair_end": 19,
+          "recitation_segment": {
+            "id": "segment-006",
+            "title": "Recitation segment 6",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-007",
+          "sequence": 7,
+          "arabic_text": "أللَّهُمَّ إنَّكَ أَنْزَلْتَهُ عَلَى نَبِيِّكَ مُحَمَّد صَلَّى اللهُ عَلَيْهِ وَآلِهِ مُجْمَلاً، وَأَلْهَمْتَهُ عِلْمَ عَجَائِبِهِ مُكَمَّلاً، وَوَرَّثْتَنَا عِلْمَهُ مُفَسَّراً،",
+          "transliteration": "allāhumma innaka anzaltahu ʿalā nabiyyika muḥammad ṣallá allāhu ʿalayhi wa-ālihi mujmalan wa 'alhamtahu 'ilm-a 'aja'ibihi mukammalan wa warraithtana ʿilmahu mufassiran",
+          "english_text": "O God, Thou sent it down upon Thy prophet Muhammad (God bless him and his household) in summary form, Thou inspired him with the science of its wonders to complement it, Thou made us the heirs of its knowledge as interpreters,",
+          "source_pair_start": 20,
+          "source_pair_end": 23,
+          "recitation_segment": {
+            "id": "segment-007",
+            "title": "Recitation segment 7",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-008",
+          "sequence": 8,
+          "arabic_text": "وَفَضَّلْتَنَا عَلَى مَنْ جَهِلَ عِلْمَهُ، وَقَوَّيْتَنَا عَلَيْهِ لِتَرْفَعَنَا فَوْقَ مَنْ لَمْ يُطِقْ حَمْلَهُ.",
+          "transliteration": "wa faḍḍaltanā ʿalá man jahila ʿilmahu waqawwaytanā ʿalayhi litarfaʿanā fawqa man lam yuṭiq ḥamlahu",
+          "english_text": "Thou made us to surpass him who is ignorant of its knowledge, and Thou gave us strength over it to raise us above those not able to carry it.",
+          "source_pair_start": 24,
+          "source_pair_end": 25,
+          "recitation_segment": {
+            "id": "segment-008",
+            "title": "Recitation segment 8",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-009",
+          "sequence": 9,
+          "arabic_text": "أللَّهُمَّ فَكَمَا جَعَلْتَ قُلُوبَنَا لَهُ حَمَلَةً، وَعَرَّفْتَنَا بِرَحْمَتِكَ شَرَفَهُ وَفَضْلَهُ، فَصَلِّ عَلَى مُحَمَّد الْخَطِيْبِ بِهِ، وَعَلَى آلِهِ الْخُزّانِ لَهُ،",
+          "transliteration": "allāhumma fakamā jaʿaltā qulūbanā lahū ḥamalatan wa ʿarraftanā birahmatika sharafahu wa faḍluhu faṣallī ʿalā muḥammad al-khaṭīb bih wa ʿalā ālihi al-khuzzāni lah",
+          "english_text": "O God, just as Thou hast appointed our hearts as its carriers and made known to us through Thy mercy its nobility and excellence, so also bless Muhammad, its preacher, and his Household, its guardians,",
+          "source_pair_start": 26,
+          "source_pair_end": 29,
+          "recitation_segment": {
+            "id": "segment-009",
+            "title": "Recitation segment 9",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-010",
+          "sequence": 10,
+          "arabic_text": "وَاجْعَلْنَا مِمَّنْ يَعْتَرِفُ بِأَنـَّهُ مِنْ عِنْدِكَ حَتَّى لاَ يُعَارِضَنَا الشَّكُّ فِي تَصْدِيقِهِ وَلاَ يَخْتَلِجَنَا الزَّيْغُ عَنْ قَصْدِ طَرِيقِهِ.",
+          "transliteration": "wajʿalna mimman yaʿtarifu bi'annahu min ʿindika ḥattá lā yuʿāriḍanā ash-shakk fī taṣdīqih walā yakh'talijanā al-zayghu ʿan qaṣdi ṭarīqih",
+          "english_text": "and place us among those who confess that it has come from Thee, lest doubt about attesting to it assail us, or deviation from its straightforward path shake us!",
+          "source_pair_start": 30,
+          "source_pair_end": 32,
+          "recitation_segment": {
+            "id": "segment-010",
+            "title": "Recitation segment 10",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-011",
+          "sequence": 11,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِـهِ، وَاجْعَلْنَا مِمَّنْ يَعْتَصِمُ بِحَبْلِهِ، وَيَـأْوِي مِنَ الْمُتَشَـابِهَاتِ إلَى حِرْزِ مَعْقِلِهِ، وَيَسْكُنُ فِي ظِـلِّ جَنَاحِهِ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa-jaʿalna mimman yaʿtasimu bihablihi waya'wī min al-mutashābihāt ilā ḥirzi ma'qilih wayaskunu fi ẓilli janāhihi",
+          "english_text": "O God, bless Muhammad and his Household and make us one of those who hold fast to its cord, seek haven from its ambiguities in its fortified stronghold, rest in the shadow of its wing,",
+          "source_pair_start": 33,
+          "source_pair_end": 36,
+          "recitation_segment": {
+            "id": "segment-011",
+            "title": "Recitation segment 11",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-012",
+          "sequence": 12,
+          "arabic_text": "وَيَهْتَدِي بِضَوْءِ صَباحِِهِ، وَيَقْتَدِي بِتَبَلُّج إسْفَارِهِ، وَيَسْتَصْبحُ بِمِصْباحِهِ، وَلا يَلْتَمِسُ ألْهُدَى فِي غَيْرِهِ.",
+          "transliteration": "wayahdī biḍawʾi ṣabāhihī wayaqtaḍī bi-taballuj isfārihi wa yastasbaḥu bi miṣbāhih walā yaltamisu al-hudā fī ghayrih",
+          "english_text": "find guidance in the brightness of its morning, follow the shining of its disclosure, acquire light from its lamp, and beg not guidance from any other!",
+          "source_pair_start": 37,
+          "source_pair_end": 40,
+          "recitation_segment": {
+            "id": "segment-012",
+            "title": "Recitation segment 12",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-013",
+          "sequence": 13,
+          "arabic_text": "أللَّهُمَّ وَكَمَا نَصَبْتَ بِهِ مُحَمَّداً عَلَماً لِلدَّلالَةِ عَلَيْكَ، وَأَنْهَجْتَ بِآلِهِ سُبُلَ الرِّضَا إلَيْكَ.",
+          "transliteration": "allāhumma wa kamā naṣabta bihi muḥammadan ʿalamā li-l-dalālati ʿalayk wa anhajta bi ālihi subula al-ridda ilayka",
+          "english_text": "O God, just as through it Thou hast set up Muhammad as a guidepost to point to Thee and through his Household Thou hast made clear Thy good pleasure's roads to Thee,",
+          "source_pair_start": 41,
+          "source_pair_end": 42,
+          "recitation_segment": {
+            "id": "segment-013",
+            "title": "Recitation segment 13",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-014",
+          "sequence": 14,
+          "arabic_text": "فَصَلِّ عَلَى مُحَمَّد وَآلِهِ وَاجْعَلِ القُرْآنَ وَسِيلَةً لَنَا إلَى أَشْرَفِ مَنَازِلِ الْكَرَامَةِ، وَسُلَّماً نَعْرُجُ فِيهِ إلَى مَحَلِّ السَّلامَةِ، وَسَبَباً نُجْزَى بِهِ النَّجاةَ فِي عَرْصَةِ الْقِيَامَةِ،",
+          "transliteration": "faṣalli ʿalā muḥammad wa ālih waajʿalil-qur'āna wasīlan lanā ilā ashrafimanaāzili al-karāmah wa-sullamān naʿruju fīhī ilā maḥalli al-salāmah wasababan nu'jzā bihī al-najāt fī 'arṣaẗi al-qiyāmah",
+          "english_text": "so also bless Muhammad and his Household and make the Qur'an our mediation to the noblest stations of Thy honour, a ladder by which we may climb to the place of safety, a cause for our being repaid with deliverance at the Plain of Resurrection,",
+          "source_pair_start": 43,
+          "source_pair_end": 46,
+          "recitation_segment": {
+            "id": "segment-014",
+            "title": "Recitation segment 14",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-015",
+          "sequence": 15,
+          "arabic_text": "وَذَرِيعَةً نُقْدِمُ بِهَا عَلَى نَعِيْمِ دَارِ الْمُقَامَةِ.",
+          "transliteration": "waḏariʿatan nuqdimu bihā ʿalā naʿīmi dāri al-muqāmatah",
+          "english_text": "and a means whereby we may reach the bliss of the House of Permanence!",
+          "source_pair_start": 47,
+          "source_pair_end": 47,
+          "recitation_segment": {
+            "id": "segment-015",
+            "title": "Recitation segment 15",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-016",
+          "sequence": 16,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَاحْطُطْ بالْقُرْآنِ عَنَّا ثِقْلَ الأوْزَارِ، وَهَبْ لَنَا حُسْنَ شَمَائِلِ الأَبْرَارِ وَاقْفُ بِنَا آثَارَ الَّذِينَ قَامُوا لَكَ بِهِ",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihī wa-aḥṭuṭ bil-qur'āni ʿannā ṯiqla-l-'awzār wa hab lana ḥusna shamāʾili al-abrār waqfu binā āthāra alladhīna qāmū laka bihī",
+          "english_text": "O God, bless Muhammad and his Household, lessen for us through the Qur'an the weight of heavy sins, give to us the excellent qualities of the pious, and make us follow the tracks of those who stood before Thee",
+          "source_pair_start": 48,
+          "source_pair_end": 51,
+          "recitation_segment": {
+            "id": "segment-016",
+            "title": "Recitation segment 16",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-017",
+          "sequence": 17,
+          "arabic_text": "آنَاءَ اللَّيْلِ وَأَطْرَافَ النَّهَارِ حَتَّى تُطَهِّرَنَا مِنْ كُلِّ دَنَس بِتَطْهِيرِهِ، وَتَقْفُوَ بِنَا آثَارَ الَّذِينَ اسْتَضَـآءُوْا بِنُورِهِ، وَلَمْ يُلْهِهِمُ الأَمَلُ عَنِ الْعَمَـل فَيَقْطَعَهُمْ بِخُدَعِ غُرُورِهِ.",
+          "transliteration": "ʾānāʾa allayli wa ʾaṭrāfa n-nahār ḥattá tuṭahhiranā min kulli danas bi-taṭhīrihi wa taqfū binā āthāra allaḏīna istaḍāʾū bi-nūrih walam yulhīhimu al-amalu ʿani al-ʿamali fayaqṭaʿahum bi-khudāʿi ghurūrihi",
+          "english_text": "in the watches of the night and the ends of the day, such that Thou purifiest us from every defilement through its purification and makest us to follow the tracks of those who have taken illumination from its light and whom expectation has not distracted from works, cutting them off through its delusions' deceptions!",
+          "source_pair_start": 52,
+          "source_pair_end": 55,
+          "recitation_segment": {
+            "id": "segment-017",
+            "title": "Recitation segment 17",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-018",
+          "sequence": 18,
+          "arabic_text": "أَللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ واجْعَلِ القُرْآنَ لنا فِي ظُلَمِ اللَّيالِي مُونِساً وَمِنْ نَزَغَاتِ الشَّيْطَانِ وَخَطَرَاتِ الْوَسَاوِسِ حَارِساً، وَلأقْدَامِنَا عَنْ نَقْلِهَا إلَى الْمَعَاصِيْ حَابِساً،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihī wa'j'alil-qur'ana lana fi dhulami-l-layali mawnesan wa min nazaghati ash-shaytani wa khatarati al-wasawisi harisan wa-l-aqdāminā `an naqlihā 'ilā al-ma`āṣī habisan",
+          "english_text": "O God, bless Muhammad and his Household and appoint the Qur'an for us an intimate in the shadows of nights and a guardian against the instigations of Satan and confusing thoughts, for our feet an obstruction from passing to acts of disobedience,",
+          "source_pair_start": 56,
+          "source_pair_end": 59,
+          "recitation_segment": {
+            "id": "segment-018",
+            "title": "Recitation segment 18",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-019",
+          "sequence": 19,
+          "arabic_text": "وَلأِلْسِنَتِنَا عَنِ الْخَوْضِ فِي الباطِلِ مِنْ غَيْرِ مَا آفَة مُخْرِساً، وَلِجَوَارِحِنَا عَنِ اقْتِرَافِ الآثامِ زَاجِراً، وَلِمَا طَوَتِ الغَفْلَةُ عَنَّا مِنْ تَصَفُّحِ الاعْتِبَارِ نَاشِراً حَتَّى تُوصِلَ إلَى قُلُوبِنَا فَهْمَ عَجَائِبِهِ",
+          "transliteration": "wa l'il-sinatina 'ani al-khawdi fi al-batili min ghayri ma 'afah mukhrisan wa lijawarihina ʿani iqtirafi al-āthāmi zājiran wa lima ṭawat al-ghaflah ʿannā min taṣaffuḥ al-iʿtibār nāshiran ḥattā tuwṣila ʾilā qulūbinā fahm ʿajāʾibihī",
+          "english_text": "for our tongues a silencer without blight preventing a plunge into falsehood, for our limbs a restrainer from committing sins, and for the scrutiny of heedfulness rolled up in heedlessness an unroller, such that Thou attachest to our hearts the understanding of the Qur'an's wonders",
+          "source_pair_start": 60,
+          "source_pair_end": 63,
+          "recitation_segment": {
+            "id": "segment-019",
+            "title": "Recitation segment 19",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-020",
+          "sequence": 20,
+          "arabic_text": "وَزَوَاجِرَ أَمْثَـالِهِ الَّتِي ضَعُفَتِ الْجِبَالُ الرَّوَاسِي عَلَى صَلاَبَتِهَا عَنِ احْتِمَالِهِ.",
+          "transliteration": "wa zawājira amthālihi allatī ḍaʿufatil jibālu al-rawāsi ʿalā ṣalābatihā ʿani iḥtimālihi",
+          "english_text": "and its restraining similitudes which immovable mountains in all their solidity were too weak to carry!",
+          "source_pair_start": 64,
+          "source_pair_end": 65,
+          "recitation_segment": {
+            "id": "segment-020",
+            "title": "Recitation segment 20",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-021",
+          "sequence": 21,
+          "arabic_text": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَأَدِمْ بِالْقُرْانِ صَلاَحَ ظاهِرِنا، وَاحْجُبْ بِهِ خَطَراتِ الْوَسَاوِسِ عَنْ صِحَّةِ ضَمَائِرِنَا، وَاغْسِلْ بِهِ دَرَنَ قُلُوبِنَا وَعَلاَئِقَ أَوْزَارِنَا،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa-adim bil-qur'āni ṣalāḥaẓ-ẓāhirinā waḥjub bihi khaṭarāt al-wasāwis ʿan ṣiḥḥat ḍamaʾirinā wa-ghsil bihi darana qulubina wa'alaʾiq auzarina",
+          "english_text": "O God, bless Muhammad and his Household and through the Qur'an make permanent the rightness of our outward selves, veil the ideas of confusing thoughts from the soundness of our innermost minds, wash away the dirt of our hearts and the ties of our heavy sins,",
+          "source_pair_start": 66,
+          "source_pair_end": 69,
+          "recitation_segment": {
+            "id": "segment-021",
+            "title": "Recitation segment 21",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-022",
+          "sequence": 22,
+          "arabic_text": "وَاجْمَعْ بِهِ مُنْتَشَرَ أُمُورِنَا، وَأَرْوِ بِهِ فِي مَـوْقِفِ الْعَرْضِ عَلَيْكَ ظَمَأ هَوَاجِرِنَا، وَاكْسُنَا بِهِ حُلَلَ الأَمَانِ يَوْمَ الْفَزَعِ الأكْبَرِ فِي نشُورِنَا.",
+          "transliteration": "waajmaʿ bihi muntashara umoorina wa arwi bihi fi mawqifil 'ardhi 'alayka thama'a hawajirina wa-khusunā bihī ḥulala al-amān yawma al-fazaʿi al-akbar fī našūrinā",
+          "english_text": "gather our scattered affairs, quench the thirst of our burning heat in the standing place of the presentation to Thee, and clothe us in the robes of security on the Day of the Greatest Terror at our uprising!",
+          "source_pair_start": 70,
+          "source_pair_end": 72,
+          "recitation_segment": {
+            "id": "segment-022",
+            "title": "Recitation segment 22",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-023",
+          "sequence": 23,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَاجْبُرْ بِالْقُرْآنِ خَلَّتَنَا مِنْ عَدَمِ الإمْلاَقِ، وَسُقْ إلَيْنَا بِهِ رَغَدَ الْعَيْشِ وَخِصْبَ سَعَةِ الأرْزَاقِ، وَجَنِّبْنَا بِهِ الضَّرَائِبَ الْمَذْمُومَةَ وَمَدَانِيَ الأخْلاَقِ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih waajbur bil-qur'aani khal-latanaa min 'adam il'im-laaq wa suq ilayna bihi raghad al-'aysh wa khisb sa'ati al-arzaq wajannibnā bihi al-ḍarāʾib al-madhmuuma wa madānīya al-akh-lāq",
+          "english_text": "God, bless Muhammad and his Household and through the Qur'an redress our lack - our destitution in poverty drive toward us the comforts of life and an abundance of plentiful provisions, turn aside blameworthy character traits and base moral qualities,",
+          "source_pair_start": 73,
+          "source_pair_end": 76,
+          "recitation_segment": {
+            "id": "segment-023",
+            "title": "Recitation segment 23",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-024",
+          "sequence": 24,
+          "arabic_text": "وَاعْصِمْنَا بِهِ مِنْ هُوَّةِ الكُفْرِ وَدَوَاعِـي النِّفَاقِ حَتَّى يَكُوْنَ لَنَا فِي الْقِيَامَةِ إلَى رِضْوَانِكَ وَجِنَانِكَ قَائِداً وَلَنَا فِي الدُّنْيا عَنْ سَخَطِكَ وَتَعَدِّي حُدُودِكَ ذَائِداً، وَلِمَا عِنْدَكَ بِتَحْلِيلِ حَلاَلِهِ وَتَحْرِيم حَرَامِهِ شَاهِداً.",
+          "transliteration": "waʿṣimnā bihi min howwatil-kufri wa dawāʾi al-nifāq ḥattá yakūna lanā fī al-qiyāmati ilá riḍwānika wa jinānika qāʾidā walana fi al-dunya ʿan sakhatika wa taʿaddi hududika dha'idan wa lima ʿindaka bi taḥlīlī ḥalālihi wa taḥrīmi ḥarāmihi shāhidan",
+          "english_text": "and preserve us from the pit of unbelief and the motives for hypocrisy, such that the Qur'an may be for us at the resurrection a leader to Thy good pleasure and Thy gardens, for us in this world a protector against Thy displeasure and transgressing Thy bounds and for what is with Thee a witness by its declaring lawful the lawful and its declaring unlawful the unlawful!",
+          "source_pair_start": 77,
+          "source_pair_end": 80,
+          "recitation_segment": {
+            "id": "segment-024",
+            "title": "Recitation segment 24",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-025",
+          "sequence": 25,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَهَوِّنْ بِالْقُرْآنِ عِنْدَ الْمَوْتِ عَلَى أَنْفُسِنَا كَرْبَ السِّيَاقِ، وَجَهْدَ الأنِينِ، وَتَرادُفَ الْحَشَارِجِ إذَا بَلَغَتِ ألنُّفُوسُ التَّراقِيَ وَقِيلَ مَنْ رَاق",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihi wahawwin bil-qur'ani 'inda al-mawti 'ala anfusina karba al-siyaq wa jaḥdal anīn, wa tarāduf al-ḥashārij 'idha balaghati al-nufus al-taraqiya waqila man raq'",
+          "english_text": "O God, bless Muhammad and his Household and through the Qur'an make easy for our souls at death the distress of the driving, the effort of the moaning, and the succession of the rattling, 'when souls reach the throats' (ref.75:26) \"and it is said, 'Where is the enchanter\"? (75:27)';",
+          "source_pair_start": 81,
+          "source_pair_end": 84,
+          "recitation_segment": {
+            "id": "segment-025",
+            "title": "Recitation segment 25",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-026",
+          "sequence": 26,
+          "arabic_text": "وَتَجَلَّى مَلَكُ الْمَوْتِ لِقَبْضِهَا مِنْ حُجُبِ الْغُيُوبِ، وَرَمَاهَا عَنْ قَوْسِ الْمَنَايَا بِأَسْهُمِ وَحْشَةِ الْفِرَاقِ، وَدَافَ لَهَا مِنْ ذَعَافِ الْمَوْتِ كَأْساً مَسْمُومَةَ الْمَذَاقِ،",
+          "transliteration": "wa tajallā malak al-mawt liqabḍihā min ḥujub al-ghuyūb wa ramāhā ʿan qaws al-manāyā bi-as'humi waḥshati al-firāqِ wadaafa lahā min dḥaʿāfil mawt ka'asān masmūmat al-madhāq",
+          "english_text": "when the angel of death discloses himself to seize them from behind the veils of unseen things, letting loose at them from the bow of destinies the arrows of the terror of lonesome separation, and mixing for them from sudden death a cup poisoned to the taste;",
+          "source_pair_start": 85,
+          "source_pair_end": 87,
+          "recitation_segment": {
+            "id": "segment-026",
+            "title": "Recitation segment 26",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-027",
+          "sequence": 27,
+          "arabic_text": "وَدَنا مِنَّا إلَى الآخِرَةِ رَحِيلٌ وَانْطِلاَقٌ، وَصَارَتِ الأعْمَالُ قَلاَئِـدَ فِي الأَعْنَاقِ، وَكَانَتِ الْقُبُورُ هِيَ الْمَأوَى إلَى مِيقَاتِ يَوْمِ التَّلاَقِ.",
+          "transliteration": "wa dana minna ila al-akhirati raheelun wa intilaqun wa ṣārati al-aʿmālu qalā'id fi al-aʿnāq wa kānat al-qubūr hiya al-ma'wá ilá mīqāt yawm al-talāq",
+          "english_text": "and when departure and release for the hereafter come close to us, works become collars around the necks, and the graves become the haven until the appointed time of the Day of Encounter!",
+          "source_pair_start": 88,
+          "source_pair_end": 90,
+          "recitation_segment": {
+            "id": "segment-027",
+            "title": "Recitation segment 27",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-028",
+          "sequence": 28,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَبَارِكْ لَنَا فِي حُلُولِ دَارِ البِلَى وَطُولِ الْمُقَامَـةِ بَيْنَ أَطْبَـاقِ الثَّـرى، وَاجْعَلِ القبُورَ بَعْدَ فِرَاقِ الدُّنْيَا خَيْرَ مَنَازِلِنَا،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa bārik lanā fī ḥulūl-i dār al-bilā wa ṭūl al-muqāmāti bayna aṭbāqi al-tharā wa-ajʿalil-qubūra baʿda firāqi ad-dunyā khayra manāzilinā",
+          "english_text": "O God, bless Muhammad and his Household, make blessed for us the arrival at the house of decay and the drawn out residence between the layers of the earth, appoint the graves, after separation from this world, the best of our waystations,",
+          "source_pair_start": 91,
+          "source_pair_end": 94,
+          "recitation_segment": {
+            "id": "segment-028",
+            "title": "Recitation segment 28",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-029",
+          "sequence": 29,
+          "arabic_text": "وَافْسَحْ لَنَا بِرَحْمَتِكَ فِي ضِيقِ مَلاَحِدِنَا، وَلا تَفْضَحْنَا فِي حَاضِرِي الْقِيَامَةِ بِمُوبِقَاتِ آثامِنَا،",
+          "transliteration": "wafsah lana bi-rahmatika fi ḍiqi malāḥidinā walā tafḍaḥnā fī ḥāḍirī al-qiyāmati bimūbiqāti āthāminā",
+          "english_text": "make roomy for us through Thy mercy the narrowness of our tombs, and disgrace us not among those present at the Resurrection through our ruinous sins!",
+          "source_pair_start": 95,
+          "source_pair_end": 96,
+          "recitation_segment": {
+            "id": "segment-029",
+            "title": "Recitation segment 29",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-030",
+          "sequence": 30,
+          "arabic_text": "وَارْحَمْ بِالْقُرْانِ فِيْ مَوْقِفِ الْعَرْضِ عَلَيْكَ ذُلَّ مَقَامِنَا، وَثَبِّتْ بِهِ عِنْدَ اضْطِرَابِ جِسْرِ جَهَنَّمَ يَوْمَ الْمَجَازِ عَلَيْهَـا زَلَلَ أَقْدَامِنَا، وَنَوِّرْ بِهِ قَبْلَ الْبَعْثِ سُدَفَ قُبُورنا،",
+          "transliteration": "wa-irham bil-qurʾani fi mawqifi al-ʿarḍi ʿalayka dhulla maqaminā wa thabbit bihi 'inda idtirab jisri jahannam yawm al-majāzi ʿalayhā zallal aqdāminā wanawwir bihi qabla al-baʿthi sudafa quburuna",
+          "english_text": "Through the Qur'an have mercy upon the lowliness of our station at the standing place of presentation to Thee, make firm the slips of our feet during the shaking of the bridge across hell on the day of passage over it, illuminate the darkness of our graves before the Uprising,",
+          "source_pair_start": 97,
+          "source_pair_end": 100,
+          "recitation_segment": {
+            "id": "segment-030",
+            "title": "Recitation segment 30",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-031",
+          "sequence": 31,
+          "arabic_text": "وَنَجِّنَا بِهِ مِنْ كُلِّ كَرْب يَوْمَ الْقِيَامَةِ وَشَدَائِدِ أَهْوَالِ يَوْمِ الطَّامَّةِ",
+          "transliteration": "wa-najjinā bihī min kulli karbin yawm al-qiyāmah wa shada'idih ahwali yawmi al-tammati",
+          "english_text": "and deliver us from every distress on the Day of Resurrection and from the hardships of terrors on the Day of Disaster!",
+          "source_pair_start": 101,
+          "source_pair_end": 102,
+          "recitation_segment": {
+            "id": "segment-031",
+            "title": "Recitation segment 31",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-032",
+          "sequence": 32,
+          "arabic_text": "وَبَيِّضْ وُجُوهَنَا يَوْمَ تَسْوَدُّ وُجُوهُ الظَّلَمَةِ فِي يَوْمِ الْحَسْرَةِ وَالنَّدَامَةِ، وَاجْعَلْ لَنَا فِي صُدُورِ الْمُؤْمِنِينَ وُدّاً، وَلاَ تَجْعَلِ الْحَيَاةَ عَلَيْنَا نَكَداً.",
+          "transliteration": "wa bayyid wujuhna yawma taswaddu wujuhu al-thalama fī yawm al-ḥasraẗi wa al-nadāmaẗi wajʿal lana fī ṣudūr al-muʾminīn wuddan walā tajʿalil-ḥayāh ʿalaynā nakadāً",
+          "english_text": "Whiten our faces on the day when the faces of wrongdoers are blackened during the Day of Regret and Remorse, appoint love for us in the breasts of the faithful, and make not life for us troublesome!",
+          "source_pair_start": 103,
+          "source_pair_end": 106,
+          "recitation_segment": {
+            "id": "segment-032",
+            "title": "Recitation segment 32",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-033",
+          "sequence": 33,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد عَبْدِكَ وَرَسُولِكَ كَمَا بَلَّغَ رِسَالَتَكَ، وَصَدَعَ بِأَمْرِكَ، وَنَصَحَ لِعِبَادِكَ.",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad ʿabdika wa rasūlika ka-mā bal-lagha risālata-ka, wa-ṣaḍaʿa bi-am-rika, wa-naṣaḥa li-ʿibad-",
+          "english_text": "O God, bless Muhammad, Thy servant and Thy messenger, just as He delivered Thy message, executed Thy command, and counselled Thy servants!",
+          "source_pair_start": 107,
+          "source_pair_end": 108,
+          "recitation_segment": {
+            "id": "segment-033",
+            "title": "Recitation segment 33",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-034",
+          "sequence": 34,
+          "arabic_text": "أللَّهُمَّ اجْعَلْ نَبِيَّنا صَلَواتُكَ عَلَيْهِ وَعَلَى آلِهِ يَوْمَ الْقِيَامَةِ أَقْرَبَ النِّبِيِّينَ مِنْكَ مَجْلِساً، وَأَمْكَنَهُمْ مِنْكَ شَفَاعَةً، وَأَجَلَّهُمْ عِنْدَكَ قَدْراً، وَأَوْجَهَهُمْ عِنْدَكَ جَاهَاً.",
+          "transliteration": "allāhumma ijʿal nabīyanā ṣalawātuka ʿalayhi wa ʿalā ʾālihī yawm al-qiyāmah aqraba al-nnabīyyīna minka majlisāً wa'amkanahum minka shafa'atan, wa'ajallahum 'indaka qadran wa-aʾwjahahum ʿindaka jahāً",
+          "english_text": "O God, make our Prophet (Thy blessings be upon him and his Household) on the Day of Resurrection the nearest of the prophets to Thee in seat, the ablest of them before Thee with intercession, the greatest of them with Thee in measure, and the most eminent of them with Thee in rank!",
+          "source_pair_start": 109,
+          "source_pair_end": 112,
+          "recitation_segment": {
+            "id": "segment-034",
+            "title": "Recitation segment 34",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-035",
+          "sequence": 35,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِ مُحَمَّد وَشَرِّفْ بُنْيَانَهُ، وَعَظِّمْ بُرْهَانَهُ، وَثَقِّلْ مِيزَانَهُ، وَتَقَبَّلْ شَفَاعَتَهُ وَقَرِّبْ وَسِيلَتَهُ، وَبَيِّضْ وَجْهَهُ، وَأَتِمَّ نُورَهُ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa āli muḥammad wa shar rif bunyānah waʿaẓẓim burhānahu, wa thaqqil mīzānahu wa taqabbal shafāʿatahu wa qarrib wasīlatahu wa bayyid wajhahu, wa atimm nūrah",
+          "english_text": "O God, bless Muhammad and the Household of Muhammad, ennoble his edifice, magnify his proof, make weighty his balance, accept his intercession, bring near his mediation, whiten his face, complete his light,",
+          "source_pair_start": 113,
+          "source_pair_end": 116,
+          "recitation_segment": {
+            "id": "segment-035",
+            "title": "Recitation segment 35",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-036",
+          "sequence": 36,
+          "arabic_text": "وَارْفَعْ دَرَجَتَهُ، وَأَحْيِنَا عَلَى سُنَّتِهِ، وَتَوَفَّنَا عَلَى مِلَّتِهِ، وَخُذْ بِنَـا مِنْهَاجَـهُ، وَاسْلُكْ بِنَا سَبِيلَهُ، وَاجْعَلْنَا مِنْ أَهْلِ طَاعَتِهِ، وَاحْشُرْنَا فِي زُمْرَتِهِ،",
+          "transliteration": "wa-arfaʿ darajatahu, wa-ahyina ʿala sunnatihi wa tawaffana ʿala millatihi, wa khudh bina minhajih wa-asluk bina sabee-lahu, wa-aj'alna min ahli ta'atih wa'aḥshurnā fī zumratihī",
+          "english_text": "and raise his degree! Make us live according to his Sunna make us die in his creed, take us on his road, make us travel his path, place us among the people who obey him, muster us in his band,",
+          "source_pair_start": 117,
+          "source_pair_end": 120,
+          "recitation_segment": {
+            "id": "segment-036",
+            "title": "Recitation segment 36",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-037",
+          "sequence": 37,
+          "arabic_text": "وَأَوْرِدْنَا حَوْضَهُ، وَاسْقِنَا بِكَأسِهِ.",
+          "transliteration": "wa awridnā ḥawdahu, wa asqinā bi ka'sihi",
+          "english_text": "lead us to up his pool, and give us to drink of his cup!",
+          "source_pair_start": 121,
+          "source_pair_end": 121,
+          "recitation_segment": {
+            "id": "segment-037",
+            "title": "Recitation segment 37",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-038",
+          "sequence": 38,
+          "arabic_text": "أللَّهُمَّ وَصَلِّ عَلَى مُحَمَّد وَآلِهِ صَلاةً تُبَلِّغُهُ بِهَا أَفْضَلَ مَا يَأْمُلُ مِنْ خَيْرِكَ وَفَضْلِكَ وَكَرَامَتِكَ",
+          "transliteration": "allāhumma wa ṣalli ʿalā muḥammad wa ālih ṣalātan tuballighuhā bihā afḍala ma ya'mul min khayrik wa fadlik wa karamatik",
+          "english_text": "And bless Muhammad and his Household, with a blessing through which Thou wilt take him to the most excellent of what He hopes of Thy good, Thy bounty, and Thy generosity!",
+          "source_pair_start": 122,
+          "source_pair_end": 124,
+          "recitation_segment": {
+            "id": "segment-038",
+            "title": "Recitation segment 38",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-039",
+          "sequence": 39,
+          "arabic_text": "إنَّكَ ذُوْ رَحْمَة وَاسِعَة وَفَضْل كَرِيم.",
+          "transliteration": "ʾinnaka dhū raḥmatin wāsiʿah wa faḍlun karīm",
+          "english_text": "Thou art Possessor of boundless mercy and generous bounty.",
+          "source_pair_start": 125,
+          "source_pair_end": 125,
+          "recitation_segment": {
+            "id": "segment-039",
+            "title": "Recitation segment 39",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-040",
+          "sequence": 40,
+          "arabic_text": "أللَّهُمَّ اجْزِهِ بِمَا بَلَّغَ مِنْ رِسَالاتِكَ وَأَدَّى مِنْ آيَاتِكَ وَنَصَحَ لِعِبَادِكَ وَجَاهَدَ فِي سَبِيلِكَ أَفْضَلَ مَا جَزَيْتَ أَحَداً مِنْ مَلائِكَتِكَ الْمُقَرَّبِينَ وَأَنْبِيَائِكَ الْمُرْسَلِينَ الْمُصْطَفَيْنَ.",
+          "transliteration": "allāhumma ajzihī bimā ballagh min risālātika wa adda min ayatika wa nasaḥa li'ibadika wa jāhada fī sabīlika afḍala mā jazayta aḥadan min malāʾikatika almuqarrabīna wa anbiyāʾika al-mursalīna almuṣṭafayna",
+          "english_text": "O God, repay him for Thy messages which he delivered, Thy signs which he passed on, the good counsel he gave to Thy servants, and the struggle he undertook in Thy way, with the best Thou hast repaid any of Thy angels brought nigh and Thy prophets sent out and chosen!",
+          "source_pair_start": 126,
+          "source_pair_end": 129,
+          "recitation_segment": {
+            "id": "segment-040",
+            "title": "Recitation segment 40",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-041",
+          "sequence": 41,
+          "arabic_text": "وَالسَّلاَمُ عَلَيْهِ وَعَلَى آلِهِ الطَّيِّبِينَ الطَّاهِرِينَ وَرَحْمَةُ الله وَبَرَكَاتُهُ.",
+          "transliteration": "wa al-salāmu ʿalayhi wa ʿalā ālih al-ṭayyibīn al-ṭāhirīn wa raḥmatu allāhi wa barakātuhu",
+          "english_text": "And upon him and his Household, the good, the pure, be peace, God's mercy, and His blessings!",
+          "source_pair_start": 130,
+          "source_pair_end": 131,
+          "recitation_segment": {
+            "id": "segment-041",
+            "title": "Recitation segment 41",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sahifa-dua-43",
+      "title": "43. When he Looked at the New Crescent Moon",
+      "arabicTitle": "دُعَاؤُهُ إِذَا نَظَرَ إِلَى الْهِلَالِ",
+      "description": "Sahifa Sajjadiya — Supplication 43",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 143,
+      "canonicalNumber": 43,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-looked-at-the-new-crescent-moon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "storageChunkSize": 30,
+      "records": [
+        {
+          "id": "passage-001",
+          "sequence": 1,
+          "arabic_text": "أيُّهَا الْخَلْقُ الْمُطِيعُ الدَّائِبُ السَّرِيعُ الْمُتَرَدِّدُ فِي مَنَازِلِ التَّقْدِيْرِ، الْمُتَصَرِّفُ فِي فَلَكِ التَّدْبِيرِ،",
+          "transliteration": "ʾayyuhā al-khalqu al-muṭīʿu al-dāʾibu al-sarīʿu al-mutaraddidu fi manazili al-taqdeer al-mutaṣarrif fī falak al-tadbīr",
+          "english_text": "O obedient creature, speedy and untiring, frequenter of the mansions of determination, moving about in the sphere of governance!",
+          "source_pair_start": 1,
+          "source_pair_end": 3,
+          "recitation_segment": {
+            "id": "segment-001",
+            "title": "Recitation segment 1",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-002",
+          "sequence": 2,
+          "arabic_text": "آمَنْتُ بِمَنْ نَوَّرَ بِكَ الظُّلَمَ، وَأَوْضَحَ بِـكَ الْبُهَمَ، وَجَعَلَكَ آيَةً مِنْ آياتِ مُلْكِهِ، وَعَلاَمَةً مِنْ عَلاَمَاتِ سُلْطَانِهِ،",
+          "transliteration": "āmantu bi-man nawwara bika aẓ-ẓulama wa 'awḍaḥa bika al-buhamah wa jaʿalaka ʾayatan min ʾayati mulkihi waʿalāmātan min ʿalāmāti sulṭānih",
+          "english_text": "I have faith in Him who lights up darknesses through thee, illuminates jet-black shadows by thee, appointed thee one of the signs of His kingdom and one of the marks of His authority,",
+          "source_pair_start": 4,
+          "source_pair_end": 7,
+          "recitation_segment": {
+            "id": "segment-002",
+            "title": "Recitation segment 2",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-003",
+          "sequence": 3,
+          "arabic_text": "وَامْتَهَنَكَ بِالزِّيادَةِ وَالنُّقْصَانِ، وَالطُّلُوعِ وَالأُفُولِ، وَالإِنارَةِ وَالْكُسُوفِ،",
+          "transliteration": "wa-amtahanaka bil-ziyadati wal-nuqsaan wal-ṭṭulūʿi wal-ufuli, wal-i’nārat wal-kusūfi",
+          "english_text": "and humbled thee through increase and decrease, rising and setting, illumination and eclipse.",
+          "source_pair_start": 8,
+          "source_pair_end": 9,
+          "recitation_segment": {
+            "id": "segment-003",
+            "title": "Recitation segment 3",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-004",
+          "sequence": 4,
+          "arabic_text": "فِي كُلِّ ذلِكَ أَنْتَ لَهُ مُطِيعٌ وَإلى إرَادَتِهِ سَرِيعٌ،",
+          "transliteration": "fī kulli dhālika anta lahū muṭīʿun wa-ilā irādatihi sariʿun",
+          "english_text": "In all of this thou art obedient to Him, prompt toward His will.",
+          "source_pair_start": 10,
+          "source_pair_end": 10,
+          "recitation_segment": {
+            "id": "segment-004",
+            "title": "Recitation segment 4",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-005",
+          "sequence": 5,
+          "arabic_text": "سُبْحَانَهُ مَا أَعْجَبَ مَا دَبَّرَ فِيْ أَمْرِكَ،",
+          "transliteration": "subḥānahu mā aʿjab ma dabbara fī amrika",
+          "english_text": "Glory be to Him! How wonderful is what He has arranged in thy situation!",
+          "source_pair_start": 11,
+          "source_pair_end": 11,
+          "recitation_segment": {
+            "id": "segment-005",
+            "title": "Recitation segment 5",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-006",
+          "sequence": 6,
+          "arabic_text": "وَأَلْطَفَ مَا صَنعَ فِي شَأْنِكَ،",
+          "transliteration": "wa'altafa ma ṣanaʿa fī sha'nika",
+          "english_text": "How subtle what He has made for thy task!",
+          "source_pair_start": 12,
+          "source_pair_end": 12,
+          "recitation_segment": {
+            "id": "segment-006",
+            "title": "Recitation segment 6",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-007",
+          "sequence": 7,
+          "arabic_text": "جَعَلَكَ مِفْتَاحَ شَهْر حَادِث لأَِمْر حادِث،",
+          "transliteration": "jaʿalaka miftāḥa shahr ḥādith li-amr ḥādith",
+          "english_text": "He has made thee the key to a new month for a new situation.",
+          "source_pair_start": 13,
+          "source_pair_end": 13,
+          "recitation_segment": {
+            "id": "segment-007",
+            "title": "Recitation segment 7",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-008",
+          "sequence": 8,
+          "arabic_text": "فَأَسْأَلُ اللهَ رَبِّي وَرَبَّكَ وَخَالِقِي وَخَالِقَكَ وَمُقَدِّرِي وَمُقَدِّرَكَ وَمُصَوِّرِي وَمُصَوِّرَكَ أَنْ يُصَلِّي عَلَى مُحَمَّد وَآلِهِ،",
+          "transliteration": "fa-as'alullaha rabbī wa rabbaka wa khāliqī wa khāliqak wa muqaddirī wa muqaddirak wa musawwiri wa musawwiraka 'an yuṣallī 'alā muḥammad wa ālihī",
+          "english_text": "So I ask God, my Lord and thy Lord, my Creator and thy Creator, my Determiner and thy Determiner, my Form-giver and thy Form-giver, that He bless Muhammad and his Household",
+          "source_pair_start": 14,
+          "source_pair_end": 17,
+          "recitation_segment": {
+            "id": "segment-008",
+            "title": "Recitation segment 8",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-009",
+          "sequence": 9,
+          "arabic_text": "وَأَنْ يَجْعَلَكَ هِلاَلَ بَرَكَة لاَ تَمْحَقُهَا الأيَّامُ، وَطَهَارَة لاَ تُدَنِّسُهَا الآثامُ،",
+          "transliteration": "wa-an yajʿalaka hilālan barakah lā tamḥaquhā al-ayyām waṭahāratun lā tudannisuhā al-āthām",
+          "english_text": "and appoint thee a crescent of blessings not effaced by days and of purity not defiled by sins;",
+          "source_pair_start": 18,
+          "source_pair_end": 19,
+          "recitation_segment": {
+            "id": "segment-009",
+            "title": "Recitation segment 9",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-010",
+          "sequence": 10,
+          "arabic_text": "هِلاَلَ أَمْن مِنَ الآفاتِ، وَسَلاَمَة مِنَ السَّيِّئاتِ،",
+          "transliteration": "hilāla amn min al-ʾafāt wasalāmata mina as-sayyiātِ",
+          "english_text": "a crescent of security from blights and of safety from evil deeds;",
+          "source_pair_start": 20,
+          "source_pair_end": 21,
+          "recitation_segment": {
+            "id": "segment-010",
+            "title": "Recitation segment 10",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-011",
+          "sequence": 11,
+          "arabic_text": "هِلاَلَ سَعْد لاَ نَحْسَ فِيْهِ، وَيُمْن لاَ نَكَدَ مَعَهُ، وَيُسْر لاَ يُمَازِجُهُ عُسْرٌ، وَخَيْر لاَ يَشُوبُهُ شَرٌّ،",
+          "transliteration": "hilāla saʿd lā naḥsa fīhi wayumnu laa nakada maʿahu wayusr la yumāziġuhu ʿusr wa khayr la yashubuhu shar",
+          "english_text": "a crescent of auspiciousness containing no misfortune, of prosperity accompanied by no adversity, of ease not mixed with difficulty, of good unstained by evil;",
+          "source_pair_start": 22,
+          "source_pair_end": 25,
+          "recitation_segment": {
+            "id": "segment-011",
+            "title": "Recitation segment 11",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-012",
+          "sequence": 12,
+          "arabic_text": "هِلاَلَ أَمْن وَإيمَان وَنِعْمَة وَإحْسَان وَسَلاَمَة وَإسْلاَم.",
+          "transliteration": "hilāla amn wa ʾīmān wa niʿma wa iḥsān wa salāma wa ʾislām",
+          "english_text": "a crescent of security and faith, favour and good-doing, safety and submission!",
+          "source_pair_start": 26,
+          "source_pair_end": 26,
+          "recitation_segment": {
+            "id": "segment-012",
+            "title": "Recitation segment 12",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-013",
+          "sequence": 13,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَاجْعَلْنَا مِنْ أَرْضَى مَنْ طَلَعَ عَلَيْهِ، وَأَزْكَى مَنْ نَظَرَ إليْهِ، وَأَسْعَدَ مَنْ تَعَبَّدَ لَكَ فِيهِ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihī wa-jaʿlna min arḍā man ṭalʿa ʿalayhi waʾazkā man naẓara ʾilayhi wa-asʿada man taʿabbada laka fiih",
+          "english_text": "O God, bless Muhammad and his Household, place us among the most satisfied of those over whom the crescent has risen, the purest of those who have looked upon it, the most fortunate of those who have worshipped Thee under it;",
+          "source_pair_start": 27,
+          "source_pair_end": 30,
+          "recitation_segment": {
+            "id": "segment-013",
+            "title": "Recitation segment 13",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-014",
+          "sequence": 14,
+          "arabic_text": "وَوَفِّقْنَا فِيهِ لِلتَّوْبَةِ، وَاعْصِمْنَـا فِيْهِ مِنَ الْحَـوْبَةِ، وَاحْفَظْنَا فِيهِ مِنْ مُبَاشَرَةِ مَعْصِيَتِكَ، وَأَوْزِعْنَا فِيهِ شُكْرَ نِعْمَتِكَ،",
+          "transliteration": "wa waffiqnā fīhi liltawbah waʿṣimnā fīhi min al-ḥawbah wa aḥfaẓnā fīhi min mubāsharati maʿṣiyatika wa auziʿna fihi shukra niʿmatik",
+          "english_text": "give us the success during [the new month] to repent, preserve us within it from misdeeds, guard us therein from pursuing disobedience to Thee, allot to us within it thanksgiving for Thy favour,",
+          "source_pair_start": 31,
+          "source_pair_end": 34,
+          "recitation_segment": {
+            "id": "segment-014",
+            "title": "Recitation segment 14",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-015",
+          "sequence": 15,
+          "arabic_text": "وَأَلْبِسْنَا فِيهِ جُنَنَ الْعَافِيَةِ، وَأَتْمِمْ عَلَيْنَا بِاسْتِكْمَالِ طَاعَتِكَ فِيهِ الْمِنَّةَ،",
+          "transliteration": "wa'albisnā fīhi junnan al-ʿāfiyah wa atmim ʿalayna bi-istikmali ṭāʿatika fīhi al-minna",
+          "english_text": "clothe us during it in the shields of well-being, and complete for us Thy kindness by perfecting therein obedience to Thee!",
+          "source_pair_start": 35,
+          "source_pair_end": 36,
+          "recitation_segment": {
+            "id": "segment-015",
+            "title": "Recitation segment 15",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-016",
+          "sequence": 16,
+          "arabic_text": "إنَّكَ الْمَنَّانُ الْحَمِيدُ،",
+          "transliteration": "innaka al-mannanu al-hamidu",
+          "english_text": "Surely Thou art All-kind, Praiseworthy.",
+          "source_pair_start": 37,
+          "source_pair_end": 37,
+          "recitation_segment": {
+            "id": "segment-016",
+            "title": "Recitation segment 16",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-017",
+          "sequence": 17,
+          "arabic_text": "وَصَلَّى اللهُ عَلَى مُحَمَّد وَآلِهِ الطَّيِّبِينَ الطَّاهِرِينَ.",
+          "transliteration": "waṣalla allāhu ʿalā muḥammad wa ālihi aṭ-ṭayyibīna aṭ-ṭāhirīna",
+          "english_text": "And bless Muhammad and his Household, the good, the pure.",
+          "source_pair_start": 38,
+          "source_pair_end": 38,
+          "recitation_segment": {
+            "id": "segment-017",
+            "title": "Recitation segment 17",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sahifa-dua-44",
+      "title": "44. For the Coming of the Month of Ramadan",
+      "arabicTitle": "دُعَاؤُهُ لِدُخُوْلِ شَهْرِ رَمَضَانَ",
+      "description": "Sahifa Sajjadiya — Supplication 44",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 144,
+      "canonicalNumber": 44,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-for-the-coming-of-the-month-of-ramadan",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 108,
+      "storageChunkSize": 30,
+      "records": [
+        {
+          "id": "passage-001",
+          "sequence": 1,
+          "arabic_text": "الْحَمْدُ للهِ الَّذِي هَدَانَا لِحَمْدِهِ، وَجَعَلَنَا مِنْ أَهْلِهِ، لِنَكُونَ لإحْسَانِهِ مِنَ الشَّاكِرِينَ، وَلِيَجْزِيَنَا عَلَى ذلِكَ جَزَآءَ الْمُحْسِنِينَ.",
+          "transliteration": "al-ḥamdu lillāh al-ladhī hadānā li-ḥamdihi wa jaʿalnā min ahlīhi, li nakūna li iḥsānihi min al-shākirīn walīyajzīyannā ʿalā dhālika jazāʾa al-muḥsinīn",
+          "english_text": "Praise belongs to God who guided us to His praise and placed us among the people of praise, that we might be among the thankful for His beneficence and that He might recompense us for that with the recompense of the good-doers!",
+          "source_pair_start": 1,
+          "source_pair_end": 3,
+          "recitation_segment": {
+            "id": "segment-001",
+            "title": "Recitation segment 1",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-002",
+          "sequence": 2,
+          "arabic_text": "وَالْحَمْدُ للهِ الَّذِي حَبَانَا بِدِينِهِ، وَاخْتَصَّنَا بِمِلَّتِهِ، وَسَبَّلَنَا فِي سُبُلِ إحْسَانِهِ، لِنَسْلُكَهَا بِمَنِّهِ إلَى رِضْوَانِهِ، حَمْدَاً يَتَقَبَّلُهُ مِنَّا، وَيَرْضَى بِهِ عَنَّا.",
+          "transliteration": "wa al-ḥamdu lillāh alladhī ḥabānā bidīnihī wa-ikhtassanā bi-millatihī, wa-sabbalnā fī subuli-ihsānihī li-naslukahā bi-man-nihi ilā riḍwānihi ḥamdān yataqabbaluhu minnā, wayarḍā bihi ʿannā",
+          "english_text": "And praise belongs to God who showed favour to us through His religion, singled us out for His creed, and directed us onto the roads of His beneficence, in order that through His kindness we might travel upon them to His good pleasure, a praise which He will accept from us and through which He will be pleased with us!",
+          "source_pair_start": 4,
+          "source_pair_end": 7,
+          "recitation_segment": {
+            "id": "segment-002",
+            "title": "Recitation segment 2",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-003",
+          "sequence": 3,
+          "arabic_text": "وَالْحَمْدُ لِلّه الَّذِي جَعَلَ مِنْ تِلْكَ السُّبُلِ شَهْرَهُ شَهْرَ رَمَضَانَ، شَهْرَ الصِّيَامِ، وَشَهْرَ الإِسْلاَم، وَشَهْرَ الطَّهُورِ، وَشَهْرَ التَّمْحِيْصِ، وَشَهْرَ الْقِيَامِ، الَّذِي أُنْزِلَ فِيْهِ الْقُرْآنُ هُدىً لِلنَّاسِ،",
+          "transliteration": "wal-ḥamdu li-l-lāhi al-laḏī jaʿala min tilka al-subuli shahrahu shahra ramaḍāna shahr al-ṣiyām, wa shahr al-islām, wa shahr al-ṭahūr wa shahra al-tamhīs, wa shahra al-qiyām al-ladhī ʾunzila fīhi al-qurʾān hudan li-l-nās",
+          "english_text": "And praise belongs to God who appointed among those roads His month, the month of Ramadan, the month of fasting, the month of submission, the month of purity, the month of putting to test, the month of standing in prayer, \"in which the Qur'an was sent down as guidance to the people,",
+          "source_pair_start": 8,
+          "source_pair_end": 11,
+          "recitation_segment": {
+            "id": "segment-003",
+            "title": "Recitation segment 3",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-004",
+          "sequence": 4,
+          "arabic_text": "وَبَيِّنَات مِنَ الْهُدى وَالْفُرْقَانِ،",
+          "transliteration": "wa bayyināt min al-hudá wal-furqān",
+          "english_text": "and as clear signs of the Guidance and the Separator\" (2:185)!",
+          "source_pair_start": 12,
+          "source_pair_end": 12,
+          "recitation_segment": {
+            "id": "segment-004",
+            "title": "Recitation segment 4",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-005",
+          "sequence": 5,
+          "arabic_text": "فَأَبَانَ فَضِيْلَتَهُ عَلَى سَائِرِ الشُّهُورِ بِمَا جَعَلَ لَهُ مِنَ الْحُرُمَاتِ الْمَوْفُورَةِ وَالْفَضَائِلِ الْمَشْهُورَةِ، فَحَرَّمَ فِيْهِ ما أَحَلَّ فِي غَيْرِهِ إعْظَاماً، وَحَجَرَ فِيْهِ الْمَطَاعِمَ وَالْمَشَارِبَ إكْرَاماً،",
+          "transliteration": "fa'ābāna faḍīlatuhu ʿalá sā'iri al-shuhūrِ bima jaʿala lahu min al-ḥurumāt al-mawfūrati wal-faḍāʾili al-mashhūrati fa harrama feehi ma aḥalla fe ghayrihi iʿẓaman wa ḥajara fīhi al-maṭāʿim wa al-mashārib ikraman",
+          "english_text": "He clarified its excellence over other months by the many sacred things and well-known excellencies which He placed therein, for He made unlawful in it what He declared lawful in others to magnify it, He prohibited foods and drinks in it to honour it,",
+          "source_pair_start": 13,
+          "source_pair_end": 16,
+          "recitation_segment": {
+            "id": "segment-005",
+            "title": "Recitation segment 5",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-006",
+          "sequence": 6,
+          "arabic_text": "وَجَعَلَ لَهُ وَقْتاً بَيِّناً لاَ يُجِيزُ جَلَّ وَعَزَّ أَنْ يُقَدَّمَ قَبْلَهُ، وَلا يَقْبَـلُ أَنْ يُؤَخَّرَ عَنْهُ،",
+          "transliteration": "wa jaʿala lahu waqtan bayyinan la yujiz jalla wa'azza an yuqaddama qablahu walā yaqbālu an yuʾakhkhara ʿanhū",
+          "english_text": "and He appointed for it a clear time which He (majestic and mighty is He) allows not to be set forward and accepts not to be placed behind.",
+          "source_pair_start": 17,
+          "source_pair_end": 18,
+          "recitation_segment": {
+            "id": "segment-006",
+            "title": "Recitation segment 6",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-007",
+          "sequence": 7,
+          "arabic_text": "ثُمَّ فَضَّلَ لَيْلَةً وَاحِدَةً مِنْ لَيَالِيهِ عَلَى لَيَالِي أَلْفِ شَهْر، وَسَمَّاهَا لَيْلَةَ الْقَدْرِ،",
+          "transliteration": "thumma faddala laylatan wahidatan min layalihi ʿala layali alfi shahr wa samma-haa laylat al-qadr",
+          "english_text": "Then He made one of its nights surpass the nights of a thousand months and named it the Night of Decree;",
+          "source_pair_start": 19,
+          "source_pair_end": 20,
+          "recitation_segment": {
+            "id": "segment-007",
+            "title": "Recitation segment 7",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-008",
+          "sequence": 8,
+          "arabic_text": "تَنَزَّلُ الْمَلائِكَةُ وَالرُّوحُ فِيهَا بِإذْنِ رَبِّهِمْ مِنْ كُلِّ أَمْر، سَلاَمٌ دَائِمُ الْبَرَكَةِ إلَى طُلُوعِ الْفَجْرِ، عَلَى مَنْ يَشَاءُ مِنْ عِبَادِهِ بِمَا أَحْكَمَ مِنْ قَضَائِهِ.",
+          "transliteration": "tanazzalu al-malā'ikatu wal-rūḥu fīhā bi-idhni rabbihim min kulli amr salāmun dāʾim al-barakah ilā ṭulūʿ al-fajr ʿalā man yashāʾu min ʿibādihī bimā aḥkama min qaḍāʾihī",
+          "english_text": "\"in it the angels and the Spirit descend by the leave of their Lord upon every command, a peace\" (97:4-5) constant in blessings until the rising of the dawn upon whomsoever He will of His servants according to the decision He has made firm.",
+          "source_pair_start": 21,
+          "source_pair_end": 23,
+          "recitation_segment": {
+            "id": "segment-008",
+            "title": "Recitation segment 8",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-009",
+          "sequence": 9,
+          "arabic_text": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، وَأَلْهِمْنَا مَعْرِفَةَ فَضْلِهِ وَإِجْلاَلَ حُرْمَتِهِ وَالتَّحَفُّظَ مِمَّا حَظَرْتَ فِيهِ وَأَعِنَّـا عَلَى صِيَامِـهِ بِكَفِّ الْجَـوَارِحِ عَنْ مَعَاصِيْكَ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa alhimnā maʿrifata faḍlihi wa ij'lāla ḥurmatihi wa al-taḥaffuẓa mimma ḥaẓarta fiih wa'a'innā 'alā ṣiyāmihi bikaffi aljawāriḥi 'an ma'āṣīk",
+          "english_text": "O God, bless Muhammad and his Household, inspire us with knowledge of its excellence, veneration of its inviolability, and caution against what Thou hast forbidden within it, and help us to fast in it by our restraining our limbs from acts of disobedience toward Thee",
+          "source_pair_start": 24,
+          "source_pair_end": 27,
+          "recitation_segment": {
+            "id": "segment-009",
+            "title": "Recitation segment 9",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-010",
+          "sequence": 10,
+          "arabic_text": "وَاسْتِعْمَالِهَا فِيهِ بِمَا يُرْضِيْكَ حَتَّى لاَ نُصْغِىَ بِأَسْمَاعِنَا إلَى لَغْو، وَلا نُسْرِعَ بِأَبْصَارِنَا إلَى لَهْو، وَحَتَّى لاَ نَبْسُطَ أَيْدِيَنَا إلَى مَحْظُور،",
+          "transliteration": "waistiʿmaalihā fīhi bimā yurḍīka ḥattá lā nuṣghiyá bi'asmāʿinā 'ilá laghw wala nusriʿa bi-abṣārinā ilā lahwi wa-ḥattá lā nabṣuṭa ʾaydīnā ʾilá maḥẓūr",
+          "english_text": "and our employing them in that which pleases Thee, so that we lend not our ears to idle talk and hurry not with our eyes to diversion, we stretch not our hands toward the forbidden",
+          "source_pair_start": 28,
+          "source_pair_end": 31,
+          "recitation_segment": {
+            "id": "segment-010",
+            "title": "Recitation segment 10",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-011",
+          "sequence": 11,
+          "arabic_text": "وَلاَ نَخْطُوَ بِأَقْدَامِنَا إلَى مَحْجُور، وَحَتَّى لاَ تَعِيَ بُطُونُنَا إلاَّ مَا أَحْلَلْتَ، وَلا تَنْطِقَ أَلْسِنَتُنَا إلاَّ بِمَا مَثَّلْتَ وَلا نَتَكَلَّفَ إلاَّ ما يُدْنِي مِنْ ثَوَابِكَ،",
+          "transliteration": "walā nakhtuwa bi-aqdamina ilā maḥjūr wa-ḥattá lā taʿiya buṭūnunā ʾillā mā aḥlaltá walā tanṭiq alsinatunā illā bimā mathhalt walā natakallafu illā mā yudnī min thawābika",
+          "english_text": "and stride not with our feet toward the prohibited, our bellies hold only what Thou hast made lawful and our tongues speak only what Thou hast exemplified, we undertake nothing but what brings close to Thy reward",
+          "source_pair_start": 32,
+          "source_pair_end": 35,
+          "recitation_segment": {
+            "id": "segment-011",
+            "title": "Recitation segment 11",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-012",
+          "sequence": 12,
+          "arabic_text": "وَلاَ نَتَعَاطَى إلاّ الَّذِي يَقِيْ مِنْ عِقَابِكَ،",
+          "transliteration": "walā nataʿāṭā illā alladhī yaqī min ʿiqābika",
+          "english_text": "and pursue nothing but what protects from Thy punishment!",
+          "source_pair_start": 36,
+          "source_pair_end": 36,
+          "recitation_segment": {
+            "id": "segment-012",
+            "title": "Recitation segment 12",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-013",
+          "sequence": 13,
+          "arabic_text": "ثُمَّ خَلِّصْ ذَلِكَ كُلَّهُ مِنْ رِئآءِ الْمُرَائِينَ وَسُمْعَةِ الْمُسْمِعِينَ، لاَ نَشْرَكُ فِيهِ أَحَداً دُونَكَ، وَلا نَبْتَغِيْ فِيهِ مُرَاداً سِوَاكَ.",
+          "transliteration": "thumma khalliṣ dhālika kullahu min riʾā'i-l-murā'īna wa suhmaṭi-l-musmiʿīna lā našraku fīhi ʾaḥadan dūnaka walā nabtaghī fīhi murādan siwāka",
+          "english_text": "Then rid all of that from the false show of the false showers and the fame seeking of the fame seekers, lest we associate therein anything with Thee or seek therein any object of desire but Thee!",
+          "source_pair_start": 37,
+          "source_pair_end": 39,
+          "recitation_segment": {
+            "id": "segment-013",
+            "title": "Recitation segment 13",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-014",
+          "sequence": 14,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، وَقِفْنَـا فِيْـهِ عَلَى مَـوَاقِيْتِ الصَّلَوَاتِ الْخَمْس بِحُدُودِهَا الَّتِي حَدَّدْتَ، وَفُرُوضِهَا الَّتِي فَرَضْتَ وَوَظَائِفِهَا الَّتِي وَظَّفْتَ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa qifnā fīhi ʿalā mawāqīt al-ṣalawāti al-khams bi-ḥudūdihā allatī ḥaddadta wa furūḍihā allatī faraḍta wa waẓāʾifihā allatī waẓẓafta",
+          "english_text": "O God, bless Muhammad and his Household, in it make us attend to the appointed moments of the five prayers within the bounds Thou hast set, the obligations Thou hast decreed, the duties Thou hast assigned,",
+          "source_pair_start": 40,
+          "source_pair_end": 43,
+          "recitation_segment": {
+            "id": "segment-014",
+            "title": "Recitation segment 14",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-015",
+          "sequence": 15,
+          "arabic_text": "وَأَوْقَاتِهَا الَّتِي وَقَّتَّ،",
+          "transliteration": "wa-awqātiha allatī waqqata",
+          "english_text": "and the times Thou hast specified;",
+          "source_pair_start": 44,
+          "source_pair_end": 44,
+          "recitation_segment": {
+            "id": "segment-015",
+            "title": "Recitation segment 15",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-016",
+          "sequence": 16,
+          "arabic_text": "وَأَنْزِلْنَا فِيهَا مَنْزِلَةَ الْمُصِيْبينَ لِمَنَازِلِهَا الْحَافِظِينَ لاِرْكَانِهَا الْمُؤَدِّينَ لَهَـا فِي أَوْقَاتِهَـا عَلَى مَا سَنَّـهُ عَبْدُكَ وَرَسُـولُكَ صَلَوَاتُـكَ عَلَيْهِ وَآلِـهِ فِي رُكُوعِهَا وَسُجُودِهَا وَجَمِيْعِ فَوَاضِلِهَا",
+          "transliteration": "wa anzilna fiha manzilatal musibeen limanaziliha al-ḥāfiẓīna lār-kānihā al-mu'addīna lahā fī awqātiha ʿalā mā sannahu ʿabduka wa rasūluka ṣalawātuka ʿalayhi wa ālihi fī rukuʿiha wa sujūdiha wa jamīʿi fawāḍiliha",
+          "english_text": "and in the prayers make us alight in the station of the keepers of their stations, the guardians of their pillars, their performers in their times, as Thy servant and Thy messenger set down in his Sunna (Thy blessings be upon him and his Household) in their bowings, their prostrations, and all their excellent acts,",
+          "source_pair_start": 45,
+          "source_pair_end": 48,
+          "recitation_segment": {
+            "id": "segment-016",
+            "title": "Recitation segment 16",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-017",
+          "sequence": 17,
+          "arabic_text": "عَلى أَتَمِّ الطَّهُورِ، وَأَسْبَغِهِ وَأَبْيَنِ الْخُشُوعِ وَأَبْلَغِهِ،",
+          "transliteration": "ʿalā atamm al-ṭahūr, wa-asbaghihi wa-abyani al-khushūʿ wa-ablaghihi",
+          "english_text": "with the most complete and ample ritual purity and the most evident and intense humility!",
+          "source_pair_start": 49,
+          "source_pair_end": 49,
+          "recitation_segment": {
+            "id": "segment-017",
+            "title": "Recitation segment 17",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-018",
+          "sequence": 18,
+          "arabic_text": "وَوَفِّقْنَا فِيهِ لاِنْ نَصِلَ أَرْحَامَنَا بِالبِرِّ وَالصِّلَةِ وَأَنْ نَتَعَاهَدَ جِيرَانَنَابِالاِفْضَالِ وَالْعَطِيَّةِ وَأَنْ نُخَلِّصَ أَمْوَالَنَا مِنَ التَّبِعَاتِ، وَأَنْ نُطَهِّرَهَا بِإخْرَاجِ الزَّكَوَاتِ،",
+          "transliteration": "wa waffiqnā fīhi lā nasila arḥāmanā bilbirri walṣilati wa'an nata'ahadu jiraananabil-afdaali wal-'atiyyah wa annukhallas amwalana minat-tabi'at wa annuṭahhirahā bi’ikhrāji alzakawāti",
+          "english_text": "Give us success in this month to tighten our bonds of kin with devotion and gifts, attend to our neighbours with bestowal and giving, rid our possessions from claims, purify them through paying the alms,",
+          "source_pair_start": 50,
+          "source_pair_end": 53,
+          "recitation_segment": {
+            "id": "segment-018",
+            "title": "Recitation segment 18",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-019",
+          "sequence": 19,
+          "arabic_text": "وَأَنْ نُرَاجِعَ مَنْ هَاجَرَنَـا وَأَنْ نُنْصِفَ مَنْ ظَلَمَنَا وَأَنْ نُسَـالِمَ مَنْ عَادَانَا حَاشَا مَنْ عُودِيَ فِيْكَ وَلَكَ،",
+          "transliteration": "wa anna nurājiʿa man hājaranā wa annunṣifa man ẓalamnā wa'an nusālima man 'ādānā ḥāshā man ʿūdiya fīka walaka",
+          "english_text": "go back to him who has gone far from us, treat justly him who has wronged us, make peace with him who shows enmity toward us (except him who is regarded as an enemy in Thee and for Thee,",
+          "source_pair_start": 54,
+          "source_pair_end": 57,
+          "recitation_segment": {
+            "id": "segment-019",
+            "title": "Recitation segment 19",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-020",
+          "sequence": 20,
+          "arabic_text": "فَإنَّهُ الْعَدُوُّ الَّذِي لاَ نُوالِيهِ، وَالحِزْبُ الَّذِي لاَ نُصَافِيهِ.",
+          "transliteration": "fa'inna hu al-'aduwwu alladhi la nūwālihi wal-ḥizbu al-laḏī lā nuṣāfīhi",
+          "english_text": "for he is the enemy whom we will not befriend, the party whom we will not hold dear),",
+          "source_pair_start": 58,
+          "source_pair_end": 59,
+          "recitation_segment": {
+            "id": "segment-020",
+            "title": "Recitation segment 20",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-021",
+          "sequence": 21,
+          "arabic_text": "وَأَنْ نَتَقَرَّبَ إلَيْكَ فِيْهِ مِنَ الأَعْمَالِ الزَّاكِيَةِ بِمَا تُطَهِّرُنا بِهِ مِنَ الذُّنُوبِ، وَتَعْصِمُنَا فِيهِ مِمَّا نَسْتَأنِفُ مِنَ الْعُيُوبِ، حَتَّى لا يُورِدَ عَلَيْكَ أَحَدٌ مِنْ مَلاَئِكَتِكَ إلاّ دُونَ مَا نُورِدُ مِنْ أَبْوابِ الطَّاعَةِ لَكَ، وَأَنْوَاعِ القُرْبَةِ إلَيْكَ.",
+          "transliteration": "wa an nataqarraba ilayka feehi min al-a'mali al-zakiyati bima tutahhiruna bihi min al-dhunubi wa taʿṣimunā fīhi mimmā nastaʾniʾfu min al-ʿuyūb ḥattá lā yūrida ʿalayka ʾaḥadun min malāʾikatika 'illā dūna mā nūridu min abwābi al-ṭā'ati laka, wa anwāi al-qurbati ilayka",
+          "english_text": "and seek nearness to Thee through blameless works which will purify us from sins and preserve us from renewing faults, so that none of Thy angels will bring for Thee the kinds of obedience and sorts of nearness-seeking unless they be less than what we bring!",
+          "source_pair_start": 60,
+          "source_pair_end": 63,
+          "recitation_segment": {
+            "id": "segment-021",
+            "title": "Recitation segment 21",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-022",
+          "sequence": 22,
+          "arabic_text": "أللَّهُمَّ إنِّي أَسْأَلُكَ بِحَقِّ هَذَا الشَّهْرِ، وَبِحَقِّ مَنْ تَعَبَّدَ لَكَ فِيهِ مِنِ ابْتِدَائِهِ إلَى وَقْتِ فَنَائِهِ مِنْ مَلَك قَرَّبْتَهُ أَوْ نَبِيٍّ أَرْسَلْتَهُ",
+          "transliteration": "allāhumma innī as'aluka biḥaqqi hādhā al-shahr wa bi-ḥaqqi man taʿabbada laka fīh min ibtidāʾihi ilā waqti fanaʾihi min malak qarabtahu aw nabiyyin arsaltahu",
+          "english_text": "O God, I ask Thee by the right of this month and by the right of him who worships Thee within it from its beginning to the time of its passing, whether angel Thou hast brought nigh to Thee, prophet Thou hast sent,",
+          "source_pair_start": 64,
+          "source_pair_end": 67,
+          "recitation_segment": {
+            "id": "segment-022",
+            "title": "Recitation segment 22",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-023",
+          "sequence": 23,
+          "arabic_text": "أَوْ عَبْد صَالِح اخْتَصَصْتَهُ أَنْ تُصَلِّيَ عَلَى مُحَمَّد وَآلِهِ، وَأَهِّلْنَا فِيهِ لِمَا وَعَدْتَ أَوْلِياءَكَ مِنْ كَرَامَتِكَ، وَأَوْجِبْ لَنَا فِيهِ مَا أَوْجَبْتَ لأِهْلِ الْمُبَالَغَةِ فِي طَاعَتِكَ،",
+          "transliteration": "aw 'abd ṣāliḥ akhtasshatahu an tuṣalliya ʿalā muḥammad wa ʾālih wa ahhilna feehi lima wa'adt(a) awliyaa'aka min karaamatika wa-'awjib lana fihi ma 'awjabta li-ahlil mubalaghah fi ta'atika",
+          "english_text": "or righteous servant Thou hast singled out, that Thou bless Muhammad and his Household, make us worthy of the generosity Thou hast promised Thy friends, make incumbent for us what Thou hast made incumbent for those who go to great lengths in obeying Thee,",
+          "source_pair_start": 68,
+          "source_pair_end": 71,
+          "recitation_segment": {
+            "id": "segment-023",
+            "title": "Recitation segment 23",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-024",
+          "sequence": 24,
+          "arabic_text": "وَاجْعَلْنَا فِي نَظْمِ مَنِ اسْتَحَقَّ الرَّفِيْعَ الأعْلَى بِرَحْمَتِكَ.",
+          "transliteration": "wa-jaʿlnā fī naẓmi mani istaḥaqqa al-rafiʿa al-aʿlā bi-raḥmatika",
+          "english_text": "and place us in the ranks of those who deserve through Thy mercy the highest elevation!",
+          "source_pair_start": 72,
+          "source_pair_end": 72,
+          "recitation_segment": {
+            "id": "segment-024",
+            "title": "Recitation segment 24",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-025",
+          "sequence": 25,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، وَجَنِّبْنَا الإلْحَادَ فِي تَوْحِيدِكَ وَالتَّقْصِيرَ فِي تَمْجِيدِكَ وَالشَّكَّ فِي دِينِـكَ وَالْعَمَى عَنْ سَبِيْلِكَ وَالاغْفَالَ لِحُرْمَتِكَ، وَالانْخِدَاعَ لِعَدُوِّكَ الشَّيْطَانِ الرَّجِيمِ.",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihī wa jannibna al-ilhada fi tawhīdika wa al-taqṣīra fi tamjīdika wal-shakka fī dīnik wa al-ʿamā ʿan sabīlik wa al-aġfāla li-ħurmatik wa-al-inkhida'a li-'aduwwika ash-shaytan ar-rajeem",
+          "english_text": "O God, bless Muhammad and his Household, turn us aside from deviation in professing Thy Unity, falling short in magnifying Thee, uncertainty in Thy religion, blindness toward Thy path, heedlessness of Thy inviolability, and being deceived by Thy enemy, the accursed Satan!",
+          "source_pair_start": 73,
+          "source_pair_end": 76,
+          "recitation_segment": {
+            "id": "segment-025",
+            "title": "Recitation segment 25",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-026",
+          "sequence": 26,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَإذَا كَانَ لَكَ فِيْ كُلِّ لَيْلَة مِنْ لَيَالِيْ شَهْرِنَا هَذَا رِقَابٌ يُعْتِقُهَا عَفْوُكَ أَوْ يَهَبُهَا صَفْحُكَ فَاجْعَلْ رِقَابَنَا مِنْ تِلْكَ الرِّقَابِ",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa 'idha kāna laka fī kulli laylatin min layāli shahrinā hādhā riqābun yuʿtiqūhā ʿafwuka aw yahabuhā ṣafḥuka fajʿal riqaabanā min tilka al-riqaab",
+          "english_text": "O God, bless Muhammad and his Household, and when in every night of this month's nights Thou hast necks which Thy pardon will release and Thy forgiveness disregard, place our necks among those necks",
+          "source_pair_start": 77,
+          "source_pair_end": 80,
+          "recitation_segment": {
+            "id": "segment-026",
+            "title": "Recitation segment 26",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-027",
+          "sequence": 27,
+          "arabic_text": "وَاجْعَلْنَا لِشَهْرِنَا مِنْ خَيْرِ أَهْل وَأَصْحَاب.",
+          "transliteration": "wa-jaʿalnā li-shahrinā min khayri ahl wa-aṣḥāb",
+          "english_text": "and place us among the best folk and companions of this our month!",
+          "source_pair_start": 81,
+          "source_pair_end": 81,
+          "recitation_segment": {
+            "id": "segment-027",
+            "title": "Recitation segment 27",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-028",
+          "sequence": 28,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ وَامْحَقْ ذُنُوبَنَا مَعَ امِّحاقِ هِلاَلِهِ وَاسْلَخْ عَنَّا تَبِعَاتِنَا مَعَ انْسِلاَخِ أَيَّامِهِ حَتَّى يَنْقَضِي عَنَّا وَقَدْ صَفَّيْتَنَا فِيهِ مِنَ الْخَطِيئاتِ،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālihī waamhaq dhunoobana ma'a ammihaaqi hilalih wa aslakh 'anna tabi'atina ma'an-silakh 'ayyamih ḥattá yanqaḍi ʿannā waqad ṣaffaytanā fīhi minal-khaṭīʾāt",
+          "english_text": "O God, bless Muhammad and his Household, efface our sins along with the effacing of its crescent moon, and make us pass forth from the ill effects of our acts with the passing of its days, until it leaves us behind, while within it Thou hast purified us of offenses",
+          "source_pair_start": 82,
+          "source_pair_end": 85,
+          "recitation_segment": {
+            "id": "segment-028",
+            "title": "Recitation segment 28",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-029",
+          "sequence": 29,
+          "arabic_text": "وَأَخْلَصْتَنَا فِيهِ مِنَ السَّيِّئاتِ.",
+          "transliteration": "wa akhlas-tana fihi mina as-sayyi'at",
+          "english_text": "and rid us of evil deeds!",
+          "source_pair_start": 86,
+          "source_pair_end": 86,
+          "recitation_segment": {
+            "id": "segment-029",
+            "title": "Recitation segment 29",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-030",
+          "sequence": 30,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، وَإنْ مِلْنَا فِيهِ فَعَدِّلْنا، وَإنْ زِغْنَا فِيهِ فَقَوِّمْنَا،",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih wa in milnā fīhi faʿaddilnā, wa in zighnā fīhi faqawwimnā",
+          "english_text": "O God, bless Muhammad and his Household, and should we go off to one side in this month, set us aright; should we swerve, point us straight;",
+          "source_pair_start": 87,
+          "source_pair_end": 88,
+          "recitation_segment": {
+            "id": "segment-030",
+            "title": "Recitation segment 30",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-031",
+          "sequence": 31,
+          "arabic_text": "وَإنِ اشْتَمَلَ عَلَيْنَا عَدُوُّكَ الشَّيْطَانُ فَاسْتَنْقِذْنَا مِنْهُ.",
+          "transliteration": "wa in-ish-tamala alayna 'aduwwuka ash-shaytanu fastanqidhna minhu",
+          "english_text": "and should Thy enemy Satan enwrap us, rescue us from him!",
+          "source_pair_start": 89,
+          "source_pair_end": 89,
+          "recitation_segment": {
+            "id": "segment-031",
+            "title": "Recitation segment 31",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-032",
+          "sequence": 32,
+          "arabic_text": "أللَهُمَّ اشْحَنْهُ بِعِبَادَتِنَا إيَّاكَ، وَزَيِّنْ أَوْقَاتَهُ بِطَاعَتِنَا لَكَ، وَأَعِنَّا فِي نَهَـارِهِ عَلَى صِيَـامِـهِ، وَفِي لَيْلِهِ عَلَى الصَّـلاَةِ",
+          "transliteration": "allāhumma ash-hanhu bi'ibādatinā īyāka wa zayyin awqātahu bi-ṭāʿatina lak wa'aʿinnā fī nahārihi ʿalā ṣiyāmih wa fī laylihi ʿalā al-ṣalāh",
+          "english_text": "O God, fill this month with our worship of Thee, adorn its times with our obedience toward Thee, help us during its daytime with its fast, and in its night with prayer",
+          "source_pair_start": 90,
+          "source_pair_end": 93,
+          "recitation_segment": {
+            "id": "segment-032",
+            "title": "Recitation segment 32",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-033",
+          "sequence": 33,
+          "arabic_text": "وَالتَّضَرُّعِ إلَيْكَ وَالخُشُوعِ لَكَ، وَالذِّلَّةِ بَيْنَ يَدَيْكَ حَتَّى لا يَشْهَدَ نَهَارُهُ عَلَيْنَا بِغَفْلَة، وَلا لَيْلُهُ بِتَفْرِيط.",
+          "transliteration": "wal-taḍarruʿi ilayka wal-khushūʿi laka wa al-dhillaẗi bayna yadayka ḥattá lā yashhada nahāruhu ʿalaynā bi-ghafla, walā layluhu bi-tafriṭ",
+          "english_text": "and pleading toward Thee, humility toward Thee, and lowliness before Thee, so that its daytime may not bear witness against our heedlessness, nor its night against our neglect!",
+          "source_pair_start": 94,
+          "source_pair_end": 96,
+          "recitation_segment": {
+            "id": "segment-033",
+            "title": "Recitation segment 33",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-034",
+          "sequence": 34,
+          "arabic_text": "أللَّهُمَّ وَاجْعَلْنَا فِي سَائِرِ الشُّهُورِ وَالأَيَّامِ كَذَلِكَ مَا عَمَّرْتَنَا، وَاجْعَلْنَا مِنْ عِبَادِكَ الصَّالِحِينَ الَّذِينَ يَرِثُونَ الْفِرْدَوْسَ، هُمْ فِيهَا خَالِدُونَ، وَالَّذِينَ يُؤْتُونَ مَا آتَوْا وَقُلُوبُهُمْ",
+          "transliteration": "allāhumma wajʿalnā fī sā'iri al-shuhūr wa-al-'ayyām kaḏalika mā ʿammartanā wa-ijʿalna min ʿibadika al-ṣāliḥīn alladhīna yarithūna al-firdaws, hum fīhā khālidūn wa'alladhīna yu'tūn mā ātaw waqulūbuhum",
+          "english_text": "O God, make us like this in the other months and days as long as Thou givest us life, and place us among Thy righteous servants, \"those who shall inherit Paradise, therein dwelling forever\" (23:11), \"those who give what they give, while their hearts quake,",
+          "source_pair_start": 97,
+          "source_pair_end": 100,
+          "recitation_segment": {
+            "id": "segment-034",
+            "title": "Recitation segment 34",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-035",
+          "sequence": 35,
+          "arabic_text": "وَجِلَةٌ أَنَّهُمْ إلَى رَبِّهِمْ رَاجِعُـونَ، وَمِنَ الَّذِينَ يُسَارِعُونَ فِي الْخَيْرَاتِ وَهُمْ لَهَا سَابِقُونَ.",
+          "transliteration": "wa jilatun annahum ila rabbihim raajiʿoon wa mina alladhīna yusāriʿūna fīl-khayrāti wa hum lahā sābiqūn",
+          "english_text": "that they are returning to their Lord\" (23:60), those who \"..vie in good works, outracing to them\" (23:61)!",
+          "source_pair_start": 101,
+          "source_pair_end": 102,
+          "recitation_segment": {
+            "id": "segment-035",
+            "title": "Recitation segment 35",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-036",
+          "sequence": 36,
+          "arabic_text": "أللَّهُمَّ صَلِّ عَلَى مُحَمَّد وَآلِهِ، فِي كُلِّ وَقْت وَكُلِّ أَوَان وَعَلَى كُـلِّ حَال عَـدَدَ مَا صَلَّيْتَ عَلَى مَنْ صَلَّيْتَ عَلَيْهِ، وَأَضْعَافَ ذَلِكَ كُلِّهِ بِالاضْعافِ",
+          "transliteration": "allāhumma ṣalli ʿalā muḥammad wa ālih fī kulli waqtin wa kulli awānin wa ʿalā kulli ḥāl ʿadada mā ṣallayta ʿalā man ṣallayta ʿalayh wa'aḍ'āfa dhālika kulluhu bil-aḍ'āfi",
+          "english_text": "O God, bless Muhammad and his Household in every time, in all moments, and in every state, to the number that Thou hast blessed whomsoever Thou hast blessed and to multiples of all that, through multiples",
+          "source_pair_start": 103,
+          "source_pair_end": 106,
+          "recitation_segment": {
+            "id": "segment-036",
+            "title": "Recitation segment 36",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-037",
+          "sequence": 37,
+          "arabic_text": "الَّتِي لا يُحْصِيهَا غَيْرُكَ،",
+          "transliteration": "al-lātī lā yuḥṣīhā ghayruka",
+          "english_text": "which none can count but Thee!",
+          "source_pair_start": 107,
+          "source_pair_end": 107,
+          "recitation_segment": {
+            "id": "segment-037",
+            "title": "Recitation segment 37",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-038",
+          "sequence": 38,
+          "arabic_text": "إنَّكَ فَعَّالٌ لِمَا تُرِيدُ.",
+          "transliteration": "ʾinnaka faʿālun limā turīdu",
+          "english_text": "Surely Thou art Accomplisher of what Thou desirest.",
+          "source_pair_start": 108,
+          "source_pair_end": 108,
+          "recitation_segment": {
+            "id": "segment-038",
+            "title": "Recitation segment 38",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        }
+      ]
+    }
+  ]
+}
