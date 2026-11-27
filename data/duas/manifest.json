@@ -1312,6 +1312,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 56,
       "manifest": "munajat-mureedeen/manifest.json"
+    },
+    {
+      "id": "munajat-muhibbeen",
+      "title": "09. The Whispered Prayer of the Lovers (Muhibbeen)",
+      "arabicTitle": "مناجاة المحبّين",
+      "description": "The ninth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 209,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 9",
+        "url": "https://www.duas.org/sajjadiya/dua77.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 47,
+      "manifest": "munajat-muhibbeen/manifest.json"
     }
   ]
 }
