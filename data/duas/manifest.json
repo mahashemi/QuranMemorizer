@@ -1366,6 +1366,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 46,
       "manifest": "munajat-muftaqireen/manifest.json"
+    },
+    {
+      "id": "munajat-aarifeen",
+      "title": "12. The Whispered Prayer of the Knowers (Aarifeen)",
+      "arabicTitle": "مناجاة العارفين",
+      "description": "The twelfth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 212,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 12",
+        "url": "https://www.duas.org/sajjadiya/dua80.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 36,
+      "manifest": "munajat-aarifeen/manifest.json"
     }
   ]
 }
