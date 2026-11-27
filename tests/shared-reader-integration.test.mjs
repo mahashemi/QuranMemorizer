@@ -46,7 +46,7 @@ test('the existing Quran sidebar, mobile header, and player remain available in 
 });
 
 test('the Dua catalogue includes all 54 Sahifa supplications, 15 Munajat, Ahad, and Jawshan Kabir', () => {
-  assert.equal(duas.texts.length, 73);
+  assert.equal(duas.texts.length, 74);
   const sahifa = duas.texts.filter(item => item.group === 'Sahifa Sajjadiya — 54 Supplications');
   const munajat = duas.texts.filter(item => item.group === '15 Munajat');
   assert.equal(sahifa.length, 54);
@@ -55,11 +55,29 @@ test('the Dua catalogue includes all 54 Sahifa supplications, 15 Munajat, Ahad, 
   assert.ok(munajat.every(item => item.id.startsWith('munajat-')));
   assert.ok(duas.texts.some(item => item.id === 'dua-ahad'));
   assert.ok(duas.texts.some(item => item.id === 'dua-jawshan-kabir'));
+  assert.ok(duas.texts.some(item => item.id === 'dua-alqama'));
 });
 
 test('the current Ziyarat catalogue contains the two imported readings', () => {
-  assert.equal(ziyarats.texts.length, 2);
-  assert.deepEqual(ziyarats.texts.map(item => item.id).sort(), ['ziyarat-ashura', 'ziyarat-jamia-kabira']);
+  assert.equal(ziyarats.texts.length, 3);
+  assert.deepEqual(ziyarats.texts.map(item => item.id).sort(), ['ziyarat-ashura', 'ziyarat-jamia-kabira', 'ziyarat-nahiya']);
+});
+
+test('the new Duas.org imports preserve their inspected source segmentation and attribution', () => {
+  const dua = JSON.parse(readFileSync(new URL('../data/duas/source/dua-alqama.json', import.meta.url), 'utf8'));
+  const ziyarat = JSON.parse(readFileSync(new URL('../data/ziyarats/source/ziyarat-nahiya.json', import.meta.url), 'utf8'));
+  assert.equal(dua.records.length, 191);
+  assert.equal(dua.sourcePairCount, 191);
+  assert.equal(ziyarat.records.length, 481);
+  assert.equal(ziyarat.sourcePairCount, 483);
+  assert.equal(ziyarat.records[98].source_pair_end, 100);
+  assert.equal(ziyarat.records[419].source_pair_end, 422);
+  for (const reading of [dua, ziyarat]) {
+    assert.equal(reading.sourceStatus, 'imported-review-required');
+    assert.equal(reading.source.provider, 'Duas.org');
+    assert.ok(reading.source.terms_url.includes('about-us'));
+    assert.ok(reading.attribution.includes('freely used'));
+  }
 });
 
 test('all imported source records have non-empty Arabic, transliteration, and English fields', () => {
