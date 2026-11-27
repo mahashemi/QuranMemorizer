@@ -202,6 +202,8 @@ async function openCatalog(collection) {
   readingVisible = false;
   if (parseRoute()) history.replaceState(null, '', location.pathname + location.search);
   window.QuranMemorizerReader.stopPlayback();
+  document.body.classList.add('reader-active');
+  if (home) home.setAttribute('aria-hidden', 'true');
   activeCollection = collection;
   setDomain(collection);
   showCatalog(collection);
