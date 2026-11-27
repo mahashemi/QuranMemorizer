@@ -1623,7 +1623,7 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .reading-domain-nav{display:flex;align-items:center;gap:5px;flex:0 0 auto}
 .reading-domain-nav button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:9px;padding:8px 12px;font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
 .reading-domain-nav button.active{background:var(--accent-soft);border-color:var(--accent-border);color:var(--accent)}
-.collection-active .topbar .field,.collection-active .topbar .now,.collection-active .topbar .topbar-btn{display:none}
+.collection-active .topbar .field,.collection-active .topbar .now{display:none}
 .collection-active .main{min-width:0}
 .collection-active .reader{padding:24px 22px 70px}
 .collection-page,.collection-reading{width:min(100%,900px);margin:0 auto}
