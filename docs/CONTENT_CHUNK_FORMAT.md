@@ -1,76 +1,80 @@
-# Chunked content format
+# Chunked content and recitation format
 
-Quran, Duas, and Ziyarats use the same generated-content pattern:
-
-1. A small collection-level `manifest.json` lists available texts and their metadata.
-2. Each text has its own folder and a `manifest.json` describing its ordered reading units.
-3. Text payloads are split into small JSON arrays. The loader requests only the chunk containing the current reading position, then loads adjacent chunks as the reader moves.
+Quran, Duas, and Ziyarats share one reader-unit and manifest convention while remaining separate content domains. Storage pagination and recitation/memorisation boundaries are deliberately independent.
 
 ## Folder layout
 
 ```text
 data/
   quran/
-    all_suras.json  # canonical source; never modified by chunk generation
+    all_suras.json  # canonical source; never modified by Dua/Ziyarat work
     chunked/
       manifest.json
       chapter_2/
         manifest.json
         ayat_001_010.json
-        ayat_011_020.json
   duas/
     manifest.json
-    dua_kumayl/
+    source/
+      dua-kumayl.json
+    dua-kumayl/
       manifest.json
-      segments_001_010.json
-      segments_011_020.json
+      segments_001_030.json
   ziyarats/
     manifest.json
-    ziyarat_jamia_kabira/
+    source/
+      ziyarat-ashura.json
+    ziyarat-ashura/
       manifest.json
-      segments_001_010.json
+      segments_001_030.json
 ```
 
-## Per-text manifest
+## Canonical source JSON
 
-A per-text manifest contains:
+Each source file in `data/duas/source/` or `data/ziyarats/source/` contains metadata and an ordered `records` array. Each record is a complete, meaningful reading/recitation unit—normally a sentence, stanza, paragraph, or short passage—not an arbitrary fixed number of words or lines.
 
-- `version`: schema version, currently `1`
-- `id`: stable text identifier
-- `title`: display title
-- `kind`: `quran-surah`, `dua`, or `ziyarat`
-- `recordCount`: total ordered reading units
-- `chunkSize`: target maximum units per chunk
-- `chunks`: ordered entries with inclusive `start`, `end`, and payload `file`
-
-Example:
+Recommended record shape:
 
 ```json
 {
-  "version": 1,
-  "id": "dua-kumayl",
-  "title": "Dua Kumayl",
-  "kind": "dua",
-  "recordCount": 24,
-  "chunkSize": 10,
-  "chunks": [
-    { "start": 1, "end": 10, "file": "segments_001_010.json" },
-    { "start": 11, "end": 20, "file": "segments_011_020.json" },
-    { "start": 21, "end": 24, "file": "segments_021_024.json" }
-  ]
+  "id": "passage-001",
+  "sequence": 1,
+  "arabic_text": "النَّصُّ الْعَرَبِيُّ",
+  "transliteration": "Transliteration, if supplied and verified",
+  "english_text": "Aligned English translation",
+  "urdu_text": "Aligned Urdu translation, if verified",
+  "persian_text": "Aligned Persian translation, if verified",
+  "recitation_segment": {
+    "id": "opening",
+    "title": "Opening passage",
+    "group": "opening",
+    "repeatable": true,
+    "suggested_repetitions": 3,
+    "pause_after": true
+  },
+  "source_note": "Edition/page/section note where applicable"
 }
 ```
 
-## Reading-unit boundaries
+Do not fabricate missing translations or transliteration. Keep source wording, Arabic spelling, tashkeel, punctuation, sequence, and alignment intact. Segment boundaries should follow the prayer's literary and recitational structure. A longer passage may be split at a natural pause; a refrain or repeated response may be its own practice unit when that reflects the source.
 
-- Qur'an records are Ayahs; generated Quran chunks contain at most 10 Ayahs.
-- Dua and Ziyarat records are logical reading units chosen from the verified source structure. Prefer complete paragraphs, numbered sections, or meaningful passages.
-- Never split a sentence or passage merely to fill a chunk.
-- Preserve every source field and its original ordering. Chunk generation is a build transformation; it must not rewrite canonical source files.
-- The final chunk may contain fewer than 10 records.
+## Recitation and memorisation model
 
-## Adding a Dua or Ziyarat
+- Every record is independently addressable and can be selected for focused listening, recording, and repetition.
+- `recitation_segment.id` groups one or more records into a learner-friendly memorisation unit. It is independent of storage chunk boundaries.
+- The reader should support play/replay, record, playback of the user's recording, repeat count, and previous/next segment navigation without losing the full-reading position.
+- Where the same refrain occurs repeatedly, preserve each occurrence in the canonical sequence. A future practice mode may loop a selected occurrence or a whole segment.
+- Recording metadata and audio blobs belong in the user's local recording store, keyed by collection, reading ID, and record/segment ID; do not embed recordings in source JSON.
+- Never split a meaningful passage just to satisfy a chunk-size limit.
 
-When verified source text is added, represent it as an ordered array of complete reading-unit objects and pass that array to the shared `chunkRecords` / `createContentManifest` helpers in `scripts/content-chunks.mjs`. Keep source metadata and translations on each record; the manifest describes chunk boundaries only.
+## Storage chunks and manifests
 
-The Qur'an reader consumes `data/quran/chunked/manifest.json`, per-Surah manifests, and chunk payloads. The generated directory is committed to version control. Run `npm run generate:quran-chunks` only when the canonical Quran source intentionally changes; ordinary builds copy the committed files without regenerating them. The same manifest and record format is ready for the Dua and Ziyarat readers when their canonical source data is added.
+Each source may set `storageChunkSize` (integer 1–250); the default is 30 records. This controls only the number of complete records placed in a JSON payload. It does not control recitation segmentation. Choose a larger or smaller value based on actual payload size and loading performance. The generated per-reading manifest records the chosen chunk size and ordered ranges.
+
+The collection manifest lists each reading and its per-reading manifest. Stable IDs are lowercase slugs; manifest paths are relative to the collection directory and must not traverse outside it.
+
+## Generate and deploy
+
+Run `npm run generate:readings` after adding or editing canonical source JSON. Commit both source JSON and generated manifests/chunks. Ordinary web and Android builds copy committed data; they do not fetch Duas.org or regenerate content during every build. This keeps deployments deterministic and makes Android include the same offline-ready JSON files as the website.
+
+The Dua/Ziyarat generator does not read or rewrite `data/quran/all_suras.json`. Existing Quran routes and data remain unchanged.

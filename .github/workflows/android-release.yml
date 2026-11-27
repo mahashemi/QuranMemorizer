@@ -60,7 +60,7 @@ jobs:
       - name: Configure version and release signing
         env:
           QURAN_CONFIGURE_RELEASE_SIGNING: "true"
-        run: node scripts/configure-android-version.mjs
+        run: npm run android:version
 
       - name: Generate Android launcher icons
         run: |
@@ -79,7 +79,7 @@ jobs:
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/quran-release.keystore"
           test -s "$RUNNER_TEMP/quran-release.keystore"
 
-      - name: Build signed APK and Android App Bundle
+      - name: Build signed release APK and Android App Bundle
         env:
           QURAN_RELEASE_STORE_FILE: ${{ runner.temp }}/quran-release.keystore
           QURAN_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -93,7 +93,7 @@ jobs:
       - name: Upload signed release artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: QuranMemorizer-Android-release
+          name: QuranMemorizer-Android-release-v${{ github.run_number }}
           path: |
             android/app/build/outputs/apk/release/app-release.apk
             android/app/build/outputs/bundle/release/app-release.aab

@@ -1,53 +1,54 @@
-# Android versions and release updates
+# Android versions and update compatibility
 
 ## Version numbers
 
 The app version is controlled by `package.json` using `MAJOR.MINOR.PATCH`.
-The Android build script maps it to a monotonically increasing version code:
+The build script maps it to a monotonically increasing Android version code:
 
 - `1.0.1` → versionCode `1000001`
 - `1.1.0` → versionCode `1001000`
 - `2.0.0` → versionCode `2000000`
 
-Keep MINOR and PATCH below 1000. Increase the package version for every published release.
+Increase the package version for every published Android release. Never lower versionCode.
 
-## One-time release signing setup
+## Stable application identity and signing
 
-Android only installs an update over an existing app when the package ID and signing certificate match. The permanent release keystore must be kept safe and backed up. If it is lost, future updates signed with a replacement key cannot update the installed app.
+The Capacitor application ID is `org.quranmemorizer.app`. Do not change it for an ordinary update.
 
-Generate the keystore on a trusted computer (do not commit it to Git):
+Android permits an in-place update only when both the application ID and signing certificate match the installed app, and the new versionCode is higher. The release workflow uses one permanent keystore for every release. Keep that keystore safe, encrypted, and backed up. Losing it prevents future updates signed with a replacement key.
+
+Generate the permanent keystore on a trusted computer (do not commit it to Git):
 
 ```bash
-keytool -genkeypair -v \
-  -keystore quran-release.keystore \
-  -alias quranmemorizer \
+keytool -genkeypair -v \\
+  -keystore quran-release.keystore \\
+  -alias quranmemorizer \\
   -keyalg RSA -keysize 4096 -validity 10000
 ```
 
-Add these four repository Actions secrets under **Settings → Secrets and variables → Actions**:
+Add these repository Actions secrets under **Settings → Secrets and variables → Actions**:
 
-- `ANDROID_KEYSTORE_BASE64`: base64-encoded contents of `quran-release.keystore`
+- `ANDROID_KEYSTORE_BASE64`: base64-encoded keystore contents
   - macOS: `base64 -i quran-release.keystore | tr -d '\\n' | pbcopy`, then paste the clipboard value into the secret.
 - `ANDROID_KEYSTORE_PASSWORD`: keystore password
-- `ANDROID_KEY_ALIAS`: `quranmemorizer` (or the alias you chose)
+- `ANDROID_KEY_ALIAS`: `quranmemorizer` (or the alias selected above)
 - `ANDROID_KEY_PASSWORD`: key password
 
-Keep the keystore and passwords in a secure password manager and a separate encrypted backup. Never upload the keystore to this repository or share it in chat.
+Never commit the keystore or place passwords in source files, issues, or chat.
 
-After configuring the secrets, run **Actions → Build signed Android release → Run workflow**. It produces a signed APK for direct installation and an AAB for a future Play Store release.
+After configuring the secrets, run **Actions → Build signed Android release → Run workflow**. Install the signed APK artifact. Subsequent signed APKs built with the same keystore and a higher versionCode install over the existing app without uninstalling; app-private recordings and preferences remain in place.
 
-## Important: moving from current debug APKs to release updates
+## Important first-update check
 
-The current CI debug APKs are built from a newly generated Android project on each run. Their debug signing key is not persisted between runs. Therefore the first permanent release-signed APK cannot update an already installed CI debug APK in place.
+The current CI debug workflow generates a fresh Android project on each run, so its default debug signing key is not guaranteed to match across builds. If the installed app was installed from one of those CI debug APKs, a first switch to the permanent release keystore cannot update it in place. Android will reject the different certificate. We must identify the signing certificate of the app currently installed before choosing the safest transition. Do not uninstall or clear app data until recordings have been exported and the transition is agreed.
 
-Plan this transition once, after backing up any recordings with the app's Export recordings feature. Installing the first release build will require uninstalling the current debug build; Android removes app-private data on uninstall. Re-downloadable reciter audio can be downloaded again. After the first release-signed APK is installed, all subsequent APKs signed with this same keystore and using a higher version code can be installed as normal updates without uninstalling or losing app data.
+If the current installation was built locally with a retained signing key, we may be able to configure future builds to use that exact key and avoid a reinstall. Do not assume the key based only on the version name.
 
-Do not lose or replace the permanent keystore.
 
 ## GitHub Pages
 
-The web deployment workflow builds the same `www` web assets and deploys them to:
+The Pages workflow builds the same static web assets and deploys them to:
 
 https://mahashemi.github.io/QuranMemorizer/
 
-In the repository, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions** once if it is not already configured. The Pages workflow then deploys automatically on relevant pushes to `main`.
+The repository Pages source should be **GitHub Actions**. The deployment workflow checks for the committed Quran chunk manifest and the separate Dua and Ziyarat collection manifests. It must not publish `data/quran/all_suras.json` as a runtime asset.

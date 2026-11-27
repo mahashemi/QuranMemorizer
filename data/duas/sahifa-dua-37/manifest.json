@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-37",
+  "title": "37. His supplication in giving Thanks",
+  "kind": "dua",
+  "recordCount": 30,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    }
+  ]
+}

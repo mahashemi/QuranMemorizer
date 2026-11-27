@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-43",
+  "title": "43. When he Looked at the New Crescent Moon",
+  "kind": "dua",
+  "recordCount": 17,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 17,
+      "file": "segments_001_017.json"
+    }
+  ]
+}

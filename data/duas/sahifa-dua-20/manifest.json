@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-20",
+  "title": "20. His Supplication on Noble Moral Traits",
+  "kind": "dua",
+  "recordCount": 60,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    }
+  ]
+}

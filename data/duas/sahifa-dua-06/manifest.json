@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-06",
+  "title": "06. His Supplication in the Morning and Evening",
+  "kind": "dua",
+  "recordCount": 30,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    }
+  ]
+}

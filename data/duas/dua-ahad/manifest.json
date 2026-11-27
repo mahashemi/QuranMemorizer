@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "dua-ahad",
+  "title": "Dua Ahad — Supplication of the Covenant",
+  "kind": "dua",
+  "recordCount": 80,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 60,
+      "file": "segments_031_060.json"
+    },
+    {
+      "start": 61,
+      "end": 80,
+      "file": "segments_061_080.json"
+    }
+  ]
+}

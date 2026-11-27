@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "munajat-muteeen",
+  "title": "07. The Whispered Prayer of the Obedient (Mute'een)",
+  "kind": "dua",
+  "recordCount": 28,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 28,
+      "file": "segments_001_028.json"
+    }
+  ]
+}

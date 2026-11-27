@@ -111,8 +111,12 @@ let repeatEls = {};
 let SURAS = [];
 let SURA_BY_NUM = {};
 
+let resolveAppReady;
+const appReady = new Promise(resolve => { resolveAppReady = resolve; });
+
 const state = {
   sura: 1, aya: 1,
+  activeCollection: null, activeReading: null, collectionCatalog: null,
   playingAya: null,
   started: false,
   repeatMode: 'none',
@@ -197,11 +201,12 @@ function setNativePlaybackActive(active) {
 function updateNativeMediaMetadata(playing) {
   try {
     const nativePlayback = window.QuranMemorizerNative;
-    const sura = SURA_BY_NUM[state.sura];
+    const sura = getCurrentReading();
     if (!nativePlayback || typeof nativePlayback.updateMediaMetadata !== 'function' || !sura) return;
     const aya = state.playingAya === 0 ? 1 : (state.playingAya || state.aya);
+    const unit = isCollectionReading() ? 'Passage' : 'Ayah';
     nativePlayback.updateMediaMetadata(
-      sura.englishName + ' — Ayah ' + aya,
+      (sura.title || sura.englishName) + ' — ' + unit + ' ' + aya,
       currentReciter().name,
       Boolean(playing)
     );
@@ -255,7 +260,8 @@ async function init() {
   // Switch to the reader immediately for a syntactically valid shared link.
   // Do not leave the homepage covering the reader while the Quran data downloads.
   const initialRoute = parseQuranHash(window.location.hash);
-  if (initialRoute) activateReaderView();
+  const initialCollectionRoute = /^#\/(?:dua|ziyarat)\//i.test(window.location.hash || '');
+  if (initialRoute || initialCollectionRoute) activateReaderView();
 
   let manifestUrl;
   try {
@@ -273,6 +279,7 @@ async function init() {
       '<p>Check that the deployed site includes <code>data/quran/chunked/manifest.json</code>.</p>' +
       '<p class="error-detail">Requested: <code>' + esc(manifestUrl || '') + '</code></p></div>';
     el.nowPlaying.textContent = 'Quran index not loaded';
+    resolveAppReady();
     return;
   }
   buildSidebar();
@@ -285,9 +292,10 @@ async function init() {
     activateReaderView();
     await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false });
     scheduleSharedAyaFocus(initialRoute.aya);
-  } else {
+  } else if (!initialCollectionRoute) {
     await loadSura(1, { aya: 1, play: false });
   }
+  resolveAppReady();
 }
 
 /* Inject the repeat block from the template into the DOM (into the desktop slot by default) */
@@ -514,26 +522,45 @@ function currentReciter() {
    9. SIDEBAR
    ================================================================== */
 function buildSidebar() {
+  el.suraList.innerHTML = '';
+  const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+  if (heading) heading.textContent = 'Sura';
+  el.suraSearch.placeholder = 'Search sura…';
+  const tabs = el.drawerTabs.querySelectorAll('[data-tab]');
+  if (tabs[0]) tabs[0].textContent = 'Sura';
+  if (tabs[1]) tabs[1].textContent = 'Aya';
   const frag = document.createDocumentFragment();
   SURAS.forEach(s => {
     const item = document.createElement('div');
     item.className = 'sura-item';
     item.dataset.sura = s.number;
     item.dataset.search = (s.number + ' ' + s.englishName + ' ' + s.arabicName).toLowerCase();
-    item.innerHTML =
-      '<span class="sura-num">' + s.number + '</span>' +
-      '<span class="sura-names">' +
-        '<span class="en">' + esc(s.englishName) + '</span>' +
-        '<span class="ar" dir="rtl">' + esc(s.arabicName) + '</span>' +
-      '</span>';
+    item.innerHTML = '<span class="sura-num">' + s.number + '</span><span class="sura-names"><span class="en">' + esc(s.englishName) + '</span><span class="ar" dir="rtl">' + esc(s.arabicName) + '</span></span>';
     frag.appendChild(item);
   });
   el.suraList.appendChild(frag);
 }
+function renderCollectionSidebar() {
+  const texts = state.collectionCatalog && Array.isArray(state.collectionCatalog.texts) ? state.collectionCatalog.texts : [];
+  const heading = el.suraList.closest('.col')?.querySelector('.col-head');
+  const collectionLabel = state.activeCollection === 'duas' ? 'Duas' : 'Ziyarats';
+  if (heading) heading.textContent = collectionLabel;
+  el.suraSearch.placeholder = 'Search ' + collectionLabel.toLowerCase() + '…';
+  const tabs = el.drawerTabs.querySelectorAll('[data-tab]');
+  if (tabs[0]) tabs[0].textContent = collectionLabel;
+  if (tabs[1]) tabs[1].textContent = 'Passages';
+  el.suraList.innerHTML = texts.map((item, index) =>
+    '<div class="sura-item' + (state.activeReading && state.activeReading.id === item.id ? ' current' : '') + '" data-collection-text-id="' + esc(item.id) + '" data-search="' + esc((item.title + ' ' + (item.arabicTitle || '')).toLowerCase()) + '">' +
+    '<span class="sura-num">' + (index + 1) + '</span><span class="sura-names"><span class="en">' + esc(item.title) + '</span><span class="ar" dir="rtl">' + esc(item.arabicTitle || '') + '</span></span></div>'
+  ).join('');
+}
 
 function markCurrentSura() {
   el.suraList.querySelectorAll('.sura-item.current').forEach(i => i.classList.remove('current'));
-  const item = el.suraList.querySelector('.sura-item[data-sura="' + state.sura + '"]');
+  const selector = isCollectionReading()
+    ? '.sura-item[data-collection-text-id="' + state.activeReading.id + '"]'
+    : '.sura-item[data-sura="' + state.sura + '"]';
+  const item = el.suraList.querySelector(selector);
   if (item) {
     item.classList.add('current');
     item.scrollIntoView({ block: 'nearest' });
@@ -544,17 +571,15 @@ function markCurrentSura() {
    10. AYA LIST
    ================================================================== */
 function renderAyaList(num) {
-  const s = SURA_BY_NUM[num];
+  const s = getCurrentReading();
   if (!s) { el.ayaList.innerHTML = ''; return; }
-
-  el.ayaColHead.innerHTML = '<b>' + esc(s.englishName) + '</b> · ' + s.ayaCount;
-
+  const label = isCollectionReading() ? 'passages' : 'ayat';
+  const unit = isCollectionReading() ? 'Passage' : 'Ayah';
+  el.ayaColHead.innerHTML = '<b>' + esc(s.title || s.englishName) + '</b> · ' + s.ayaCount + ' ' + label;
   let html = '';
   for (let number = 1; number <= s.ayaCount; number++) {
-    html +=
-      '<button class="aya-btn" data-aya="' + number + '" title="Go to Ayah ' + number + '" aria-label="Go to Ayah ' + number + '">' +
-        '<span class="aya-btn-num">' + number + '</span>' +
-      '</button>';
+    html += '<button class="aya-btn" data-aya="' + number + '" title="Go to ' + unit + ' ' + number + '" aria-label="Go to ' + unit + ' ' + number + '">' +
+      '<span class="aya-btn-num">' + number + '</span></button>';
   }
   el.ayaList.innerHTML = html;
   el.ayaList.scrollTop = 0;
@@ -564,45 +589,47 @@ function renderAyaList(num) {
    11. READER
    ================================================================== */
 function renderSura(restoreScrollTop) {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-
-  let html =
-    '<div class="sura-heading">' +
-      '<h1>' + s.number + '. ' + esc(s.englishName) + '</h1>' +
-      '<div class="ar-name" dir="rtl">' + esc(s.arabicName) + '</div>' +
-      '<div class="meta">' + s.ayaCount + ' ayat</div>' +
-      '<div class="sura-download">' +
-        '<button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button>' +
-        '<span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span>' +
-      '</div>' +
+  const collectionMode = isCollectionReading();
+  const title = s.title || s.englishName;
+  const arabicTitle = s.arabicTitle || s.arabicName || '';
+  let sourceUrl = '';
+  if (collectionMode && s.source && s.source.url) {
+    try { const parsed = new URL(s.source.url); if (parsed.protocol === 'https:') sourceUrl = parsed.href; } catch (_) {}
+  }
+  let html = '<div class="sura-heading">' +
+    (collectionMode ? '<button type="button" class="reader-back-catalog" data-back-catalog>← Back to ' + (state.activeCollection === 'duas' ? 'Duas' : 'Ziyarats') + '</button>' : '') +
+    '<h1>' + (collectionMode ? esc(title) : s.number + '. ' + esc(title)) + '</h1>' +
+    '<div class="ar-name" dir="rtl">' + esc(arabicTitle) + '</div>' +
+    '<div class="meta">' + s.ayaCount + (collectionMode ? ' recitation passages' : ' ayat') + '</div>' +
+    (collectionMode && (s.attribution || sourceUrl) ? '<details class="reading-attribution"><summary>Source &amp; attribution</summary>' + (s.attribution ? '<p>' + esc(s.attribution) + '</p>' : '') + (sourceUrl ? '<a href="' + esc(sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc((s.source && s.source.label) || 'Open source') + '</a>' : '') + '</details>' : '') +
+    (collectionMode ? '' : '<div class="sura-download"><button type="button" class="sura-download-btn" data-download-sura="' + s.number + '">Download for offline</button><span class="sura-download-status" data-download-status="' + s.number + '" role="status" aria-live="polite"></span></div>') +
     '</div>';
-
   for (const v of s.ayas) {
     if (!v) continue;
-    html +=
-      '<article class="aya" id="' + getAyahElementId(state.sura, v.ayaNum) + '" data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
-        '<div class="aya-top">' +
-          '<span class="aya-num">' + v.ayaNum + '</span>' +
-          '<span class="aya-hint">click to play</span>' +
-        '</div>' +
-        '<div class="arabic" dir="rtl" lang="ar">' + esc(v.arabic_text || '') + '</div>' +
-        '<div class="translit">' + esc(v.transliteration || '') + '</div>' +
-        '<div class="english">' + esc(v.english_text || '') + '</div>' +
-        '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
-        '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
-        '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
-          '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
-          '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
-          '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
-          '<div class="recording-waveform" data-record-waveform="' + v.ayaNum + '" role="img" aria-label="Live microphone audio level" hidden>' + Array.from({ length: 28 }, () => '<span></span>').join('') + '</div>' +
-          '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
-        '</div>' +
-      '</article>';
+    const id = collectionMode ? 'reading-section-' + v.ayaNum : getAyahElementId(state.sura, v.ayaNum);
+    html += '<article class="aya" id="' + id + '" ' +
+      (collectionMode ? 'data-collection="' + esc(state.activeCollection) + '" data-reading-id="' + esc(s.id) + '" ' : 'data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" ') +
+      'data-aya="' + v.ayaNum + '">' +
+      '<div class="aya-top"><span class="aya-num">' + v.ayaNum + '</span><span class="aya-hint">click to play</span></div>' +
+      '<div class="arabic" dir="rtl" lang="ar">' + esc(v.arabic_text || '') + '</div>' +
+      '<div class="translit">' + esc(v.transliteration || '') + '</div>' +
+      '<div class="english">' + esc(v.english_text || '') + '</div>' +
+      '<div class="urdu" dir="rtl" lang="ur">' + esc(v.urdu_text || '') + '</div>' +
+      '<div class="persian" dir="rtl" lang="fa">' + esc(v.persian_text || '') + '</div>' +
+      (v.meaning || v.word_meanings ? '<details class="aya-meaning"><summary>Word meanings &amp; reflection</summary><div>' + esc(typeof (v.meaning || v.word_meanings) === 'string' ? (v.meaning || v.word_meanings) : JSON.stringify(v.meaning || v.word_meanings)) + '</div></details>' : '') +
+      '<div class="aya-recording" data-recording-for="' + v.ayaNum + '">' +
+        '<button type="button" class="aya-record-btn" data-record-aya="' + v.ayaNum + '">Record my voice</button>' +
+        '<button type="button" class="aya-play-recording" data-play-recording="' + v.ayaNum + '" hidden>Play my voice</button>' +
+        '<button type="button" class="aya-delete-recording" data-delete-recording="' + v.ayaNum + '" hidden>Delete</button>' +
+        '<div class="recording-waveform" data-record-waveform="' + v.ayaNum + '" role="img" aria-label="Live microphone audio level" hidden>' + Array.from({ length: 28 }, () => '<span></span>').join('') + '</div>' +
+        '<span class="aya-record-status" data-record-status="' + v.ayaNum + '" aria-live="polite"></span>' +
+      '</div></article>';
   }
   el.reader.innerHTML = html;
   el.reader.scrollTop = Number.isFinite(restoreScrollTop) ? restoreScrollTop : 0;
-  refreshRecordingControls(state.sura);
+  refreshRecordingControls(getCurrentRecordingIdentity());
 }
 
 /* ==================================================================
@@ -629,46 +656,38 @@ function syncDisplayTogglesUI() {
    13. UI SYNC
    ================================================================== */
 function updateAyaUI(scrollReader) {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-
   el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
-  const card = document.getElementById(getAyahElementId(state.sura, state.aya));
+  const card = document.getElementById(getCurrentReaderElementId(state.aya));
   if (card) {
     card.classList.add('active');
-    if (scrollReader !== false) {
-      card.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
+    if (scrollReader !== false) card.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
-
   el.ayaList.querySelectorAll('.aya-btn.active').forEach(b => b.classList.remove('active'));
   const btn = el.ayaList.querySelector('.aya-btn[data-aya="' + state.aya + '"]');
-  if (btn) {
-    btn.classList.add('active');
-    btn.scrollIntoView({ block: 'nearest' });
-  }
-
+  if (btn) { btn.classList.add('active'); btn.scrollIntoView({ block: 'nearest' }); }
   markCurrentSura();
-
-  const line = s.number + '. ' + s.englishName + '  ·  Aya ' + state.aya + ' / ' + s.ayaCount;
+  const unit = isCollectionReading() ? 'Passage' : 'Aya';
+  const line = (isCollectionReading() ? (s.title || s.englishName) : s.number + '. ' + s.englishName) + '  ·  ' + unit + ' ' + state.aya + ' / ' + s.ayaCount;
   el.nowPlaying.textContent = line;
   showMobileHeader();
-
   updateStatus();
 }
 
 function showMobileHeader() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
-  el.mobHdrSura.textContent = s.englishName;
-  el.mobHdrSub.textContent = 'Aya ' + state.aya + ' of ' + s.ayaCount;
+  el.mobHdrSura.textContent = s.title || s.englishName;
+  el.mobHdrSub.textContent = (isCollectionReading() ? 'Passage ' : 'Aya ') + state.aya + ' of ' + s.ayaCount;
 }
 
 function updateStatus() {
   let txt = '';
+  const unit = isCollectionReading() ? 'Passage' : 'Aya';
   if (state.repeatMode === 'single') {
     const total = state.singleCount === 0 ? '∞' : state.singleCount;
-    txt = 'Aya repeat ' + state.singleCounter + ' / ' + total;
+    txt = unit + ' repeat ' + state.singleCounter + ' / ' + total;
 
   } else if (state.repeatMode === 'range') {
     const total = state.rangeCount === 0 ? '∞' : state.rangeCount;
@@ -679,7 +698,7 @@ function updateStatus() {
     txt = 'Range ' + state.rangeFrom + '–' + state.rangeTo;
     if (state.repeatEach) {
       const eachDone = Math.min(state.ayaInner + 1, state.repeatEachCount);
-      txt += '  ·  aya ' + eachDone + '/' + state.repeatEachCount;
+      txt += '  ·  ' + unit.toLowerCase() + ' ' + eachDone + '/' + state.repeatEachCount;
     }
     txt += '  ·  loop ' + shownLoop + '/' + total;
   }
@@ -701,7 +720,7 @@ function updateOpts() {
 }
 
 function syncRangeInputs() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
   const total = s.ayaCount;
   repeatEls.rangeFrom.max = total;
@@ -915,10 +934,47 @@ async function downloadSurahAudio(sura, button) {
   }
 }
 
+function normalizeRecordingIdentity(sura, aya) {
+  if (sura && typeof sura === 'object') {
+    if (sura.collection) {
+      const identity = { collection: String(sura.collection), readingId: String(sura.readingId), section: Number(aya ?? sura.section) };
+      if (!['duas', 'ziyarats'].includes(identity.collection) || !/^[a-z0-9-]+$/i.test(identity.readingId) || !Number.isInteger(identity.section) || identity.section < 1 || identity.section > 1000) {
+        throw new Error('Invalid collection recording identity.');
+      }
+      return identity;
+    }
+    return { sura: Number(sura.sura), aya: Number(aya ?? sura.aya) };
+  }
+  return { sura: Number(sura), aya: Number(aya) };
+}
+function recordingIdentityKey(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection
+    ? 'collection:' + identity.collection + ':' + identity.readingId + ':' + identity.section
+    : identity.sura + ':' + identity.aya;
+}
+function recordingFolderKey(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection
+    ? 'collection:' + identity.collection + ':' + identity.readingId
+    : 'surah:' + identity.sura;
+}
+function recordingUnitNumber(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  return identity.collection ? identity.section : identity.aya;
+}
+function getCurrentRecordingIdentity(aya) {
+  if (state.activeCollection && state.activeReading) {
+    return { collection: state.activeCollection, readingId: state.activeReading.id, section: Number(aya ?? state.aya) };
+  }
+  return { sura: Number(state.sura), aya: Number(aya ?? state.aya) };
+}
 async function getBrowserRecording(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).get(sura + ':' + aya);
+    const request = db.transaction(RECORDINGS_STORE, 'readonly').objectStore(RECORDINGS_STORE).get(key);
     request.onsuccess = () => {
       const record = request.result || null;
       if (record) record.storage = 'browser';
@@ -938,14 +994,16 @@ async function getAllBrowserRecordings() {
 }
 
 async function saveBrowserRecording(sura, aya, blob) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
+  const audioBlob = blob || (aya instanceof Blob ? aya : null);
+  if (!audioBlob) throw new Error('No recording audio was supplied.');
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const record = { key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
+    const record = { key, ...identity, blob: audioBlob, mimeType: audioBlob.type || 'audio/webm', updatedAt: Date.now(), storage: 'browser' };
     const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).put(record);
     request.onsuccess = () => {
-      if (recordingStorageMode !== 'browser' && recordingStorageMode !== 'needs-folder-choice') {
-        browserFallbackRecordingKeys.add(record.key);
-      }
+      if (recordingStorageMode !== 'browser' && recordingStorageMode !== 'needs-folder-choice') browserFallbackRecordingKeys.add(record.key);
       resolve(record);
     };
     request.onerror = () => reject(request.error || new Error('Could not save recording.'));
@@ -953,13 +1011,11 @@ async function saveBrowserRecording(sura, aya, blob) {
 }
 
 async function deleteBrowserRecording(sura, aya) {
+  const key = recordingIdentityKey(sura, aya);
   const db = await openRecordingsDb();
   return new Promise((resolve, reject) => {
-    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(sura + ':' + aya);
-    request.onsuccess = () => {
-      browserFallbackRecordingKeys.delete(sura + ':' + aya);
-      resolve();
-    };
+    const request = db.transaction(RECORDINGS_STORE, 'readwrite').objectStore(RECORDINGS_STORE).delete(key);
+    request.onsuccess = () => { browserFallbackRecordingKeys.delete(key); resolve(); };
     request.onerror = () => reject(request.error || new Error('Could not delete recording.'));
   });
 }
@@ -985,10 +1041,12 @@ function recordingMimeForExtension(ext) {
   return ({ webm: 'audio/webm', m4a: 'audio/mp4', mp4: 'audio/mp4', ogg: 'audio/ogg', wav: 'audio/wav', aac: 'audio/aac' })[ext] || 'application/octet-stream';
 }
 
-function recordingSuraFolderName(sura) {
-  const name = SURA_ENGLISH[sura - 1] || ('Surah ' + sura);
+function recordingSuraFolderName(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  if (identity.collection) return 'collection-' + identity.collection + '-' + identity.readingId;
+  const name = SURA_ENGLISH[identity.sura - 1] || ('Surah ' + identity.sura);
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  return 'surah-' + pad3(sura) + '-' + (slug || 'unknown');
+  return 'surah-' + pad3(identity.sura) + '-' + (slug || 'unknown');
 }
 
 async function getConnectedRecordingDirectories(create) {
@@ -1002,77 +1060,81 @@ async function getConnectedRecordingDirectories(create) {
   return { appDirectory, recordingsDirectory };
 }
 
-async function getFolderRecordingDirectory(sura) {
-  if (folderRecordingIndex.has(sura)) return folderRecordingIndex.get(sura);
+async function getFolderRecordingDirectory(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const folderKey = recordingFolderKey(identity);
+  if (folderRecordingIndex.has(folderKey)) return folderRecordingIndex.get(folderKey);
   const lookup = (async () => {
     const dirs = await getConnectedRecordingDirectories(false);
-    let suraDirectory;
+    let directory;
     try {
-      suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+      directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: false });
     } catch (error) {
       if (isNotFoundError(error)) return { directory: null, files: new Map() };
       throw error;
     }
     const files = new Map();
-    for await (const [name, handle] of suraDirectory.entries()) {
+    const prefix = identity.collection ? 'passage' : 'ayah';
+    for await (const [name, handle] of directory.entries()) {
       if (handle.kind !== 'file') continue;
-      const match = name.match(/^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i);
+      const match = name.match(new RegExp('^' + prefix + '-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$', 'i'));
       if (match) files.set(Number(match[1]), { name, ext: match[2].toLowerCase() });
     }
-    return { directory: suraDirectory, files };
+    return { directory, files };
   })();
-  folderRecordingIndex.set(sura, lookup);
-  try {
-    return await lookup;
-  } catch (error) {
-    folderRecordingIndex.delete(sura);
-    throw error;
-  }
+  folderRecordingIndex.set(folderKey, lookup);
+  try { return await lookup; }
+  catch (error) { folderRecordingIndex.delete(folderKey); throw error; }
 }
 
 async function getFolderRecording(sura, aya) {
-  const indexed = await getFolderRecordingDirectory(sura);
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
+  const indexed = await getFolderRecordingDirectory(identity);
   if (!indexed.directory) return null;
-  const fileInfo = indexed.files.get(aya);
+  const fileInfo = indexed.files.get(number);
   if (!fileInfo) return null;
   const handle = await indexed.directory.getFileHandle(fileInfo.name, { create: false });
   const file = await handle.getFile();
   return {
-    key: sura + ':' + aya, sura, aya, blob: file,
+    key: recordingIdentityKey(identity), ...identity, blob: file,
     mimeType: file.type || recordingMimeForExtension(fileInfo.ext),
     fileName: fileInfo.name, updatedAt: file.lastModified, storage: 'folder'
   };
 }
 
 async function writeFolderRecording(sura, aya, blob) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
   const dirs = await getConnectedRecordingDirectories(true);
-  const suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: true });
+  const directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: true });
   const ext = recordingExtension(blob.type);
-  const fileName = 'ayah-' + pad3(aya) + '.' + ext;
-  const fileHandle = await suraDirectory.getFileHandle(fileName, { create: true });
+  const prefix = identity.collection ? 'passage-' : 'ayah-';
+  const fileName = prefix + pad3(number) + '.' + ext;
+  const fileHandle = await directory.getFileHandle(fileName, { create: true });
   const writable = await fileHandle.createWritable();
   await writable.write(blob);
   await writable.close();
-  folderRecordingIndex.delete(sura);
+  folderRecordingIndex.delete(recordingFolderKey(identity));
   for (const oldExt of recordingExtensions()) {
     if (oldExt === ext) continue;
-    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + oldExt); }
+    try { await directory.removeEntry(prefix + pad3(number) + '.' + oldExt); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
   try {
-    await updateFolderManifest(dirs.recordingsDirectory, sura, aya, fileName, blob.type || 'audio/' + ext, blob.size);
+    await updateFolderManifest(dirs.recordingsDirectory, identity, null, fileName, blob.type || 'audio/' + ext, blob.size);
   } catch (manifestError) {
-    // The audio file is already safely written. A stale manifest must not cause
-    // the app to report that the recording itself failed.
     console.warn('Could not update the recordings manifest.', manifestError);
   }
   return {
-    key: sura + ':' + aya, sura, aya, blob, mimeType: blob.type || 'audio/' + ext,
+    key: recordingIdentityKey(identity), ...identity, blob, mimeType: blob.type || 'audio/' + ext,
     fileName, updatedAt: Date.now(), storage: 'folder'
   };
 }
 
 async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mimeType, size) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const manifestName = 'manifest.json';
   let manifest = { schemaVersion: 1, app: 'QuranMemorizer', updatedAt: Date.now(), recordings: [] };
   try {
@@ -1082,9 +1144,8 @@ async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mi
   } catch (error) {
     if (!isNotFoundError(error)) throw error;
   }
-  const key = sura + ':' + aya;
   manifest.recordings = manifest.recordings.filter(item => item.key !== key);
-  manifest.recordings.push({ key, sura, aya, fileName, folder: recordingSuraFolderName(sura), mimeType, size, updatedAt: Date.now() });
+  manifest.recordings.push({ key, ...identity, fileName, folder: recordingSuraFolderName(identity), mimeType, size, updatedAt: Date.now() });
   manifest.updatedAt = Date.now();
   const manifestHandle = await recordingsDirectory.getFileHandle(manifestName, { create: true });
   const writable = await manifestHandle.createWritable();
@@ -1093,24 +1154,27 @@ async function updateFolderManifest(recordingsDirectory, sura, aya, fileName, mi
 }
 
 async function removeFolderRecording(sura, aya) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const number = identity.collection ? identity.section : identity.aya;
+  const prefix = identity.collection ? 'passage-' : 'ayah-';
   const dirs = await getConnectedRecordingDirectories(false);
-  folderRecordingIndex.delete(sura);
-  let suraDirectory;
+  folderRecordingIndex.delete(recordingFolderKey(identity));
+  let directory;
   try {
-    suraDirectory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(sura), { create: false });
+    directory = await dirs.recordingsDirectory.getDirectoryHandle(recordingSuraFolderName(identity), { create: false });
   } catch (error) {
     if (isNotFoundError(error)) return;
     throw error;
   }
   for (const ext of recordingExtensions()) {
-    try { await suraDirectory.removeEntry('ayah-' + pad3(aya) + '.' + ext); }
+    try { await directory.removeEntry(prefix + pad3(number) + '.' + ext); }
     catch (error) { if (!isNotFoundError(error)) throw error; }
   }
   try {
     const handle = await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: false });
     const manifest = JSON.parse(await (await handle.getFile()).text());
     if (Array.isArray(manifest.recordings)) {
-      manifest.recordings = manifest.recordings.filter(item => item.key !== sura + ':' + aya);
+      manifest.recordings = manifest.recordings.filter(item => item.key !== recordingIdentityKey(identity));
       manifest.updatedAt = Date.now();
       const writable = await (await dirs.recordingsDirectory.getFileHandle('manifest.json', { create: true })).createWritable();
       await writable.write(JSON.stringify(manifest, null, 2));
@@ -1127,20 +1191,18 @@ async function migrateBrowserRecordingsToFolder() {
   let copied = 0;
   browserFallbackRecordingKeys = new Set();
   for (const record of records) {
-    if (!record || !record.blob || !record.sura || !record.aya) continue;
-    const key = record.key || record.sura + ':' + record.aya;
-    // Keep track only of ayat that actually exist in IndexedDB, so the file
-    // path is checked first and IndexedDB is consulted only for those keys.
+    if (!record || !record.blob) continue;
+    const identity = normalizeRecordingIdentity(record);
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) continue;
+    const key = record.key || recordingIdentityKey(identity);
     browserFallbackRecordingKeys.add(key);
     try {
-      const existing = await getFolderRecording(record.sura, record.aya);
+      const existing = await getFolderRecording(identity);
       if (!existing) {
-        await writeFolderRecording(record.sura, record.aya, record.blob);
+        await writeFolderRecording(identity, null, record.blob);
         copied++;
       }
     } catch (migrationError) {
-      // Retain a sparse list of browser-backed recordings. The reader can use
-      // them as a fallback without querying IndexedDB for every unrecorded ayah.
       browserFallbackRecordingKeys.add(key);
       console.warn('Could not migrate browser recording ' + key + '.', migrationError);
     }
@@ -1153,14 +1215,15 @@ async function migrateBrowserRecordingsToNative(native) {
   browserFallbackRecordingKeys = new Set();
   let copied = 0;
   for (const record of records) {
-    if (!record || !record.blob || !record.sura || !record.aya) continue;
-    const key = record.key || record.sura + ':' + record.aya;
-    // Keep a sparse fallback index while native files become the primary copy.
+    if (!record || !record.blob) continue;
+    const identity = normalizeRecordingIdentity(record);
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) continue;
+    const key = record.key || recordingIdentityKey(identity);
     browserFallbackRecordingKeys.add(key);
     try {
-      const existing = await native.read(record.sura, record.aya);
+      const existing = await native.read(identity);
       if (!existing) {
-        await native.write(record.sura, record.aya, record.blob);
+        await native.write(identity, null, record.blob);
         copied++;
       }
     } catch (migrationError) {
@@ -1307,7 +1370,7 @@ async function connectRecordingFolder() {
       console.warn('Some browser recordings could not be copied to the selected folder.', migrationError);
     }
     updateRecordingStorageUI();
-    refreshRecordingControls(state.sura);
+    refreshRecordingControls(getCurrentRecordingIdentity());
     if (migrationFailed) {
       toast('Folder connected, but some older recordings could not be copied. They remain in browser storage.');
     } else {
@@ -1330,7 +1393,7 @@ async function useBrowserRecordingStorage() {
     folderRecordingIndex.clear();
     recordingStorageMode = 'browser';
     updateRecordingStorageUI();
-    refreshRecordingControls(state.sura);
+    refreshRecordingControls(getCurrentRecordingIdentity());
     toast('Browser-local storage enabled. Files in the disconnected folder are left untouched.');
   } catch (error) {
     toast('Could not change recording storage: ' + (error.message || 'unknown error'));
@@ -1340,58 +1403,57 @@ async function useBrowserRecordingStorage() {
 
 async function getUserRecording(sura, aya) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const key = recordingIdentityKey(identity);
   const native = await getNativeRecordingStorage();
   if (native) {
-    const record = await native.read(sura, aya);
+    const record = await native.read(identity);
     if (record) return record;
-    if (recordingStorageMode === 'native' && !browserFallbackRecordingKeys.has(sura + ':' + aya)) return null;
+    if (recordingStorageMode === 'native' && !browserFallbackRecordingKeys.has(key)) return null;
   }
   if (recordingStorageMode === 'folder-needs-permission') {
-    const browserRecord = await getBrowserRecording(sura, aya);
+    const browserRecord = await getBrowserRecording(identity);
     if (browserRecord) return browserRecord;
     throw new Error('Reconnect your recordings folder in Settings to access saved files.');
   }
   if (recordingStorageMode === 'folder') {
-    const key = sura + ':' + aya;
     try {
-      const record = await getFolderRecording(sura, aya);
+      const record = await getFolderRecording(identity);
       if (record) return record;
     } catch (folderError) {
       if (browserFallbackRecordingKeys.has(key)) {
-        const browserRecord = await getBrowserRecording(sura, aya);
+        const browserRecord = await getBrowserRecording(identity);
         if (browserRecord) return browserRecord;
       }
       throw folderError;
     }
     if (!browserFallbackRecordingKeys.has(key)) return null;
-    return getBrowserRecording(sura, aya);
+    return getBrowserRecording(identity);
   }
-  return getBrowserRecording(sura, aya);
+  return getBrowserRecording(identity);
 }
 
 async function saveUserRecording(sura, aya, blob) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const audioBlob = blob || (aya instanceof Blob ? aya : null);
+  if (!audioBlob) throw new Error('No recording audio was supplied.');
   const native = await getNativeRecordingStorage();
-  if (native) return native.write(sura, aya, blob);
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect your recordings folder in Settings before recording.');
-  }
-  if (recordingStorageMode === 'needs-folder-choice') {
-    throw new Error('Choose a recordings folder or browser-local storage in Settings before recording.');
-  }
-  if (recordingStorageMode === 'folder') return writeFolderRecording(sura, aya, blob);
-  return saveBrowserRecording(sura, aya, blob);
+  if (native) return native.write(identity, null, audioBlob);
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect your recordings folder in Settings before recording.');
+  if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before recording.');
+  if (recordingStorageMode === 'folder') return writeFolderRecording(identity, null, audioBlob);
+  return saveBrowserRecording(identity, null, audioBlob);
 }
 
 async function deleteUserRecording(sura, aya) {
   await ensureRecordingStorageInitialized();
+  const identity = normalizeRecordingIdentity(sura, aya);
   const native = await getNativeRecordingStorage();
-  if (native) await native.remove(sura, aya);
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect your recordings folder in Settings before deleting a recording.');
-  }
-  if (recordingStorageMode === 'folder') await removeFolderRecording(sura, aya);
-  await deleteBrowserRecording(sura, aya);
+  if (native) await native.remove(identity);
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect your recordings folder in Settings before deleting a recording.');
+  if (recordingStorageMode === 'folder') await removeFolderRecording(identity);
+  await deleteBrowserRecording(identity);
 }
 
 async function getRecordingArchiveModule() {
@@ -1401,8 +1463,14 @@ async function getRecordingArchiveModule() {
 }
 
 function recordingArchivePath(sura, aya, mimeType) {
-  const ext = recordingExtension(mimeType);
-  return 'recordings/' + recordingSuraFolderName(sura) + '/ayah-' + pad3(aya) + '.' + ext;
+  const identity = normalizeRecordingIdentity(sura, typeof aya === 'string' ? undefined : aya);
+  const type = mimeType || (typeof aya === 'string' ? aya : '');
+  const ext = recordingExtension(type);
+  if (identity.collection) {
+    return 'recordings/collections/' + identity.collection + '/' + identity.readingId +
+      '/passage-' + pad3(identity.section) + '.' + ext;
+  }
+  return 'recordings/' + recordingSuraFolderName(identity) + '/ayah-' + pad3(identity.aya) + '.' + ext;
 }
 
 async function collectFolderRecordingsForArchive() {
@@ -1410,29 +1478,28 @@ async function collectFolderRecordingsForArchive() {
   const dirs = await getConnectedRecordingDirectories(false);
   const records = [];
   const seen = new Set();
-  const folderPattern = /^surah-(\d{3})-/i;
-  const filePattern = /^ayah-(\d{3})\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-
-  // Discover files directly so an interrupted manifest update cannot hide audio.
+  const quranFolderPattern = /^surah-([0-9]{3})-/i;
+  const collectionFolderPattern = /^collection-(duas|ziyarats)-(.+)$/i;
+  const quranFilePattern = /^ayah-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+  const collectionFilePattern = /^passage-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
   for await (const [folderName, folderHandle] of dirs.recordingsDirectory.entries()) {
     if (folderHandle.kind !== 'directory') continue;
-    const folderMatch = folderName.match(folderPattern);
-    if (!folderMatch) continue;
-    const sura = Number(folderMatch[1]);
-    if (!Number.isInteger(sura) || sura < 1 || sura > 114) continue;
+    const quranFolder = folderName.match(quranFolderPattern);
+    const collectionFolder = folderName.match(collectionFolderPattern);
+    if (!quranFolder && !collectionFolder) continue;
     for await (const [fileName, fileHandle] of folderHandle.entries()) {
       if (fileHandle.kind !== 'file') continue;
-      const fileMatch = fileName.match(filePattern);
-      if (!fileMatch) continue;
-      const aya = Number(fileMatch[1]);
-      const key = sura + ':' + aya;
+      const quranFile = fileName.match(quranFilePattern);
+      const collectionFile = fileName.match(collectionFilePattern);
+      if ((!quranFolder || !quranFile) && (!collectionFolder || !collectionFile)) continue;
+      const identity = quranFolder
+        ? { sura: Number(quranFolder[1]), aya: Number(quranFile[1]) }
+        : { collection: collectionFolder[1].toLowerCase(), readingId: collectionFolder[2], section: Number(collectionFile[1]) };
+      const key = recordingIdentityKey(identity);
       if (seen.has(key)) continue;
       const file = await fileHandle.getFile();
-      records.push({
-        key, sura, aya, blob: file,
-        mimeType: file.type || recordingMimeForExtension(fileMatch[2].toLowerCase()),
-        fileName, updatedAt: file.lastModified, storage: 'folder'
-      });
+      const extension = (quranFile || collectionFile)[2].toLowerCase();
+      records.push({ key, ...identity, blob: file, mimeType: file.type || recordingMimeForExtension(extension), fileName, updatedAt: file.lastModified, storage: 'folder' });
       seen.add(key);
     }
   }
@@ -1441,69 +1508,41 @@ async function collectFolderRecordingsForArchive() {
 
 async function collectRecordingsForArchive() {
   await ensureRecordingStorageInitialized();
-  if (recordingStorageMode === 'folder-needs-permission') {
-    throw new Error('Reconnect the recordings folder in Settings before exporting.');
-  }
+  if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect the recordings folder in Settings before exporting.');
   const records = [];
   const seen = new Set();
+  const add = record => {
+    if (!record || !record.blob) return;
+    let identity;
+    try { identity = normalizeRecordingIdentity(record); } catch (_) { return; }
+    if (!identity.collection && (!Number.isInteger(identity.sura) || !Number.isInteger(identity.aya) || identity.sura < 1 || identity.sura > 114 || identity.aya < 1)) return;
+    const key = record.key || recordingIdentityKey(identity);
+    if (seen.has(key)) return;
+    records.push({ ...record, ...identity, key });
+    seen.add(key);
+  };
   const native = await getNativeRecordingStorage();
-  if (native && typeof native.list === 'function') {
-    const nativeRecords = await native.list();
-    for (const record of nativeRecords) {
-      if (!record || !record.blob) continue;
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  if (recordingStorageMode === 'folder') {
-    const folderRecords = await collectFolderRecordingsForArchive();
-    for (const record of folderRecords) {
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  // Include browser-local recordings that could not yet be migrated.
-  if (!native) {
-    const localRecords = await getAllBrowserRecordings();
-    for (const record of localRecords) {
-      if (!record || !record.blob) continue;
-      const key = record.key || (record.sura + ':' + record.aya);
-      if (seen.has(key)) continue;
-      records.push(record);
-      seen.add(key);
-    }
-  }
-  return records.filter(record => record && record.blob && Number.isInteger(Number(record.sura)) && Number.isInteger(Number(record.aya)));
+  if (native && typeof native.list === 'function') (await native.list()).forEach(add);
+  if (recordingStorageMode === 'folder') (await collectFolderRecordingsForArchive()).forEach(add);
+  if (!native) (await getAllBrowserRecordings()).forEach(add);
+  return records;
 }
 
 async function exportRecordingsArchive() {
   try {
     const records = await collectRecordingsForArchive();
-    if (!records.length) {
-      toast('There are no saved recordings to export yet.');
-      return;
-    }
+    if (!records.length) { toast('There are no saved recordings to export yet.'); return; }
     const { createZip } = await getRecordingArchiveModule();
-    const manifest = {
-      schemaVersion: 1,
-      app: 'QuranMemorizer',
-      exportedAt: new Date().toISOString(),
-      recordings: []
-    };
+    const manifest = { schemaVersion: 2, app: 'QuranMemorizer', exportedAt: new Date().toISOString(), recordings: [] };
     const entries = [];
     for (const record of records) {
-      const sura = Number(record.sura);
-      const aya = Number(record.aya);
+      const identity = normalizeRecordingIdentity(record);
       const mimeType = record.mimeType || record.blob.type || 'audio/webm';
-      const name = recordingArchivePath(sura, aya, mimeType);
+      const name = recordingArchivePath(identity, mimeType);
       entries.push({ name, data: record.blob });
       manifest.recordings.push({
-        key: sura + ':' + aya, sura, aya, fileName: name.split('/').pop(),
-        folder: recordingSuraFolderName(sura), mimeType, size: record.blob.size,
+        key: recordingIdentityKey(identity), ...identity, fileName: name.split('/').pop(),
+        folder: recordingSuraFolderName(identity), mimeType, size: record.blob.size,
         updatedAt: record.updatedAt || Date.now()
       });
     }
@@ -1528,69 +1567,56 @@ async function importRecordingsArchive(file) {
   if (!file) return;
   try {
     await ensureRecordingStorageInitialized();
-    if (recordingStorageMode === 'folder-needs-permission') {
-      throw new Error('Reconnect the recordings folder in Settings before importing.');
-    }
-    if (recordingStorageMode === 'needs-folder-choice') {
-      throw new Error('Choose a recordings folder or explicitly select browser-local storage in Settings first.');
-    }
+    if (recordingStorageMode === 'folder-needs-permission') throw new Error('Reconnect the recordings folder in Settings before importing.');
+    if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before importing.');
     const { readZip } = await getRecordingArchiveModule();
     const entries = await readZip(file);
-    const audioPath = /(?:^|\/)(?:QuranMemorizer\/)?recordings\/(surah-(\d{3})-[^/]+)\/(ayah-(\d{3}))\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const quranPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/](surah-([0-9]{3})-[^/]+)[/](ayah-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+    const collectionPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/]collections[/](duas|ziyarats)[/]([a-z0-9-]+)[/](passage-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const entryName = String(entry.name || '').replace(/\\/g, '/');
-      if (/(?:^|\/)manifest\.json$/i.test(entryName)) continue;
-      const match = entryName.match(audioPath);
-      if (!match) { ignored++; continue; }
-      const sura = Number(match[2]);
-      const aya = Number(match[4]);
-      const extension = match[5].toLowerCase();
-      const suraData = SURA_BY_NUM[sura];
-      if (!suraData || !Array.isArray(suraData.ayas) || aya < 1 || aya > suraData.ayaCount) {
-        ignored++;
-        continue;
-      }
-      byKey.set(sura + ':' + aya, {
-        sura,
-        aya,
-        blob: new Blob([entry.blob], { type: recordingMimeForExtension(extension) })
-      });
-    }
-    const recordings = Array.from(byKey.values());
-    if (!recordings.length) {
-      toast('No valid QuranMemorizer ayah recordings were found in this ZIP archive.');
-      return;
-    }
-
-    let duplicateCount = 0;
-    for (const recording of recordings) {
-      try {
-        if (await getUserRecording(recording.sura, recording.aya)) duplicateCount++;
-      } catch (_) { /* A missing or inaccessible record is not counted as a conflict. */ }
-    }
-    if (duplicateCount && !window.confirm('This archive contains ' + recordings.length +
-      ' recording(s), including ' + duplicateCount + ' ayah(s) that already have recordings. Replace matching recordings?')) return;
-
-    let imported = 0;
-    let browserFallback = 0;
-    let failed = 0;
-    for (const recording of recordings) {
-      try {
-        await saveUserRecording(recording.sura, recording.aya, recording.blob);
-        imported++;
-      } catch (storageError) {
-        try {
-          await saveBrowserRecording(recording.sura, recording.aya, recording.blob);
-          imported++;
-          browserFallback++;
-        } catch (_) {
-          failed++;
+      const entryName = String(entry.name || '').replaceAll(String.fromCharCode(92), '/');
+      if (/(?:^|[/])manifest[.]json$/i.test(entryName)) continue;
+      const quranMatch = entryName.match(quranPath);
+      const collectionMatch = entryName.match(collectionPath);
+      if (!quranMatch && !collectionMatch) { ignored++; continue; }
+      const extension = (quranMatch ? quranMatch[5] : collectionMatch[5]).toLowerCase();
+      const identity = quranMatch
+        ? { sura: Number(quranMatch[2]), aya: Number(quranMatch[4]) }
+        : { collection: collectionMatch[1].toLowerCase(), readingId: collectionMatch[2], section: Number(collectionMatch[4]) };
+      if (!identity.collection) {
+        const suraData = SURA_BY_NUM[identity.sura];
+        if (!suraData || identity.aya < 1 || identity.aya > suraData.ayaCount) { ignored++; continue; }
+      } else {
+        const resolver = window.QuranMemorizerCollections && window.QuranMemorizerCollections.resolveRecordingIdentity;
+        if (typeof resolver !== 'function' || !await resolver(identity.collection, identity.readingId, identity.section)) {
+          ignored++;
+          continue;
         }
       }
+      try {
+        const key = recordingIdentityKey(identity);
+        byKey.set(key, { ...identity, key, blob: new Blob([entry.blob], { type: recordingMimeForExtension(extension) }) });
+      } catch (_) { ignored++; }
     }
-    refreshRecordingControls(state.sura);
+    const recordings = Array.from(byKey.values());
+    if (!recordings.length) { toast('No valid QuranMemorizer recordings were found in this ZIP archive.'); return; }
+    let duplicateCount = 0;
+    for (const recording of recordings) {
+      try { if (await getUserRecording(recording)) duplicateCount++; } catch (_) {}
+    }
+    if (duplicateCount && !window.confirm('This archive contains ' + recordings.length +
+      ' recording(s), including ' + duplicateCount + ' existing recording(s). Replace matching recordings?')) return;
+    let imported = 0, browserFallback = 0, failed = 0;
+    for (const recording of recordings) {
+      try { await saveUserRecording(recording, null, recording.blob); imported++; }
+      catch (storageError) {
+        try { await saveBrowserRecording(recording, null, recording.blob); imported++; browserFallback++; }
+        catch (_) { failed++; }
+      }
+    }
+    refreshRecordingControls(getCurrentRecordingIdentity());
     let message = 'Imported ' + imported + ' recording(s).';
     if (browserFallback) message += ' ' + browserFallback + ' were saved in this browser because the selected folder was unavailable.';
     if (failed) message += ' ' + failed + ' could not be saved.';
@@ -1649,8 +1675,10 @@ function stopRecordingWaveform() {
 }
 
 function startRecordingWaveform(stream, sura, aya) {
-  const wave = document.querySelector('[data-record-waveform="' + aya + '"]');
-  if (!wave || state.sura !== sura) return;
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const unitNumber = recordingUnitNumber(identity);
+  const wave = document.querySelector('[data-record-waveform="' + unitNumber + '"]');
+  if (!wave || recordingIdentityKey(identity) !== recordingIdentityKey(getCurrentRecordingIdentity(unitNumber))) return;
   wave.hidden = false;
   wave.classList.add('is-live');
   const bars = Array.from(wave.children);
@@ -1669,7 +1697,7 @@ function startRecordingWaveform(stream, sura, aya) {
   }
   const samples = new Uint8Array(analyser.frequencyBinCount);
   const draw = () => {
-    if (!activeRecorder || !recordingAnalyser || state.sura !== sura) return;
+    if (!activeRecorder || !recordingAnalyser || recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(getCurrentRecordingIdentity(unitNumber))) return;
     recordingAnalyser.getByteTimeDomainData(samples);
     const middle = samples.length / 2;
     bars.forEach((bar, index) => {
@@ -1684,6 +1712,8 @@ function startRecordingWaveform(stream, sura, aya) {
 }
 
 async function startUserRecording(sura, aya, button) {
+  const identity = normalizeRecordingIdentity(sura, aya);
+  const unitNumber = recordingUnitNumber(identity);
   try {
     await ensureRecordingStorageInitialized();
     if (recordingStorageMode === 'folder-needs-permission') {
@@ -1704,7 +1734,7 @@ async function startUserRecording(sura, aya, button) {
   ++playbackRequestId;
   playbackMode = 'idle';
   state.started = false;
-  state.aya = aya;
+  state.aya = unitNumber;
   updateAyaUI(false);
   audio.pause();
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
@@ -1733,7 +1763,7 @@ async function startUserRecording(sura, aya, button) {
       recorder = new MediaRecorder(stream);
     }
     activeRecorder = recorder;
-    activeRecordingKey = { sura, aya };
+    activeRecordingKey = identity;
     activeRecordingChunks = [];
     recorder.ondataavailable = event => {
       if (event.data && event.data.size) activeRecordingChunks.push(event.data);
@@ -1768,22 +1798,22 @@ async function startUserRecording(sura, aya, button) {
       if (!key || !blob.size) return;
       let savedRecord;
       try {
-        savedRecord = await saveUserRecording(key.sura, key.aya, blob);
+        savedRecord = await saveUserRecording(key, null, blob);
       } catch (error) {
         // Preserve the take in browser-local storage if a removable folder or native
         // filesystem unexpectedly becomes unavailable at the moment recording stops.
         try {
-          savedRecord = await saveBrowserRecording(key.sura, key.aya, blob);
+          savedRecord = await saveBrowserRecording(key, null, blob);
           toast('The selected storage was unavailable. Your take was kept in this browser instead.');
         } catch (fallbackError) {
           toast('Could not save recording: ' + (error.message || fallbackError.message));
           return;
         }
       }
-      refreshRecordingControls(key.sura);
-      if (state.sura === key.sura && state.aya === key.aya) {
+      refreshRecordingControls(key);
+      if (recordingIdentityKey(getCurrentRecordingIdentity(state.aya)) === recordingIdentityKey(key)) {
         toast((savedRecord.storage === 'folder' ? 'Audio file saved. ' : savedRecord.storage === 'native' ? 'Saved in app-private storage. ' : 'Saved in this browser. ') + 'Playing it back now.');
-        await playUserRecording(key.sura, key.aya);
+        await playUserRecording(key);
       } else {
         toast(savedRecord.storage === 'folder' ? 'Audio file saved.' : savedRecord.storage === 'native' ? 'Saved in app-private storage.' : 'Saved in this browser.');
       }
@@ -1791,7 +1821,7 @@ async function startUserRecording(sura, aya, button) {
     recorder.start();
     button.textContent = 'Stop recording';
     setRecordingPlaybackLock(true);
-    startRecordingWaveform(stream, sura, aya);
+    startRecordingWaveform(stream, identity, null);
     const recordingCard = button.closest('.aya-recording');
     if (recordingCard) recordingCard.classList.add('is-recording');
     const status = button.parentElement.querySelector('[data-record-status]');
@@ -1836,9 +1866,11 @@ async function startUserRecording(sura, aya, button) {
 
 async function playUserRecording(sura, aya) {
   try {
-    const record = await getUserRecording(sura, aya);
+    const identity = normalizeRecordingIdentity(sura, aya);
+    const unitNumber = recordingUnitNumber(identity);
+    const record = await getUserRecording(identity);
     if (!record || !record.blob) {
-      toast('No saved voice recording for this aya yet.');
+      toast('No saved voice recording for this passage yet.');
       return;
     }
     ++playbackRequestId;
@@ -1846,8 +1878,8 @@ async function playUserRecording(sura, aya) {
     audio.pause();
     if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = URL.createObjectURL(record.blob);
-    state.aya = aya;
-    state.playingAya = aya;
+    state.aya = unitNumber;
+    state.playingAya = unitNumber;
     state.started = true;
     updateAyaUI(false);
     setAudioSource(activeRecordingObjectUrl);
@@ -1860,8 +1892,17 @@ async function playUserRecording(sura, aya) {
 function hasOpening(sura) { return sura !== 1 && sura !== 9; }
 
 // Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
-// Accept the shorter legacy-style aliases too, but always write the canonical form.
 function getAyahElementId(sura, aya) { return 'ayah-' + Number(sura) + '-' + Number(aya); }
+function isCollectionReading() { return !!(state.activeCollection && state.activeReading); }
+function getCurrentReading() { return isCollectionReading() ? state.activeReading : SURA_BY_NUM[state.sura]; }
+function getCurrentReaderElementId(aya) {
+  return isCollectionReading() ? 'reading-section-' + Number(aya) : getAyahElementId(state.sura, aya);
+}
+function writeCollectionHash(collection, readingId, section) {
+  const route = '#/' + (collection === 'ziyarats' ? 'ziyarat' : 'dua') + '/' + encodeURIComponent(readingId) + '/section/' + Number(section);
+  if (window.location.hash === route) return;
+  window.history.replaceState(null, '', window.location.pathname + window.location.search + route);
+}
 
 function parseQuranHash(hash) {
   const match = String(hash || '').match(/^#\/(?:surah|sura)\/(\d+)(?:\/(?:ayah|aya)\/(\d+))?\/?$/i);
@@ -1915,26 +1956,27 @@ async function loadSura(num, opts) {
   ayaNavigationRequestId++;
   const s = SURA_BY_NUM[num];
   if (!s) return;
-
+  const wasCollection = Boolean(state.activeCollection);
+  if (isCollectionReading()) stopAll();
   try {
     await ensureSuraLoaded(s, opts.aya || 1, false);
   } catch (error) {
     toast(error.message || 'Could not load this Surah.');
     return;
   }
-
-  // If the user navigates away mid-recording, stop and save the current take.
-  if (activeRecorder && activeRecordingKey && activeRecordingKey.sura !== num) {
+  if (activeRecorder && activeRecordingKey && (activeRecordingKey.collection || activeRecordingKey.sura !== num)) {
     activeRecorder.stop();
-    toast('Recording stopped and will be saved before changing surah.');
+    toast('Recording stopped and will be saved before changing reading.');
   }
-
   const aya = Math.max(1, Math.min(opts.aya || 1, s.ayaCount));
-  const suraChanged = state.sura !== num;
-
+  const suraChanged = wasCollection || state.sura !== num;
+  state.activeCollection = null;
+  state.activeReading = null;
+  state.collectionCatalog = null;
+  document.body.classList.remove('collection-active', 'collection-reading');
+  if (wasCollection) buildSidebar();
   state.sura = num;
   state.aya = aya;
-
   if (suraChanged || !el.reader.querySelector('.aya[data-aya="' + aya + '"]')) {
     renderSura();
     syncRangeInputs();
@@ -1944,33 +1986,132 @@ async function loadSura(num, opts) {
   updateAyaUI(true);
   requestAnimationFrame(loadAdjacentReaderChunk);
   if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
-
   if (isMobile()) setDrawerTab('aya');
+  if (opts.play) goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+}
 
-  if (opts.play) {
-    goToAya(state.aya, { play: true, opening: opts.opening !== false && state.aya === 1 });
+async function ensureCollectionSectionLoaded(reading, section) {
+  const chunk = (reading.chunks || []).find(item => section >= item.start && section <= item.end);
+  if (!chunk) throw new Error('No storage chunk contains passage ' + section + '.');
+  if (reading.loadedChunks.has(chunk.file)) return;
+  if (reading.loadingChunks.has(chunk.file)) return reading.loadingChunks.get(chunk.file);
+  const load = (async () => {
+    const url = new URL('data/' + reading.collection + '/' + reading.id + '/' + chunk.file, document.baseURI);
+    const response = await fetch(url.href);
+    if (!response.ok) throw new Error('Could not load reading passages (' + response.status + ').');
+    const records = await response.json();
+    if (!Array.isArray(records) || records.length !== chunk.end - chunk.start + 1) throw new Error('Reading chunk is incomplete or has an invalid record count.');
+    records.forEach((record, index) => {
+      if (!record || typeof record.arabic_text !== 'string' || !record.arabic_text.trim()) throw new Error('Passage ' + (chunk.start + index) + ' is missing Arabic text.');
+      reading.ayas[chunk.start + index - 1] = { ...record, ayaNum: chunk.start + index };
+    });
+    reading.loadedChunks.add(chunk.file);
+  })();
+  reading.loadingChunks.set(chunk.file, load);
+  try { await load; }
+  finally { reading.loadingChunks.delete(chunk.file); }
+}
+
+async function openCollectionReading(collection, readingId, section, textMeta, catalog, manifest) {
+  if (!['duas', 'ziyarats'].includes(collection)) throw new Error('Unknown reading collection.');
+  if (!manifest || !Number.isInteger(Number(manifest.recordCount)) || !Array.isArray(manifest.chunks)) throw new Error('Reading manifest is invalid.');
+  const requestId = ++ayaNavigationRequestId;
+  const target = clampInt(section || 1, 1, Number(manifest.recordCount));
+  const identity = { collection, readingId, section: target };
+  if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(identity)) {
+    activeRecorder.stop();
+    toast('Recording stopped and will be saved before changing reading.');
+  }
+  stopAll();
+  const title = textMeta && textMeta.title ? textMeta.title : manifest.title || readingId;
+  const arabicTitle = textMeta && textMeta.arabicTitle ? textMeta.arabicTitle : '';
+  state.activeCollection = collection;
+  state.collectionCatalog = catalog || null;
+  state.activeReading = {
+    ...manifest,
+    id: readingId,
+    collection,
+    title,
+    englishName: title,
+    arabicTitle,
+    arabicName: arabicTitle,
+    attribution: textMeta && textMeta.attribution ? textMeta.attribution : '',
+    source: textMeta && textMeta.source ? textMeta.source : null,
+    sourceStatus: textMeta && textMeta.sourceStatus ? textMeta.sourceStatus : 'imported-review-required',
+    ayaCount: Number(manifest.recordCount),
+    ayas: new Array(Number(manifest.recordCount)),
+    loadedChunks: new Set(),
+    loadingChunks: new Map()
+  };
+  state.aya = target;
+  state.playingAya = null;
+  state.ayaInner = 0;
+  document.body.classList.add('collection-active', 'collection-reading');
+  activateReaderView();
+  renderCollectionSidebar();
+  await ensureCollectionSectionLoaded(state.activeReading, target);
+  if (requestId !== ayaNavigationRequestId) return;
+  renderSura();
+  renderAyaList(state.sura);
+  syncRangeInputs();
+  resetCounters();
+  updateAyaUI(true);
+  applyDisplayClasses();
+  if (isMobile()) setDrawerTab('aya');
+}
+
+async function exitCollectionReading() {
+  if (state.activeCollection) return loadSura(state.sura, { aya: 1, play: false });
+  stopAll();
+}
+
+async function goToCollectionSection(aya, opts) {
+  opts = opts || {};
+  const reading = state.activeReading;
+  if (!reading) return;
+  const n = clampInt(aya, 1, reading.ayaCount);
+  const identity = { collection: state.activeCollection, readingId: reading.id, section: n };
+  if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) !== recordingIdentityKey(identity)) {
+    activeRecorder.stop();
+    toast('Recording stopped and will be saved before changing passage.');
+  }
+  const requestId = ++ayaNavigationRequestId;
+  state.aya = n;
+  state.ayaInner = 0;
+  try {
+    await ensureCollectionSectionLoaded(reading, n);
+    if (requestId !== ayaNavigationRequestId || state.activeReading !== reading) return;
+    if (!document.getElementById(getCurrentReaderElementId(n))) renderSura();
+    renderAyaList(state.sura);
+    updateAyaUI(true);
+    if (document.body.classList.contains('reader-active')) writeCollectionHash(state.activeCollection, reading.id, n);
+    if (opts.play) playTrack(state.sura, n);
+  } catch (error) {
+    if (requestId === ayaNavigationRequestId) toast(error.message || 'Could not load this passage.');
   }
 }
 
 function goToAya(aya, opts) {
   opts = opts || {};
+  if (isCollectionReading()) {
+    goToCollectionSection(aya, opts);
+    return;
+  }
   const s = SURA_BY_NUM[state.sura];
   if (!s) return;
-
   const n = Math.max(1, Math.min(aya, s.ayaCount));
   const requestId = ++ayaNavigationRequestId;
   state.aya = n;
   state.ayaInner = 0;
   ensureSuraLoaded(s, n, false).then(() => {
-    if (requestId !== ayaNavigationRequestId || state.sura !== s.number) return;
+    if (requestId !== ayaNavigationRequestId || state.sura !== s.number || isCollectionReading()) return;
     if (!document.getElementById(getAyahElementId(state.sura, n))) renderSura();
     renderAyaList(state.sura);
     updateAyaUI(true);
     if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
     const chunk = s.chunkManifest && s.chunkManifest.chunks.find(item => n >= item.start && n <= item.end);
     if (chunk && n >= chunk.end - 2 && chunk.end < s.ayaCount) {
-      ensureSuraLoaded(s, chunk.end + 1, false)
-        .catch(error => console.warn('Next Quran chunk prefetch failed.', error));
+      ensureSuraLoaded(s, chunk.end + 1, false).catch(error => console.warn('Next Quran chunk prefetch failed.', error));
     }
     if (opts.play) {
       if (opts.opening && n === 1 && state.playBismillah && hasOpening(state.sura)) playTrack(state.sura, 0);
@@ -1981,7 +2122,43 @@ function goToAya(aya, opts) {
   });
 }
 
+async function playCollectionTrack(section) {
+  const identity = getCurrentRecordingIdentity(section);
+  const requestId = ++playbackRequestId;
+  playbackMode = 'sequence';
+  setNativePlaybackActive(true);
+  state.playingAya = section;
+  state.started = true;
+  setPlayIcon(true);
+  updateAyaUI(false);
+  updateNativeMediaMetadata(true);
+  try {
+    const custom = await getUserRecording(identity);
+    if (requestId !== playbackRequestId) return;
+    if (!custom || !custom.blob) {
+      playbackMode = 'idle';
+      state.started = false;
+      state.playingAya = null;
+      setNativePlaybackActive(false);
+      setPlayIcon(false);
+      toast('Record this passage first to create a replay.');
+      return;
+    }
+    if (activeRecordingObjectUrl) URL.revokeObjectURL(activeRecordingObjectUrl);
+    activeRecordingObjectUrl = URL.createObjectURL(custom.blob);
+    setAudioSource(activeRecordingObjectUrl);
+    await audio.play();
+  } catch (error) {
+    if (requestId !== playbackRequestId) return;
+    playbackMode = 'idle';
+    state.started = false;
+    setNativePlaybackActive(false);
+    toast('Could not play this passage recording: ' + (error.message || 'unknown error'));
+  }
+}
+
 async function playTrack(sura, aya) {
+  if (isCollectionReading()) return playCollectionTrack(aya);
   if (activeRecitationObjectUrl) { URL.revokeObjectURL(activeRecitationObjectUrl); activeRecitationObjectUrl = null; }
   const requestId = ++playbackRequestId;
   playbackMode = 'sequence';
@@ -2057,7 +2234,7 @@ function stopAll() {
 function startPlayback() {
   configDirty = false;
   if (state.repeatMode === 'range') {
-    const s = SURA_BY_NUM[state.sura];
+    const s = getCurrentReading();
     const total = s ? s.ayaCount : 1;
     state.rangeFrom = clampInt(state.rangeFrom, 1, total);
     state.rangeTo   = clampInt(state.rangeTo, 1, total);
@@ -2074,7 +2251,7 @@ function startPlayback() {
 }
 
 function handleEnded() {
-  const s = SURA_BY_NUM[state.sura];
+  const s = getCurrentReading();
   if (!s) return;
   const total = s.ayaCount;
 
@@ -2187,6 +2364,11 @@ audio.addEventListener('error', () => {
   if (activeRecordingObjectUrl && audio.src === activeRecordingObjectUrl) {
     URL.revokeObjectURL(activeRecordingObjectUrl);
     activeRecordingObjectUrl = null;
+    if (isCollectionReading()) {
+      toast('This saved passage recording could not be played on this device.');
+      stopAll();
+      return;
+    }
     toast('Your recording could not be played. Trying Minshawi instead.');
     setAudioSource(trackUrl(state.sura, state.playingAya));
     audio.play().catch(() => stopAll());
@@ -2316,7 +2498,41 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 async function loadAdjacentReaderChunk() {
-  if (readerChunkLoadPending) return;
+  if ((state.activeCollection && !state.activeReading) || readerChunkLoadPending) return;
+  if (isCollectionReading()) {
+    const reading = state.activeReading;
+    const loaded = reading.chunks.filter(chunk => reading.loadedChunks.has(chunk.file));
+    if (!loaded.length) return;
+    const minChunk = loaded.reduce((a, b) => a.start < b.start ? a : b);
+    const maxChunk = loaded.reduce((a, b) => a.end > b.end ? a : b);
+    let adjacent = null;
+    let direction = null;
+    if (el.reader.scrollTop < 220 && minChunk.start > 1) {
+      adjacent = reading.chunks.filter(chunk => chunk.end < minChunk.start).slice(-1)[0] || null;
+      direction = 'previous';
+    } else if (el.reader.scrollTop + el.reader.clientHeight >= el.reader.scrollHeight - 480 && maxChunk.end < reading.ayaCount) {
+      adjacent = reading.chunks.find(chunk => chunk.start > maxChunk.start) || null;
+      direction = 'next';
+    }
+    if (!adjacent || !direction) return;
+    readerChunkLoadPending = true;
+    const oldTop = el.reader.scrollTop;
+    const oldHeight = el.reader.scrollHeight;
+    try {
+      await ensureCollectionSectionLoaded(reading, adjacent.start);
+      if (state.activeReading !== reading) return;
+      if (direction === 'previous') {
+        renderSura(0);
+        el.reader.scrollTop = oldTop + Math.max(0, el.reader.scrollHeight - oldHeight);
+      } else renderSura(oldTop);
+      renderAyaList(state.sura);
+    } catch (error) {
+      console.warn('Adjacent collection chunk could not be loaded.', error);
+    } finally {
+      readerChunkLoadPending = false;
+    }
+    return;
+  }
   const sura = SURA_BY_NUM[state.sura];
   if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
 
@@ -2389,7 +2605,11 @@ function bindEvents() {
   el.suraList.addEventListener('click', e => {
     const item = e.target.closest('.sura-item');
     if (!item) return;
-    loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
+    if (item.dataset.collectionTextId && state.activeCollection) {
+      if (window.QuranMemorizerCollections) window.QuranMemorizerCollections.writeRoute(state.activeCollection, item.dataset.collectionTextId, 1);
+    } else if (item.dataset.sura) {
+      loadSura(+item.dataset.sura, { aya: 1, play: true, opening: true });
+    }
     if (isMobile()) setTimeout(closeDrawer, 140);
   });
 
@@ -2429,18 +2649,20 @@ function bindEvents() {
       const aya = Number((recordButton || playRecordingButton || deleteRecordingButton).dataset[
         recordButton ? 'recordAya' : playRecordingButton ? 'playRecording' : 'deleteRecording'
       ]);
+      const identity = getCurrentRecordingIdentity(aya);
+      const identityKey = recordingIdentityKey(identity);
       if (recordButton) {
-        if (activeRecorder && activeRecordingKey && activeRecordingKey.sura === state.sura && activeRecordingKey.aya === aya) {
+        if (activeRecorder && activeRecordingKey && recordingIdentityKey(activeRecordingKey) === identityKey) {
           activeRecorder.stop();
           recordButton.textContent = 'Saving…';
         } else {
-          startUserRecording(state.sura, aya, recordButton);
+          startUserRecording(identity, null, recordButton);
         }
       } else if (playRecordingButton) {
-        playUserRecording(state.sura, aya);
+        playUserRecording(identity);
       } else {
-        deleteUserRecording(state.sura, aya).then(() => {
-          refreshRecordingControls(state.sura);
+        deleteUserRecording(identity).then(() => {
+          refreshRecordingControls(getCurrentRecordingIdentity());
           toast('Saved recording deleted.');
         }).catch(error => toast('Could not delete recording: ' + error.message));
       }
@@ -2471,7 +2693,7 @@ function bindEvents() {
   });
 
   el.btnNext.addEventListener('click', () => {
-    const s = SURA_BY_NUM[state.sura];
+    const s = getCurrentReading();
     if (!s) return;
     if (state.aya < s.ayaCount) goToAya(state.aya + 1, { play: true });
     else stopAll();
@@ -2631,6 +2853,7 @@ function bindEvents() {
 }
 
 function setReciter(id) {
+  if (isCollectionReading()) { toast('Reciter selection applies to Qur’an audio. Dua and Ziyarat passages use your saved recordings.'); return; }
   state.reciter = id;
   configDirty = true;
   syncReciterUI();
@@ -2664,6 +2887,31 @@ function toast(msg) {
    21. GO
    ================================================================== */
 updateOpts();
+window.QuranMemorizerReader = Object.freeze({
+  ready: appReady,
+  openCollection: (...args) => appReady.then(() => openCollectionReading(...args)),
+  exitCollection: () => exitCollectionReading(),
+  goToCollectionSection: (section, opts) => goToCollectionSection(section, opts),
+  isCollectionReading,
+  isRecording: () => Boolean(activeRecorder),
+  notify: message => toast(message),
+  stopPlayback: () => stopAll(),
+  getActiveReading: () => state.activeReading,
+  getState: () => ({ collection: state.activeCollection, readingId: state.activeReading && state.activeReading.id, section: state.aya }),
+  showCollectionCatalog(collection, catalog) {
+    stopAll();
+    state.activeCollection = collection;
+    state.activeReading = null;
+    state.collectionCatalog = catalog || null;
+    document.body.classList.add('collection-active');
+    document.body.classList.remove('collection-reading');
+    renderCollectionSidebar();
+    if (el.ayaColHead) el.ayaColHead.textContent = 'Passages';
+    if (el.ayaList) el.ayaList.innerHTML = '<div class="collection-empty-state">Choose a reading to see its recitation passages.</div>';
+    setDrawerTab('sura');
+  }
+});
+
 init();
 ensureRecordingStorageInitialized().catch(error => {
   console.warn('Could not initialize local recording storage.', error);

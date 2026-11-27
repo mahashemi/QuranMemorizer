@@ -1,0 +1,923 @@
+{
+  "id": "munajat-bundle-08",
+  "title": "The Whispered Prayer of the Devotees",
+  "sourceStatus": "imported-review-required",
+  "readings": [
+    {
+      "id": "munajat-mureedeen",
+      "title": "08. The Whispered Prayer of the Devotees (Mureedeen)",
+      "arabicTitle": "مناجاة المريدين",
+      "description": "The eighth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 208,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 8",
+        "url": "https://www.duas.org/sajjadiya/dua76.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 56,
+      "storageChunkSize": 30,
+      "records": [
+        {
+          "id": "passage-001",
+          "sequence": 1,
+          "arabic_text": "سُبْحانَكَ ما أَضْيَقَ الطُّرُقَ عَلىٰ مَنْ لَمْ تَكُنْ دَلِيلَهُ!",
+          "transliteration": "sub-h'aanaka maaa az''-yaqat'-t'uruqa a'laa mal-lam takun daleelahoo",
+          "english_text": "Glory be to You! How narrow are the paths for him whom You have not guided!",
+          "source_pair_start": 1,
+          "source_pair_end": 1,
+          "recitation_segment": {
+            "id": "segment-001",
+            "title": "Recitation segment 1",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-002",
+          "sequence": 2,
+          "arabic_text": "وَما أَوْضَحَ الْحَقَّ عِنْدَ مَنْ هَدَيْتَهُ سَبِيلَهُ!",
+          "transliteration": "wa maaa aw-z''ah'al-h'aq-qa i'nda man haday-tahoo sabeelah",
+          "english_text": "How plain the truth for him whom You have guided on his way!",
+          "source_pair_start": 2,
+          "source_pair_end": 2,
+          "recitation_segment": {
+            "id": "segment-002",
+            "title": "Recitation segment 2",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-003",
+          "sequence": 3,
+          "arabic_text": "إِلـٰهِي فَاسْلُكْ بِنا سُبُلَ الْوُصُولِ إلَيْكَ،",
+          "transliteration": "ilaahee fas-luk binaa subulal-wus'ooli ilay-k",
+          "english_text": "My God, so make us travel on the roads that arrive at You,",
+          "source_pair_start": 3,
+          "source_pair_end": 3,
+          "recitation_segment": {
+            "id": "segment-003",
+            "title": "Recitation segment 3",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-004",
+          "sequence": 4,
+          "arabic_text": "وَسَيِّرْنا فِي أَقْرَبِ الطُّرُقِ لِلْوُفُودِ عَلَيْكَ،",
+          "transliteration": "wa say-yir-naa feee aq-rabit'-t'uruqi lil-wufoodi a'lay-k",
+          "english_text": "and set us into motion on the paths nearest to reaching You!",
+          "source_pair_start": 4,
+          "source_pair_end": 4,
+          "recitation_segment": {
+            "id": "segment-004",
+            "title": "Recitation segment 4",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-005",
+          "sequence": 5,
+          "arabic_text": "قَرِّبْ عَلَيْنَا الْبَعِيدَ،",
+          "transliteration": "qar-rib a'lay-naal-bae'ed",
+          "english_text": "Make near for us the far,",
+          "source_pair_start": 5,
+          "source_pair_end": 5,
+          "recitation_segment": {
+            "id": "segment-005",
+            "title": "Recitation segment 5",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-006",
+          "sequence": 6,
+          "arabic_text": "وَسَهِّلْ عَلَيْنَا الْعَسِيرَ الشَّدِيدَ،",
+          "transliteration": "wa sah-hil a'lay-naal-a'seerash-shadeed",
+          "english_text": "and make easy for us the hard and difficult!",
+          "source_pair_start": 6,
+          "source_pair_end": 6,
+          "recitation_segment": {
+            "id": "segment-006",
+            "title": "Recitation segment 6",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-007",
+          "sequence": 7,
+          "arabic_text": "وَأَلْحِقْنا بِعِبادِكَ الَّذِينَ هُمْ بِالْبِدارِ إلَيْكَ يُسارِعُونَ،",
+          "transliteration": "wa al-h'iq-naa bii'baadikal-lad'eena hum bil-bidaari ilay-ka yusaariu'wn",
+          "english_text": "Join us to Your servants, those who hurry to You swiftly,",
+          "source_pair_start": 7,
+          "source_pair_end": 7,
+          "recitation_segment": {
+            "id": "segment-007",
+            "title": "Recitation segment 7",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-008",
+          "sequence": 8,
+          "arabic_text": "وَبابَكَ عَلَىٰ الدَّوامِ يَطْرُقُونَ،",
+          "transliteration": "wa baabaka a'laad-dawaami yat'-ruqoon",
+          "english_text": "knock constantly at Your door,",
+          "source_pair_start": 8,
+          "source_pair_end": 8,
+          "recitation_segment": {
+            "id": "segment-008",
+            "title": "Recitation segment 8",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-009",
+          "sequence": 9,
+          "arabic_text": "وَإِيَّاكَ فِي اللَّيْلِ وَالنَّهارِ يَعْبُدُونَ،",
+          "transliteration": "wa ee-yaaka fil-layli wan-nahaari yaa'-budoon",
+          "english_text": "and worship You by night and by day,",
+          "source_pair_start": 9,
+          "source_pair_end": 9,
+          "recitation_segment": {
+            "id": "segment-009",
+            "title": "Recitation segment 9",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-010",
+          "sequence": 10,
+          "arabic_text": "وَهُمْ مِنْ هَيْبَتِكَ مُشْفِقُونَ،",
+          "transliteration": "wa hum min hay-batika mush-fiqoona",
+          "english_text": "while they remain apprehensive in awe of You!",
+          "source_pair_start": 10,
+          "source_pair_end": 10,
+          "recitation_segment": {
+            "id": "segment-010",
+            "title": "Recitation segment 10",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-011",
+          "sequence": 11,
+          "arabic_text": "الَّذِينَ صَفَّيْتَ لَهُمُ الْمَشارِبَ،",
+          "transliteration": "al-lad'eena s'af-fay-ta lahumul-mashaariba",
+          "english_text": "You have purified their drinking places,",
+          "source_pair_start": 11,
+          "source_pair_end": 11,
+          "recitation_segment": {
+            "id": "segment-011",
+            "title": "Recitation segment 11",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-012",
+          "sequence": 12,
+          "arabic_text": "وَبَلَّغْتَهُمُ الرَّغائِبَ،",
+          "transliteration": "wa bal-lagh-tahumur-raghaaa-ib",
+          "english_text": "taken them to the objects of their desire,",
+          "source_pair_start": 12,
+          "source_pair_end": 12,
+          "recitation_segment": {
+            "id": "segment-012",
+            "title": "Recitation segment 12",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-013",
+          "sequence": 13,
+          "arabic_text": "وَأَنْجَحْتَ لَهُمُ الْمَطالِبَ،",
+          "transliteration": "wa anjah'-ta lahumul-mat'aalib",
+          "english_text": "granted their requests,",
+          "source_pair_start": 13,
+          "source_pair_end": 13,
+          "recitation_segment": {
+            "id": "segment-013",
+            "title": "Recitation segment 13",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-014",
+          "sequence": 14,
+          "arabic_text": "وَقَضَيْتَ لَهُمْ مِنْ فَضْلِكَ الْمَآرِبَ،",
+          "transliteration": "wa qaz''ay-ta lahum min faz''-likal-maaarib",
+          "english_text": "accomplished their wishes through Your bounty,",
+          "source_pair_start": 14,
+          "source_pair_end": 14,
+          "recitation_segment": {
+            "id": "segment-014",
+            "title": "Recitation segment 14",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-015",
+          "sequence": 15,
+          "arabic_text": "وَمَلأْتَ لَهُمْ ضَمائِرَهُمْ مِنْ حُبِّكَ،",
+          "transliteration": "wa malaa – ta lahum z''amaaa-irahum min h'ub-bik",
+          "english_text": "filled their minds with Your love,",
+          "source_pair_start": 15,
+          "source_pair_end": 15,
+          "recitation_segment": {
+            "id": "segment-015",
+            "title": "Recitation segment 15",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-016",
+          "sequence": 16,
+          "arabic_text": "وَرَوَّيْتَهُمْ مِنْ صافِي شِرْبِكَ،",
+          "transliteration": "wa raw-way-tahum min s'aafee shir-bik",
+          "english_text": "and quenched their thirst with Your pure drink.",
+          "source_pair_start": 16,
+          "source_pair_end": 16,
+          "recitation_segment": {
+            "id": "segment-016",
+            "title": "Recitation segment 16",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-017",
+          "sequence": 17,
+          "arabic_text": "فَبِكَ إلىٰ لَذِيذِ مُناجاتِكَ وَصَلُوا،",
+          "transliteration": "fabika ilaa lad'eed'i munaajaatika was'aloo",
+          "english_text": "Through You have they reached the pleasure of whispered prayer to You,",
+          "source_pair_start": 17,
+          "source_pair_end": 17,
+          "recitation_segment": {
+            "id": "segment-017",
+            "title": "Recitation segment 17",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-018",
+          "sequence": 18,
+          "arabic_text": "وَمِنْكَ أَقْصىٰ مَقاصِدِهِمْ حَصَّلُوا،",
+          "transliteration": "wa minka aq-s'aa muqaas'idihim h'as'-s'aloo",
+          "english_text": "and in You have they achieved their furthest goals.",
+          "source_pair_start": 18,
+          "source_pair_end": 18,
+          "recitation_segment": {
+            "id": "segment-018",
+            "title": "Recitation segment 18",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-019",
+          "sequence": 19,
+          "arabic_text": "فَيا مَنْ هُوَ عَلَىٰ الْمُقْبِلِينَ عَلَيْهِ مُقْبِلٌ،",
+          "transliteration": "fayaa man huwa a'laal-muq-bileena a'lay-hee muq-bil",
+          "english_text": "O He who comes toward those who come toward Him",
+          "source_pair_start": 19,
+          "source_pair_end": 19,
+          "recitation_segment": {
+            "id": "segment-019",
+            "title": "Recitation segment 19",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-020",
+          "sequence": 20,
+          "arabic_text": "وَبِالْعَطْفِ عَلَيْهِمْ عائِدٌ مُفْضِلٌ،",
+          "transliteration": "wa bil-a't'-fi a'lay-him a'aa-idum-muf-z''il",
+          "english_text": "and grants gifts and bestows bounty upon them through tenderness!",
+          "source_pair_start": 20,
+          "source_pair_end": 20,
+          "recitation_segment": {
+            "id": "segment-020",
+            "title": "Recitation segment 20",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-021",
+          "sequence": 21,
+          "arabic_text": "وَبِالْغافِلِينَ عَنْ ذِكْرِهِ رَحِيمٌ رَؤُوفٌ،",
+          "transliteration": "wa bil-ghaafileena a'n d'ik-rihee rah'eemur-ra-oofo",
+          "english_text": "He is compassionate and clement toward those heedless of His remembrance",
+          "source_pair_start": 21,
+          "source_pair_end": 21,
+          "recitation_segment": {
+            "id": "segment-021",
+            "title": "Recitation segment 21",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-022",
+          "sequence": 22,
+          "arabic_text": "وَبِجَذْبِهِمْ إلىٰ بابِهِ وَدُودٌ عَطُوفٌ،",
+          "transliteration": "wa bijad'-bi-him ilaa baabihee wadoodun a't'oof",
+          "english_text": "and loving and tender in drawing them to His door!",
+          "source_pair_start": 22,
+          "source_pair_end": 22,
+          "recitation_segment": {
+            "id": "segment-022",
+            "title": "Recitation segment 22",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-023",
+          "sequence": 23,
+          "arabic_text": "أَسْأَلُكَ أَنْ تَجْعَلَنِي مِنْ أَوْفَرِهِمْ مِنْكَ حَظّاً،",
+          "transliteration": "as-aluka an taj-a'lanee min aw-farihim minka h'az'-z'aa",
+          "english_text": "I ask You to place me among those of them who have the fullest share from You,",
+          "source_pair_start": 23,
+          "source_pair_end": 23,
+          "recitation_segment": {
+            "id": "segment-023",
+            "title": "Recitation segment 23",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-024",
+          "sequence": 24,
+          "arabic_text": "وَأَعْلاهُمْ عِنْدَكَ مَنْزِلاً،",
+          "transliteration": "wa aa'-laahum i'ndaka manzilaa",
+          "english_text": "the highest station with You,",
+          "source_pair_start": 24,
+          "source_pair_end": 24,
+          "recitation_segment": {
+            "id": "segment-024",
+            "title": "Recitation segment 24",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-025",
+          "sequence": 25,
+          "arabic_text": "وَأَجْزَلِهِمْ مِنْ وُدِّكَ قِسَماً،",
+          "transliteration": "wa aj-zalihim miw-wud-dika qis-maa",
+          "english_text": "the most plentiful portion of Your love,",
+          "source_pair_start": 25,
+          "source_pair_end": 25,
+          "recitation_segment": {
+            "id": "segment-025",
+            "title": "Recitation segment 25",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-026",
+          "sequence": 26,
+          "arabic_text": "وَأَفْضَلِهِمْ فِي مَعْرِفَتِكَ نَصِيباً،",
+          "transliteration": "wa af-z''alihim fee maa'-rifatika nas'eebaa",
+          "english_text": "and the most excellent allotment of Your knowledge,",
+          "source_pair_start": 26,
+          "source_pair_end": 26,
+          "recitation_segment": {
+            "id": "segment-026",
+            "title": "Recitation segment 26",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-027",
+          "sequence": 27,
+          "arabic_text": "فَقَدِ انْقَطَعَتْ إلَيْكَ هِمَّتِي،",
+          "transliteration": "faqadi anqataa't ilay-ka him-matee",
+          "english_text": "for my aspiration has been cut off from everything but You",
+          "source_pair_start": 27,
+          "source_pair_end": 27,
+          "recitation_segment": {
+            "id": "segment-027",
+            "title": "Recitation segment 27",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-028",
+          "sequence": 28,
+          "arabic_text": "وَانْصَرَفَتْ نَحْوَكَ رَغْبَتِي،",
+          "transliteration": "wa ans'arafat nah'-waka ragh-batee",
+          "english_text": "and my desire has turned toward You alone.",
+          "source_pair_start": 28,
+          "source_pair_end": 28,
+          "recitation_segment": {
+            "id": "segment-028",
+            "title": "Recitation segment 28",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-029",
+          "sequence": 29,
+          "arabic_text": "فَأَنْتَ لا غَيْرُكَ مُرادِي،",
+          "transliteration": "faanta laa ghay-ruka muraadee",
+          "english_text": "You are my object, none other;",
+          "source_pair_start": 29,
+          "source_pair_end": 29,
+          "recitation_segment": {
+            "id": "segment-029",
+            "title": "Recitation segment 29",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-030",
+          "sequence": 30,
+          "arabic_text": "وَلَكَ لا لِسِواكَ سَهَرِي وَسُهادِي،",
+          "transliteration": "wa laka laa lisiwaaka saharee wa suhaadee",
+          "english_text": "to You alone belongs my waking and my sleeplessness.",
+          "source_pair_start": 30,
+          "source_pair_end": 30,
+          "recitation_segment": {
+            "id": "segment-030",
+            "title": "Recitation segment 30",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-031",
+          "sequence": 31,
+          "arabic_text": "وَلِقاؤُكَ قُرَّةُ عَيْنِي،",
+          "transliteration": "wa liqaaaw-uka qur-ratu a'y-nee",
+          "english_text": "Meeting You is the gladness of my eye,",
+          "source_pair_start": 31,
+          "source_pair_end": 31,
+          "recitation_segment": {
+            "id": "segment-031",
+            "title": "Recitation segment 31",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-032",
+          "sequence": 32,
+          "arabic_text": "وَوَصْلُكَ مُنىٰ نَفْسِي،",
+          "transliteration": "wa was'-luka munaa naf-see",
+          "english_text": "joining You the wish of my soul.",
+          "source_pair_start": 32,
+          "source_pair_end": 32,
+          "recitation_segment": {
+            "id": "segment-032",
+            "title": "Recitation segment 32",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-033",
+          "sequence": 33,
+          "arabic_text": "وَإلَيْكَ شَوْقِي،",
+          "transliteration": "wa ilay-ka shaw-qee",
+          "english_text": "Toward You is my yearning,",
+          "source_pair_start": 33,
+          "source_pair_end": 33,
+          "recitation_segment": {
+            "id": "segment-033",
+            "title": "Recitation segment 33",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-034",
+          "sequence": 34,
+          "arabic_text": "وَفِي مَحَبَّتِكَ وَلَهِي،",
+          "transliteration": "wa fee mah'ab-batika walahee",
+          "english_text": "in love for You my passionate longing,",
+          "source_pair_start": 34,
+          "source_pair_end": 34,
+          "recitation_segment": {
+            "id": "segment-034",
+            "title": "Recitation segment 34",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-035",
+          "sequence": 35,
+          "arabic_text": "وَإلىٰ هَواكَ صَبابَتِي،",
+          "transliteration": "wa ilaa hawaaka s'abaabatee",
+          "english_text": "in inclining toward You my fervent craving.",
+          "source_pair_start": 35,
+          "source_pair_end": 35,
+          "recitation_segment": {
+            "id": "segment-035",
+            "title": "Recitation segment 35",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-036",
+          "sequence": 36,
+          "arabic_text": "وَرِضاكَ بُغْيَتِي،",
+          "transliteration": "wa riz''aaka bugh-yatee",
+          "english_text": "Your good pleasure is the aim I seek,",
+          "source_pair_start": 36,
+          "source_pair_end": 36,
+          "recitation_segment": {
+            "id": "segment-036",
+            "title": "Recitation segment 36",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-037",
+          "sequence": 37,
+          "arabic_text": "وَرُؤْيَتُكَ حاجَتِي،",
+          "transliteration": "wa roo-yatuka h'aajatee",
+          "english_text": "vision of You my need,",
+          "source_pair_start": 37,
+          "source_pair_end": 37,
+          "recitation_segment": {
+            "id": "segment-037",
+            "title": "Recitation segment 37",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-038",
+          "sequence": 38,
+          "arabic_text": "وَجِوارُكَ طَلِبَتِي،",
+          "transliteration": "wa jiwaaruka t'alabee",
+          "english_text": "Your neighbourhood my request,",
+          "source_pair_start": 38,
+          "source_pair_end": 38,
+          "recitation_segment": {
+            "id": "segment-038",
+            "title": "Recitation segment 38",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-039",
+          "sequence": 39,
+          "arabic_text": "وَقُرْبُكَ غايَةُ سُؤْلِي،",
+          "transliteration": "wa qur-buka ghayatu soo-lee",
+          "english_text": "nearness to You the utmost object of my asking.",
+          "source_pair_start": 39,
+          "source_pair_end": 39,
+          "recitation_segment": {
+            "id": "segment-039",
+            "title": "Recitation segment 39",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-040",
+          "sequence": 40,
+          "arabic_text": "وَفِي مُناجاتِكَ رَوْحِي وَراحَتِي،",
+          "transliteration": "wa fee munajaatika raw-h'ee wa raah'atee",
+          "english_text": "In whispered prayer to You I find my repose and my ease.",
+          "source_pair_start": 40,
+          "source_pair_end": 40,
+          "recitation_segment": {
+            "id": "segment-040",
+            "title": "Recitation segment 40",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-041",
+          "sequence": 41,
+          "arabic_text": "وَعِنْدَكَ دَواءُ عِلَّتِي،",
+          "transliteration": "wa i'ndak dawaaa-u i'l-latee",
+          "english_text": "With You lies the remedy of my illness,",
+          "source_pair_start": 41,
+          "source_pair_end": 41,
+          "recitation_segment": {
+            "id": "segment-041",
+            "title": "Recitation segment 41",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-042",
+          "sequence": 42,
+          "arabic_text": "وَشِفاءُ غُلَّتِي،",
+          "transliteration": "wa shifaaa-u ghul-latee",
+          "english_text": "the cure for my burning thirst,",
+          "source_pair_start": 42,
+          "source_pair_end": 42,
+          "recitation_segment": {
+            "id": "segment-042",
+            "title": "Recitation segment 42",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-043",
+          "sequence": 43,
+          "arabic_text": "وَبَرْدُ لَوْعَتِي،",
+          "transliteration": "wa bar-du law-a'tee",
+          "english_text": "the coolness of my ardour,",
+          "source_pair_start": 43,
+          "source_pair_end": 43,
+          "recitation_segment": {
+            "id": "segment-043",
+            "title": "Recitation segment 43",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-044",
+          "sequence": 44,
+          "arabic_text": "وَكَشْفُ كُرْبَتِي،",
+          "transliteration": "wa kash-fu kur-batee",
+          "english_text": "the removal of my distress.",
+          "source_pair_start": 44,
+          "source_pair_end": 44,
+          "recitation_segment": {
+            "id": "segment-044",
+            "title": "Recitation segment 44",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-045",
+          "sequence": 45,
+          "arabic_text": "فَكُنْ أَنِيسِي فِي وَحْشَتِي،",
+          "transliteration": "fakun aneesee fee wah'-shatee",
+          "english_text": "Be my intimate in my loneliness,",
+          "source_pair_start": 45,
+          "source_pair_end": 45,
+          "recitation_segment": {
+            "id": "segment-045",
+            "title": "Recitation segment 45",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-046",
+          "sequence": 46,
+          "arabic_text": "وَمُقِيلَ عَثْرَتِي،",
+          "transliteration": "wa muqeela a'th-ratee",
+          "english_text": "the releaser of my stumble,",
+          "source_pair_start": 46,
+          "source_pair_end": 46,
+          "recitation_segment": {
+            "id": "segment-046",
+            "title": "Recitation segment 46",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-047",
+          "sequence": 47,
+          "arabic_text": "وَغافِرَ زَلَّتِي،",
+          "transliteration": "wa ghaafira zal-latee",
+          "english_text": "the forgiver of my slip,",
+          "source_pair_start": 47,
+          "source_pair_end": 47,
+          "recitation_segment": {
+            "id": "segment-047",
+            "title": "Recitation segment 47",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-048",
+          "sequence": 48,
+          "arabic_text": "وَقابِلَ تَوْبَتِي،",
+          "transliteration": "wa qaabila taw-batee",
+          "english_text": "the accepter of my repentance,",
+          "source_pair_start": 48,
+          "source_pair_end": 48,
+          "recitation_segment": {
+            "id": "segment-048",
+            "title": "Recitation segment 48",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-049",
+          "sequence": 49,
+          "arabic_text": "وَمُجِيبَ دَعْوَتِي،",
+          "transliteration": "wa mujeeba daa'-watee",
+          "english_text": "the responder to my supplication,",
+          "source_pair_start": 49,
+          "source_pair_end": 49,
+          "recitation_segment": {
+            "id": "segment-049",
+            "title": "Recitation segment 49",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-050",
+          "sequence": 50,
+          "arabic_text": "وَوَلِيَّ عِصْمَتِي،",
+          "transliteration": "wa walee-ya i's'-matee",
+          "english_text": "the patron of preserving me from sin,",
+          "source_pair_start": 50,
+          "source_pair_end": 50,
+          "recitation_segment": {
+            "id": "segment-050",
+            "title": "Recitation segment 50",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-051",
+          "sequence": 51,
+          "arabic_text": "وَمُغْنِيَ فاقَتِي،",
+          "transliteration": "wa mugh-neea faaqatee",
+          "english_text": "the one who frees me from my neediness!",
+          "source_pair_start": 51,
+          "source_pair_end": 51,
+          "recitation_segment": {
+            "id": "segment-051",
+            "title": "Recitation segment 51",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-052",
+          "sequence": 52,
+          "arabic_text": "وَلا تَقْطَعْنِي عَنْكَ،",
+          "transliteration": "wa laa taq-t'aa'-nee a'nk",
+          "english_text": "Cut me not off from You",
+          "source_pair_start": 52,
+          "source_pair_end": 52,
+          "recitation_segment": {
+            "id": "segment-052",
+            "title": "Recitation segment 52",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-053",
+          "sequence": 53,
+          "arabic_text": "وَلا تُبْعِدْنِي مِنْكَ،",
+          "transliteration": "wa laa tub-i'd-nee mink",
+          "english_text": "and keep me not far from You!",
+          "source_pair_start": 53,
+          "source_pair_end": 53,
+          "recitation_segment": {
+            "id": "segment-053",
+            "title": "Recitation segment 53",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-054",
+          "sequence": 54,
+          "arabic_text": "يا نَعِيمِي وَجَنَّتِي،",
+          "transliteration": "yaa nae'emee wa jan-natee",
+          "english_text": "O my bliss and my garden!",
+          "source_pair_start": 54,
+          "source_pair_end": 54,
+          "recitation_segment": {
+            "id": "segment-054",
+            "title": "Recitation segment 54",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-055",
+          "sequence": 55,
+          "arabic_text": "وَيا دُنْيايَ وَآخِرَتِي،",
+          "transliteration": "wa yaa dunyaaya wa aaakhiratee",
+          "english_text": "O my this world and my hereafter!",
+          "source_pair_start": 55,
+          "source_pair_end": 55,
+          "recitation_segment": {
+            "id": "segment-055",
+            "title": "Recitation segment 55",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        },
+        {
+          "id": "passage-056",
+          "sequence": 56,
+          "arabic_text": "يا أَرْحَمَ الرَّاحِمِينَ. ",
+          "transliteration": "yaaa ar-h'amar-raah'imeen",
+          "english_text": "O Most Merciful of the merciful!",
+          "source_pair_start": 56,
+          "source_pair_end": 56,
+          "recitation_segment": {
+            "id": "segment-056",
+            "title": "Recitation segment 56",
+            "repeatable": true,
+            "suggested_repetitions": 3,
+            "pause_after": true
+          }
+        }
+      ]
+    }
+  ]
+}

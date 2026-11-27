@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-05",
+  "title": "05. His Supplication for himself and the People under his Guardianship",
+  "kind": "dua",
+  "recordCount": 24,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 24,
+      "file": "segments_001_024.json"
+    }
+  ]
+}

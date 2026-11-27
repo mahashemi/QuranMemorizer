@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-46",
+  "title": "46. On the Day of Fast-Breaking and on Friday",
+  "kind": "dua",
+  "recordCount": 40,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "file": "segments_031_040.json"
+    }
+  ]
+}

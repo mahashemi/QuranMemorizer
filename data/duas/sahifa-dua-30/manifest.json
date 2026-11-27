@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "sahifa-dua-30",
+  "title": "30. His Supplication for Help in Repaying Debts",
+  "kind": "dua",
+  "recordCount": 12,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 12,
+      "file": "segments_001_012.json"
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import test from 'node:test';
 const app = await readFile(new URL('../static/js/app.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const styles = await readFile(new URL('../static/css/styles.css', import.meta.url), 'utf8');
-const workflow = await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8');
+const workflow = await readFile(new URL('../.github/workflows/pages.yml', import.meta.url), 'utf8');
 
 test('shared Quran links accept canonical Surah/Ayah routes', () => {
   assert.ok(app.includes('function parseQuranHash(hash)'));
@@ -15,7 +15,7 @@ test('shared Quran links accept canonical Surah/Ayah routes', () => {
 
 test('initial deep link activates the reader and loads the requested ayah', () => {
   assert.match(app, /const initialRoute = parseQuranHash\(window\.location\.hash\)/);
-  assert.match(app, /if \(initialRoute\) activateReaderView\(\)/);
+  assert.match(app, /if \(initialRoute \|\| initialCollectionRoute\) activateReaderView\(\)/);
   assert.ok(app.includes('await loadSura(initialRoute.sura, { aya: initialRoute.aya, play: false })'));
   assert.ok(app.includes('scheduleSharedAyaFocus(initialRoute.aya)'));
 });
@@ -30,6 +30,10 @@ test('GitHub Pages workflow publishes the app and its Quran data from main', () 
   assert.match(workflow, /branches: \["main"\]/);
   assert.match(workflow, /npm run build/);
   assert.match(workflow, /path: www/);
+  assert.match(workflow, /data\/duas\/\*\*/);
+  assert.match(workflow, /data\/ziyarats\/\*\*/);
+  assert.match(workflow, /www\/data\/duas\/manifest\.json/);
+  assert.match(workflow, /www\/data\/ziyarats\/manifest\.json/);
   assert.match(workflow, /actions\/upload-pages-artifact@v3/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
 });
@@ -69,7 +73,7 @@ test('same-Surah deep-link navigation renders a newly fetched Ayah chunk', () =>
 
 
 test('Ayah picker is a number-only navigation index on desktop and mobile', () => {
-  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to Ayah '[\s\S]*?aya-btn-num/);
+  assert.match(app, /function renderAyaList\(num\)[\s\S]*?data-aya=.*?aria-label="Go to ' \+ unit \+ ' ' \+ number/);
   assert.doesNotMatch(app, /aya-btn-text|aya-btn-unloaded/);
   assert.match(app, /const btn = el\.ayaList\.querySelector\('\.aya-btn\[data-aya=/);
   assert.match(app, /btn\.classList\.add\('active'\)/);

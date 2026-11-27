@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-muhibbeen",
+  "title": "09. The Whispered Prayer of the Lovers (Muhibbeen)",
+  "kind": "dua",
+  "recordCount": 47,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 47,
+      "file": "segments_031_047.json"
+    }
+  ]
+}

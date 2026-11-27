@@ -1,0 +1,1490 @@
+{
+  "version": 1,
+  "collection": "duas",
+  "texts": [
+    {
+      "id": "dua-kumayl",
+      "title": "Dua Kumayl",
+      "arabicTitle": "دُعَاء كُميل",
+      "description": "The supplication taught by Imam Ali (عليه السلام) to Kumayl ibn Ziyad.",
+      "occasion": "Thursday night / Friday eve",
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/dua-kumayl",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "manifest": "dua-kumayl/manifest.json"
+    },
+    {
+      "id": "dua-nudba",
+      "title": "Dua Nudba",
+      "arabicTitle": "دُعَاء الندبه",
+      "description": "A supplication of lament and longing for the divinely guided Imam.",
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/dua-nudba",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "manifest": "dua-nudba/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-01",
+      "title": "01. In Praise of God",
+      "arabicTitle": "التَّحْمِيدُ لِلَّهِ عَزَّ وَ جَلَّ",
+      "description": "Sahifa Sajjadiya — Supplication 1",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 101,
+      "canonicalNumber": 1,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-praise-of-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 121,
+      "manifest": "sahifa-dua-01/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-02",
+      "title": "02. Blessings upon God's Messenger",
+      "arabicTitle": "الصَّلَاةُ عَلَى مُحَمَّدٍ وَ آلِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 2",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 102,
+      "canonicalNumber": 2,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-blessings-upon-gods-messenger",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 48,
+      "manifest": "sahifa-dua-02/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-03",
+      "title": "03. In Calling down Blessings on the Bearers of the Throne and every angel brought near",
+      "arabicTitle": "الصَّلَاةُ عَلَى حَمَلَةِ الْعَرْشِ و كلّ مَلَكٍ مقرّبٍ",
+      "description": "Sahifa Sajjadiya — Supplication 3",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 103,
+      "canonicalNumber": 3,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-calling-down-blessings-on-the-bearers-of-the-throne-and-every-angel-brought-near",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 60,
+      "manifest": "sahifa-dua-03/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-04",
+      "title": "04. In calling down Blessings upon the Followers of, and the Attesters to, the Messengers",
+      "arabicTitle": "الصَّلَاةُ عَلَى اتباع الرسل و مُصَدِّقِيهم",
+      "description": "Sahifa Sajjadiya — Supplication 4",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 104,
+      "canonicalNumber": 4,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-calling-down-blessings-upon-the-followers-of-and-the-attesters-to-the-messengers",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 45,
+      "manifest": "sahifa-dua-04/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-05",
+      "title": "05. His Supplication for himself and the People under his Guardianship",
+      "arabicTitle": "دُعَاؤُهُ لِنَفسِهِ وَ اهل وِِلايتهِ",
+      "description": "Sahifa Sajjadiya — Supplication 5",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 105,
+      "canonicalNumber": 5,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-himself-and-the-people-under-his-guardianship",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 53,
+      "manifest": "sahifa-dua-05/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-06",
+      "title": "06. His Supplication in the Morning and Evening",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ الصَّبَاحِ وَ الْمَسَاءِ",
+      "description": "Sahifa Sajjadiya — Supplication 6",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 106,
+      "canonicalNumber": 6,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-the-morning-and-evening",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 78,
+      "manifest": "sahifa-dua-06/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-07",
+      "title": "07. When Faced with a Worrisome Task",
+      "arabicTitle": "دُعَاؤُهُ فِي الْمُهِمَّاتِ",
+      "description": "Sahifa Sajjadiya — Supplication 7",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 107,
+      "canonicalNumber": 7,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-faced-with-a-worrisome-task",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 37,
+      "manifest": "sahifa-dua-07/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-08",
+      "title": "08. Seeking Refuge from Hateful Things",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِعَاذَةِ مِنَ المَكارِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 8",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 108,
+      "canonicalNumber": 8,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-seeking-refuge-from-hateful-things",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 29,
+      "manifest": "sahifa-dua-08/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-09",
+      "title": "09. In Yearning to Ask Forgiveness from God",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاشْتِيَاقِ الى طَلَبِ المَغفِرَةِ مِن الله",
+      "description": "Sahifa Sajjadiya — Supplication 9",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 109,
+      "canonicalNumber": 9,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-yearning-to-ask-forgiveness-from-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-09/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-10",
+      "title": "10. In seeking asylum with God",
+      "arabicTitle": "دُعَاؤُهُ فِي اللَّجَإِ إِلَى اللَّهِ تَعَالَى",
+      "description": "Sahifa Sajjadiya — Supplication 10",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 110,
+      "canonicalNumber": 10,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-seeking-asylum-with-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-10/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-11",
+      "title": "11. His Supplication for Good Outcomes",
+      "arabicTitle": "دُعَاؤُهُ بِخَوَاتِمِ الْخَيْرِ",
+      "description": "Sahifa Sajjadiya — Supplication 11",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 111,
+      "canonicalNumber": 11,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-good-outcomes",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 21,
+      "manifest": "sahifa-dua-11/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-12",
+      "title": "12. His Supplication in Confession and in Seeking Repentance toward God",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاعْتِرَافِ و طَلَبِ التَوبَةِ الى الله تعالى",
+      "description": "Sahifa Sajjadiya — Supplication 12",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 112,
+      "canonicalNumber": 12,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-confession-and-in-seeking-repentance-toward-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 70,
+      "manifest": "sahifa-dua-12/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-13",
+      "title": "13. His Supplication in Seeking Needs from God",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ الْحَوَائِجِ الى الله تعالى",
+      "description": "Sahifa Sajjadiya — Supplication 13",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 113,
+      "canonicalNumber": 13,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-seeking-needs-from-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 53,
+      "manifest": "sahifa-dua-13/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-14",
+      "title": "14. When Hostility was shown to Him",
+      "arabicTitle": "دُعَاؤُهُ فِي الظُّلَامَاتِ",
+      "description": "Sahifa Sajjadiya — Supplication 14",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 114,
+      "canonicalNumber": 14,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-hostility-was-shown-to-him",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 46,
+      "manifest": "sahifa-dua-14/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-15",
+      "title": "15. His Supplication when Sick",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ الْمَرَضِ",
+      "description": "Sahifa Sajjadiya — Supplication 15",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 115,
+      "canonicalNumber": 15,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-when-sick",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 29,
+      "manifest": "sahifa-dua-15/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-16",
+      "title": "16. In Asking Release from sins and Seeking Pardon",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِقَالَةِ مِِن ذُنوبِهِ و طَلَبِ العَفو",
+      "description": "Sahifa Sajjadiya — Supplication 16",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 116,
+      "canonicalNumber": 16,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-asking-release-from-sins-and-seeking-pardon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 115,
+      "manifest": "sahifa-dua-16/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-17",
+      "title": "17. When he Mentioned Satan and Sought Refuge from him",
+      "arabicTitle": "دُعَاؤُهُ إذا ذُكِرَ الشيطان فَاستَعاذَ مِنهُِ",
+      "description": "Sahifa Sajjadiya — Supplication 17",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 117,
+      "canonicalNumber": 17,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-mentioned-satan-and-sought-refuge-from-him",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 58,
+      "manifest": "sahifa-dua-17/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-18",
+      "title": "18. When Perils were repelled or Requests quickly granted",
+      "arabicTitle": "دُعَاؤُهُ إذا دُفِعَ عَنهُ ما يَحذَرُ او عُجّلَ لَهُ مَطلَبُهُ",
+      "description": "Sahifa Sajjadiya — Supplication 18",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 118,
+      "canonicalNumber": 18,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-perils-were-repelled-or-requests-quickly-granted",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 10,
+      "manifest": "sahifa-dua-18/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-19",
+      "title": "19. His Supplication in Asking for Water during a Drought",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِسْقَاءِ",
+      "description": "Sahifa Sajjadiya — Supplication 19",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 119,
+      "canonicalNumber": 19,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-water-during-a-drought",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 33,
+      "manifest": "sahifa-dua-19/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-20",
+      "title": "20. His Supplication on Noble Moral Traits",
+      "arabicTitle": "دُعَاؤُهُ فِي مَكَارِمِ الْأَخْلَاقِ",
+      "description": "Sahifa Sajjadiya — Supplication 20",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 120,
+      "canonicalNumber": 20,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-on-noble-moral-traits",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 179,
+      "manifest": "sahifa-dua-20/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-21",
+      "title": "21. When Something made him Sorrowful",
+      "arabicTitle": "دُعَاؤُهُ إِذَا حَزَنَهُ أَمْرٌ",
+      "description": "Sahifa Sajjadiya — Supplication 21",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 121,
+      "canonicalNumber": 21,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-something-made-him-sorrowful",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 69,
+      "manifest": "sahifa-dua-21/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-22",
+      "title": "22. His Supplication in Hardship, Effort, and Difficult Affairs",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ الشِّدَّةِ و الجَحدِ و تَعَسُّرِ اللُمور",
+      "description": "Sahifa Sajjadiya — Supplication 22",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 122,
+      "canonicalNumber": 22,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-hardship-effort-and-difficult-affairs",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 71,
+      "manifest": "sahifa-dua-22/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-23",
+      "title": "23. When he Asked God for Well-Being",
+      "arabicTitle": "دُعَاؤُهُ بِالْعَافِيَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 23",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 123,
+      "canonicalNumber": 23,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-asked-god-for-well-being",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 48,
+      "manifest": "sahifa-dua-23/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-24",
+      "title": "24. His Supplication for his Parents",
+      "arabicTitle": "دُعَاؤُهُ لِأَبَوَيْهِ",
+      "description": "Sahifa Sajjadiya — Supplication 24",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 124,
+      "canonicalNumber": 24,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-his-parents",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 77,
+      "manifest": "sahifa-dua-24/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-25",
+      "title": "25. His Supplication for his Children",
+      "arabicTitle": "دُعَاؤُهُ لِوُلْدِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 25",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 125,
+      "canonicalNumber": 25,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-his-children",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 65,
+      "manifest": "sahifa-dua-25/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-26",
+      "title": "26. For his Neighbours and Friends",
+      "arabicTitle": "دُعَاؤُهُ لِجِيرَانِهِ وَ أَوْلِيَائِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 26",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 126,
+      "canonicalNumber": 26,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-for-his-neighbours-and-friends",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 27,
+      "manifest": "sahifa-dua-26/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-27",
+      "title": "27. His Supplication for the People of the Frontiers",
+      "arabicTitle": "دُعَاؤُهُ لِأَهْلِ الثُّغُورِ",
+      "description": "Sahifa Sajjadiya — Supplication 27",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 127,
+      "canonicalNumber": 27,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-the-people-of-the-frontiers",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 122,
+      "manifest": "sahifa-dua-27/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-28",
+      "title": "28. His Supplication in Fleeing to God for Protection",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّفَزُّعِ الى اللهِ",
+      "description": "Sahifa Sajjadiya — Supplication 28",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 128,
+      "canonicalNumber": 28,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-fleeing-to-god-for-protection",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 30,
+      "manifest": "sahifa-dua-28/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-29",
+      "title": "29. His Supplication when his Provision was Stinted",
+      "arabicTitle": "دُعَاؤُهُ إِذَا قُتِّرَ عَلَيْهِ الرِّزْقُ",
+      "description": "Sahifa Sajjadiya — Supplication 29",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 129,
+      "canonicalNumber": 29,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-when-his-provision-was-stinted",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 15,
+      "manifest": "sahifa-dua-29/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-30",
+      "title": "30. His Supplication for Help in Repaying Debts",
+      "arabicTitle": "دُعَاؤُهُ فِي الْمَعُونَةِ عَلَى قَضَاءِ الدَّيْنِ",
+      "description": "Sahifa Sajjadiya — Supplication 30",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 130,
+      "canonicalNumber": 30,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-for-help-in-repaying-debts",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 29,
+      "manifest": "sahifa-dua-30/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-31",
+      "title": "31. In mentioning and asking for Repentance",
+      "arabicTitle": "دُعَاؤُهُ بِالتَّوْبَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 31",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 131,
+      "canonicalNumber": 31,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-mentioning-and-asking-for-repentance",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 131,
+      "manifest": "sahifa-dua-31/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-32",
+      "title": "32. In Confessing Sins after Finishing the Night Prayer",
+      "arabicTitle": "دُعَاؤُهُ فِي صَلَاةِ اللَّيْلِ",
+      "description": "Sahifa Sajjadiya — Supplication 32",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 132,
+      "canonicalNumber": 32,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-confessing-sins-after-finishing-the-night-prayer",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 134,
+      "manifest": "sahifa-dua-32/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-33",
+      "title": "33. His Supplication in Asking for the Best",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاسْتِخَارَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 33",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 133,
+      "canonicalNumber": 33,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-the-best",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-33/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-34",
+      "title": "34. When he was afflicted or saw someone afflicted with the Disgrace of Sin",
+      "arabicTitle": "دُعَاؤُهُ إِذَا ابْتُلِيَ أَوْ رَأَى مُبْتَلًى بِفَضِيحَةٍ بِذَنْبٍ",
+      "description": "Sahifa Sajjadiya — Supplication 34",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 134,
+      "canonicalNumber": 34,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-was-afflicted-or-saw-someone-afflicted-with-the-disgrace-of-sin",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 22,
+      "manifest": "sahifa-dua-34/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-35",
+      "title": "35. In Satisfaction when he Looked upon the Companions of this world",
+      "arabicTitle": "دُعَاؤُهُ فِي الرِّضَا إذا نَظَرَ الى اَصحابِ الدُنيا",
+      "description": "Sahifa Sajjadiya — Supplication 35",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 135,
+      "canonicalNumber": 35,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-satisfaction-when-he-looked-upon-the-companions-of-this-world",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-35/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-36",
+      "title": "36. When he saw Clouds and Lightening and heard the Thunder",
+      "arabicTitle": "دُعَاؤُهُ إذا نَظَرَ الى السَّحابِ و البَرقِ و عِنْدَ سَمَاعِ الرَّعْدِ",
+      "description": "Sahifa Sajjadiya — Supplication 36",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 136,
+      "canonicalNumber": 36,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-saw-clouds-and-lightening-and-heard-the-thunder",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 35,
+      "manifest": "sahifa-dua-36/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-37",
+      "title": "37. His supplication in giving Thanks",
+      "arabicTitle": "دُعَاؤُهُ فِي الشُّكْرِ",
+      "description": "Sahifa Sajjadiya — Supplication 37",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 137,
+      "canonicalNumber": 37,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-giving-thanks",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 66,
+      "manifest": "sahifa-dua-37/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-38",
+      "title": "38. In asking Pardon",
+      "arabicTitle": "دُعَاؤُهُ فِي الِاعْتِذَارِ",
+      "description": "Sahifa Sajjadiya — Supplication 38",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 138,
+      "canonicalNumber": 38,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-asking-pardon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 16,
+      "manifest": "sahifa-dua-38/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-39",
+      "title": "39. His Supplication in Seeking Pardon and Mercy",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ الْعَفْوِ و المَغْفِرَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 39",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 139,
+      "canonicalNumber": 39,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-seeking-pardon-and-mercy",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 69,
+      "manifest": "sahifa-dua-39/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-40",
+      "title": "40. When he remembered Death",
+      "arabicTitle": "دُعَاؤُهُ إذا ذَكَرَ الْمَوْتِ",
+      "description": "Sahifa Sajjadiya — Supplication 40",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 140,
+      "canonicalNumber": 40,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-remembered-death",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "sahifa-dua-40/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-41",
+      "title": "41. His Supplication in Asking for Covering and Protection",
+      "arabicTitle": "دُعَاؤُهُ فِي طَلَبِ السَّتْرِ وَ الْوِقَايَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 41",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 141,
+      "canonicalNumber": 41,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-asking-for-covering-and-protection",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 20,
+      "manifest": "sahifa-dua-41/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-42",
+      "title": "42. Upon Completing a Reading of the Qur'an",
+      "arabicTitle": "دُعَاؤُهُ عِنْدَ خَتْمِهِ الْقُرْآنَ",
+      "description": "Sahifa Sajjadiya — Supplication 42",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 142,
+      "canonicalNumber": 42,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-upon-completing-a-reading-of-the-quran",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 131,
+      "manifest": "sahifa-dua-42/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-43",
+      "title": "43. When he Looked at the New Crescent Moon",
+      "arabicTitle": "دُعَاؤُهُ إِذَا نَظَرَ إِلَى الْهِلَالِ",
+      "description": "Sahifa Sajjadiya — Supplication 43",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 143,
+      "canonicalNumber": 43,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-when-he-looked-at-the-new-crescent-moon",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "sahifa-dua-43/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-44",
+      "title": "44. For the Coming of the Month of Ramadan",
+      "arabicTitle": "دُعَاؤُهُ لِدُخُوْلِ شَهْرِ رَمَضَانَ",
+      "description": "Sahifa Sajjadiya — Supplication 44",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 144,
+      "canonicalNumber": 44,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-for-the-coming-of-the-month-of-ramadan",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 108,
+      "manifest": "sahifa-dua-44/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-45",
+      "title": "45. Farewell to the Month of Ramadan",
+      "arabicTitle": "دُعَاؤُهُ لِوَدَاعِ شَهْرِ رَمَضَانَ",
+      "description": "Sahifa Sajjadiya — Supplication 45",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 145,
+      "canonicalNumber": 45,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-farewell-to-the-month-of-ramadan",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 222,
+      "manifest": "sahifa-dua-45/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-46",
+      "title": "46. On the Day of Fast-Breaking and on Friday",
+      "arabicTitle": "دُعَاؤُهُ فِي عِيدِ الْفِطْرِ وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 46",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 146,
+      "canonicalNumber": 46,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-on-the-day-of-fast-breaking-and-on-friday",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 77,
+      "manifest": "sahifa-dua-46/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-47",
+      "title": "47. His Supplication on the Day of 'Arafa",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ عَرَفَةَ",
+      "description": "Sahifa Sajjadiya — Supplication 47",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 147,
+      "canonicalNumber": 47,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-on-the-day-of-arafa",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 417,
+      "manifest": "sahifa-dua-47/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-48",
+      "title": "48. His Supplication on the Day of Sacrifice and on Friday",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ الْأَضْحَى وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 48",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 148,
+      "canonicalNumber": 48,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-on-the-day-of-sacrifice-and-on-friday",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 193,
+      "manifest": "sahifa-dua-48/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-49",
+      "title": "49. Repelling the trickery of enemies",
+      "arabicTitle": "دُعَاؤُهُ فِي يَوْمِ الْأَضْحَى وَ الْجُمُعَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 49",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 149,
+      "canonicalNumber": 49,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-repelling-the-trickery-of-enemies",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 90,
+      "manifest": "sahifa-dua-49/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-50",
+      "title": "50. His Supplication in Fear",
+      "arabicTitle": "دُعَاؤُهُ فِي دَفْعِ كَيْدِ الْأَعْدَاءِ",
+      "description": "Sahifa Sajjadiya — Supplication 50",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 150,
+      "canonicalNumber": 50,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-fear",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 42,
+      "manifest": "sahifa-dua-50/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-51",
+      "title": "51. In Pleading and Abasement",
+      "arabicTitle": "دُعَاؤُهُ فِي الرَّهْبَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 51",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 151,
+      "canonicalNumber": 51,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-pleading-and-abasement",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 65,
+      "manifest": "sahifa-dua-51/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-52",
+      "title": "52. His Supplication in Imploring God",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّضَرُّعِ وَ الِاسْتِكَانَةِ",
+      "description": "Sahifa Sajjadiya — Supplication 52",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 152,
+      "canonicalNumber": 52,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-his-supplication-in-imploring-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 53,
+      "manifest": "sahifa-dua-52/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-53",
+      "title": "53. Abasing himself before God",
+      "arabicTitle": "دُعَاؤُهُ فِي الْإِلْحَاحِ",
+      "description": "Sahifa Sajjadiya — Supplication 53",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 153,
+      "canonicalNumber": 53,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-abasing-himself-before-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 26,
+      "manifest": "sahifa-dua-53/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-54",
+      "title": "54. Removal of Worries",
+      "arabicTitle": "دُعَاؤُهُ فِي التَّذَلُّلِ",
+      "description": "Sahifa Sajjadiya — Supplication 54",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 154,
+      "canonicalNumber": 54,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-removal-of-worries",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 46,
+      "manifest": "sahifa-dua-54/manifest.json"
+    },
+    {
+      "id": "munajat-taibeen",
+      "title": "01. The Whispered Prayer of the Repenters (Taibeen)",
+      "arabicTitle": "مناجاة التائبين",
+      "description": "The first of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 201,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 1",
+        "url": "https://www.duas.org/sajjadiya/dua69.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 49,
+      "manifest": "munajat-taibeen/manifest.json"
+    },
+    {
+      "id": "munajat-shakeen",
+      "title": "02. The Whispered Prayer of the Complainers (Shakeen)",
+      "arabicTitle": "مناجاة الشاكين",
+      "description": "The second of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 202,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 2",
+        "url": "https://www.duas.org/sajjadiya/dua70.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 36,
+      "manifest": "munajat-shakeen/manifest.json"
+    },
+    {
+      "id": "munajat-khaifeen",
+      "title": "03. The Whispered Prayer of the Fearful (Khaifeen)",
+      "arabicTitle": "مناجاة الخائفين",
+      "description": "The third of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 203,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 3",
+        "url": "https://www.duas.org/sajjadiya/dua71.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "munajat-khaifeen/manifest.json"
+    },
+    {
+      "id": "munajat-rajeen",
+      "title": "04. The Whispered Prayer of the Hopeful (Rajeen)",
+      "arabicTitle": "مناجاة الراجين",
+      "description": "The fourth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 204,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 4",
+        "url": "https://www.duas.org/sajjadiya/dua72.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 34,
+      "manifest": "munajat-rajeen/manifest.json"
+    },
+    {
+      "id": "munajat-raghibeen",
+      "title": "05. The Whispered Prayer of the Beseechers (Raghibeen)",
+      "arabicTitle": "مناجاة الراغبين",
+      "description": "The fifth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 205,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 5",
+        "url": "https://www.duas.org/sajjadiya/dua73.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 45,
+      "manifest": "munajat-raghibeen/manifest.json"
+    },
+    {
+      "id": "munajat-shakireen",
+      "title": "06. The Whispered Prayer of the Thankful (Shakireen)",
+      "arabicTitle": "مناجاة الشاكرين",
+      "description": "The sixth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 206,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 6",
+        "url": "https://www.duas.org/sajjadiya/dua74.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 32,
+      "manifest": "munajat-shakireen/manifest.json"
+    },
+    {
+      "id": "munajat-muteeen",
+      "title": "07. The Whispered Prayer of the Obedient (Mute'een)",
+      "arabicTitle": "مناجاة المطيعين لله",
+      "description": "The seventh of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 207,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 7",
+        "url": "https://www.duas.org/sajjadiya/dua75.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 28,
+      "manifest": "munajat-muteeen/manifest.json"
+    },
+    {
+      "id": "munajat-mureedeen",
+      "title": "08. The Whispered Prayer of the Devotees (Mureedeen)",
+      "arabicTitle": "مناجاة المريدين",
+      "description": "The eighth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 208,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 8",
+        "url": "https://www.duas.org/sajjadiya/dua76.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 56,
+      "manifest": "munajat-mureedeen/manifest.json"
+    },
+    {
+      "id": "munajat-muhibbeen",
+      "title": "09. The Whispered Prayer of the Lovers (Muhibbeen)",
+      "arabicTitle": "مناجاة المحبّين",
+      "description": "The ninth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 209,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 9",
+        "url": "https://www.duas.org/sajjadiya/dua77.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 47,
+      "manifest": "munajat-muhibbeen/manifest.json"
+    },
+    {
+      "id": "munajat-mutawassileen",
+      "title": "10. The Whispered Prayer of those Asking for Mediation (Mutawassileen)",
+      "arabicTitle": "مناجاة المتوسّلين",
+      "description": "The tenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 210,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 10",
+        "url": "https://www.duas.org/sajjadiya/dua78.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 24,
+      "manifest": "munajat-mutawassileen/manifest.json"
+    },
+    {
+      "id": "munajat-muftaqireen",
+      "title": "11. The Whispered Prayer of the Utterly Poor (Muftaqireen)",
+      "arabicTitle": "مناجاة المفتقرين",
+      "description": "The eleventh of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 211,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 11",
+        "url": "https://www.duas.org/sajjadiya/dua79.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 46,
+      "manifest": "munajat-muftaqireen/manifest.json"
+    },
+    {
+      "id": "munajat-aarifeen",
+      "title": "12. The Whispered Prayer of the Knowers (Aarifeen)",
+      "arabicTitle": "مناجاة العارفين",
+      "description": "The twelfth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 212,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 12",
+        "url": "https://www.duas.org/sajjadiya/dua80.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 36,
+      "manifest": "munajat-aarifeen/manifest.json"
+    },
+    {
+      "id": "munajat-zakireen",
+      "title": "13. The Whispered Prayer of the Rememberers (Zakireen)",
+      "arabicTitle": "مناجاة الذاكرين",
+      "description": "The thirteenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 213,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 13",
+        "url": "https://www.duas.org/sajjadiya/dua81.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 38,
+      "manifest": "munajat-zakireen/manifest.json"
+    },
+    {
+      "id": "munajat-mutasimeen",
+      "title": "14. The Whispered Prayer of those Who Hold Fast (Mutasimeen)",
+      "arabicTitle": "مناجاة المعتصمين",
+      "description": "The fourteenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 214,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 14",
+        "url": "https://www.duas.org/sajjadiya/dua82.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 33,
+      "manifest": "munajat-mutasimeen/manifest.json"
+    },
+    {
+      "id": "munajat-zaahideen",
+      "title": "15. The Whispered Prayer of the Abstainers (Zaahideen)",
+      "arabicTitle": "مناجاة الزاهدين",
+      "description": "The fifteenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 215,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 15",
+        "url": "https://www.duas.org/sajjadiya/dua83.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 23,
+      "manifest": "munajat-zaahideen/manifest.json"
+    },
+    {
+      "id": "dua-ahad",
+      "title": "Dua Ahad — Supplication of the Covenant",
+      "arabicTitle": "دعاء العهد",
+      "description": "The daily covenant supplication seeking steadfastness and the reappearance of Imam al-Mahdi (عجّل الله فرجه).",
+      "group": "Core Duas",
+      "order": 30,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Dua Ahad edition; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Dua Ahad",
+        "url": "https://www.duas.org/pdfs/Ahad.pdf",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 80,
+      "manifest": "dua-ahad/manifest.json"
+    },
+    {
+      "id": "dua-jawshan-kabir",
+      "title": "Dua Jawshan Kabir — 100 Sections",
+      "arabicTitle": "دعاء الجوشن الكبير",
+      "description": "The complete supplication in 100 sections; each section is a separate recitation unit.",
+      "group": "Core Duas",
+      "order": 40,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Sibtayn International Foundation's part-by-part edition; cross-reference: Duas.org Jawshan Kabir.",
+      "source": {
+        "label": "Sibtayn International Foundation — Dua Jawshan Kabir, Part 1",
+        "url": "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3160:dua-a-jaushan-e-kabeer-part-1&option=com_content&view=article",
+        "crossReference": "https://www.duas.org/mobile/ramadan-dua-jawshan-kabeer.html",
+        "license": "Attribution to source requested; review text against the canonical Arabic before release",
+        "parts": [
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3161:dua-a-jaushan-e-kabeer-part-2&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3162:dua-a-jaushan-e-kabeer-part-3&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3163:dua-a-jaushan-e-kabeer-part-4&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3164:dua-a-jaushan-e-kabeer-part-5&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3165:dua-a-jaushan-e-kabeer-part-6&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3166:dua-a-jaushan-e-kabeer-part-7&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3167:dua-a-jaushan-e-kabeer-part-8&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3168:dua-a-jaushan-e-kabeer-part-9&option=com_content&view=article",
+          "https://www.sibtayn.com/en/index.php?Itemid=491&catid=337&id=3169:dua-a-jaushan-e-kabeer-part-10&option=com_content&view=article"
+        ]
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 100,
+      "manifest": "dua-jawshan-kabir/manifest.json"
+    }
+  ]
+}
