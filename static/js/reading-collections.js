@@ -359,10 +359,35 @@ document.addEventListener('click', event => {
   }
 });
 window.addEventListener('hashchange', handleRoute);
+async function resolveRecordingSura(number) {
+  await window.QuranMemorizerReaderReady;
+  if (!catalogs.duas || !catalogs.ziyarats) {
+    for (const collection of Object.keys(CONFIG)) {
+      if (!catalogs[collection]) catalogs[collection] = validateCollection(collection, await fetchJson('data/' + collection + '/manifest.json'));
+    }
+    if (!numberByKey.size) registerStableNumbers();
+  }
+  for (const collection of Object.keys(CONFIG)) {
+    for (const meta of catalogs[collection].texts) {
+      if (numberByKey.get(collection + ':' + meta.id) !== Number(number)) continue;
+      const manifest = validateReadingManifest(
+        await fetchJson('data/' + collection + '/' + meta.id + '/manifest.json'),
+        meta.id,
+        CONFIG[collection].kind
+      );
+      const sura = createSura(collection, meta, manifest);
+      window.QuranMemorizerReader.registerCollectionSura(sura);
+      return sura;
+    }
+  }
+  return null;
+}
+
 window.QuranMemorizerCollections = Object.freeze({
   writeRoute,
   openText,
   openCatalog,
+  resolveRecordingSura,
   getCatalog: collection => catalogs[collection] || null
 });
 initialize();
