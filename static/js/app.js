@@ -1478,10 +1478,10 @@ async function collectFolderRecordingsForArchive() {
   const dirs = await getConnectedRecordingDirectories(false);
   const records = [];
   const seen = new Set();
-  const quranFolderPattern = /^surah-(\\d{3})-/i;
+  const quranFolderPattern = /^surah-([0-9]{3})-/i;
   const collectionFolderPattern = /^collection-(duas|ziyarats)-(.+)$/i;
-  const quranFilePattern = /^ayah-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-  const collectionFilePattern = /^passage-(\\d{3})\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+  const quranFilePattern = /^ayah-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+  const collectionFilePattern = /^passage-([0-9]{3})[.](webm|m4a|mp4|ogg|wav|aac)$/i;
   for await (const [folderName, folderHandle] of dirs.recordingsDirectory.entries()) {
     if (folderHandle.kind !== 'directory') continue;
     const quranFolder = folderName.match(quranFolderPattern);
@@ -1571,13 +1571,13 @@ async function importRecordingsArchive(file) {
     if (recordingStorageMode === 'needs-folder-choice') throw new Error('Choose a recordings folder or browser-local storage in Settings before importing.');
     const { readZip } = await getRecordingArchiveModule();
     const entries = await readZip(file);
-    const quranPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/(surah-(\\d{3})-[^/]+)\\/(ayah-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
-    const collectionPath = /(?:^|\\/)(?:QuranMemorizer\\/)?recordings\\/collections\\/(duas|ziyarats)\\/([a-z0-9-]+)\\/(passage-(\\d{3}))\\.(webm|m4a|mp4|ogg|wav|aac)$/i;
+    const quranPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/](surah-([0-9]{3})-[^/]+)[/](ayah-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
+    const collectionPath = /(?:^|[/])(?:QuranMemorizer[/])?recordings[/]collections[/](duas|ziyarats)[/]([a-z0-9-]+)[/](passage-([0-9]{3}))[.](webm|m4a|mp4|ogg|wav|aac)$/i;
     const byKey = new Map();
     let ignored = 0;
     for (const entry of entries) {
-      const entryName = String(entry.name || '').replace(/\\\\/g, '/');
-      if (/(?:^|\\/)manifest\\.json$/i.test(entryName)) continue;
+      const entryName = String(entry.name || '').replaceAll('\\\\', '/');
+      if (/(?:^|[/])manifest[.]json$/i.test(entryName)) continue;
       const quranMatch = entryName.match(quranPath);
       const collectionMatch = entryName.match(collectionPath);
       if (!quranMatch && !collectionMatch) { ignored++; continue; }
