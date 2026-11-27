@@ -2340,7 +2340,7 @@ function bindRepeatEvents() {
    19. EVENTS
    ================================================================== */
 async function loadAdjacentReaderChunk() {
-  if (readerChunkLoadPending) return;
+  if (readerChunkLoadPending || document.body.classList.contains('collection-catalog-active')) return;
   const sura = SURA_BY_NUM[state.sura];
   if (!sura || !sura.chunkManifest || !sura.loadedChunks.size) return;
 
@@ -2715,7 +2715,7 @@ window.QuranMemorizerReader = Object.freeze({
   },
   openQuranSura(sura = 1, aya = 1) {
     activeCollectionSession = null;
-    document.body.classList.remove('collection-active');
+    document.body.classList.remove('collection-active', 'collection-catalog-active');
     const suraHeading = el.suraList.closest('.col')?.querySelector('.col-head');
     if (suraHeading) suraHeading.textContent = 'Sura';
     if (el.suraSearch) el.suraSearch.placeholder = 'Search surah…';
