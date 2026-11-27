@@ -1330,6 +1330,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 47,
       "manifest": "munajat-muhibbeen/manifest.json"
+    },
+    {
+      "id": "munajat-mutawassileen",
+      "title": "10. The Whispered Prayer of those Asking for Mediation (Mutawassileen)",
+      "arabicTitle": "مناجاة المتوسّلين",
+      "description": "The tenth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 210,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 10",
+        "url": "https://www.duas.org/sajjadiya/dua78.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 24,
+      "manifest": "munajat-mutawassileen/manifest.json"
     }
   ]
 }
