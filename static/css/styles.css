@@ -1633,6 +1633,9 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .collection-status{font-size:10px!important;letter-spacing:.2px;color:var(--muted)!important}
 .collection-source,.collection-attribution{font-size:11px;margin-top:10px}
 .collection-source a{color:var(--accent)}
+.reading-attribution{font-size:11px;color:var(--muted);margin-top:10px}
+.reading-attribution summary{cursor:pointer;color:var(--accent)}
+.reading-attribution p{margin:8px 0}
 .collection-kicker{font-size:10px;letter-spacing:2.3px;font-weight:750;color:var(--accent);margin-bottom:12px}
 .collection-heading h1,.collection-reading-heading h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(34px,5vw,48px);letter-spacing:-.7px;margin:0 0 12px;color:var(--text)}
 .collection-heading>p,.collection-reading-heading>p{max-width:620px;margin:0 auto;color:var(--muted);line-height:1.8;font-size:14px}
