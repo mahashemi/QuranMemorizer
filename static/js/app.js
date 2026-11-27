@@ -1340,7 +1340,7 @@ async function connectRecordingFolder() {
       console.warn('Some browser recordings could not be copied to the selected folder.', migrationError);
     }
     updateRecordingStorageUI();
-    refreshRecordingControls(state.sura);
+    refreshRecordingControls(getCurrentRecordingIdentity());
     if (migrationFailed) {
       toast('Folder connected, but some older recordings could not be copied. They remain in browser storage.');
     } else {
@@ -1363,7 +1363,7 @@ async function useBrowserRecordingStorage() {
     folderRecordingIndex.clear();
     recordingStorageMode = 'browser';
     updateRecordingStorageUI();
-    refreshRecordingControls(state.sura);
+    refreshRecordingControls(getCurrentRecordingIdentity());
     toast('Browser-local storage enabled. Files in the disconnected folder are left untouched.');
   } catch (error) {
     toast('Could not change recording storage: ' + (error.message || 'unknown error'));
@@ -1622,7 +1622,7 @@ async function importRecordingsArchive(file) {
         }
       }
     }
-    refreshRecordingControls(state.sura);
+    refreshRecordingControls(getCurrentRecordingIdentity());
     let message = 'Imported ' + imported + ' recording(s).';
     if (browserFallback) message += ' ' + browserFallback + ' were saved in this browser because the selected folder was unavailable.';
     if (failed) message += ' ' + failed + ' could not be saved.';
