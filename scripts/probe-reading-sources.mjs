@@ -10,32 +10,16 @@ for (const [id, url] of sources) {
   if (!response.ok) continue;
   const html = await response.text();
   const $ = load(html);
-  const get = tag => $(tag).toArray().map(node => $(node).text().replace(/\s+/g, ' ').trim()).filter(Boolean);
-  const arabic = get('a1');
-  const transliteration = get('t2');
-  const english = get('t1');
-  console.log(JSON.stringify({ counts: { a1: arabic.length, t2: transliteration.length, t1: english.length }, first: { arabic: arabic.slice(0, 2), transliteration: transliteration.slice(0, 2), english: english.slice(0, 2) }, last: { arabic: arabic.slice(-3), transliteration: transliteration.slice(-3), english: english.slice(-3) } }));
-  const tagged = $('a1,t2,t1').toArray();
-  const anomalies = [];
-  for (let i = 0; i < tagged.length; i++) {
-    if (tagged[i].tagName !== 'a1') continue;
-    const next = tagged.slice(i + 1, i + 3).map(node => node.tagName);
-    if (next.join(',') !== 't2,t1') {
-      anomalies.push({
-        index: i,
-        sequence: [tagged[i], tagged[i + 1], tagged[i + 2]].filter(Boolean).map(node => ({ tag: node.tagName, text: $(node).text().replace(/\s+/g, ' ').trim().slice(0, 260) })),
-        parent: tagged[i].parent && tagged[i].parent.tagName,
-        parentClass: tagged[i].parent ? $(tagged[i].parent).attr('class') || '' : ''
-      });
-    }
+  const raw = tag => $(tag).toArray().map(node => $(node).text().replace(/\s+/g, ' ').trim());
+  const arabic = raw('a1');
+  const transliteration = raw('t2');
+  const english = raw('t1');
+  console.log(JSON.stringify({ tagCounts: { a1: arabic.length, t2: transliteration.length, t1: english.length }, empty: { a1: arabic.map((v,i)=>v?null:i).filter(v=>v!==null), t2: transliteration.map((v,i)=>v?null:i).filter(v=>v!==null), t1: english.map((v,i)=>v?null:i).filter(v=>v!==null) } }));
+  const end = id === 'ziyarat-nahiya' ? arabic.length - 1 : arabic.length;
+  const emptyT2 = transliteration.map((value, index) => value ? null : index).filter(value => value !== null);
+  for (const index of emptyT2) {
+    console.log('EMPTY_T2 ' + JSON.stringify({ index, arabic: arabic[index], english: english[index] }));
   }
-  console.log('ANOMALIES ' + JSON.stringify(anomalies.slice(0, 30)));
-  const all = $('body').find('*').toArray();
-  const indexOf = node => all.indexOf(node);
-  const arabicNodes = $('a1').toArray();
-  const headings = $('h1,h2,h3,h4,h5').toArray().map(node => {
-    const index = indexOf(node);
-    return { tag: node.tagName, text: $(node).text().replace(/\s+/g, ' ').trim(), index, arabicBefore: arabicNodes.filter(a => indexOf(a) < index).length, arabicAfter: arabicNodes.filter(a => indexOf(a) > index).length, parent: node.parent && node.parent.tagName, parentClass: node.parent ? $(node.parent).attr('class') || '' : '' };
-  });
-  console.log('HEADINGS ' + JSON.stringify(headings));
+  console.log('FIRST ' + JSON.stringify({ arabic: arabic.slice(0, 3), transliteration: transliteration.slice(0, 3), english: english.slice(0, 3) }));
+  console.log('LAST ' + JSON.stringify({ arabic: arabic.slice(end - 3, end), transliteration: transliteration.slice(-3), english: english.slice(-3) }));
 }
