@@ -1168,6 +1168,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 46,
       "manifest": "sahifa-dua-54/manifest.json"
+    },
+    {
+      "id": "munajat-taibeen",
+      "title": "01. The Whispered Prayer of the Repenters (Taibeen)",
+      "arabicTitle": "مناجاة التائبين",
+      "description": "The first of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 201,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 1",
+        "url": "https://www.duas.org/sajjadiya/dua69.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 49,
+      "manifest": "munajat-taibeen/manifest.json"
     }
   ]
 }
