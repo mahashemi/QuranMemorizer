@@ -25,6 +25,8 @@ test('collection recording identities are kept outside the 114 Quran Surah IDs',
   assert.match(app, /sura\.number <= 114/);
   assert.match(app, /Collection recording identity collision/);
   assert.match(app, /getUserRecording\(sura, aya\)/);
+  assert.match(app, /sura < 1 \\|\\| sura > 999/);
+  assert.match(app, /surah-\\(\\d\\{3\\}\\)-/);
 });
 
 test('the collection view does not hide the existing sidebar or player', () => {
