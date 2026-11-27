@@ -237,6 +237,12 @@ window.onQuranMediaAction = function (action) {
    7. INIT
    ================================================================== */
 async function init() {
+  const ayahLinks = await import('./deep-links.mjs');
+  window.QuranMemorizerLinks = Object.freeze({
+    urlForAyah: (sura, aya) => ayahLinks.buildAyahUrl(sura, aya, window.location.href),
+    elementIdForAyah: (sura, aya) => ayahLinks.ayahElementId(sura, aya),
+    parseUrl: value => ayahLinks.parseAyahUrl(value)
+  });
   injectRepeatBlock();
   loadDisplayPrefs();
   applyPlaybackSpeed();
@@ -575,7 +581,7 @@ function renderSura(restoreScrollTop) {
   for (const v of s.ayas) {
     if (!v) continue;
     html +=
-      '<article class="aya" id="aya-' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
+      '<article class="aya" id="' + getAyahElementId(state.sura, v.ayaNum) + '" data-surah="' + state.sura + '" data-ayah="' + v.ayaNum + '" data-aya="' + v.ayaNum + '">' +
         '<div class="aya-top">' +
           '<span class="aya-num">' + v.ayaNum + '</span>' +
           '<span class="aya-hint">click to play</span>' +
@@ -627,7 +633,7 @@ function updateAyaUI(scrollReader) {
   if (!s) return;
 
   el.reader.querySelectorAll('.aya.active').forEach(n => n.classList.remove('active'));
-  const card = document.getElementById('aya-' + state.aya);
+  const card = document.getElementById(getAyahElementId(state.sura, state.aya));
   if (card) {
     card.classList.add('active');
     if (scrollReader !== false) {
@@ -1855,6 +1861,8 @@ function hasOpening(sura) { return sura !== 1 && sura !== 9; }
 
 // Canonical shareable reader URL: #/surah/{surahNumber}/ayah/{ayahNumber}.
 // Accept the shorter legacy-style aliases too, but always write the canonical form.
+function getAyahElementId(sura, aya) { return 'ayah-' + Number(sura) + '-' + Number(aya); }
+
 function parseQuranHash(hash) {
   const match = String(hash || '').match(/^#\/(?:surah|sura)\/(\d+)(?:\/(?:ayah|aya)\/(\d+))?\/?$/i);
   if (!match) return null;
@@ -1878,7 +1886,7 @@ function activateReaderView() {
 }
 
 function focusSharedAya(aya) {
-  const card = el.reader.querySelector('.aya[data-aya="' + aya + '"]');
+  const card = document.getElementById(getAyahElementId(state.sura, aya));
   if (!card) return;
   card.setAttribute('aria-current', 'location');
   card.classList.add('active');
@@ -1955,7 +1963,7 @@ function goToAya(aya, opts) {
   state.ayaInner = 0;
   ensureSuraLoaded(s, n, false).then(() => {
     if (requestId !== ayaNavigationRequestId || state.sura !== s.number) return;
-    if (!document.getElementById('aya-' + n)) renderSura();
+    if (!document.getElementById(getAyahElementId(state.sura, n))) renderSura();
     renderAyaList(state.sura);
     updateAyaUI(true);
     if (document.body.classList.contains('reader-active')) writeQuranHash(state.sura, state.aya);
