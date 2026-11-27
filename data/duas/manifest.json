@@ -34,6 +34,90 @@
         "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
       },
       "manifest": "dua-nudba/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-01",
+      "title": "01. In Praise of God",
+      "arabicTitle": "التَّحْمِيدُ لِلَّهِ عَزَّ وَ جَلَّ",
+      "description": "Sahifa Sajjadiya — Supplication 1",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 101,
+      "canonicalNumber": 1,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-praise-of-god",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 121,
+      "manifest": "sahifa-dua-01/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-02",
+      "title": "02. Blessings upon God's Messenger",
+      "arabicTitle": "الصَّلَاةُ عَلَى مُحَمَّدٍ وَ آلِهِ",
+      "description": "Sahifa Sajjadiya — Supplication 2",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 102,
+      "canonicalNumber": 2,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-blessings-upon-gods-messenger",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 48,
+      "manifest": "sahifa-dua-02/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-03",
+      "title": "03. In Calling down Blessings on the Bearers of the Throne and every angel brought near",
+      "arabicTitle": "الصَّلَاةُ عَلَى حَمَلَةِ الْعَرْشِ و كلّ مَلَكٍ مقرّبٍ",
+      "description": "Sahifa Sajjadiya — Supplication 3",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 103,
+      "canonicalNumber": 3,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-calling-down-blessings-on-the-bearers-of-the-throne-and-every-angel-brought-near",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 60,
+      "manifest": "sahifa-dua-03/manifest.json"
+    },
+    {
+      "id": "sahifa-dua-04",
+      "title": "04. In calling down Blessings upon the Followers of, and the Attesters to, the Messengers",
+      "arabicTitle": "الصَّلَاةُ عَلَى اتباع الرسل و مُصَدِّقِيهم",
+      "description": "Sahifa Sajjadiya — Supplication 4",
+      "group": "Sahifa Sajjadiya — 54 Supplications",
+      "order": 104,
+      "canonicalNumber": 4,
+      "attribution": "Arabic, transliteration, and English translation from the Thaqalayn public-page dataset, released under CC0 1.0 Universal.",
+      "source": {
+        "label": "Thaqalayn — CC0 1.0 source dataset",
+        "url": "https://thaqalayn.net/duas/sahifa-sajjadiya-in-calling-down-blessings-upon-the-followers-of-and-the-attesters-to-the-messengers",
+        "license": "CC0-1.0",
+        "provider": "Thaqalayn public pages",
+        "sourceDataset": "adeeb10abbas/shia-library-json",
+        "sourceCommit": "075fe2e9d050bb40bd8147ed516d3592046ebc33"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 45,
+      "manifest": "sahifa-dua-04/manifest.json"
     }
   ]
 }
