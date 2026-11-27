@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "munajat-khaifeen",
+  "title": "03. The Whispered Prayer of the Fearful (Khaifeen)",
+  "kind": "dua",
+  "recordCount": 38,
+  "chunkSize": 30,
+  "chunks": [
+    {
+      "start": 1,
+      "end": 30,
+      "file": "segments_001_030.json"
+    },
+    {
+      "start": 31,
+      "end": 38,
+      "file": "segments_031_038.json"
+    }
+  ]
+}
