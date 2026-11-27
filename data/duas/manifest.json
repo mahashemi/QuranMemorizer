@@ -1240,6 +1240,24 @@
       "sourceStatus": "imported-review-required",
       "sourcePairCount": 34,
       "manifest": "munajat-rajeen/manifest.json"
+    },
+    {
+      "id": "munajat-raghibeen",
+      "title": "05. The Whispered Prayer of the Beseechers (Raghibeen)",
+      "arabicTitle": "مناجاة الراغبين",
+      "description": "The fifth of the fifteen whispered prayers attributed to Imam al-Sajjad (عليه السلام).",
+      "group": "15 Munajat",
+      "order": 205,
+      "attribution": "Arabic, transliteration, and English translation transcribed from Duas.org's Sahifa Sajjadiya page; attribution requested by the source.",
+      "source": {
+        "label": "Duas.org — Sahifa Sajjadiya, Munajat 5",
+        "url": "https://www.duas.org/sajjadiya/dua73.htm",
+        "license": "Duas.org no-copyright statement; attribution requested",
+        "licenseUrl": "https://www.duas.org/mobile/index.jaw.html"
+      },
+      "sourceStatus": "imported-review-required",
+      "sourcePairCount": 45,
+      "manifest": "munajat-raghibeen/manifest.json"
     }
   ]
 }
