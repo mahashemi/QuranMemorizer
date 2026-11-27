@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/android-apk.yml"
       - "scripts/prepare-android.mjs"
+      - "scripts/configure-android-version.mjs"
       - "package.json"
       - "package-lock.json"
       - "capacitor.config.ts"
@@ -14,11 +15,14 @@ on:
       - "index.html"
       - "static/**"
       - "data/quran/**"
+      - "data/duas/**"
+      - "data/ziyarats/**"
       - "data/hadith/**"
   pull_request:
     paths:
       - ".github/workflows/android-apk.yml"
       - "scripts/prepare-android.mjs"
+      - "scripts/configure-android-version.mjs"
       - "package.json"
       - "package-lock.json"
       - "capacitor.config.ts"
@@ -26,6 +30,8 @@ on:
       - "index.html"
       - "static/**"
       - "data/quran/**"
+      - "data/duas/**"
+      - "data/ziyarats/**"
       - "data/hadith/**"
 
 permissions:
@@ -68,6 +74,9 @@ jobs:
       - name: Configure microphone permission
         run: node scripts/prepare-android.mjs
 
+      - name: Configure Android app version
+        run: npm run android:version
+
       - name: Generate Android launcher icons
         run: |
           sudo apt-get update
@@ -87,7 +96,7 @@ jobs:
       - name: Upload installable debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: QuranMemorizer-Android-debug
+          name: QuranMemorizer-Android-debug-v1.0.1
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14

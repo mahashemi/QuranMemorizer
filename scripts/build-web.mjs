@@ -14,6 +14,17 @@ for (const path of ['index.html', 'static', 'assets', 'data/hadith']) {
   cpSync(resolve(root, path), resolve(output, path), { recursive: true });
 }
 
+// Ship version-controlled reading collections. Their source text is curated
+// separately; ordinary builds copy generated chunks without rewriting them.
+for (const collection of ['duas', 'ziyarats']) {
+  const collectionDir = resolve(root, 'data', collection);
+  const manifestPath = resolve(collectionDir, 'manifest.json');
+  if (!existsSync(manifestPath)) {
+    throw new Error('Missing ' + collection + ' collection manifest: ' + manifestPath);
+  }
+  cpSync(collectionDir, resolve(output, 'data', collection), { recursive: true });
+}
+
 // Ship the pre-generated, version-controlled Quran chunks. Generation is an
 // explicit maintenance task; ordinary web/Android builds must not regenerate them.
 const quranChunks = resolve(root, 'data/quran/chunked');
@@ -48,4 +59,4 @@ writeFileSync(indexPath, indexHtml.replace(
 
 rmSync(resolve(output, 'static/js/native-storage-adapter.mjs'), { force: true });
 
-console.log('Built QuranMemorizer web assets into ./www with committed ten-Ayah Quran chunks and native app-private recording support.');
+console.log('Built QuranMemorizer web assets with committed Quran, Dua, and Ziyarat content collections.');

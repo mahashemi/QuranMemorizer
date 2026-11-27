@@ -9,6 +9,8 @@ on:
       - "static/**"
       - "assets/**"
       - "data/quran/**"
+      - "data/duas/**"
+      - "data/ziyarats/**"
       - "scripts/**"
       - "package.json"
       - "package-lock.json"
@@ -36,24 +38,10 @@ jobs:
         with:
           node-version: 22
 
-      # One-time bootstrap: generate and commit the deployable Quran chunks if
-      # they are absent. Subsequent deployments reuse the committed files.
-      - name: Generate and commit Quran chunks if missing
-        if: github.ref == 'refs/heads/main'
-        run: |
-          if [ ! -f data/quran/chunked/manifest.json ]; then
-            npm run generate:quran-chunks
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/quran/chunked
-            git commit -m "Add generated Quran reading chunks"
-            git push origin HEAD:main
-          fi
-
       - name: Install build dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build static site with chapter-sized Quran data
+      - name: Build static site with Quran, Dua, and Ziyarat content
         run: npm run build
 
       - name: Prepare Pages artifact
