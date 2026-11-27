@@ -1633,6 +1633,11 @@ body:not(.reader-active) [data-reveal].reveal-visible { opacity: 1; transform: t
 .collection-status{font-size:10px!important;letter-spacing:.2px;color:var(--muted)!important}
 .collection-source,.collection-attribution{font-size:11px;margin-top:10px}
 .collection-source a{color:var(--accent)}
+.reader-back-catalog{margin:0 0 12px;padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:var(--panel-2);color:var(--muted);font-size:12px;cursor:pointer}
+.reader-back-catalog:hover{color:var(--text);border-color:var(--accent-border)}
+.aya-meaning{margin-top:12px;padding:9px 11px;border:1px solid var(--border);border-radius:9px;background:var(--panel-2);font-size:12px}
+.aya-meaning summary{cursor:pointer;color:var(--accent);font-weight:600}
+.aya-meaning>div{margin-top:8px;color:var(--muted);line-height:1.6;white-space:pre-wrap}
 .reading-attribution{font-size:11px;color:var(--muted);margin-top:10px}
 .reading-attribution summary{cursor:pointer;color:var(--accent)}
 .reading-attribution p{margin:8px 0}
